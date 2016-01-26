@@ -13,7 +13,7 @@
     	</p>
 		<h3>System Goals</h3>
 		<p>
-			There will be two main types of users, the employees team and management team.  A member of the employee team will use the website to view their current scheduled working hours, document days/times that they are available to work or block out days that they are not able to work or request time off.   Members of the management team will access the website to review/approve schedules and set minimum standards for number/type of employees needed to staff a shift.
+			There will be two main types of users, the employees team and management team.  A member of the employee team will use the website to view their current scheduled working hours, document days/times that they are available to work or block out days they are not able to work or request time off.   Members of the management team will access the website to review/approve schedules and set minimum standards for number/type of employees needed to staff a shift.
 		</p>
 	</body>
 </html>
