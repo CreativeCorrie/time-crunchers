@@ -14,7 +14,7 @@
 			<li>On the main employee page, Talia can see the work schedule for the week</li>
 			<li>Talia selects the "request time off" feature</li>
 			<li>The website returns a calendar grid with clickable time slots populated by the current schedule</li>
-			<li>Talia selects the hours that she wants to request off and submits her request</li>
+			<li>Talia selects the hours that she wants to request off and submits her request.</li>
 		</ol><br>
 
 		<h3>Use Case 2</h3>
