@@ -12,5 +12,8 @@
 			a lot of excess time on scheduling his employees' work shifts, accommodating their
 			schedule requests and preferences, keeping track of their hours, etc.
 		</p>
+
+		<p>
+		</p>
 	</body>
 </html>
