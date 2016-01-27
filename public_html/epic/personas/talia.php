@@ -14,7 +14,7 @@
 			Words on a screen
 		</p>
 		<h3>Frustrations</h3>
-		<p>She likes her job well enough but she frequently has problems with the scheduling.  When she wants to make plans with her friends she has to drive to her workplace the Sunday before to find out when her manager has scheduled her.  Also,
+		<p>She likes her job well enough but she frequently has problems with the scheduling.  When she wants to make plans with her friends she has to drive to her workplace the Sunday before to find out when her manager has scheduled her.  Also, some stuff.
 		</p>
 	</body>
 	</html>
