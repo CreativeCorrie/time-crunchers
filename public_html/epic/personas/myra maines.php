@@ -7,7 +7,7 @@
 	<body>
 		<img src="../images/myra-maines.jpg" rel="Myra Maines">
 		<h2>Myra, 19, fast-food worker</h2>
-		<p>Myra has a very reliable smartphone. She does almost everything on it from shopping lists to checking her social media. She would like a way to know when she is due at work and what days she has off to enjoy her enjoy her personal time
+		<p>Myra has a very reliable smartphone.  She would like a way to know when she is due at work and what days she has off to enjoy her enjoy her personal time
 		</p>
 
 		<h3>Needs</h3>
