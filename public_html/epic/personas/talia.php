@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-	<html>
-		<head>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
 			<title>Persona - Talia</title>
-		</head>
+	</head>
 	<body>
 		<img src="talia.jpg" />
 		<h2>Talia, 27, fast-food worker</h2>
