@@ -5,7 +5,7 @@
 			<title>Persona - Talia</title>
 	</head>
 	<body>
-		<img src="talia.jpg" />
+		<img src="http://placehold.it/100x100">
 		<h2>Talia, 27, fast-food worker</h2>
 		<p>Talia is a smartphone user and has an older laptop at home that she used to use for homework but now uses primarily for streaming video.  Generally, she uses her smartphone to access the Internet.
 		</p>
