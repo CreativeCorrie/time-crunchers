@@ -14,7 +14,7 @@
 		<ul>
 			<li>Talia wants to access her work schedule anywhere/anytime</li>
 			<li>Talia wants to be able to schedule time off.</li>
-			<li>Talia wants to volunteer to pick up a shift .</li>
+			<li>Talia wants to volunteer to pick up a shift.</li>
 		</ul>
 
 		<h3>Frustrations</h3>
