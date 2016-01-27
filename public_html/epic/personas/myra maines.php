@@ -12,7 +12,7 @@
 
 		<h3>Needs</h3>
 		<p>
-			Myra needs an easier way to check her work schedule.
+			Myra needs an easier way to check her work schedule
 		</p>
 		<h3>Frustrations</h3>
 		<p>She likes her job, but likes her personal life better. To Myra, it is inconvenient for her to call and wait while another crew member or a manager checks the schedule in the break room.  She also has to go into work to request time off .
