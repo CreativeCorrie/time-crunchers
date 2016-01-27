@@ -12,9 +12,9 @@
 			<li>On the landing page Talia signs in with the user name and password she created on her first day of work</li>
 			<li>Talia is securely logged into the employee portal</li>
 			<li>On the main employee page, Talia can see the work schedule for the week</li>
-			<li>Talia selects the "request time off" button</li>
+			<li>Talia selects the "request time off" feature</li>
 			<li>The website returns a calendar grid with clickable time slots populated by the current schedule</li>
-			<li>Talia selects the hours that she wants to request off and hits the submit button and logs out</li>
+			<li>Talia selects the hours that she wants to request off and submits her request</li>
 		</ol><br>
 
 		<h3>Use Case 2</h3>
@@ -22,10 +22,10 @@
 			<li>Using her laptop Talia accesses the TimeCruncher website from a bookmark.
 			<li>On the landing page Talia signs in with the user name and password she created on her first day of work</li>
 			<li>Talia is securely logged into the employee portal</li>
-			<li>On the employee page, Talia can see her scheduled days</li>
-			<li>Talia selects the "request time off" button</li>
-			<li>The website returns a calendar grid with clickable time slots populated by the current schedule</li>
-			<li>Talia selects the hours that she wants to request off and hits the submit button and logs out</li>
+			<li>On the employee page, Talia can see the work schedule for the week</li>
+			<li>Talia selects the day she wants to volunteer for</li>
+			<li>The website returns a calendar grid and shows the timeslot is currently assigned to another employee</li>
+			<li>Talia selects the add your name to volunteer list</li>
 		</ol><br>
 
 		<h2>Bob</h2>
