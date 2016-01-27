@@ -12,6 +12,12 @@
 			a lot of excess time on scheduling his employees' work shifts, accommodating their
 			schedule requests and preferences, keeping track of their hours, etc.
 		</p>
+		<h1>Use Case</h1>
+		<p>
+			Bob takes about 15 minutes each week to generate a schedule from his home computer.
+			He can approve shift trades through the mobile app without having his personal
+			phone blown up by his employees requests
+		</p>
 
 		<p>
 		</p>
