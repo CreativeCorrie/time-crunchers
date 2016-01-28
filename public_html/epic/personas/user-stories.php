@@ -12,7 +12,7 @@
 
 		<h2>S2</h2>
 		<p>
-			words
+			words on a screen
 		</p>
 	</body>
 </html>
