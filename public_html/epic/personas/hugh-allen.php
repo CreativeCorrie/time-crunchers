@@ -5,6 +5,8 @@
 		<title>Document</title>
 	</head>
 	<body>
+
+		<img src="../images/hugh-allen.jpg" alt="Hugh Allen photo" height="200" width="136">
 		Hugh Allen<br>
 		Age: 32<br>
 		Education: Sc.M-Harvard<br>
