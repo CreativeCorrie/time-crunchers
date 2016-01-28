@@ -28,10 +28,13 @@
 			<li>Talia selects the add your name to volunteer list</li>
 		</ol><br>
 
-		<h2>Bob</h2>
+		<h2>Hugh Allen</h2>
 		<ol>
-			<li>some stuff</li>
-			<li>moar stuff</li>
+			<li>Hugh logs onto the TimeCruncher website from his iPhone to see where his employees are for the days work and to ensure all VFC sites are covered according to schedule.</li>
+			<li>Because Hugh uses TimeCrunchers all the time, he is automatically logged in.</li>
+			<li>Through the calendar function he is able to see a chronological layout of the date.</li>
+			<li>Through an accommodating map function is able to see the logical route for his own site visits.</li>
+			<li>Within moments Hu is able to see where every one is and their agenda for the day.</li>
 		</ol><br>
 		<h2>This other guy</h2>
 		<ol>
