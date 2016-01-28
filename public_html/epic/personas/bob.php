@@ -14,7 +14,7 @@
 			are always blowing up his phone, requesting a schedule change, that he often has
 			to coordinate.
 		</p>
-		<h1>Use Case</h1>
+		<h2>Use Case</h2>
 		<p>
 			Bob takes about 30 minutes each week to generate a schedule from his personal Mac Book, either
 			from home or the manager's office at the restaurant.

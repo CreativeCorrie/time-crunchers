@@ -19,7 +19,7 @@
 			to task, she also thinks it would be helpful if the software could route the teams to
 			their.
 		</p>
-		<h1>Use Case</h1>
+		<h2>Use Case</h2>
 		<p>
 			Suzy will spend an hour or so during her work week, generating and fine tuning the schedule on her
 			office desktop. Employees can upload their schedule preferences and she can generate schedule designs,

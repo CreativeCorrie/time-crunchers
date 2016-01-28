@@ -15,7 +15,7 @@
 			schedule comes out, she manually enters the shifts she is scheduled to work in to google calendars,
 			which is her preferred time management tool.
 		</p>
-		<h1>Use Case</h1>
+		<h2>Use Case</h2>
 		<p>
 			Lucille primarily uses the mobile app on her iphone6.  She can check her schedule, offer her shifts
 			up trade, pick up shifts from other employees looking to switch, message and communicate with co-works
