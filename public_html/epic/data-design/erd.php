@@ -5,7 +5,7 @@
 		<title>ERD</title>
 	</head>
 	<body>
-		<h2>Entity Relationship Diagram</h2>
+		<h2>Entity relationship Diagram</h2>
 		<img src="erdtime.svg" width="500" height="400">
 	</body>
 </html>
