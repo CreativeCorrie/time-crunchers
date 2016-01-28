@@ -36,7 +36,7 @@
 		<h2>Needs:</h2>
 		To quickly find helpful and accurate scheduling information when needed.<br>
 		To feel he isn't wasting his time.<br>
-		To take advantage of his down time and time between appaointments to enjoy life.<br>
+		To take advantage of his down time and time between appointments to enjoy life.<br>
 
 		<h2>Challenges:</h2>
 		Overwhelmed by the idea that he has to know everything about everybody and keep it all straight so he doesn't hurt anyone's tender ego.<br>
