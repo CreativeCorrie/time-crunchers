@@ -14,13 +14,6 @@
 			find someone to cover her shift, she mass texts all her co-workers. When the new
 			schedule comes out, she manually enters the shifts she is scheduled to work in to google calendars,
 			which is her preferred time management tool.
-		</p>
-		<h2>Use Case</h2>
-		<p>
-			Lucille primarily uses the mobile app on her iphone6.  She can check her schedule, offer her shifts
-			up trade, pick up shifts from other employees looking to switch, message and communicate with co-works
-			to coordinate with out involving management, as well as set her future availability preferences
-			and time off request.
-		</p>
+
 	</body>
 </html>
