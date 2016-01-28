@@ -2,16 +2,17 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 		<title>Document</title>
 	</head>
 	<body>
 
 		<img src="../images/hugh-allen.jpg" alt="Hugh Allen photo" height="200" width="136">
-		Hugh Allen<br>
+		<h1>Hugh Allen</h1><br>
 		Age: 32<br>
 		Education: Sc.M-Harvard<br>
 		Occupation: Statistician Entrepreneur<br>
-		Income: 120,000 annual<br>
+		Income: $120,000 annual<br>
 
 		<h2>Work/Life/Balance:</h2>
 		Hugh runs his own business as a head contractor with a team of 23 sub-contractors for his state's Department of Health bringing quality assurance to Vaccines for Children.<br>
