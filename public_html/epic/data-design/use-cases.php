@@ -40,7 +40,7 @@
 		</ol><br>
 
 		<h2>Hugh Allen</h2>
-		<h3><h3>Use Case 2</h3>
+		<h3>Use Case 2</h3>
 		<ol>
 
 			<li>Hugh logs onto the secure TimeCruncher website from his iPhone and sees a notification from someone asking for an appointment.</li>
