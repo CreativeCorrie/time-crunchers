@@ -14,5 +14,10 @@
 		<p>
 			As a daily routine, Hugh likes to quickly check out his agenda and the agenda of all of his sub-contractors
 		</p>
+
+		<h2>Hugh Allen</h2>
+		<p>
+			He sees a new entry marked in bold green signifying a meeting is wanted by someone and he needs to see if it fits in schedule and can add it easily.
+		</p>
 	</body>
 </html>

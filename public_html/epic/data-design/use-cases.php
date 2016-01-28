@@ -30,17 +30,20 @@
 
 		<h2>Hugh Allen</h2>
 		<ol>
-			<li>Hugh logs onto the TimeCruncher website from his iPhone to see where his employees are for the days work and to ensure all VFC sites are covered according to schedule.</li>
-			<li>Because Hugh uses TimeCrunchers all the time, he is automatically logged in.</li>
-			<li>Through the calendar function he is able to see a chronological layout of the date.</li>
-			<li>Through an accommodating map function is able to see the logical route for his own site visits.</li>
+			<li>Hugh logs onto the secure TimeCruncher website from his iPhone to see where his employees are for the day's work and to ensure all VFC sites are covered according to schedule.</li>
+			<li>He looks over his own schedule first and is confident in the items since they have been confirmed via sms to the VFC clinics client.</li>
+			<li>He scrolls through each of his active sub-contractors to ensure there were no cancellations and the work flow for the day will go well</li>
 			<li>Within moments Hu is able to see where every one is and their agenda for the day.</li>
+			<li>If there is a cancellation it is marked in bold red so he knows in a glance and can follow up.</li>
+
 		</ol><br>
 
 		<h2>Hugh Allen</h2>
 		<ol>
-			<li>some stuff</li>
-			<li>moar stuff</li>
+
+			<li>Hugh logs onto the secure TimeCruncher website from his iPhone and sees a notification from someone asking for an appointment.</li>
+			<li>With a click of a button he is able to see the details of the appointment request.</li>
+			<li>He is confident if he clicks the "accept" button, TimeCrunchers will notify if there is a conflict in the appoitment.</li>
 		</ol><br>
 
 	</body>
