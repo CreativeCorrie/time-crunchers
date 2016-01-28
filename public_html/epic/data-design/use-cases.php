@@ -29,6 +29,7 @@
 		</ol><br>
 
 		<h2>Hugh Allen</h2>
+		<h3>Use Case 1</h3>
 		<ol>
 			<li>Hugh logs onto the secure TimeCruncher website from his iPhone to see where his employees are for the day's work and to ensure all VFC sites are covered according to schedule.</li>
 			<li>He looks over his own schedule first and is confident in the items since they have been confirmed via sms to the VFC clinics client.</li>
@@ -39,6 +40,7 @@
 		</ol><br>
 
 		<h2>Hugh Allen</h2>
+		<h3><h3>Use Case 2</h3>
 		<ol>
 
 			<li>Hugh logs onto the secure TimeCruncher website from his iPhone and sees a notification from someone asking for an appointment.</li>
@@ -47,6 +49,7 @@
 		</ol><br>
 
 		<h2>Bob</h2>
+		<h3>Use Case 1</h3>
 		<p>
 			Bob takes about 30 minutes each week to generate a schedule from his personal Mac Book, either
 			from home or the manager's office at the restaurant.
@@ -54,8 +57,10 @@
 			submitted to the time crunchers data base. After the schedules are distributed, his employees
 			can coordinate amongst themselves in trading shifts, and he can utilize the mobile app, at his
 			own leisure to approve or disapprove the requests.
-		</p>
+		</p><br>
+
 		<h2>Lucille</h2>
+		<h3>Use Case 1</h3>
 		<p>
 			Lucille primarily uses the mobile app on her iphone6. She can check her schedule, offer her shifts
 			up trade, pick up shifts from other employees looking to switch, message and communicate with co-works
