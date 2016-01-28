@@ -7,6 +7,5 @@
 	<body>
 		<h2>Entity Relationship Diagram</h2>
 		<img src="erdtime.svg" width="500" height="400">
-		<p></p>
 	</body>
 </html>
