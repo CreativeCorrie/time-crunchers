@@ -33,19 +33,6 @@
 			<li>some stuff</li>
 			<li>moar stuff</li>
 		</ol><br>
-
-		<h2>Mr. Garcia, 57, Restaurant Owner</h2>
-		<ol>
-			<li>Logs in to time-crunchers.com</li>
-			<li>Checks the schedule of the upcoming week.</li>
-			<li>He realizes angelica has requested to have Friday and Saturday off.</li>
-			<li>He checks the schedule again.</li>
-			<li>Realizes that Vanessa already has those days off.</li>
-			<li>He clicks on the request made by angelica.</li>
-			<li>Then he denies the request by angelica by clicking the down vote option.</li>
-		</ol>
-		<br>
-
 		<h2>This other guy</h2>
 		<ol>
 			<li>some stuff</li>
