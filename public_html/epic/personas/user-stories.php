@@ -12,7 +12,7 @@
 
 		<h2>S2</h2>
 		<p>
-			A manager pulls up the schedule from the website for next week and reviews time off requests and how many employees are already scheduled to work.
+			words
 		</p>
 	</body>
 </html>
