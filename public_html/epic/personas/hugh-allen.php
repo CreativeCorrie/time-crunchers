@@ -34,7 +34,7 @@
 		Being able to have more of a work-life balance.<br>
 
 		<h2>Needs:</h2>
-		To quickly find helpful and accurate scheduling information when needed.<br>
+		To quickly find helpful and accurate scheduling information when needed<br>
 		To feel he isn't wasting his time.<br>
 		To take advantage of his down time and time between appointments to enjoy life.<br>
 
