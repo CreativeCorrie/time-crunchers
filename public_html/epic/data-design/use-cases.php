@@ -36,7 +36,8 @@
 			<li>Through an accommodating map function is able to see the logical route for his own site visits.</li>
 			<li>Within moments Hu is able to see where every one is and their agenda for the day.</li>
 		</ol><br>
-		<h2>This other guy</h2>
+
+		<h2>Hugh Allen</h2>
 		<ol>
 			<li>some stuff</li>
 			<li>moar stuff</li>

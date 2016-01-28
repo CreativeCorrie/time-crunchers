@@ -10,9 +10,9 @@
 			An employee logs in to the website to to check and see what days they are working next week.
 		</p>
 
-		<h2>S2</h2>
+		<h2>Hugh Allen</h2>
 		<p>
-			words on a screen
+			As a daily routine, Hugh likes to quickly check out his agenda and the agenda of all of his sub-contractors
 		</p>
 	</body>
 </html>
