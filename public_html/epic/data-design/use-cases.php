@@ -46,5 +46,21 @@
 			<li>He is confident if he clicks the "accept" button, TimeCrunchers will notify if there is a conflict in the appoitment.</li>
 		</ol><br>
 
+		<h2>Bob</h2>
+		<p>
+			Bob takes about 30 minutes each week to generate a schedule from his personal Mac Book, either
+			from home or the manager's office at the restaurant.
+			The schedules will take into account any schedule requests and preferences his staff have
+			submitted to the time crunchers data base. After the schedules are distributed, his employees
+			can coordinate amongst themselves in trading shifts, and he can utilize the mobile app, at his
+			own leisure to approve or disapprove the requests.
+		</p>
+		<h2>Lucille</h2>
+		<p>
+			Lucille primarily uses the mobile app on her iphone6. She can check her schedule, offer her shifts
+			up trade, pick up shifts from other employees looking to switch, message and communicate with co-works
+			to coordinate with out involving management, as well as set her future availability preferences
+			and time off request.
+		</p>
 	</body>
 </html>
