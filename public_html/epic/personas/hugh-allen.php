@@ -8,42 +8,53 @@
 	<body>
 
 		<img src="../images/hugh-allen.jpg" alt="Hugh Allen photo" height="200" width="136">
-		<h1>Hugh Allen</h1><br>
-		Age: 32<br>
-		Education: Sc.M-Harvard<br>
-		Occupation: Statistician Entrepreneur<br>
-		Income: $120,000 annual<br>
+		<h1>Hugh Allen</h1>
+		<ul>
+		<li>Age: 32</li>
+		<li>Education: Sc.M-Harvard</li>
+		<li>Occupation: Statistician Entrepreneur</li>
+		<li>Income: $120,000 annual</li>
+		</ul>
 
 		<h2>Work/Life/Balance:</h2>
-		Hugh runs his own business as a head contractor with a team of 23 sub-contractors for his state's Department of Health bringing quality assurance to Vaccines for Children.<br>
-		He has to keep track of his own schedule and the vaccine sites he visits.<br>
-		Each contractor under him also has a schedule they make up on their own and are responsible for and he needs to know about their plans.<br>
-		There are plenty of meetings within The State and he needs to keep track of when to be where and what to bring.<br>
-		He also has a schedule for when he teaches nurses how to administer, keep track of and enter vaccine information into The State and CDC web-based databases.<br>
-		He was in the Peace Corp and has very close friends within W.H.O. and they visit when in the area. Occasionally and upon need he also travels abroad to meet with them.<br>
-		Hugh travels all over the southwest and is an avid rock climber and loves to visit the pueblos and any public events they are doing when he is in their area.<br>
-		On a personal note: he would like to add these to his schedule, so when he is visiting a VFC site he can take a side trip as well for the sake of enjoyment.<br>
-		Hugh pays his taxes and bills on time but needs to be "gently" reminded of when to do these unpleasant activities.<br>
-		He also has a very cute and busy girlfriend who is a professional of standing and sometimes it is hard to sync their calendars together. There is a lot
-		of texting and calls between the two just discussing when they might have time for dinner together.<br>
+		<ol>
+		<li>Hugh runs his own business as a head contractor with a team of 23 sub-contractors for his state's Department of Health bringing quality assurance to Vaccines for Children.</li>
+			<li>He has to keep track of his own schedule and the vaccine sites he visits.</li>
+			<li>Each contractor under him also has a schedule they make up on their own and are responsible for and he needs to know about their plans.</li>
+			<li>There are plenty of meetings within The State and he needs to keep track of when to be where and what to bring.</li>
+			<li>He also has a schedule for when he teaches nurses how to administer, keep track of and enter vaccine information into The State and CDC web-based databases.</li>
+			<li>He was in the Peace Corp and has very close friends within W.H.O. and they visit when in the area. Occasionally and upon need he also travels abroad to meet with them.</li>
+			<li>Hugh travels all over the southwest and is an avid rock climber and loves to visit the pueblos and any public events they are doing when he is in their area.</li>
+			<li>On a personal note: he would like to add these to his schedule, so when he is visiting a VFC site he can take a side trip as well for the sake of enjoyment.</li>
+			<li>Hugh pays his taxes and bills on time but needs to be "gently" reminded of when to do these unpleasant activities.</li>
+			<li>He also has a very cute and busy girlfriend who is a professional of standing and sometimes it is hard to sync their calendars together. There is a lot
+		of texting and calls between the two just discussing when they might have time for dinner together.</li>
+		</ol>
 
 
 		<h2>Goals:</h2>
-		To improve his productivity and abilities in handling the scheduling of himself, vaccine sites, colleagues, and sub-contractors.<br>
-		Being in the right place at the right time.<br>
-		Being able to have more of a work-life balance.<br>
+		<ul>
+			<li>To improve his productivity and abilities in handling the scheduling of himself, vaccine sites, colleagues, and sub-contractors.</li>
+			<li>Being in the right place at the right time.</li>
+			<li>Being able to have more of a work-life balance.</li>
+		</ul>
 
 		<h2>Needs:</h2>
-		To quickly find helpful and accurate scheduling information when needed.<br>
-		To feel he isn't wasting his time.<br>
-		To take advantage of his down time and time between appointments to enjoy life.<br>
+		<ul>
+			<li>To quickly find helpful and accurate scheduling information when needed.</li>
+			<li>To feel he isn't wasting his time.</li>
+			<li>To take advantage of his down time and time between appointments to enjoy life.</li>
+		</ul>
+
 
 		<h2>Challenges:</h2>
-		Overwhelmed by the idea that he has to know everything about everybody and keep it all straight so he doesn't hurt anyone's tender ego.<br>
-		Worried about his competence in keeping up with new technology especially when it changes so fast and radically.<br>
-		Frustrated at times when he can't find or re-find things in his overcrowded calendar.<br>
+		<ul>
+			<li>Overwhelmed by the idea that he has to know everything about everybody and keep it all straight so he doesn't hurt anyone's tender ego.</li>
+			<li>Worried about his competence in keeping up with new technology especially when it changes so fast and radically.</li>
+			<li>Frustrated at times when he can't find or re-find things in his overcrowded calendar.</li>
+		</ul>
 
-		<h2>Technology:</h2>:
+		<h2>Technology:</h2>
 		Hugh runs with the latest iPhone, 3 laptops with the latest version of Windows and Microsoft Office and 1 tablet mostly for Netflix when he is away from home.
 
 		<h2>Story:</h2>
