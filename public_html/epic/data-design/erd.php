@@ -6,6 +6,6 @@
 	</head>
 	<body>
 		<h2>Entity Relationship Diagram</h2>
-		<img src="crunching.svg" width="500" height="400">
+		<img src="crunching.svg" width="500" height="400" />
 	</body>
 </html>
