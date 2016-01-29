@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>ERD</title>
+		<title>E R D</title>
 	</head>
 	<body>
 		<h2>Entity Relationship Diagram</h2>
