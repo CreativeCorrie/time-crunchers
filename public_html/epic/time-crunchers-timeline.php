@@ -12,6 +12,7 @@
 			<p>Rinse & Repeat</p>
 			<p>Depending on Bridge input.</p>
 			<p>Start mySQL</p>
+			<p>What is the order of our drop tables?</p>
 		<h2>Week 3- Feb 8th to Feb 12th</h2>
 			<p>Development of mySQL</p>
 			<p>Maybe page planning</p>
