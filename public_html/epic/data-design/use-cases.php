@@ -67,5 +67,15 @@
 			to coordinate with out involving management, as well as set her future availability preferences
 			and time off request.
 		</p>
+
+		<h2>Suzy</h2>
+		<p>
+			Suzy will spend an hour or so during her work week, generating and fine tuning the schedule on her
+			office desktop. Employees can upload their schedule preferences and she can generate schedule designs,
+			that meet the criteria for the project, from the push of a button, as well generate maps to and from locations.
+			She can then distribute these schedules and maps by way of email or sync with an application like
+			google maps. Suzy rarely gets requests for schedule alterations, bun she can now handle all shift trade
+			request for her phone on her lunch break, using the mobile app.
+		</p>
 	</body>
 </html>
