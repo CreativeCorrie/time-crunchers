@@ -24,7 +24,7 @@
 			<p>Maybe Soft launch</p>
 		<h2>Week 6- Feb 29th to March 4th</h2>
 			<p>Revision (Rinse and Repeat)</p>
-			<p>Final Lunch</p>
+			<p>Final Launch</p>
 		<h2>Week 7- March 7th to March 11th</h2>
 			<p>Presentation</p>
 	</body>
