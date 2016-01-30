@@ -69,6 +69,7 @@
 		</p>
 
 		<h2>Suzy</h2>
+		<h3>Use Case 1</h3>
 		<p>
 			Suzy will spend an hour or so during her work week, generating and fine tuning the schedule on her
 			office desktop. Employees can upload their schedule preferences and she can generate schedule designs,
