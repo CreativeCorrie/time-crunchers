@@ -18,7 +18,7 @@
 
 		<h3>Bob</h3>
 		<p>
-			Bob approved a shift switch but the worker has not arrived on time, he needs to check who this is.
+			Bob approved a shift switch but the worker has not arrived on time, he checks time cruncher to see who it is.
 		</p>
 
 		<h3>Talia</h3>
