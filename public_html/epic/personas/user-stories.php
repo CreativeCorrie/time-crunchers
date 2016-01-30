@@ -7,7 +7,7 @@
 	<body>
 		<h2>Suzy</h2>
 		<p>
-			Suzy has arrived at her location for the day but one of her employees is missing, she checks the Time Cruncher schedule to see who was supposed to work.
+			Suzy has received an email from a sick employee with a doctors not attached, now she needs to rework the next few days of the schedule.
 		</p>
 
 		<h2>Hugh Allen</h2>
@@ -17,7 +17,7 @@
 
 		<h2>Bob</h2>
 		<p>
-			Bobs phone just died, so he decides to use his desktop instead since the layout is almost identical.
+			Bob approved a shift switch but the worker has not arrived on time, he needs to check who this is.
 		</p>
 
 		<h2>Talia</h2>
