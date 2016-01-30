@@ -6,6 +6,6 @@
 	</head>
 	<body>
 		<h2>Entity Relationship Diagram</h2>
-		<img src="../images/caperg.svg" width="500" height="400">
+		<img src="../images/besterd.svg" width="500" height="400">
 	</body>
 </html>
