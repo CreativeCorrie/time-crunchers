@@ -6,10 +6,11 @@
 		<title>Time Crunchers Index</title>
 	</head>
 	<body>
-		<h2>TimeCrunchers Timeline</h2>
+		<h1>TimeCrunchers</h1>
+		<h2>Epic</h2>
 			<ul>
 				<li>
-					<a href="../time-crunchers-timeline.php"></a>
+					<a href="time-crunchers-timeline.php">Timeline</a>
 				</li>
 
 			</ul>
@@ -37,7 +38,7 @@
 					<a href="../personas/hugh-allen.php">Hugh Allen</a>
 				</li>
 				<li>
-					<a href="../personas/Lucille.php">Lucille</a>
+					<a href="../personas/lucille.php">Lucille</a>
 				</li>
 				<li>
 					<a href="../personas/suzy.php">Suzy</a>
