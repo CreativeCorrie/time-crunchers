@@ -5,6 +5,27 @@
 		<title>Use Cases</title>
 	</head>
 	<body>
+		<h2>Use Cases</h2>
+		<ul>
+			<li>An administrator creates, updates, or deletes a user by clicking
+				the respective create, update, or delete button from their profile
+				page.</li>
+			<li>An administrator generates by clicking a "generate schedule" button.</li>
+			<li>An administrator approves/rejects a user trade by click the
+				respective approve/reject button.</li>
+			<li>A user checks their schedule by accessing the site, it will be
+				displayed on their main page.</li>
+			<li>A user offers up a shift by clicking a "offer shift" button on
+				the shift day of their schedule.</li>
+			<li>A user views available shifts from their home page, in the
+			"offered shifts" list.</li>
+			<li>A user takes another users shift by click on the "pick up shift"
+			button displayed beside the available shift on their home page</li>
+			<li>A user messages another user by clicking on their name in the schedule
+			or clicking the "employees" tab, giving them a list of all users from
+			their company to select from.</li>
+			<li>A user clicks on the "inbox" tab to view messages</li>
+		</ul>
 		<h2>Talia, 27, fast-food worker</h2>
 		<h3>Use Case 1</h3>
 		<ol>
