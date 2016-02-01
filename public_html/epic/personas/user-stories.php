@@ -35,19 +35,27 @@
 			Suzy has received an email from a sick employee with a doctors not attached, now she needs to rework the next few days of the schedule.
 		</p>
 
-		<h3>Hugh Allen</h3>
+		<h3>Bob</h3>
 		<p>
-			As a daily routine, Hugh likes to quickly check out his agenda and the agenda of all of his sub-contractors.
-		</p>
-
-		<h3>Hugh Allen</h3>
-		<p>
-			Hu approved a shift switch but the worker has not arrived on time, he checks time cruncher to see who it is.
+			Bob approved a shift switch but the worker has not arrived on time, he checks time cruncher to see who it is.
 		</p>
 
 		<h3>Talia</h3>
 		<p>
-			Talia woke up later than usual she need to make sure that she doesn't work today, she checks the Time Cruncher app.
+			It has been a few days since her request, Talia logs into Time Cruncher to see if she was chosen off the volunteer list.
+		</p>
+
+		<p>
+			Talia is sick on her day off and logs onto Time Cruncher to request the next day off as well, due to her illness.
+		</p>
+
+		<p>
+			Talia is alerted by Time Cruncher, that a shift switch has occurred asking her to come in later that day.
+		</p>
+
+		<h3>Talia</h3>
+		<p>
+			As a daily routine, Talia likes to quickly check out the schedule on Time Cruncher just in case there are any changes.
 		</p>
 
 		<h3>Hugh Allen</h3>
