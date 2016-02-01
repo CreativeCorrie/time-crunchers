@@ -20,7 +20,7 @@
 			pay rates.</li>
 		</ul>
 		<h2>User User Stories</h2>
-		<p>As a user, I want to....</p>
+		<p>As a user, I want to</p>
 		<ul>
 			<li>upload an avatar</li>
 			<li>check my work schedule from my phone, laptop, or ipad.</li>
@@ -53,7 +53,6 @@
 			Talia is alerted by Time Cruncher, that a shift switch has occurred asking her to come in later that day.
 		</p>
 
-		<h3>Talia</h3>
 		<p>
 			As a daily routine, Talia likes to quickly check out the schedule on Time Cruncher just in case there are any changes.
 		</p>
