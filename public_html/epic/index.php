@@ -29,7 +29,7 @@
 					<a href="use-cases.php">Use Cases</a>
 				</li>
 			</ul>
-		<h2>Persona</h2>
+		<h2>Personas</h2>
 			<ul>
 				<li>
 					<a href="personas/bob.php">Bob</a>
