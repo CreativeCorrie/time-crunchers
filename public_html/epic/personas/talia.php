@@ -18,6 +18,6 @@
 		</ul>
 
 		<h3>Frustrations</h3>
-		<p>Talia likes her job well enough but she frequently has problems with her work schedule.  When she wants to make plans with her friends she has to either call in to find the shift manager or physically go in to her workplace the Sunday before to see the paper schedule fixed to the wall by her manager.  Also when she wants to volunteer to pick up a shift she has to either call in or go in to put her name on a physical list.
+		<p>Talia likes her job well enough but she frequently has problems with her work schedule.  When she wants to make plans with her friends she has to either call in to find the shift manager or physically go in to her workplace the Sunday before to see the paper schedule fixed to the wall by her manager.  Also when she wants to volunteer to pick up a shift she has to either call in or go in to put her name on a physical list. One of the most frustrating parts of her job, aside from the customers, is the scheduling ambiguity. When she needs time off, she either texts or tells management when they happen to be at the restaurant at the same time. If she wants to find someone to cover her shift, she mass texts all her co-workers. When the new schedule comes out, she manually enters the shifts she is scheduled to work in to google calendars,which is her preferred time management tool.
 	</body>
 	</html>
