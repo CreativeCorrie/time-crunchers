@@ -38,7 +38,7 @@
 					<a href="personas/hugh-allen.php">Hugh Allen</a>
 				</li>
 				<li>
-					<a href="../personas/lucille.php">Lucille</a>
+					<a href="personas/lucille.php">Lucille</a>
 				</li>
 				<li>
 					<a href="personas/suzy.php">Suzy</a>
