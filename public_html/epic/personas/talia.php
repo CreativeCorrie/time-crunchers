@@ -7,7 +7,7 @@
 	<body>
 		<img src="../images/talia.jpg" alt="Talia photo" height="100" width="85">
 		<h2>Talia, 27, fast-food worker</h2>
-		<p>Talia is a Samsung Note5 user and she also has an older laptop running Windows 7 at home that she bought for doing homework but now uses primarily for streaming video.  She primarily access the Internet on her phone for everything from shopping lists to checking her social media.
+		<p>Talia is a Samsung Note5 user and she also has an older laptop running Windows 7 at home that she bought for doing homework but now uses primarily for streaming video.  She primarily access the Internet on her phone for everything from shopping lists to checking her social media. She has a tablet for streaming exercise videos and music vidoes.
 		</p>
 
 		<h3>Needs</h3>
@@ -18,6 +18,6 @@
 		</ul>
 
 		<h3>Frustrations</h3>
-		<p>Talia likes her job well enough but she frequently has problems with her work schedule.  When she wants to make plans with her friends she has to either call in to find the shift manager or physically go in to her workplace the Sunday before to see the paper schedule fixed to the wall by her manager.  Also when she wants to volunteer to pick up a shift she has to either call in or go in to put her name on a physical list. One of the most frustrating parts of her job, aside from the customers, is the scheduling ambiguity. When she needs time off, she either texts or tells management when they happen to be at the restaurant at the same time. If she wants to find someone to cover her shift, she mass texts all her co-workers. When the new schedule comes out, she manually enters the shifts she is scheduled to work in to google calendars,which is her preferred time management tool.
+		<p>Talia likes her job well enough but she frequently has problems with her work schedule.  When she wants to make plans with her friends she has to either call in to find the shift manager or physically go in to her workplace the Sunday before to see the paper schedule fixed to the wall by her manager.  Also when she wants to volunteer to pick up a shift she has to either call in or go in to put her name on a physical list. One of the most frustrating parts is it's the same when she needs time off, she either texts or tells management when they happen to be at the restaurant at the same time. When the new schedule comes out, she manually enters the shifts she is scheduled to work in to google calendars,which is her preferred time management tool.
 	</body>
 	</html>
