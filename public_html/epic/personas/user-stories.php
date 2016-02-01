@@ -40,9 +40,9 @@
 			As a daily routine, Hugh likes to quickly check out his agenda and the agenda of all of his sub-contractors.
 		</p>
 
-		<h3>Bob</h3>
+		<h3>Hugh Allen</h3>
 		<p>
-			Bob approved a shift switch but the worker has not arrived on time, he checks time cruncher to see who it is.
+			Hu approved a shift switch but the worker has not arrived on time, he checks time cruncher to see who it is.
 		</p>
 
 		<h3>Talia</h3>
