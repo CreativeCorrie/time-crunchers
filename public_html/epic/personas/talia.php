@@ -5,7 +5,7 @@
 			<title>Persona - Talia</title>
 	</head>
 	<body>
-		<img src="../images/myra-maines.jpg" alt="Myra Maines photo" height="100" width="85">
+		<img src="../images/talia.jpg" alt="Talia photo" height="100" width="85">
 		<h2>Talia, 27, fast-food worker</h2>
 		<p>Talia is a Samsung Note5 user and she also has an older laptop running Windows 7 at home that she bought for doing homework but now uses primarily for streaming video.  She primarily access the Internet on her phone for everything from shopping lists to checking her social media.
 		</p>
