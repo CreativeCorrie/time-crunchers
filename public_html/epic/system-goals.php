@@ -20,7 +20,7 @@
 			website to view their current scheduled working hours, document
 			days/times that they are available to work, request time off,
 			trade work shifts with other employees. Members of the management
-			team will access the website to review/approve schedules and set
+			team will access the website to review/approve schedules/trades and set
 			minimum standards for number/type of employees needed to staff a shift.
 		</p>
 	</body>
