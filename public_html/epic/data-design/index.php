@@ -23,7 +23,7 @@
 					<a href="erd.php">ERD</a>
 				</li>
 				<li>
-					<a href="system-goals.php">System Goals</a>
+					<a href="../system-goals.php">System Goals</a>
 				</li>
 				<li>
 					<a href="use-cases.php">Use Cases</a>
@@ -47,7 +47,7 @@
 					<a href="../personas/talia.php">Talia</a>
 				</li>
 				<li>
-					<a href="../personas/user-stories.php">User Stories</a>
+					<a href="../user-stories.php">User Stories</a>
 				</li>
 			</ul>
 	</body>
