@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-		<title>Document</title>
+		<title>Suzy Hughes - Manager Persona</title>
 	</head>
 	<body>
 		<img src="../images/suzy-hughes.jpg" alt="Hughes Allen photo" height="200" width="200">
@@ -16,7 +16,7 @@
 		</ul>
 		<h2>Work/Life/Balance:</h2>
 		<p>
-			Suzy Hughes runs her own business as a head contractor with a team of fifty sub-contractors and ten separate locations.  She has to keep track of her own schedule and of all of the sites she is responsible for.  Each contractor under her also has a schedule they make up on their own and are responsible for.  She needs to keep track of the hours each employee works as well as their pay rate.  Hughes wants to ensure the number of different types of employees stays within the company's prescribed ratio to meet the needs of the business.  Hughes attends meetings all around the state and she needs to keep track of her work schedule and needs for each appointment.  Hughes has several schedules she needs to stay on top of each day not to mention her own personal time. Hughes travels all over the southwest and is an avid rock climber.  When she is in the area, Suzy loves to visit the pueblos and any public events they are doing.  She would like to be able to add her recreation time to her schedule, so when she is visiting a site she can also schedule time for a side trip as well.  It would be a boon for Hughes to be able to have her bill paying calendar integrated with her personal schedule so she isn't hit with surprises at the end of the month.
+			Suzy Hughes runs her own business as a head contractor with a team of fifty sub-contractors and ten separate locations.  She has to keep track of her own schedule and of all of the sites she is responsible for.  Each contractor under her also has a schedule they make up on their own and are responsible for.  She needs to keep track of the hours each employee works.  Hughes wants to ensure the number of different types of employees stays within the company's prescribed ratio to meet the needs of the business.  Hughes has several schedules she needs to stay on top of each day not to mention her own personal time. Hughes travels all over the southwest and is an avid rock climber.  When she is in the area, Suzy loves to visit the pueblos and any public events they are doing.  She would like to be able to add her recreation time to her schedule, so when she is visiting a site she can also schedule time for a side trip as well.  It would be a boon for Hughes to be able to have her bill paying calendar integrated with her personal schedule so she isn't hit with surprises at the end of the month.
 		</p>
 		<h2>Goals:</h2>
 		<ul>
@@ -27,8 +27,8 @@
 		<h2>Needs:</h2>
 		<ul>
 			<li>To quickly find helpful and accurate scheduling information when needed.</li>
-			<li>To efficiently utilize the small amount of time she has fr scheduling details.</li>
-			<li>To respond to the ebb and flow of business demands  with agility by getting her employees when and where she needs them.</li>
+			<li>To efficiently utilize the small amount of time she has for scheduling details.</li>
+			<li>To respond to the ebb and flow of business demands  with agility by getting her employees where and when she needs them.</li>
 		</ul>
 		<h2>Challenges:</h2>
 		<ul>
