@@ -58,7 +58,7 @@
 
 		<h3>Hugh Allen</h3>
 		<p>
-			He sees a new entry marked in bold green signifying a meeting is wanted by someone and he needs to see if it fits in schedule and can add it easily.
+			Hugh sees a new entry marked in bold green signifying a meeting is wanted by someone and he needs to see if it fits in schedule and can add it easily.
 		</p>
 	</body>
 </html>
