@@ -14,9 +14,7 @@
 			<li>On the landing page Talia signs in with the user name and password she created on her first day of work.</li>
 			<li>Talia is securely logged into the employee portal.</li>
 			<li>On the main employee page, Talia can see the work schedule for the week.</li>
-			<li>Talia selects the "request time off" feature.</li>
-			<li>The website returns a calendar grid with clickable time slots populated by the current schedule.</li>
-			<li>Talia selects the hours that she wants to request off and submits her request.</li>
+			<li>Talia verifies she has the weekend off.</li>
 		</ol><br>
 
 		<h3>Use Case 2</h3>
@@ -28,6 +26,7 @@
 			<li>Talia selects the day she wants to request off.</li>
 			<li>The website returns a form with checkboxes and a comment box.</li>
 			<li>Talia ticks the request time off box and adds the comment "jury duty".</li>
+			<li>After filling out the form, Talia submits her request.</li>
 		</ol><br>
 
 		<h2>Suzy Hughes, 32, Manager</h2>
