@@ -8,7 +8,7 @@
 		<h1>Persona</h1>
 		<h2>Bob</h2>
 		<p>
-			Bob is the the owner of a restaurant, he has 18 employees. He finds he spends
+			bob is the the owner of a restaurant, he has 18 employees. He finds he spends
 			a lot of excess time on scheduling his employees' work shifts, accommodating their
 			schedule requests and preferences, and keeping track of their hours.  His employees
 			are always blowing up his phone, requesting a schedule change, that he often has
