@@ -22,7 +22,6 @@
 		<h2>User User Stories</h2>
 		<p>As a user, I want to</p>
 		<ul>
-			<li>upload an avatar</li>
 			<li>check my work schedule from my phone, laptop, or ipad.</li>
 			<li>offer up the shifts I'm scheduled to work to other users.</li>
 			<li>accept shifts that other users have offered.</li>

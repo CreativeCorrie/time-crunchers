@@ -13,10 +13,7 @@
 			schedule requests and preferences, and keeping track of their hours.  His employees
 			are always blowing up his phone, requesting a schedule change, that he often has
 			to coordinate.
-		</p>
-		<h2>Use Case</h2>
-		<p>
-			Bob takes about 30 minutes each week to generate a schedule from his personal Mac Book, either
+			With time-crunchers he generate a schedulesjfgh from his personal Mac Book, either
 			from home or the manager's office at the restaurant.
 			The schedules will take into account any schedule requests and preferences his staff have
 			submitted to the time crunchers data base. After the schedules are distributed, his employees
