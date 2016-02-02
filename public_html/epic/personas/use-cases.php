@@ -10,7 +10,7 @@
 		<h2>Talia, 27, fast-food worker</h2>
 		<h3>Use Case 1</h3>
 		<ol>
-			<li>Using her Ipad Talia accesses the TimeCruncher website from a bookmark.
+			<li>Using her iPad Talia accesses the TimeCruncher website from a bookmark.
 			<li>On the landing page Talia signs in with the user name and password she created on her first day of work.</li>
 			<li>Talia is securely logged into the employee portal.</li>
 			<li>On the main employee page, Talia can see the work schedule for the week.</li>
@@ -21,13 +21,13 @@
 
 		<h3>Use Case 2</h3>
 		<ol>
-			<li>Using her laptop Talia accesses the TimeCruncher website from a bookmark.</li>
+			<li>Talia needs a day off, using her laptop Talia accesses the TimeCruncher website from a bookmark.</li>
 			<li>On the landing page Talia signs in with the user name and password she created on her first day of work.</li>
 			<li>Talia is securely logged into the employee portal.</li>
 			<li>On the employee page, Talia can see the work schedule for the week.</li>
-			<li>Talia selects the day she wants to volunteer for.</li>
-			<li>The website returns a calendar grid and shows the timeslot is currently assigned to another employee.</li>
-			<li>Talia selects the add your name to volunteer list.</li>
+			<li>Talia selects the day she wants to request off.</li>
+			<li>The website returns a form with checkboxes and a comment box.</li>
+			<li>Talia ticks the request time off box and adds the comment "jury duty".</li>
 		</ol><br>
 
 		<h2>Suzy Hughes, 32, Manager</h2>
