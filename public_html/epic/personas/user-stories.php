@@ -5,47 +5,26 @@
 		<title>User Stories</title>
 	</head>
 	<body>
-		<h1>User Stories</h1>
-		<h2>Administrator User Stories</h2>
-		<p>As an administrator, I want to....</p>
-		<ul>
-			<li>have the software generate a work schedule for my employees,
-			that takes their preferred time off into account.</li>
-			<li>be able to tweak and rearrange the generated schedule to
-			fit my needs.</li>
-			<li>approve trades that other users have coordinated from my
-			phone.</li>
-			<li>create, edit, and delete schedules.</li>
-			<li>keep track of my employees weekly/monthly labor hours and
-			pay rates.</li>
-		</ul>
-		<h2>User User Stories</h2>
-		<p>As a user, I want to</p>
-		<ul>
-			<li>check my work schedule from my phone, laptop, or ipad.</li>
-			<li>offer up the shifts I'm scheduled to work to other users.</li>
-			<li>accept shifts that other users have offered.</li>
-			<li>message other users.</li>
-			<li>receive push notifications for schedule updates, messages,
-			and shift trades.</li>
-		</ul>
-
 		<h3>Suzy</h3>
 		<p>
-			Suzy has received an email from a sick employee with a doctors note attached, now she needs to rework the next few days of the schedule.
+			Suzy creates an employee account for talia in time crunchers.
+		</p>
+
+		<p>
+			Suzy adds talia onto a crew and works her in to their open shifts.
+		</p>
+
+		<p>
+
 		</p>
 
 		<h3>Talia</h3>
 		<p>
-			It has been a few days since her request, Talia logs into Time Cruncher to see if she was chosen off the volunteer list.
+			Talia creates a password for her new account and adds her preferences to her profile.
 		</p>
 
 		<p>
-			Talia is sick on her day off and logs onto Time Cruncher to request the next day off as well, due to her illness.
-		</p>
-
-		<p>
-			Talia is alerted by Time Cruncher, that a shift switch has occurred asking her to come in later that day.
+			Talia is alerted by Time Cruncher, that a shift change has occurred asking her to come in later in the week.
 		</p>
 
 		<p>
