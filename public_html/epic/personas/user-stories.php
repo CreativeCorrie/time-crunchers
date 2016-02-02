@@ -29,14 +29,10 @@
 			<li>receive push notifications for schedule updates, messages,
 			and shift trades.</li>
 		</ul>
+
 		<h3>Suzy</h3>
 		<p>
-			Suzy has received an email from a sick employee with a doctors not attached, now she needs to rework the next few days of the schedule.
-		</p>
-
-		<h3>Bob</h3>
-		<p>
-			Bob approved a shift switch but the worker has not arrived on time, he checks time cruncher to see who it is.
+			Suzy has received an email from a sick employee with a doctors note attached, now she needs to rework the next few days of the schedule.
 		</p>
 
 		<h3>Talia</h3>
@@ -56,9 +52,5 @@
 			As a daily routine, Talia likes to quickly check out the schedule on Time Cruncher just in case there are any changes.
 		</p>
 
-		<h3>Hugh Allen</h3>
-		<p>
-			Hugh sees a new entry marked in bold green signifying a meeting is wanted by someone and he needs to see if it fits in schedule and can add it easily.
-		</p>
 	</body>
 </html>
