@@ -6,7 +6,7 @@
 		<title>Suzy Hughes - Manager Persona</title>
 	</head>
 	<body>
-		<img src="../images/suzy-hughes.jpg" alt="Hughes Allen photo" height="200" width="200">
+		<img src="../images/suzy-hughes.jpg" alt="Hughes Allen photo" height="200" width="215">
 		<h1>Suzy Hughes</h1>
 		<ul>
 			<li>Age: 32</li>

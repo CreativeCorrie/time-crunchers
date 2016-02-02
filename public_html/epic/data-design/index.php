@@ -9,13 +9,11 @@
 		<ul>
 			<li><a href="system-goals.php">Executive Summary & System Goals</a></li>
 			<li><a href="../personas/user-stories.php">User Stories</a></li>
-			<li><a href="conceptual-model.php">Conceptual Model</a></li>
-			<li><a href="erd.php">ERD</a></li>
 		</ul>
 		<h2>Data Design</h2>
 			<ul>
+				<li><a href="conceptual-model.php">Conceptual Model</a></li>
 				<li><a href="erd.php">ERD</a></li>
-				<li><a href="system-goals.php">System Goals</a></li>
 			</ul>
 
 				<h2>Personas</h2>
