@@ -32,16 +32,7 @@
 		<h2>Personas</h2>
 			<ul>
 				<li>
-					<a href="../personas/bob.php">Bob</a>
-				</li>
-				<li>
 					<a href="../personas/suzy-hughes.php">Suzy Hughes</a>
-				</li>
-				<li>
-					<a href="../personas/lucille.php">Lucille</a>
-				</li>
-				<li>
-					<a href="../personas/suzy.php">Suzy</a>
 				</li>
 				<li>
 					<a href="../personas/talia.php">Talia</a>
