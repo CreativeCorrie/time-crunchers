@@ -7,30 +7,19 @@
 	</head>
 	<body>
 
-		<img src="../images/hugh-allen.jpg" alt="Hugh Allen photo" height="200" width="136">
-		<h1>Hugh Allen</h1>
+		<img src="../images/suzy-hughes.jpg" alt="Hugh Allen photo" height="200" width="136">
+		<h1>Suzy Hughes</h1>
 		<ul>
 		<li>Age: 32</li>
-		<li>Education: Sc.M-Harvard</li>
-		<li>Occupation: Statistician Entrepreneur</li>
+		<li>Education: Masters of Business Administration</li>
+		<li>Occupation: Manager</li>
 		<li>Income: $120,000 annual</li>
 		</ul>
 
 		<h2>Work/Life/Balance:</h2>
-		<ol>
-		<li>Hugh runs his own business as a head contractor with a team of 23 sub-contractors for his state's Department of Health bringing quality assurance to Vaccines for Children.</li>
-			<li>He has to keep track of his own schedule and the vaccine sites he visits.</li>
-			<li>Each contractor under him also has a schedule they make up on their own and are responsible for and he needs to know about their plans.</li>
-			<li>There are plenty of meetings within The State and he needs to keep track of when to be where and what to bring.</li>
-			<li>He also has a schedule for when he teaches nurses how to administer, keep track of and enter vaccine information into The State and CDC web-based databases.</li>
-			<li>He was in the Peace Corp and has very close friends within W.H.O. and they visit when in the area. Occasionally and upon need he also travels abroad to meet with them.</li>
-			<li>Hugh travels all over the southwest and is an avid rock climber and loves to visit the pueblos and any public events they are doing when he is in their area.</li>
-			<li>On a personal note: he would like to add these to his schedule, so when he is visiting a VFC site he can take a side trip as well for the sake of enjoyment.</li>
-			<li>Hugh pays his taxes and bills on time but needs to be "gently" reminded of when to do these unpleasant activities.</li>
-			<li>He also has a very cute and busy girlfriend who is a professional of standing and sometimes it is hard to sync their calendars together. There is a lot
-		of texting and calls between the two just discussing when they might have time for dinner together.</li>
-		</ol>
-
+		<p>
+			Hugh runs his own business as a head contractor with a team of fifty sub-contractors and ten separate locations.  He has to keep track of his own schedule and of all of the sites he is responsible for.  Each contractor under him also has a schedule they make up on their own and are responsible for.  He needs to keep track of the hours each employee works as well as their pay rate.  Hugh wants to ensure the number of different types of employees stays within the company's prescribed ratio to meet the needs of the business.  Hugh attends meetings all around the state and he needs to keep track of his work schedule and needs for each appointment.  Hugh has several schedules he needs to stay on top of each day not to mention his own personal time needs scheduling. Hugh travels all over the southwest and is an avid rock climber and loves to visit the pueblos and any public events they are doing when he is in the area.  He would like to be able to add his recreation time to his schedule, so when he is visiting a site he can also schedule time for a side trip as well.  It would be a boon for Hugh to be able to have his bill paying calendar integrated with his personal schedule so he isn't hit with surprises at the end of the month.  He also has a very cute and busy girlfriend who is a professional of standing and sometimes it is hard to sync their calendars together. There is a lot of texting and calls between the two just discussing when they might have time for dinner together.
+		</p>
 
 		<h2>Goals:</h2>
 		<ul>
