@@ -14,7 +14,6 @@
 			<li>She follows a link from the email invite her new employer sent her.</li>
 			<li>On the landing page Talia signs in with her email address and temporary password from the email.</li>
 			<li>The website asks Talia to set her own password.</li>
-			<li>Following the username and password </li>
 			<li>Talia now has access to her crew schedule</li>
 		</ol><br>
 		<h3>Use Case 2</h3>
