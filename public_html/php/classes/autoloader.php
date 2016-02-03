@@ -6,7 +6,7 @@
  * such as laravel and composer automatically resolve class names and load them.
  * set the configurable parameters inside the closure.
  *
- * @param string class fully qualified class name to load
+ * @param string $class fully qualified class name to load
  * @see h
  **/
 spl_autoload_register(function($class) {
@@ -32,7 +32,7 @@ spl_autoload_register(function($class) {
 	$file = $baseDir . str_replace("\\", "/", $className) . ".php";
 
 	//if the file exists, require it
-	if(file_exists($file)){
+	if(file_exists($file)) {
 		require_once($file);
 	}
 });
