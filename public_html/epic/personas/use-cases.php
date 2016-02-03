@@ -10,22 +10,31 @@
 		<h2>Talia, 27, fast-food worker</h2>
 		<h3>Use Case 1</h3>
 		<ol>
-			<li>Using her iPad Talia accesses the TimeCruncher website from a bookmark.
+			<li>Talia is a brand new employee who needs to get on the schedule.</li>
+			<li>She follows a link from the email invite her new employer sent her.</li>
+			<li>On the landing page Talia signs in with her email address and temporary password from the email.</li>
+			<li>The website asks Talia to set her own password.</li>
+			<li>Following the username and password </li>
+			<li>Talia now has access to her crew schedule</li>
+		</ol><br>
+		<h3>Use Case 2</h3>
+		<ol>
+			<li>Using her iPad Talia accesses the TimeCruncher website to see what days she works.</li>
 			<li>On the landing page Talia signs in with the user name and password she created on her first day of work.</li>
 			<li>Talia is securely logged into the employee portal.</li>
 			<li>On the main employee page, Talia can see the work schedule for the week.</li>
 			<li>Talia verifies she has the weekend off.</li>
 		</ol><br>
 
-		<h3>Use Case 2</h3>
+		<h3>Use Case 3</h3>
 		<ol>
 			<li>Talia needs a day off, using her laptop Talia accesses the TimeCruncher website from a bookmark.</li>
 			<li>On the landing page Talia signs in with the user name and password she created on her first day of work.</li>
 			<li>Talia is securely logged into the employee portal.</li>
 			<li>On the employee page, Talia can see the work schedule for the week.</li>
 			<li>Talia selects the day she wants to request off.</li>
-			<li>The website returns a form with checkboxes and a comment box.</li>
-			<li>Talia ticks the request time off box and adds the comment "jury duty".</li>
+			<li>The website returns a form with a comment box.</li>
+			<li>Talia adds the comment, need day off for jury duty.</li>
 			<li>After filling out the form, Talia submits her request.</li>
 		</ol><br>
 
@@ -34,25 +43,32 @@
 		<p>Suzy: accesses the TimeCrunchers site and enters her login information.<br>
 			Site: retrieves Suzy's account, displays her home page.<br>
 			Suzy: clicks "employees" tab on her home page<br>
-			Site: returns a list of links to her employees' profiles<br>
-			Suzy: clicks the "Invite New Employee" button, enters their email in a drop down box<br>
-			Site: sends an invite request to the new employee's email, they are directed to the site
-			to create a new profile that is entered into the database<br>
-			Suzy: sees an updated employee list once the new employee completes their profile, she clicks
-			on the new employ profile.
-			Site: directs to new employee's profile<br>
-			Suzy: clicks the "Employee Access", from a drop down menu, she sets the access level and occupation
-			the new employee<br>
+			Suzy: With a new employee application in hand, she navigates to the create new employee area.<br>
+			Suzy: Fills in the new employee's name, email and telephone number from the application.<br>
+			Suzy: clicks the "Invite New Employee" button
+			Site: adds the employee to the database and sends an email invite to the employee to log into the Timecrunchers website to  create a password.<br>
+
 
 		<h3>Use Case 2</h3>
 			Suzy: clicks "Crews" tab on her home page<br>
 			Site: directs to "Crews" page<br>
-			Suzy: clicks the "Create Crew" button<br>
-			Site: opens a window with a new crew template<br>
-			Suzy: enters the name of the crew and selects an empty crew spot<br>
-			Site: displays a list of employees<br>
-			Suzy: clicks the employee she wants for the crew and so on until
-			she has the desired crew, then clicks "Save"<br>
-			Site: enters the new crew into the database<br>
+			Suzy: clicks the "Create Schedule" button<br>
+			Site: opens a window with a new schedule template<br>
+			Suzy: enters the name of the crew and the date range<br>
+			Site: Returns a new schedule<br>
+			Suzy: Creates shifts for the schedule with the dynamic calendar.<br>
+			Suzy: When she is done she saves the new schedule<br>
+			Site: Enters the new schedule into the database<br>
+
+		<h3>Use Case 3</h3>
+		<ol>
+			<li>Suzy has received an alert on her iPhone for a new schedule request</li>
+			<li>Suzy follows the link from the alert back to the scheduling website.</li>
+			<li>Suzy is directed to a secure log in page where she uses her credentials to log into her administrator account</li>
+			<li>After log in, Suzy is presented with a list of all pending schedule requests</li>
+			<li>Suzy is able to approve or deny the schedule change and also include a comment</li>
+			<li>Talia ticks the request time off box and adds the comment "jury duty".</li>
+			<li>After filling out the form, Talia submits her request.</li>
+		</ol><br>
 	</body>
 </html>
