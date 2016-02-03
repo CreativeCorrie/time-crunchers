@@ -72,11 +72,13 @@ class Company {
 	/**
 	 *constructor for Company
 	 *
-	 * @param int $newProductId id of this RamChip or null if a new RamChip
-	 * @param string $newProductName string containing the product name
-	 * @param string $newManufacturerName
-	 * @param string $newModelName string containing the product name
-	 * @param double $newPrice current sale price of product
+	 * @param int $newCompanyId id of this Company or null if a new Company
+	 * @param string $newCompanyAttn string containing optional attention line
+	 * @param string $newCompanyName string containing the company name
+	 * @param string $newCompanyAddress1 string containing company address line 1
+	 * @param string $newCompanyAddress2 string containing company address line 2
+	 * @param string $newCompanyCity string containing name of city where company is located
+	 * @param string $newCompanyState string containing name of state where company is located
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws Exception if some other exception is thrown
