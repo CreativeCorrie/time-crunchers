@@ -376,184 +376,295 @@ class Company {
 		$this->companyZip = $newCompanyZip;
 	}
 
-
 	/**
-	 * inserts this RamChip into mySQL
+	 * accessor method for company phone number
 	 *
-	 * @param PDO $pdo PDO connection object
-	 * @throws PDOException when mySQL related errors occur
+	 * @return string company phone number
 	 **/
-	public function insert(PDO $pdo) {
-		// enforce the productId is null (i.e., don't insert a product id that already exists)
-		if($this->productId !== null) {  //**IT NEEDS TO NOT EXIST!!
-			throw(new PDOException("not a new ram chip"));
-			//DO NOT INSERT THE SAME KEY TWICE
-		}
-
-		// create query template
-		$query	 = "INSERT INTO ramChip(productName, manufacturerName, modelName, price ) VALUES(:productName, :manufacturerName, :modelName, :price)";
-		$statement = $pdo->prepare($query);
-		//THERE IS NO PRIMARY KEY HERE BC WE ARE GOING TO INSERT IT
-
-		// bind the member variables to the place holders in the template
-		$parameters = array("productName" => $this->productName, "manufacturerName" => $this->manufacturerName, "modelName" => $this->modelName, "price" => $this->price);
-		$statement->execute($parameters); //EXECUTE IS THE LIVE STEP TO THE DATABASE
-
-		// update the null productId with what mySQL just gave us
-		$this->productId = doubleval($pdo->lastInsertId()); //this permanently resolves the "EXISTENTIAL PROBLEM"
+	public function getCompanyPhone() {
+		return($this->companyZip);
 	}
 
 	/**
-	 * deletes this RamChip from mySQL
+	 * mutator method for company phone number
 	 *
-	 * @param PDO $pdo PDO connection object
-	 * @throws PDOException when mySQL related errors occur
+	 * @param string $newCompanyPhone new company phone number
+	 * @throws \InvalidArgumentException if $newCompanyPhone is not a string or insecure
+	 * @throws \RangeException if $newCompanyPhone is > 128 characters
+	 * @throws \TypeError if $newCompanyPhone is not a string
 	 **/
-	public function delete(PDO $pdo) {
-		// enforce the productId is not null (i.e., don't delete a ram chip that hasn't been inserted)
-		if($this->productId === null) {  //**IT NEEDS TO BE SURE IT DOES EXIST
-			throw(new PDOException("unable to delete a ram chip that does not exist"));
+	public function setCompanyPhone(string $newCompanyPhone) {
+		// verify the company phone content is secure
+		$newCompanyPhone = trim($newCompanyPhone);
+		$newCompanyPhone = filter_var($newCompanyPhone, FILTER_SANITIZE_STRING);
+		if(empty($newCompanyPhone) === true) {
+			throw(new \InvalidArgumentException("company phone content is empty or insecure"));
+		}
+		// verify the company phone content will fit in the database
+		if(strlen($newCompanyPhone) > 128) {
+			throw(new \RangeException("company phone content too large"));
+		}
+
+		// store the company phone content
+		$this->companyPhone = $newCompanyPhone;
+	}
+
+	/**
+	 * accessor method for company email address
+	 *
+	 * @return string company email address
+	 **/
+	public function getCompanyEmail() {
+		return($this->companyZip);
+	}
+
+	/**
+	 * mutator method for company email address
+	 *
+	 * @param string $newCompanyEmail new company email address
+	 * @throws \InvalidArgumentException if $newCompanyEmail is not a string or insecure
+	 * @throws \RangeException if $newCompanyEmail is > 128 characters
+	 * @throws \TypeError if $newCompanyEmail is not a string
+	 **/
+	public function setCompanyEmail(string $newCompanyEmail) {
+		// verify the company email address content is secure
+		$newCompanyEmail = trim($newCompanyEmail);
+		$newCompanyEmail = filter_var($newCompanyEmail, FILTER_SANITIZE_EMAIL);
+		if(empty($newCompanyEmail) === true) {
+			throw(new \InvalidArgumentException("company email content is empty or insecure"));
+		}
+		// verify the company email content will fit in the database
+		if(strlen($newCompanyEmail) > 128) {
+			throw(new \RangeException("company email content too large"));
+		}
+
+		// store the company email content
+		$this->companyEmail = $newCompanyEmail;
+	}
+
+	/**
+	 * accessor method for company email address
+	 *
+	 * @return string company email address
+	 **/
+	public function getCompanyUrl() {
+		return($this->companyUrl);
+	}
+
+	/**
+	 * mutator method for company URL
+	 *
+	 * @param string $newCompanyUrl new company URL
+	 * @throws \InvalidArgumentException if $newCompanyUrl is not a string or insecure
+	 * @throws \RangeException if $newCompanyUrl is > 128 characters
+	 * @throws \TypeError if $newCompanyUrl is not a string
+	 **/
+	public function setCompanyUrl(string $newCompanyUrl) {
+		// verify the company URL address content is secure
+		$newCompanyUrl = trim($newCompanyUrl);
+		$newCompanyUrl = filter_var($newCompanyUrl, FILTER_SANITIZE_URL);
+		if(empty($newCompanyUrl) === true) {
+			throw(new \InvalidArgumentException("company URL content is empty or insecure"));
+		}
+		// verify the company url content will fit in the database
+		if(strlen($newCompanyUrl) > 128) {
+			throw(new \RangeException("company url content too large"));
+		}
+
+		// store the company url content
+		$this->companyUrl = $newCompanyUrl;
+	}
+
+
+	/**
+	 * inserts this Company into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo) {
+		// enforce the companyId is null (i.e., don't insert a company that already exists)
+		if($this->companyId !== null) {
+			throw(new \PDOException("not a new company"));
 		}
 
 		// create query template
-		$query	 = "DELETE FROM ramChip WHERE productId = :productId";  //WITHOUT THE WHERE CLAUSE IT WILL DELETE ALL TWEETS
+		$query = "INSERT INTO company (companyAttn, companyName, companyAddress1, companyAddress2, companyCity, companyState, companyZip, companyPhone, companyEmail, companyUrl) VALUES(:companyAttn, :companyName, :companyAddress1, :companyAddress2, :companyCity, :companyState, :companyZip, :companyPhone, :companyEmail, :companyUrl)";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$parameters = ["companyAttn" => $this->companyAttn, "companyName" => $this->companyName, "companyAddress1" => $this->companyAddress1, "companyAddress2" => $this->companyAddress2, "companyCity" => $this->companyCity, "companyState" => $this->companyState, "companyZip" => $this->companyZip, "companyPhone" => $this->companyPhone, "companyEmail" => $this->companyEmail, "companyUrl" => $this->companyUrl];
+		$statement->execute($parameters);
+
+		// update the null companyId with what mySQL just gave us
+		$this->companyId = intval($pdo->lastInsertId());
+	}
+
+
+	/**
+	 * deletes this Company from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo) {
+		// enforce the companyId is not null (i.e., don't delete a company that hasn't been inserted)
+		if($this->companyId === null) {
+			throw(new \PDOException("unable to delete a company that does not exist"));
+		}
+
+		// create query template
+		$query = "DELETE FROM tweet WHERE tweetId = :tweetId";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holder in the template
-		$parameters = array("productId" => $this->productId);
+		$parameters = ["tweetId" => $this->tweetId];
 		$statement->execute($parameters);
 	}
 
 	/**
-	 * updates this RamChip in mySQL
+	 * updates this Tweet in mySQL
 	 *
-	 * @param PDO $pdo PDO connection object
-	 * @throws PDOException when mySQL related errors occur
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function update(PDO $pdo) {
-		// enforce the productId is not null (i.e., don't update a ram chip that hasn't been inserted)
-		if($this->productId === null) {
-			throw(new PDOException("unable to update a ram chip that does not exist"));
+	public function update(\PDO $pdo) {
+		// enforce the tweetId is not null (i.e., don't update a tweet that hasn't been inserted)
+		if($this->tweetId === null) {
+			throw(new \PDOException("unable to update a tweet that does not exist"));
 		}
 
-		// create query template  **IF THERE IS NO WHERE CLAUSE IT WILL UPDATE THE WHOLE THING
-		$query	 = "UPDATE ramChip SET productId = :productId, productName = :productName, manufacturerName = :manufacturerName, modelName = :modelName, price = :price WHERE productId = :productId";
+		// create query template
+		$query = "UPDATE tweet SET profileId = :profileId, tweetContent = :tweetContent, tweetDate = :tweetDate WHERE tweetId = :tweetId";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
-		$parameters = array("productName" => $this->productName, "manufacturerName" => $this->manufacturerName, "modelName" => $this->modelName, "price" => $this->price);
+		$formattedDate = $this->tweetDate->format("Y-m-d H:i:s");
+		$parameters = ["profileId" => $this->profileId, "tweetContent" => $this->tweetContent, "tweetDate" => $formattedDate, "tweetId" => $this->tweetId];
 		$statement->execute($parameters);
 	}
 
 	/**
-	 * gets the RamChip by product name
+	 * gets the Tweet by content
 	 *
-	 * @param PDO $pdo PDO connection object
-	 * @param string $productName product name to search for
-	 * @return SplFixedArray all RamChipS found for this name
-	 * @throws PDOException when mySQL related errors occur
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $tweetContent tweet content to search for
+	 * @return \SplFixedArray SplFixedArray of Tweets found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getRamChipByProductName(\PDO $pdo, string $productName) {
+	public static function getTweetByTweetContent(\PDO $pdo, string $tweetContent) {
 		// sanitize the description before searching
-		$productName = trim($productName);
-		$productName = filter_var($productName, FILTER_SANITIZE_STRING);
-		if(empty($productName) === true) {
-			throw(new \PDOException("product name is invalid"));
+		$tweetContent = trim($tweetContent);
+		$tweetContent = filter_var($tweetContent, FILTER_SANITIZE_STRING);
+		if(empty($tweetContent) === true) {
+			throw(new \PDOException("tweet content is invalid"));
 		}
 
 		// create query template
-		$query	 = "SELECT productId, productName, manufacturerName, modelName, price FROM ramChip WHERE productName LIKE :productName";
+		$query = "SELECT tweetId, profileId, tweetContent, tweetDate FROM tweet WHERE tweetContent LIKE :tweetContent";
 		$statement = $pdo->prepare($query);
 
-		// bind the product name to the place holder in the template
-		$productName = "%$productName%";
-		$parameters = array("productName" => $productName);
+		// bind the tweet content to the place holder in the template
+		$tweetContent = "%$tweetContent%";
+		$parameters = array("tweetContent" => $tweetContent);
 		$statement->execute($parameters);
 
-		// build an array of  ram chips
-		$ramChips = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		// build an array of tweets
+		$tweets = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$ramChip = new RamChip($row["productId"], $row["productName"], $row["manufacturerName"], $row["modelName"], $row["price"]);
-				$ramChips[$ramChips->key()] = $ramChip;
-				$ramChips->next();
-			} catch(Exception $exception) {
+				$tweet = new Tweet($row["tweetId"], $row["profileId"], $row["tweetContent"], $row["tweetDate"]);
+				$tweets[$tweets->key()] = $tweet;
+				$tweets->next();
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
-				throw(new PDOException($exception->getMessage(), 0, $exception));
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($ramChips);
+		return($tweets);
 	}
 
 	/**
-	 * gets the RamChip by productId
+	 * gets the Tweet by tweetId
 	 *
-	 * @param PDO $pdo PDO connection object
-	 * @param int $productId product id to search for
-	 * @return mixed RamChip found or null if not found
-	 * @throws PDOException when mySQL related errors occur
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $tweetId tweet id to search for
+	 * @return Tweet|null Tweet found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getRamChipByProductId(PDO $pdo, $productId) {
-		// sanitize the productId before searching
-		$productId = filter_var($productId, FILTER_VALIDATE_INT);
-		if($productId === false) {
-			throw(new PDOException("product id is not an integer"));
-		}
-		if($productId <= 0) {
-			throw(new PDOException("product id is not positive"));
+	public static function getTweetByTweetId(\PDO $pdo, int $tweetId) {
+		// sanitize the tweetId before searching
+		if($tweetId <= 0) {
+			throw(new \PDOException("tweet id is not positive"));
 		}
 
 		// create query template
-		$query	 = "SELECT productId, productName, manufacturerName, modelName, price FROM ramChip WHERE productId = :productId";
+		$query = "SELECT tweetId, profileId, tweetContent, tweetDate FROM tweet WHERE tweetId = :tweetId";
 		$statement = $pdo->prepare($query);
 
-		// bind the product id to the place holder in the template
-		$parameters = array("productId" => $productId);
+		// bind the tweet id to the place holder in the template
+		$parameters = array("tweetId" => $tweetId);
 		$statement->execute($parameters);
 
-		// grab the ram chip from mySQL
-
+		// grab the tweet from mySQL
 		try {
-			$ramChip = null;
-			$statement->setFetchMode(PDO::FETCH_ASSOC);
-			$row   = $statement->fetch();
+			$tweet = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
 			if($row !== false) {
-				$ramChip = new RamChip($row["productId"], $row["productName"], $row["manufacturerName"], $row["modelName"], $row["price"]);
+				$tweet = new Tweet($row["tweetId"], $row["profileId"], $row["tweetContent"], $row["tweetDate"]);
 			}
-		} catch(Exception $exception) {
+		} catch(\Exception $exception) {
 			// if the row couldn't be converted, rethrow it
-			throw(new PDOException($exception->getMessage(), 0, $exception));
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($ramChip);
+		return($tweet);
 	}
 
 	/**
-	 * gets all ram chips
+	 * gets all Tweets
 	 *
-	 * @param PDO $pdo PDO connection object
-	 * @return SplFixedArray all RamChips found
-	 * @throws PDOException when mySQL related errors occur
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of Tweets found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getAllRamChips(\PDO $pdo) {
+	public static function getAllTweets(\PDO $pdo) {
 		// create query template
-		$query = "SELECT productId, productName, manufacturerName, modelName, price FROM ramChip";
+		$query = "SELECT tweetId, profileId, tweetContent, tweetDate FROM tweet";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
-		// build an array of ram chips
-		$ramChips = new SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		// build an array of tweets
+		$tweets = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$ramChip = new RamChip($row["productId"], $row["productName"], $row["manufacturerName"], $row["modelName"], $row["price"]);
-				$ramChips[$ramChips->key()] = $ramChip;
-				$ramChip->next();
-			} catch(Exception $exception) {
+				$tweet = new Tweet($row["tweetId"], $row["profileId"], $row["tweetContent"], $row["tweetDate"]);
+				$tweets[$tweets->key()] = $tweet;
+				$tweets->next();
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
-				throw(new PDOException($exception->getMessage(), 0, $exception));
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($ramChips);
+		return ($tweets);
+	}
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		$fields["tweetDate"] = intval($this->tweetDate->format("U")) * 1000;
+		return($fields);
 	}
 }
