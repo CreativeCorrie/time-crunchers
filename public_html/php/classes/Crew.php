@@ -13,17 +13,17 @@
 	  * @var int crewId
 	  **/
 	 private $crewId;
+
 	 /**id for the location or store
 	  * @var int crewLocation
 	  **/
 	 private $crewLocation;
+
 	 /**id for the companyId
 	  * @var int crewCompanyId
 	  **/
-	 private $crewComapanyId;
-	 /**id for the crew
-	  *
-	  **/
+	 private $crewCompanyId;
+
 
 	 /**accessor method for crew id
 	  *
@@ -33,7 +33,7 @@
 		 return ($this->crewId);
 	 }
 	 /**
-	  * mutator metod for cew id
+	  * Mutator method for cew id
 	  *
 	  * @param int $newCrewId new value of crew id
 	  * @throws UnexpectedValueException if $newCrewId is not an integer
@@ -60,12 +60,15 @@
 	  * @param string $newCrewLocation new value of copy
 	  * @throws InvalidArgumentException if copy is only non sanitized values
 	  * @throws RangeException if copy will not fit in the database
+	  * @throws \TypeError if $newCrewLocation is not a string
 	  **/
-	 public function setCrewLocation($crewLocation) {
-		 $newCrewLocation = filter_var($newCrewLocation, FILTER_VALIDATE_INT);
-		 //Exception if only non-santized values
+	 public function setCrewLocation(string $newCrewLocation) {
+		 //verify the location is secure
+		 $newCrewLocation = trim($newCrewLocation);
+		 $newCrewLocation = filter_var($newCrewLocation, FILTER_SANITIZE_STRING);
+		 		 //Exception if only non-sanitized values
 		 if($newCrewLocation === false) {
-			 throw(new InvalidArgumentException("location is not a valid string"));
+			 throw(new InvalidArgumentException("location is not secure"));
 		 }
 		 //Exception if input will not fit int he database
 		 if(strlen($newCrewLocation) > 255) {
@@ -80,7 +83,7 @@
 	  * @return int value of crewCompanyId
 	  **/
 	 public function getCrewComapanyId() {
-		 return ($this->crewComapanyId);
+		 return ($this->crewCompanyId);
 	 }
 	 /**
 	  * mutator method for crew company i
