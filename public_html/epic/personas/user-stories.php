@@ -15,7 +15,7 @@
 		</p>
 
 		<p>
-
+			After reading the comment section for a request, suzy approves the change to the Time Cruncher schedule.
 		</p>
 
 		<h3>Talia</h3>
