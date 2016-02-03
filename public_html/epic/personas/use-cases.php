@@ -66,8 +66,6 @@
 			<li>Suzy is directed to a secure log in page where she uses her credentials to log into her administrator account</li>
 			<li>After log in, Suzy is presented with a list of all pending schedule requests</li>
 			<li>Suzy is able to approve or deny the schedule change and also include a comment</li>
-			<li>Talia ticks the request time off box and adds the comment "jury duty"</li>
-			<li>After filling out the form, Talia submits her request</li>
 		</ol><br>
 	</body>
 </html>
