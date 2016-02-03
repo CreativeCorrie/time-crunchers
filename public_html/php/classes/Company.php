@@ -79,17 +79,27 @@ class Company {
 	 * @param string $newCompanyAddress2 string containing company address line 2
 	 * @param string $newCompanyCity string containing name of city where company is located
 	 * @param string $newCompanyState string containing name of state where company is located
+	 * @param string $newCompanyZip string containing zip code for company address
+	 * @param string $newCompanyPhone string containing zip code for company address
+	 * @param string $newCompanyEmail string containing email address for company
+	 * @param string $newCompanyUrl string containing URL for company website
 	 * @throws InvalidArgumentException if data types are not valid
 	 * @throws RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws Exception if some other exception is thrown
 	 **/
-	public function __construct($newProductId, $newProductName, $newManufacturerName, $newModelName, $newPrice = null) {
+	public function __construct($newCompanyId, $newCompanyAttn, $newCompanyName, $newCompanyAddress1, $newCompanyAddress2, $newCompanyCity, $newCompanyState, $newCompanyZip, $newCompanyPhone, $newCompanyEmail, $newCompanyUrl) {
 		try {
-			$this->setProductId($newProductId);
-			$this->setProductName($newProductName);
-			$this->setManufacturerName($newManufacturerName);
-			$this->setModelName($newModelName);
-			$this->setPrice($newPrice);
+			$this->setCompanyId($newCompanyId);
+			$this->setCompanyAttn($newCompanyAttn);
+			$this->setCompanyName($newCompanyName);
+			$this->setCompanyAddress1($newCompanyAddress1);
+			$this->setCompanyAddress2($newCompanyAddress2);
+			$this->setCompanyCity($newCompanyCity);
+			$this->setCompanyState($newCompanyState);
+			$this->setCompanyZip($newCompanyZip);
+			$this->setCompanyPhone($newCompanyPhone);
+			$this->setCompanyEmail($newCompanyEmail);
+			$this->setCompanyUrl($newCompanyUrl);
 		} catch(InvalidArgumentException $invalidArgument) {
 			// rethrow the exception to the caller
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
@@ -103,25 +113,25 @@ class Company {
 	}
 
 	/**
-	 *accessor method for product id
+	 *accessor method for company id
 	 *
-	 *@return int value of product id
+	 *@return int value of company id
 	 **/
-	public function getProductId () {
-		return($this->productId);
+	public function getCompanyId () {
+		return($this->companyId);
 	}
 
 	/**
-	 * mutator method for product id
+	 * mutator method for company id
 	 *
-	 * @param int $newProductId new value of product id
-	 * @throws InvalidArgumentException if product id is not an integer
-	 * @throws RangeException if product id is negative
+	 * @param int $newCompanyId new value of company id
+	 * @throws InvalidArgumentException if company id is not an integer
+	 * @throws RangeException if company id is negative
 	 **/
-	public function setProductId($newProductId) {
-		// base case: if the product id is null, this is a new product without a mySQL assigned id (yet)
-		if($newProductId === null) {
-			$this->productId = null;
+	public function setCompanyId($newCompanyId) {
+		// base case: if the company id is null, this is a new company without a mySQL assigned id (yet)
+		if($newCompanyId === null) {
+			$this->companyId = null;
 			return;
 		}
 
@@ -141,32 +151,32 @@ class Company {
 	}
 
 	/**
-	 * accessor method for product name content
+	 * accessor method for company attn content
 	 *
-	 * @return string value of product name content
+	 * @return string value of company attn content
 	 **/
-	public function getProductName() {
-		return($this->productName);
+	public function getCompanyAttn() {
+		return($this->CompanyAttn);
 	}
 
 	/**
-	 * mutator method for product name
+	 * mutator method for company attn
 	 *
-	 * @param string $newProductName new name
-	 * @throws InvalidArgumentException if $newProductName is not a string or insecure
-	 * @throws RangeException if $newProductName is > 128 characters
+	 * @param string $newCompanyAttn new optional attn line
+	 * @throws InvalidArgumentException if $newCompanyAttn is not a string or insecure
+	 * @throws RangeException if $newCompanyAttn is > 128 characters
 	 **/
-	public function setProductName($newProductName) {
+	public function setCompanyAttn($newCompanyAttn) {
 		// verify the product name content is secure
-		$newProductName = trim($newProductName);
-		$newProductName = filter_var($newProductName, FILTER_SANITIZE_STRING);
-		if(empty($newProductName) === true) {
-			throw(new InvalidArgumentException("product name content is empty or insecure"));
+		$newCompanyAttn = trim($newCompanyAttn);
+		$newCompanyAttn = filter_var($newCompanyAttn, FILTER_SANITIZE_STRING);
+		if(empty($newCompanyAttn) === true) {
+			throw(new InvalidArgumentException("company attn content is empty or insecure"));
 		}
 
-		// verify the product name will fit in the database
-		if(strlen($newProductName) > 128) {
-			throw(new RangeException("product name content too large"));
+		// verify the company attn will fit in the database
+		if(strlen($newCompanyAttn) > 128) {
+			throw(new RangeException("company attn content too large"));
 		}
 
 		// store the product name content
