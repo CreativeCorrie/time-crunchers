@@ -8,13 +8,22 @@
  * @author Corrie Hooker <creativecorrie@gmail.com> <Team Collaboration: TimeCrunchers>
  **/
  class Crew {
-	 /**id for crew; this is the primary key.**/
+
+	 /**id for crew; this is the primary key.
+	  * @var int crewId
+	  **/
 	 private $crewId;
-	 /**id for the location or store**/
+	 /**id for the location or store
+	  * @var int crewLocation
+	  **/
 	 private $crewLocation;
-	 /**id for the companyId.**/
+	 /**id for the companyId
+	  * @var int crewCompanyId
+	  **/
 	 private $crewComapanyId;
-	 /**id for the crew**/
+	 /**id for the crew
+	  *
+	  **/
 
 	 /**accessor method for crew id
 	  *
@@ -29,7 +38,7 @@
 	  * @param int $newCrewId new value of crew id
 	  * @throws UnexpectedValueException if $newCrewId is not an integer
 	  **/
-	 public function setCrewId($crewId) {
+	 public function setCrewId(int $newCrewId) {
 		 //verify the course id is valid
 		 $newCrewId = filter_var($newCrewId, FILTER_VALIDATE_INT);
 		 if($newCrewId === false) {
@@ -59,7 +68,7 @@
 			 throw(new InvalidArgumentException("location is not a valid string"));
 		 }
 		 //Exception if input will not fit int he database
-		 if(strlen($newCrewLocation) > 32) {
+		 if(strlen($newCrewLocation) > 255) {
 			 throw(new RangeException("content is too large"));
 		 }
 		 //convert and store the location
