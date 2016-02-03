@@ -24,9 +24,14 @@ class Access {
 
 	/**
 	 * constructor
-	 * @param int|null $newAccessId of
-	 * @param string $newAccessName
-	 */
+	 * @param int|null $newAccessId of the user or null if a new user
+	 * @param string $newAccessName containing actual access data
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 **/
+
 public function __construct(int $newAccessId = null, string $newAccessName){
 	try{
 		$this->setAccessId($newAccessId);
