@@ -44,7 +44,7 @@
 			Suzy: clicks "employees" tab on her home page.<br>
 			Suzy: With a new employee application in hand, she navigates to the create new employee area.<br>
 			Suzy: Fills in the new employee's name, email and telephone number from the application.<br>
-			Suzy: clicks the "Invite New Employee" button.
+			Suzy: clicks the "Invite New Employee" button.<br>
 			Site: adds the employee to the database and sends an email invite to the employee to log into the Timecrunchers website to  create a password.<br>
 
 
