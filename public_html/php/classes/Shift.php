@@ -52,7 +52,7 @@ class Shift {
 	private $shiftRequestId;
 
 	/**
-	 * accessor method for shiftId
+	 * accessor method for shift id
 	 *
 	 * @return int value of shiftId
 	 **/

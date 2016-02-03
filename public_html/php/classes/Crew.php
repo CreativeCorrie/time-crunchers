@@ -20,9 +20,40 @@
 	 private $crewLocation;
 
 	 /**id for the companyId
-	  * @var int crewCompanyId
+	  * @var string crewCompanyId
 	  **/
 	 private $crewCompanyId;
+
+	 /**
+	  * constructor for crews
+	  *
+	  * @param int|null $newCrewId id of crew or null if a new crew
+	  * @param string $newCrewLocation string of location for the crew
+	  * @param int$newCrewCompanyId of the Company that initialized this crew
+	  * @throws \InvalidArgumentException if data types are not valid
+	  * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+	  * @throws \typeError if data types violate type hints
+	  * @throws \Exception if some other exception occurs
+	  **/
+	 public function __construct(int $newCrewId = null, string $newCrewLocation, int $newCrewCompanyId = null) {
+		 try {
+			 $this->setCrewId($newCrewId);
+			 $this->setCrewLocation($newCrewLocation);
+			 $this->setCrewCompanyId($newCrewCompanyId);
+		 } catch(\InvalidArgumentException $invalidArgument) {
+			 //rethrow the exception to the caller
+			 throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		 } catch(\RangeException $range) {
+			 //rethrow he exception to the caller
+			 throw(new \RangeException($range->getMessage(), 0, $range));
+		 } catch(\TypeError $typeError) {
+			 //rethrow the exception to the caller
+			 throw(new \TypeError($typeError->getMessage(), 0, $typeError));
+		 } catch(\Exception $exception) {
+			 //rethrow the exception to the caller
+			 throw(new \Exception($exception->getMessage(), 0, $exception));
+		 }
+	 }
 
 
 	 /**accessor method for crew id
@@ -82,7 +113,7 @@
 	  *
 	  * @return int value of crewCompanyId
 	  **/
-	 public function getCrewComapanyId() {
+	 public function getCrewCompanyId() {
 		 return ($this->crewCompanyId);
 	 }
 	 /**
@@ -99,5 +130,29 @@
 		 }
 		 //convert and store the profile id
 		 $this->crewCompanyId = intval($newCrewCompanyId);
+	 }
+
+	 /**
+	  * inserts crew into mySQL
+	  *
+	  * @param \PDO $pdo PDO connection object
+	  * @thros \PDOException when mySQL related errors occur
+	  * @throws \TypeError if $pdo is not a PDO connection object
+	  **/
+	 public function insert(\PDO $pdo) {
+		 //enforce the crewId is null (i.e., don't insert a crew that already exists)
+		 if($this->crewId !== null) {
+			 throw(new  \PDOException("not a new crew"));
+		 }
+		 //create query template
+		 $query = "INSERT INTO crew(crewId, crewLocation, crewCompanyId)VALUES (:crewId, :crewLocation, :crewCompanyId)";
+		 $statement = $pdo->prepare($query);
+
+		 //bind the member variables to the place holders in the template
+		 $parameters = ["crewId" => $this->crewId, "crewLocation" => $this->crewLocation, "crewCompanyId" => $this->crewCompanyId];
+		 $statement->execute($parameters);
+
+		 //update the null crewId with what mySQL just gave us
+		 $this->crewId = intval($pdo->lastInsertId());
 	 }
  }
