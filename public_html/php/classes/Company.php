@@ -1,7 +1,7 @@
 <?php
-// namespace Edu\Cnm\Timecruncher\DataDesign;
+namespace Edu\Cnm\Timecrunchers;
 
-// require_once ("autoload.php");
+require_once ("autoloader.php");
 
 
 /**
@@ -11,6 +11,7 @@
  *A Company is an entity with many crews and employees
  *
  *@author Elaine Thomas <enajera2@cnm.edu>
+ *@version 2.0.0
  **/
 class Company {
 	/**
@@ -72,7 +73,7 @@ class Company {
 	/**
 	 *constructor for Company
 	 *
-	 * @param int $newCompanyId id of this Company or null if a new Company
+	 * @param int |null $newCompanyId id of this Company or null if a new Company
 	 * @param string $newCompanyAttn string containing optional attention line
 	 * @param string $newCompanyName string containing the company name
 	 * @param string $newCompanyAddress1 string containing company address line 1
@@ -83,11 +84,12 @@ class Company {
 	 * @param string $newCompanyPhone string containing zip code for company address
 	 * @param string $newCompanyEmail string containing email address for company
 	 * @param string $newCompanyUrl string containing URL for company website
-	 * @throws InvalidArgumentException if data types are not valid
-	 * @throws RangeException if data values are out of bounds (e.g., strings too long, negative integers)
-	 * @throws Exception if some other exception is thrown
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception is thrown
 	 **/
-	public function __construct($newCompanyId, $newCompanyAttn, $newCompanyName, $newCompanyAddress1, $newCompanyAddress2, $newCompanyCity, $newCompanyState, $newCompanyZip, $newCompanyPhone, $newCompanyEmail, $newCompanyUrl) {
+	public function __construct(int $newCompanyId, string $newCompanyAttn, string $newCompanyName, string $newCompanyAddress1, string $newCompanyAddress2, string $newCompanyCity, string $newCompanyState, string $newCompanyZip, string $newCompanyPhone, string $newCompanyEmail, string $newCompanyUrl) {
 		try {
 			$this->setCompanyId($newCompanyId);
 			$this->setCompanyAttn($newCompanyAttn);
@@ -100,22 +102,25 @@ class Company {
 			$this->setCompanyPhone($newCompanyPhone);
 			$this->setCompanyEmail($newCompanyEmail);
 			$this->setCompanyUrl($newCompanyUrl);
-		} catch(InvalidArgumentException $invalidArgument) {
+		} catch(\InvalidArgumentException $invalidArgument) {
 			// rethrow the exception to the caller
-			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
-		} catch(RangeException $range) {
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
 			// rethrow the exception to the caller
-			throw(new RangeException($range->getMessage(), 0, $range));
-		} catch(Exception $exception) {
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		} catch(\TypeError $typeError) {
+			// rethrow the exception to the caller
+			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
+		} catch(\Exception $exception) {
 			// rethrow generic exception
-			throw(new Exception($exception->getMessage(), 0, $exception));
+			throw(new \Exception($exception->getMessage(), 0, $exception));
 		}
 	}
 
 	/**
 	 *accessor method for company id
 	 *
-	 *@return int value of company id
+	 *@return int|null value of company id
 	 **/
 	public function getCompanyId () {
 		return($this->companyId);
@@ -124,30 +129,24 @@ class Company {
 	/**
 	 * mutator method for company id
 	 *
-	 * @param int $newCompanyId new value of company id
-	 * @throws InvalidArgumentException if company id is not an integer
-	 * @throws RangeException if company id is negative
+	 * @param int|null $newCompanyId new value of company id
+	 * @throws \RangeException if $newCompanyId is not positive
+	 * @throws \TypeError if $newCompanyId is not an integer
 	 **/
-	public function setCompanyId($newCompanyId) {
+	public function setCompanyId(int $newCompanyId = null) {
 		// base case: if the company id is null, this is a new company without a mySQL assigned id (yet)
 		if($newCompanyId === null) {
 			$this->companyId = null;
 			return;
 		}
 
-		// verify the product id is valid
-		$newProductId = filter_var($newProductId, FILTER_VALIDATE_INT);
-		if($newProductId === false) {
-			throw(new InvalidArgumentException("product id is not a valid integer"));
+		// verify the company id is positive
+		if($newCompanyId <= 0) {
+			throw(new \RangeException("company id is not positive"));
 		}
 
-		//verify the product id is positive
-		if($newProductId <= 0) {
-			throw(new RangeException ("product id is not positive"));
-		}
-
-		//convert and store the product id
-		$this->productId = intval($newProductId);
+		//convert and store the company id
+		$this->companyId = $newCompanyId;
 	}
 
 	/**
@@ -156,131 +155,227 @@ class Company {
 	 * @return string value of company attn content
 	 **/
 	public function getCompanyAttn() {
-		return($this->CompanyAttn);
+		return($this->companyAttn);
 	}
 
 	/**
 	 * mutator method for company attn
 	 *
 	 * @param string $newCompanyAttn new optional attn line
-	 * @throws InvalidArgumentException if $newCompanyAttn is not a string or insecure
-	 * @throws RangeException if $newCompanyAttn is > 128 characters
+	 * @throws \InvalidArgumentException if $newCompanyAttn is not a string or insecure
+	 * @throws \RangeException if $newCompanyAttn is > 128 characters
+	 * @throws \TypeError if $newCompanyAttn is not a string
 	 **/
-	public function setCompanyAttn($newCompanyAttn) {
-		// verify the product name content is secure
+	public function setCompanyAttn(string $newCompanyAttn) {
+		// verify the company attn content is secure
 		$newCompanyAttn = trim($newCompanyAttn);
 		$newCompanyAttn = filter_var($newCompanyAttn, FILTER_SANITIZE_STRING);
-		if(empty($newCompanyAttn) === true) {
-			throw(new InvalidArgumentException("company attn content is empty or insecure"));
-		}
 
 		// verify the company attn will fit in the database
 		if(strlen($newCompanyAttn) > 128) {
-			throw(new RangeException("company attn content too large"));
+			throw(new \RangeException("company attn content too large"));
 		}
 
-		// store the product name content
-		$this->productName = $newProductName;
+		// store the company attn content
+		$this->companyAttn = $newCompanyAttn;
 	}
 
 	/**
-	 * accessor method for manufacturer name content
+	 * accessor method for company name content
 	 *
-	 * @return string value manufacturer name
+	 * @return string value of company name content
 	 **/
-	public function getManufacturerName() {
-		return($this->manufacturerName);
+	public function getCompanyName() {
+		return($this->companyName);
 	}
 
 	/**
-	 * mutator method for manufacturer name
+	 * mutator method for company name
 	 *
-	 * @param string $newManufacturerName
-	 * @throws InvalidArgumentException if $newManufacturerName is not a string or insecure
-	 * @throws RangeException if $newManufacturerName is > 128 characters
+	 * @param string $newCompanyName new company name
+	 * @throws \InvalidArgumentException if $newCompanyName is not a string or insecure
+	 * @throws \RangeException if $newCompanyName is > 128 characters
+	 * @throws \TypeError if $newCompanyName is not a string
 	 **/
-	public function setManufacturerName($newManufacturerName) {
-		// verify the manufacturer name content is secure
-		$newManufacturerName = trim($newManufacturerName);
-		$newManufacturerName = filter_var($newManufacturerName,FILTER_SANITIZE_STRING);
-		if(empty($newManufacturerName) === true) {
-			throw(new InvalidArgumentException("manufacturer name content is empty or insecure"));
+	public function setCompanyName(string $newCompanyName) {
+		// verify the company name content is secure
+		$newCompanyName = trim($newCompanyName);
+		$newCompanyName = filter_var($newCompanyName, FILTER_SANITIZE_STRING);
+		if(empty($newCompanyName) === true) {
+			throw(new \InvalidArgumentException("company name content is empty or insecure"));
+		}
+		// verify the company attn will fit in the database
+		if(strlen($newCompanyName) > 128) {
+			throw(new \RangeException("company name content too large"));
 		}
 
-		// verify the manufacturer name content will fit in the database
-		if(strlen($newManufacturerName) > 128) {
-			throw(new RangeException("manufacturer name content too large"));
-		}
-
-		// store the manufacturer name content
-		$this->manufacturerName = $newManufacturerName;
+		// store the company name content
+		$this->companyName = $newCompanyName;
 	}
 
 	/**
-	 * accessor method for model name content
+	 * accessor method for company address line 1
 	 *
-	 * @return string value model name
+	 * @return string value of company address line 1 content
 	 **/
-	public function getModelName() {
-		return($this->modelName);
+	public function getCompanyAddress1() {
+		return($this->companyAddress1);
 	}
 
 	/**
-	 * mutator method for model name
+	 * mutator method for company address
 	 *
-	 * @param string $newModelName
-	 * @throws InvalidArgumentException if $newModelName is not a string or insecure
-	 * @throws RangeException if $newModelName is > 128 characters
+	 * @param string $newCompanyAddress1 new company's address line 1
+	 * @throws \InvalidArgumentException if $newCompanyAddress1 is not a string or insecure
+	 * @throws \RangeException if $newCompanyAddress1 is > 128 characters
+	 * @throws \TypeError if $newCompanyAddress1 is not a string
 	 **/
-
-	public function setModelName($newModelName) {
-		// verify the product name content is secure
-		$newModelName = trim($newModelName);
-		$newModelName = filter_var($newModelName,FILTER_SANITIZE_STRING);
-		if(empty($newModelName) === true) {
-			throw(new InvalidArgumentException("model name content is empty or insecure"));
+	public function setCompanyAddress1(string $newCompanyAddress1) {
+		// verify the company address line 1 content is secure
+		$newCompanyAddress1 = trim($newCompanyAddress1);
+		$newCompanyAddress1 = filter_var($newCompanyAddress1, FILTER_SANITIZE_STRING);
+		if(empty($newCompanyAddress1) === true) {
+			throw(new \InvalidArgumentException("company address line 1 content is empty or insecure"));
+		}
+		// verify the company address line 1 will fit in the database
+		if(strlen($newCompanyAddress1) > 128) {
+			throw(new \RangeException("company address line 1 content too large"));
 		}
 
-		// verify the model name content will fit in the database
-		if(strlen($newModelName) > 128) {
-			throw(new RangeException("model name content too large"));
-		}
-
-		// store the model name content
-		$this->modelName = $newModelName;
+		// store the company name content
+		$this->companyAddress1 = $newCompanyAddress1;
 	}
 
 	/**
-	 * accessor method for price value
+	 * accessor method for optional company address line 2
 	 *
-	 * @return double price value
+	 * @return string company address line 2 content
 	 **/
-	public function getPrice() {
-		return($this->price);
+	public function getCompanyAddress2() {
+		return($this->CompanyAddress2);
 	}
 
 	/**
-	 * mutator method for RamChip price
+	 * mutator method for optional company address line 2
 	 *
-	 * @param double $newPrice new price of RamChip
-	 * @throws InvalidArgumentException if $newPrice is not a double
-	 * @throws RangeException if $newPrice is not positive
+	 * @param string $newCompanyAddress2 new optional company address line 2
+	 * @throws \InvalidArgumentException if $newCompanyAddress2 is not a string or insecure
+	 * @throws \RangeException if $newCompanyAddress2 is > 128 characters
+	 * @throws \TypeError if $newCompanyAddress2 is not a string
 	 **/
-	public function setPrice($newPrice) {
-		// verify the price value is valid
-		$newPrice = filter_var($newPrice, FILTER_VALIDATE_INT);
-		if($newPrice === false) {
-			throw(new InvalidArgumentException("price value is not a valid integer"));
+	public function setCompanyAddress2(string $newCompanyAddress2) {
+		// verify the company address line 2 content is secure
+		$newCompanyAddress2 = trim($newCompanyAddress2);
+		$newCompanyAddress2 = filter_var($newCompanyAddress2, FILTER_SANITIZE_STRING);
+
+		// verify the company address line 2 will fit in the database
+		if(strlen($newCompanyAddress2) > 128) {
+			throw(new \RangeException("company address line 2 content too large"));
 		}
 
-		// verify the price value is positive
-		if($newPrice <= 0) {
-			throw(new RangeException("price value cannot be negative"));
-		}
-
-		// convert and store the price value
-		$this->price = doubleval($newPrice);
+		// store the company attn content
+		$this->companyAddress2 = $newCompanyAddress2;
 	}
+
+	/**
+	 * accessor method for city where company is located
+	 *
+	 * @return string city where company is located
+	 **/
+	public function getCompanyCity() {
+		return($this->companyCity);
+	}
+
+	/**
+	 * mutator method for city where company is located
+	 *
+	 * @param string $newCompanyCity new city where company is located
+	 * @throws \InvalidArgumentException if $newCompanyCity is not a string or insecure
+	 * @throws \RangeException if $newCompanyCity is > 128 characters
+	 * @throws \TypeError if $newCompanyCity is not a string
+	 **/
+	public function setCompanyCity(string $newCompanyCity) {
+		// verify the company city content is secure
+		$newCompanyCity = trim($newCompanyCity);
+		$newCompanyCity = filter_var($newCompanyCity, FILTER_SANITIZE_STRING);
+		if(empty($newCompanyCity) === true) {
+			throw(new \InvalidArgumentException("company city content is empty or insecure"));
+		}
+		// verify the company city content will fit in the database
+		if(strlen($newCompanyCity) > 128) {
+			throw(new \RangeException("company city content too large"));
+		}
+
+		// store the company name content
+		$this->companyCity = $newCompanyCity;
+	}
+
+	/**
+	 * accessor method for city where company is located
+	 *
+	 * @return string city where company is located
+	 **/
+	public function getCompanyState() {
+		return($this->companyState);
+	}
+
+	/**
+	 * mutator method for state where company is located
+	 *
+	 * @param string $newCompanyState new state where company is located
+	 * @throws \InvalidArgumentException if $newCompanyState is not a string or insecure
+	 * @throws \RangeException if $newCompanyState is > 128 characters
+	 * @throws \TypeError if $newCompanyState is not a string
+	 **/
+	public function setCompanyState(string $newCompanyState) {
+		// verify the company state content is secure
+		$newCompanyState = trim($newCompanyState;
+		$newCompanyState = filter_var($newCompanyState, FILTER_SANITIZE_STRING);
+		if(empty($newCompanyState) === true) {
+			throw(new \InvalidArgumentException("company state content is empty or insecure"));
+		}
+		// verify the company state content will fit in the database
+		if(strlen($newCompanyState) > 128) {
+			throw(new \RangeException("company state content too large"));
+		}
+
+		// store the company state content
+		$this->companyState = $newCompanyState;
+	}
+
+	/**
+	 * accessor method for zip code where company is located
+	 *
+	 * @return string zip code where company is located
+	 **/
+	public function getCompanyZip() {
+		return($this->companyZip);
+	}
+
+	/**
+	 * mutator method for zip code where company is located
+	 *
+	 * @param string $newCompanyZip new zip code where company is located
+	 * @throws \InvalidArgumentException if $newCompanyZip is not a string or insecure
+	 * @throws \RangeException if $newCompanyZip is > 128 characters
+	 * @throws \TypeError if $newCompanyZip is not a string
+	 **/
+	public function setCompanyZip(string $newCompanyZip) {
+		// verify the company zip content is secure
+		$newCompanyZip = trim($newCompanyZip);
+		$newCompanyZip = filter_var($newCompanyZip, FILTER_SANITIZE_STRING);
+		if(empty($newCompanyZip) === true) {
+			throw(new \InvalidArgumentException("company zip code content is empty or insecure"));
+		}
+		// verify the company zip code content will fit in the database
+		if(strlen($newCompanyZip) > 128) {
+			throw(new \RangeException("company zip code content too large"));
+		}
+
+		// store the company zip code content
+		$this->companyZip = $newCompanyZip;
+	}
+
 
 	/**
 	 * inserts this RamChip into mySQL
