@@ -91,13 +91,13 @@
 	  * @param int $newCrewCompanyId new value of crew company id
 	  * @throws UnexpectedValueException if $newCrewCompanyId is not an integer.
 	  **/
-	 public function setCrewComapanyId($newCrewComapanyId) {
+	 public function setCrewCompanyId($newCrewCompanyId) {
 		 //verify the profile id is valid
-		 $newCrewComapanyId = filter_var($newCrewComapanyId, FILTER_VALIDATE_INT);
-		 if($newCrewComapanyId === false) {
+		 $newCrewCompanyId = filter_var($newCrewCompanyId, FILTER_VALIDATE_INT);
+		 if($newCrewCompanyId === false) {
 			 throw(new UnexpectedValueException("crew company id is not a valid integer"));
 		 }
 		 //convert and store the profile id
-		 $this->crewComapanyId = intval($newCrewComapanyId);
+		 $this->crewCompanyId = intval($newCrewCompanyId);
 	 }
  }
