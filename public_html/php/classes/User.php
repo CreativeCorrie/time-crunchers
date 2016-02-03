@@ -84,7 +84,7 @@ class User {
 	 * @throws \RangeException if data values are out of bounds
 	 * @throws \TypeError if data types violate type hints
 	 * @thorws \Exception if some other exception occurs
-	 */
+	 **/
 
 	public function __construct(int $newUserId = null, int $newCompanyId = null, int $newAccessId = null, string $newUserPhone, string $newUserFirstName, string $newUserLastName, int $newUserCrewId = null, string $newUserEmail, int $newUserActivation = null, int $newUserHash = null, int $newUserSalt = null) {
 		{
@@ -95,7 +95,33 @@ class User {
 				$this->setUserPhone($newUserPhone);
 				$this->setUserFirstName($newUserFirstName);
 				$this->setUserLastName($newUserLastName);
+				$this->setUserCrewId($newUserCrewId);
+				$this->setUserEmail($newUserEmail);
+				$this->setUserActivation($newUserActivation);
+				$this->setUserHash($newUserHash);
+				$this->setUserSalt($newUserHash);
+			} catch(\InvalidArgumentException $invalidArgument) {
+				//rethrow the exception to the caller
+				throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0,$invalidArgument));
+			} catch(\RangeException $range) {
+				//rethrow exception to caller
+				throw(new \RangeException($range->getMessage(), 0, $range));
+			} catch(\TypeError $typeError) {
+				//rethrow the exception to the caller
+				throw(new \TypeError($typeError->getMessage(), 0, $typeError));
+			} catch(\Exception $exception) {
+				//rethrow regular exception to caller
+				throw(new \Exception($exception->getMessage(), 0, $exception));
 			}
+		}
+
+		/**
+		 * accessor method for user id
+		 *
+		 * @return int|null value of user id
+		 */
+		public function getUserId() {
+			return($this->userId);
 		}
 	}
 }
