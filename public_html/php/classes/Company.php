@@ -252,7 +252,7 @@ class Company {
 	 * @return string company address line 2 content
 	 **/
 	public function getCompanyAddress2() {
-		return($this->CompanyAddress2);
+		return($this->companyAddress2);
 	}
 
 	/**
