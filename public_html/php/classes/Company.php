@@ -329,7 +329,7 @@ class Company {
 	 **/
 	public function setCompanyState(string $newCompanyState) {
 		// verify the company state content is secure
-		$newCompanyState = trim($newCompanyState;
+		$newCompanyState = trim($newCompanyState);
 		$newCompanyState = filter_var($newCompanyState, FILTER_SANITIZE_STRING);
 		if(empty($newCompanyState) === true) {
 			throw(new \InvalidArgumentException("company state content is empty or insecure"));
@@ -516,155 +516,145 @@ class Company {
 		}
 
 		// create query template
-		$query = "DELETE FROM tweet WHERE tweetId = :tweetId";
+		$query = "DELETE FROM company WHERE companyId = :companyId";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holder in the template
-		$parameters = ["tweetId" => $this->tweetId];
+		$parameters = ["companyId" => $this->companyId];
 		$statement->execute($parameters);
 	}
 
 	/**
-	 * updates this Tweet in mySQL
+	 * updates this Company in mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function update(\PDO $pdo) {
-		// enforce the tweetId is not null (i.e., don't update a tweet that hasn't been inserted)
-		if($this->tweetId === null) {
-			throw(new \PDOException("unable to update a tweet that does not exist"));
+		// enforce the companyId is not null (i.e., don't update a company that hasn't been inserted)
+		if($this->companyId === null) {
+			throw(new \PDOException("unable to update a company that does not exist"));
 		}
 
 		// create query template
-		$query = "UPDATE tweet SET profileId = :profileId, tweetContent = :tweetContent, tweetDate = :tweetDate WHERE tweetId = :tweetId";
+		$query = "UPDATE company SET companyAttn = :companyAttn, companyName = :companyName, companyAddress1 = :companyAddress1, companyAddress2 = :companyAddress2, companyCity = :companyCity, companyState = :companyState, companyZip = :companyZip, companyPhone = :companyPhone, companyEmail = :companyEmail, companyUrl = :companyUrl WHERE companyId = :companyId";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
-		$formattedDate = $this->tweetDate->format("Y-m-d H:i:s");
-		$parameters = ["profileId" => $this->profileId, "tweetContent" => $this->tweetContent, "tweetDate" => $formattedDate, "tweetId" => $this->tweetId];
+		$parameters = ["companyAttn" => $this->companyAttn, "companyName" => $this->companyName, "companyAddress1" => $this->companyAddress1, "companyAddress2" => $this->companyAddress2, "companyCity" => $this->companyCity, "companyState" => $this->companyState, "companyZip" => $this->companyZip, "companyPhone" => $this->companyPhone, "companyEmail" => $this->companyEmail, "companyUrl" => $this->companyUrl, "companyId" => $this->companyId];
 		$statement->execute($parameters);
 	}
 
 	/**
-	 * gets the Tweet by content
+	 * gets the Tweet by company name
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param string $tweetContent tweet content to search for
-	 * @return \SplFixedArray SplFixedArray of Tweets found
+	 * @param string $companyName company content to search for
+	 * @return \SplFixedArray SplFixedArray of Companies found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getTweetByTweetContent(\PDO $pdo, string $tweetContent) {
+	public static function getCompanyByCompanyName(\PDO $pdo, string $companyName) {
 		// sanitize the description before searching
-		$tweetContent = trim($tweetContent);
-		$tweetContent = filter_var($tweetContent, FILTER_SANITIZE_STRING);
-		if(empty($tweetContent) === true) {
-			throw(new \PDOException("tweet content is invalid"));
+		$companyName = trim($companyName);
+		$companyName = filter_var($companyName, FILTER_SANITIZE_STRING);
+		if(empty($companyName) === true) {
+			throw(new \PDOException("company name content is invalid"));
 		}
 
 		// create query template
-		$query = "SELECT tweetId, profileId, tweetContent, tweetDate FROM tweet WHERE tweetContent LIKE :tweetContent";
+		$query = "SELECT companyId, companyAttn, companyName, companyAddress1, companyAddress2, companyCity, companyState, companyZip, companyPhone, companyEmail, companyUrl FROM company WHERE companyName LIKE :companyName";
 		$statement = $pdo->prepare($query);
 
-		// bind the tweet content to the place holder in the template
-		$tweetContent = "%$tweetContent%";
-		$parameters = array("tweetContent" => $tweetContent);
+		// bind the company name content to the place holder in the template
+		$companyName = "%$companyName%";
+		$parameters = array("companyName" => $companyName);
 		$statement->execute($parameters);
 
-		// build an array of tweets
-		$tweets = new \SplFixedArray($statement->rowCount());
+		// build an array of companies
+		$companies = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$tweet = new Tweet($row["tweetId"], $row["profileId"], $row["tweetContent"], $row["tweetDate"]);
-				$tweets[$tweets->key()] = $tweet;
-				$tweets->next();
+				$company = new Company($row["companyId"], $row["companyAttn"], $row["companyName"], $row["companyAddress1"], $row["companyAddress2"], $row["companyCity"], $row["companyState"], $row["companyZip"], $row["companyPhone"], $row["companyEmail"], $row["companyUrl"]);
+				$companies[$companies->key()] = $company;
+				$companies->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($tweets);
+		return($companies);
 	}
 
 	/**
-	 * gets the Tweet by tweetId
+	 * gets the Company by companyId
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param int $tweetId tweet id to search for
-	 * @return Tweet|null Tweet found or null if not found
+	 * @param int $companyId company id to search for
+	 * @return Company|null Company found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getTweetByTweetId(\PDO $pdo, int $tweetId) {
-		// sanitize the tweetId before searching
-		if($tweetId <= 0) {
-			throw(new \PDOException("tweet id is not positive"));
+	public static function getCompanyByCompanyId(\PDO $pdo, int $companyId) {
+		// sanitize the companyId before searching
+		if($companyId <= 0) {
+			throw(new \PDOException("company id is not positive"));
 		}
 
 		// create query template
-		$query = "SELECT tweetId, profileId, tweetContent, tweetDate FROM tweet WHERE tweetId = :tweetId";
+		$query = "SELECT companyId, companyAttn, companyName, companyAddress1, companyAddress2, companyCity, companyState, companyZip, companyPhone, companyEmail, companyUrl FROM company WHERE companyId = :companyId";
 		$statement = $pdo->prepare($query);
 
-		// bind the tweet id to the place holder in the template
-		$parameters = array("tweetId" => $tweetId);
+		// bind the company id to the place holder in the template
+		$parameters = array("companyId" => $companyId);
 		$statement->execute($parameters);
 
-		// grab the tweet from mySQL
+		// grab the company from mySQL
 		try {
-			$tweet = null;
+			$company = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$tweet = new Tweet($row["tweetId"], $row["profileId"], $row["tweetContent"], $row["tweetDate"]);
+				$company = new Company($row["companyId"], $row["companyAttn"], $row["companyName"], $row["companyAddress1"], $row["companyAddress2"], $row["companyCity"], $row["companyState"], $row["companyZip"], $row["companyPhone"], $row["companyEmail"], $row["companyUrl"]);
 			}
 		} catch(\Exception $exception) {
 			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($tweet);
+		return($company);
 	}
 
 	/**
-	 * gets all Tweets
+	 * gets all Companies
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @return \SplFixedArray SplFixedArray of Tweets found or null if not found
+	 * @return \SplFixedArray SplFixedArray of Companies found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getAllTweets(\PDO $pdo) {
+	public static function getAllCompanies(\PDO $pdo) {
 		// create query template
-		$query = "SELECT tweetId, profileId, tweetContent, tweetDate FROM tweet";
+		$query = "SELECT companyId, companyAttn, companyName, companyAddress1, companyAddress2, companyCity, companyState, companyZip, companyPhone, companyEmail, companyUrl FROM company";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
-		// build an array of tweets
-		$tweets = new \SplFixedArray($statement->rowCount());
+		// build an array of companies
+		$companies = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$tweet = new Tweet($row["tweetId"], $row["profileId"], $row["tweetContent"], $row["tweetDate"]);
-				$tweets[$tweets->key()] = $tweet;
-				$tweets->next();
+				$company = new Company($row["companyId"], $row["companyAttn"], $row["companyName"], $row["companyAddress1"], $row["companyAddress2"], $row["companyCity"], $row["companyState"], $row["companyZip"], $row["companyPhone"], $row["companyEmail"], $row["companyUrl"]);
+				$companies[$companies->key()] = $company;
+				$companies->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return ($tweets);
+		return ($companies);
 	}
 
-	/**
-	 * formats the state variables for JSON serialization
-	 *
-	 * @return array resulting state variables to serialize
-	 **/
-	public function jsonSerialize() {
-		$fields = get_object_vars($this);
-		$fields["tweetDate"] = intval($this->tweetDate->format("U")) * 1000;
-		return($fields);
-	}
+
 }
