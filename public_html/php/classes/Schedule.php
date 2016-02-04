@@ -23,13 +23,14 @@ class Schedule implements \JsonSerializable {
 	 * actual start date when schedule begins; 14 day interval
 	 * @var \DateTime $scheduleStartDate
 	 **/
+	private $scheduleStartDate;
 
 	/**
 	 * constructor for this Schedule
 	 *
 	 * @param int|null $newScheduleId id of this Schedule or null if a new Schedule
 	 * @param int $newScheduleId id of the Profile that sent this Tweet
-	 * @param \DateTime|string|null $scheduleStartDate date 14 day interval schedule starts or null if set to current date and time
+	 * @param \DateTime|string $scheduleStartDate date 14 day interval schedule starts
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \TypeError if data types violate type hints
@@ -56,160 +57,121 @@ class Schedule implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for tweet id
+	 * accessor method for schedule id
 	 *
-	 * @return int|null value of tweet id
+	 * @return int|null value of schedule id
 	 **/
-	public function getTweetId() {
-		return($this->tweetId);
+	public function getScheduleId() {
+		return($this->scheduleId);
 	}
 
 	/**
-	 * mutator method for tweet id
+	 * mutator method for schedule id
 	 *
-	 * @param int|null $newTweetId new value of tweet id
+	 * @param int|null $newScheduleId new value of schedule id
 	 * @throws \RangeException if $newTweetId is not positive
 	 * @throws \TypeError if $newTweetId is not an integer
 	 **/
-	public function setTweetId(int $newTweetId = null) {
-		// base case: if the tweet id is null, this a new tweet without a mySQL assigned id (yet)
-		if($newTweetId === null) {
-			$this->tweetId = null;
+	public function setScheduleId(int $newScheduleId = null) {
+		// base case: if the schedule id is null, this a new schedule without a mySQL assigned id (yet)
+		if($newScheduleId === null) {
+			$this->scheduleId = null;
 			return;
 		}
 
-		// verify the tweet id is positive
-		if($newTweetId <= 0) {
-			throw(new \RangeException("tweet id is not positive"));
+		// verify the schedule id is positive
+		if($newScheduleId <= 0) {
+			throw(new \RangeException("schedule id is not positive"));
 		}
 
-		// convert and store the tweet id
-		$this->tweetId = $newTweetId;
+		// convert and store the schedule id
+		$this->scheduleId = $newScheduleId;
 	}
 
 	/**
-	 * accessor method for profile id
+	 * accessor method for crew id this Schedule is assigned to
 	 *
-	 * @return int value of profile id
+	 * @return int value of crew schedule id
 	 **/
-	public function getProfileId() {
-		return($this->profileId);
+	public function getScheduleCrewId() {
+		return($this->scheduleCrewId);
 	}
 
 	/**
-	 * mutator method for profile id
+	 * mutator method for crew id this Schedule is assigned to
 	 *
-	 * @param int $newProfileId new value of profile id
-	 * @throws \RangeException if $newProfileId is not positive
-	 * @throws \TypeError if $newProfileId is not an integer
+	 * @param int $newScheduleCrewId new value of id for crew this schedule is assigned to
+	 * @throws \RangeException if $newScheduleCrewId is not positive
+	 * @throws \TypeError if $newScheduleCrewId is not an integer
 	 **/
-	public function setProfileId(int $newProfileId) {
-		// verify the profile id is positive
-		if($newProfileId <= 0) {
-			throw(new \RangeException("profile id is not positive"));
+	public function setScheduleCrewId(int $newScheduleCrewId) {
+		// verify the schedule crew id is positive
+		if($newScheduleCrewId <= 0) {
+			throw(new \RangeException("scheduled crew id is not positive"));
 		}
 
-		// convert and store the profile id
-		$this->profileId = $newProfileId;
+		// convert and store the scheduled crew id
+		$this->scheduleCrewId = $newScheduleCrewId;
 	}
 
 	/**
-	 * accessor method for tweet content
+	 * accessor method for schedule start date
 	 *
-	 * @return string value of tweet content
+	 * @return \DateTime value of schedule start date
 	 **/
-	public function getTweetContent() {
-		return($this->tweetContent);
+	public function getScheduleStartDate() {
+		return($this->scheduleStartDate);
 	}
 
 	/**
-	 * mutator method for tweet content
+	 * mutator method for schedule start date
 	 *
-	 * @param string $newTweetContent new value of tweet content
-	 * @throws \InvalidArgumentException if $newTweetContent is not a string or insecure
-	 * @throws \RangeException if $newTweetContent is > 140 characters
-	 * @throws \TypeError if $newTweetContent is not a string
+	 * @param \DateTime|string $newScheduleStartDate schedule start date as a DateTime object or string
+	 * @throws \InvalidArgumentException if $newScheduleStartDate is not a valid object or string
+	 * @throws \RangeException if $newScheduleStartDate is a date that does not exist
 	 **/
-	public function setTweetContent(string $newTweetContent) {
-		// verify the tweet content is secure
-		$newTweetContent = trim($newTweetContent);
-		$newTweetContent = filter_var($newTweetContent, FILTER_SANITIZE_STRING);
-		if(empty($newTweetContent) === true) {
-			throw(new \InvalidArgumentException("tweet content is empty or insecure"));
-		}
+	public function setScheduleStartDate($newScheduleStartDate = null){
 
-		// verify the tweet content will fit in the database
-		if(strlen($newTweetContent) > 140) {
-			throw(new \RangeException("tweet content too large"));
-		}
-
-		// store the tweet content
-		$this->tweetContent = $newTweetContent;
-	}
-
-	/**
-	 * accessor method for tweet date
-	 *
-	 * @return \DateTime value of tweet date
-	 **/
-	public function getTweetDate() {
-		return($this->tweetDate);
-	}
-
-	/**
-	 * mutator method for tweet date
-	 *
-	 * @param \DateTime|string|null $newTweetDate tweet date as a DateTime object or string (or null to load the current time)
-	 * @throws \InvalidArgumentException if $newTweetDate is not a valid object or string
-	 * @throws \RangeException if $newTweetDate is a date that does not exist
-	 **/
-	public function setTweetDate($newTweetDate = null) {
-		// base case: if the date is null, use the current date and time
-		if($newTweetDate === null) {
-			$this->tweetDate = new \DateTime();
-			return;
-		}
-
-		// store the tweet date
+		// store the schedule start date
 		try {
-			$newTweetDate = $this->validateDate($newTweetDate);
+			$newScheduleStartDate = $this->validateDate($newScheduleStartDate);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		} catch(\RangeException $range) {
 			throw(new \RangeException($range->getMessage(), 0, $range));
 		}
-		$this->tweetDate = $newTweetDate;
+		$this->scheduleStartDate = $newScheduleStartDate;
 	}
 
 	/**
-	 * inserts this Tweet into mySQL
+	 * inserts this Schedule into mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function insert(\PDO $pdo) {
-		// enforce the tweetId is null (i.e., don't insert a tweet that already exists)
-		if($this->tweetId !== null) {
-			throw(new \PDOException("not a new tweet"));
+		// enforce the scheduleId is null (i.e., don't insert a schedule that already exists)
+		if($this->scheduleId !== null) {
+			throw(new \PDOException("not a new schedule"));
 		}
 
 		// create query template
-		$query = "INSERT INTO tweet(profileId, tweetContent, tweetDate) VALUES(:profileId, :tweetContent, :tweetDate)";
+		$query = "INSERT INTO schedule(scheduleCrewId, scheduleStartDate) VALUES(:scheduleCrewId, :scheduleCrewDate)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
-		$formattedDate = $this->tweetDate->format("Y-m-d H:i:s");
-		$parameters = ["profileId" => $this->profileId, "tweetContent" => $this->tweetContent, "tweetDate" => $formattedDate];
+		$formattedDate = $this->scheduleStartDate->format("Y-m-d H:i:s");
+		$parameters = ["scheduleCrewId" => $this->scheduleCrewId, "scheduleStartDate" => $formattedDate];
 		$statement->execute($parameters);
 
 		// update the null tweetId with what mySQL just gave us
-		$this->tweetId = intval($pdo->lastInsertId());
+		$this->scheduleId = intval($pdo->lastInsertId());
 	}
 
 
 	/**
-	 * deletes this Tweet from mySQL
+	 * deletes this Schedule from mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
