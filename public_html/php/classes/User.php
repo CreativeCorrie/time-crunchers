@@ -379,7 +379,21 @@ class User {
 		}
 
 		/**
-		 * accessor
+		 * accessor method user activation
+		 *
+		 * @return int|null $newUserActivation
 		 */
+		public function getUseractivation() {
+			return($this->userActivatin);
+		}
+
+		/**
+		 * mutator method for user activation
+		 *
+		 * @param int|null for $newUserActivation
+		 * @param \RangeException if $newRangeException is > 32
+		 * @param \TypeError if $newUserActivation is not an int
+		 */
+		public function setUserActivation(int $newUserActivation = null)
 	}
 }
