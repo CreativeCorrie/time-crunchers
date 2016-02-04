@@ -95,7 +95,7 @@ public function __construct(int $newAccessId = null, string $newAccessName){
  *
  * @param string$newAccessName new value for access name
  * @throws \InvalidArgumentException if new$AccessName is not a string or insecure
- * @throws \RangeException if $newAccessName is >32
+ * @throws \RangeException if $newAccessName is > 32
  * @throws \TypeError if $newAccessName is not a string
  */
 	public function setAccessName(string $newAccessName) {
