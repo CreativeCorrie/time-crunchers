@@ -136,7 +136,7 @@
 	  * inserts crew into mySQL
 	  *
 	  * @param \PDO $pdo PDO connection object
-	  * @thros \PDOException when mySQL related errors occur
+	  * @throws \PDOException when mySQL related errors occur
 	  * @throws \TypeError if $pdo is not a PDO connection object
 	  **/
 	 public function insert(\PDO $pdo) {
@@ -145,14 +145,87 @@
 			 throw(new  \PDOException("not a new crew"));
 		 }
 		 //create query template
-		 $query = "INSERT INTO crew(crewId, crewLocation, crewCompanyId)VALUES (:crewId, :crewLocation, :crewCompanyId)";
+		 $query = "INSERT INTO crew(crewLocation, crewCompanyId) VALUES(:crewLocation, :crewCompanyId)";
 		 $statement = $pdo->prepare($query);
 
 		 //bind the member variables to the place holders in the template
-		 $parameters = ["crewId" => $this->crewId, "crewLocation" => $this->crewLocation, "crewCompanyId" => $this->crewCompanyId];
+		 $parameters = ["crewLocation" => $this->crewLocation, "crewCompanyId" => $this->crewCompanyId];
 		 $statement->execute($parameters);
 
 		 //update the null crewId with what mySQL just gave us
 		 $this->crewId = intval($pdo->lastInsertId());
+	 }
+	 /**
+	  * deletes this crew from mySQL
+	  *
+	  * @param \PDO $pdo PDO connection object
+	  * @throws \PDOException when mySQL related errors occur
+	  * @throws \TypeError if $pdo is not a PDO connection object
+	  **/
+	 public function delete(\PDO $pdo) {
+		 //enforce the crew is not null (i.e., don't delete a crew that hasn't been inserted)
+		 if($this->crewId === null) {
+			 throw(new \PDOException("unable to delete a crew that does not exist"));
+		 }
+		 //create query template
+		 $query = "DELETE FROM crew WHERE crewId = :crewId";
+		 $statement = $pdo->prepare($query);
+
+		 //bind the member variable to the place holder in the template
+		 $parameters = ["crewId" => $this->crewId];
+		 $statement->execute($parameters);
+	 }
+	 /**
+	  * updates this Crew in mySQL
+	  *
+	  * @param \PDO $pdo PDO connection object
+	  * @throws \PDOException when mySQL related errors occur
+	  * @throws \TypeError if $pdo is not a PDO connection object
+	  **/
+	 public function update(\PDO $pdo) {
+		 //enforce the crewID is not null (i.e., don't update a crew that hasn't been inserted)
+		 if($this->crewId === null) {
+			 throw(new  \PDOException("unable to update a crew that does not exist"));
+		 }
+		 //create query template
+		 $query = "UPDATE crew SET crewLocation = :crewLocation, crewCompanyId = :crewCompanyId WHERE crewId = :crewId";
+		 $statement = $pdo->Prepare($query);
+	 }
+
+	 /**
+	  * gets the Crew by crewId
+	  *
+	  * @param \PDO $pdo PDO connection object
+	  * @param int $crewId crew id to search for
+	  * @return Crew|null Crew found or null if not found
+	  * @throws \PDOException when mySQL related errors occur
+	  * @throws \TypeError when variables are not the correct data type
+	  **/
+	 public static function getCrewByCrewId(\PDO $pdo, int $crewId) {
+		 //sanitize the crewId before searching
+		 if($crewId <=0) {
+			 throw(new  \PDOException("crew id is not positive"));
+			 //create query template
+			 $query = "SELECT crewId, crewLocation, crewCompanyId FROM crew WHERE crewId = :crewId";
+			 $statement = $pdo->prepare($query);
+
+			 //bind the crew id to the place holder in the template
+			 $parameters = array("crewId => $crewId");
+			 $statement->execute($parameters);
+
+			 //grab the crew from mySQL
+			 try {
+				 $crew = null;
+				 $statement->setFetchMode(\PDO::FETCH_ASSOC);
+				 $row = $statement->fetch();
+				 if($row !== false) {
+					 $crew = new Crew($row["crewId"], $row["crewLocation"], $row["crewCompanyId"]);
+				 }
+			 } catch(Exception $exception) {
+				 //if the row couldn't be converted, rethrow it
+				 throw(new \PDOException($exception->getMessage(), 0, $exception));
+			 }
+			 return($crew);
+		 }
 	 }
  }
