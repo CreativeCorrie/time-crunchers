@@ -228,24 +228,158 @@ class User {
 		 * @param \TypeError if $newUserPhone is not a string
 		 */
 		public function setUserPhone(string $newUserPhone) {
-			//verify UserPhone is secure
+			//verify userPhone is secure
 			$newUserPhone = trim($newUserPhone);
 			$newUserPhone = Filter_var($newUserPhone, FILTER_SANITIZE_STRING);
 			if(empty($newUserPhone) === true) {
 				throw(new \InvalidArgumentException("user phone is empty or not secure"));
 			}
 
-			//verify
+			//verify user phone will fit in the database
 			if(strlen($newUserPhone) > 32) {
 				throw(new \RangeException("user phone too large"));
 			}
 
-			//store the access name
+			//store the user phone
 			$this->userPhone = $newUserPhone;
 		}
 
 		/**
+		 *accessor for user first name
 		 *
+		 * @return string $newUserFirstName
+		 */
+		public function getUserFirstName() {
+			return ($this->userFirstName);
+		}
+
+		/**
+		 * mutator method for user first name
+		 *
+		 * @param string $newUserFirstName string of users first name
+		 * @param \InvalidArgumentException if $newUserFirstName is not a string
+		 * @param \RangeException if $newUserFirstName is > 32
+		 * @param \TypeError if $newUserFirstName is not a string
+		 */
+		public function setUserFirstName(string $newUserFirstName) {
+			//verify userFirstName is secure
+			$newUserFirstName = trim($newUserFirstName);
+			$newUserFirstName = Filter_var($newUserFirstName, FILTER_SANITIZE_STRING);
+			if(empty($newUserFirstName) === true) {
+				throw(new \InvalidArgumentException("user first name is empty or not secure"));
+			}
+
+			//verify user first name will fit in database.
+			if(strlen($newUserFirstName) > 32) {
+				throw(new \RangeException("user first name too large"));
+			}
+
+			//store the user first name
+			$this->userFirstName = $newUserFirstName;
+		}
+
+		/**
+		 * accessor for user last name
+		 *
+		 * @return string $newUserLastName
+		 */
+		public function getUserLastName() {
+			return ($this->userLastName);
+		}
+
+		/**
+		 * mutator method for the user last name
+		 *
+		 * @param string $newUserLastName string of users last name
+		 * @param \InvalidArgumentException if $newUserLastName is not a string
+		 * @param \RangeException if $newUserLastName is > 32
+		 * @param \TypeError if $newUserLastName is not a string
+		 */
+		public function setUserLastName(string $newUserLastName) {
+			//verify userFirstName is secure
+			$newUserLastName = trim($newUserLastName);
+			$newUserLastName = Filter_var($newUserLastName, FILTER_SANITIZE_STRING);
+			if(empty($newUserLastName) === true) {
+				throw(new \InvalidArgumentException("user first name is empty or not secure"));
+			}
+
+			//verify user first name will fit in database.
+			if(strlen($newUserLastName) > 32) {
+				throw(new \RangeException("user first name too large"));
+			}
+
+			//store the user first name
+			$this->userLastName = $newUserLastName;
+		}
+
+		/**
+		 * accessor for user crew id
+		 *
+		 * @return int $newCrewId
+		 */
+		public function getUserCrewId() {
+			return ($this->userCrewId);
+		}
+
+		/**
+		 * mutator for user crew id
+		 *
+		 * @param int|null $newCrewId new value for crew id
+		 * @param \RangeExcemption if user crew id is not positive
+		 * @param \TypeError if $newCrewId is not an integer
+		 */
+		public function setUserCrewId(int $newUserCrewId = null){
+			//apply filter to input
+			 if($newCrewId === null) {
+				 $this->crewId = null;
+				 return;
+			 }
+
+			//verify the crew id is positive
+			if($newCrewId <= 0) {
+				throw(new \RangeException("crew id is not positive"));
+			}
+
+			//convert and store the crew id
+			$this->crewId = $newUserCrewId;
+		}
+
+		/**
+		 * accessor method user email
+		 *
+		 * @return string $newUserEmail
+		 */
+		public function getUserEmail() {
+			return($this->userEmail);
+		}
+
+		/**
+		 * mutator method for user email
+		 *
+		 * @param string $newUserEmail string of users email info
+		 * @param \InvalidArgumentException if $newUserEmail is not a string
+		 * @param \RangeException if $newUserEmail is out of range
+		 * @param \TypeError is $newUserEmail is not a string
+		 */
+		public function setUserEmail(string $newUserEmail) {
+			//verify the User email is secure
+			$newUserEmail = trim($newUseremail);
+			$newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_STRING);
+			if(empty($newUserEmail) === true) {
+				throw(new \InvalidArgumentException("user email is not secure"));
+			}
+
+			//verify the user email will fit in the database
+			if(strlen($newUserEmail) > 32) {
+				throw(new \RangeException("user email to long"));
+			}
+
+			//store the user email
+			$this->userEmail = $newUserEmail
+		}
+
+		/**
+		 * accessor
 		 */
 	}
 }
