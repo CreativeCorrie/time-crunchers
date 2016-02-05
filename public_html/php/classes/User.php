@@ -89,8 +89,8 @@ class User {
 	public function __construct(int $newUserId = null, int $newCompanyId = null, int $newAccessId = null, string $newUserPhone, string $newUserFirstName, string $newUserLastName, int $newUserCrewId = null, string $newUserEmail, int $newUserActivation = null, int $newUserHash = null, int $newUserSalt = null) {
 		try {
 			$this->setUserId($newUserId);
-			$this->setCompanyId($newCompanyId);
-			$this->setAccessId($newAccessId);
+			$this->setUserCompanyId($newCompanyId);
+			$this->setUserAccessId($newAccessId);
 			$this->setUserPhone($newUserPhone);
 			$this->setUserFirstName($newUserFirstName);
 			$this->setUserLastName($newUserLastName);
@@ -488,5 +488,5 @@ class User {
 	}
 
 	//create quarry template
-	$query = "insert into user()"
+	$query = "insert into user()
 }
