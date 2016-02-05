@@ -394,6 +394,17 @@ class User {
 		 * @param \RangeException if $newRangeException is > 32
 		 * @param \TypeError if $newUserActivation is not an int
 		 */
-		public function setUserActivation(int $newUserActivation = null)
+		public function setUserActivation(int $newUserActivation = null) {
+			//apply the filter to the input
+			if($newUserActivation === null) {
+				$this->userActivation = null;
+				return;
+			}
+
+			//verify user activation is positive
+			if($newUserActivation <= 0) {
+				throw(new \RangeException("user "))
+			}
+		}
 	}
 }
