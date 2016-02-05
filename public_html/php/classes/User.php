@@ -151,31 +151,31 @@ class User {
 	 *
 	 * @return int|null value of company id
 	 */
-	public function getCompanyId() {
-		return ($this->companyId);
+	public function getUserCompanyId() {
+		return ($this->userCompanyId);
 	}
 
 	/**
 	 * mutator method for company id
 	 *
-	 * @param int|null $newCompanyId new value for company id
-	 * @param \RangeException if $newCompanyId is not positive
-	 * @param \TypeError if $newCompanyId is not an integer
+	 * @param int|null $newUserCompanyId new value for company id
+	 * @param \RangeException if $newUserCompanyId is not positive
+	 * @param \TypeError if $newUserCompanyId is not an integer
 	 **/
-	public function setCompanyId(int $newCompanyId = null) {
+	public function setCompanyId(int $newUserCompanyId = null) {
 		//base case: if the company is null, this is a new company id
-		if($newCompanyId === null) {
-			$this->companyId = null;
+		if($newUserCompanyId === null) {
+			$this->userCompanyId = null;
 			return;
 		}
 
 		//verify company id is positive
-		if($newCompanyId <= 0) {
-			throw(new \RangeException("company id is not positive"));
+		if($newUserCompanyId <= 0) {
+			throw(new \RangeException("users company id is not positive"));
 		}
 
 		//convert and store company id
-		$this->companyId = $newCompanyId;
+		$this->userCompanyId = $newUserCompanyId;
 	}
 
 	/**
@@ -183,30 +183,30 @@ class User {
 	 *
 	 * @return int|null $newAccessId
 	 */
-	public function getAccessId() {
-		return ($this->accessId);
+	public function getUserAccessId() {
+		return ($this->userAccessId);
 	}
 
 	/**
 	 * mutator method for access id
 	 *
-	 * @param int|null $newAccessId new value for access id
-	 * @param \RangeException if $newAccessId is not positive
-	 * @param \TypeError if $newAccessId is not an integer
+	 * @param int|null $newUserAccessId new value for access id
+	 * @param \RangeException if $newUserAccessId is not positive
+	 * @param \TypeError if $newUserAccessId is not an integer
 	 **/
-	public function setAccessId(int $newAccessId = null) {
+	public function setUserAccessId(int $newUserAccessId = null) {
 		//base case: if Access id is null, this is first time accessing
-		if($newAccessId === null) {
-			$this->accessId = null;
+		if($newUserAccessId === null) {
+			$this->userAccessId = null;
 			return;
 		}
 		//verify company id is positive
-		if($newAccessId <= 0) {
+		if($newUserAccessId <= 0) {
 			throw(new \RangeException("access id is not positive"));
 		}
 
 		//convert and store access id
-		$this->accessId = $newAccessId;
+		$this->userAccessId = $newUserAccessId;
 	}
 
 	/**
@@ -472,4 +472,21 @@ class User {
 		//convert and store user salt
 		$this->userSalt = $newUserSalt;
 	}
+}
+
+	/**
+	 * inserts this User into mySQL
+	 *
+	 * @param \pdo $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo) {
+	//enforce Userid is null
+	if($this->userId !== null) {
+			throw(new \PDOException("not a new user"));
+	}
+
+	//create quarry template
+	$query = "insert into user()"
 }
