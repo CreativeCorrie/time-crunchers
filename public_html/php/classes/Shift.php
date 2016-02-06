@@ -71,7 +71,7 @@ class Shift {
 	 * @throws UnexpectedValueException if $newShiftId is ot an integer
 	 **/
 	public function setShiftId($newShiftId) {
-		//verify the profile id is valid
+		//verify the shift id is valid
 		$newShiftId = filter_var($newShiftId, FILTER_VALIDATE_INT);
 		if($newShiftId === false) {
 			throw(new UnexpectedValueException("shift id is not a valid integer"));
@@ -114,7 +114,7 @@ class Shift {
 		if($newShiftCrewId === false) {
 			throw (new UnexpectedValueException("shift crew id is not a valid integer"));
 		}
-		//convert and store the profile id
+		//convert and store the shift crew id
 		$this->shiftCrewId = intval($newShiftCrewId);
 	}
 }
