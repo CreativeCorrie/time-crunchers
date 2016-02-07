@@ -299,7 +299,7 @@ class Shift {
 		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftTime" => $this->shiftTime, "shiftDate" => $this->shiftDate, "shiftDelete" => $this->shiftDelete];
 		$statement->execute($parameters);
 
-		//update teh null shiftId with what mySQL just gave us
+		//update the null shiftId with what mySQL just gave us
 		$this->shiftId = intval($pdo->lastInsertId());
 	}
 	/**
