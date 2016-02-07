@@ -56,6 +56,44 @@ class Shift {
 	 **/
 	private $shiftDelete;
 
+	/**
+	 * constructor for shift
+	 *
+	 * @param int|null $newShiftId id of crew or null if a new shift
+	 * @param int$newShiftUserId of the user who initialized this shift
+	 * @param int$newShiftCrewId of the crew assigned to this shift
+	 * @param int$newhiftRequestId of the request for time off(on) in the shift
+	 * @param \DateTime $newShiftTime of the time for the shift
+	 * @param \DateTime $newShiftDate of the date fo the shift
+	 * @param boolean $newShiftDelete of the boolean return of a soft deleted shift
+	 * @throws \InvalidArgumentException if data types are ot valid
+	 * @throws \RangeException if data values are out of boutnds (e.g., strings too long, negative integers)
+	 * @throws \typeerror if data tpes violate type hints
+	 * @throws \Exception if some other exception occurs
+	 **/
+	public function __construct(int $newShiftId = null, int $newShiftUserId = null, int $newShiftCrewId = null, int $newShiftRequestId = null, int $newShiftTime = null, int $newShiftDate = null, bool $newShiftDelete = 0) {
+		try{
+			$this->setShiftId($newShiftId);
+			$this->setShiftUserId($newShiftUserId);
+			$this->setShiftCrewId($newShiftCrewId);
+			$this->setShiftRequestId($newShiftRequestId);
+			$this->setShiftTime($newShiftTime);
+			$this->setShiftDate($newShiftDate);
+			$this->setShiftDelete($newShiftDelete);
+		} catch(\InvalidArgumentException $invalidArgument) {
+			//rethrow the exception to the caller
+			throw(new  \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			//rethrow the exception to the caller
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		} catch(\TypeError $typeError) {
+			//rethrow the exception to the caller
+			throw (new  \TypeError($typeError->getMessage(), 0, $typeError));
+		} catch(\Exception $exception) {
+			//rethrow the exception to the caller
+			throw(new \Exception($exception->getMessage(), 0, $exception));
+		}
+	}
 
 
 	/**
