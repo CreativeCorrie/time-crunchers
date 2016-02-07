@@ -30,6 +30,13 @@ class Shift {
 	private $shiftCrewId;
 
 	/**
+	 * shiftRequestId, identifies shift requests
+	 * @var int shiftRequestId
+	 * this is a foreign key
+	 **/
+	private $shiftRequestId;
+
+	/**
 	 * shiftTime, identifies the time of a shift
 	 * @var int shiftTime
 	 **/
@@ -40,7 +47,7 @@ class Shift {
 	 * @var int shiftDay
 	 *this may be a timestamp?
 	 **/
-	private $shiftDay;
+	private $shiftDate;
 
 	/**
 	 *shiftDeleted, identifies or an action for un-needed shifts
@@ -49,15 +56,11 @@ class Shift {
 	 **/
 	private $shiftDeleted;
 
-	/**
-	 * shiftRequestId, identifies shift requests
-	 * @var int shiftRequestId
-	 * this is a foreign key
-	 **/
-	private $shiftRequestId;
+
 
 	/**
 	 * accessor method for shift id
+	 * this is the primary key
 	 *
 	 * @return int value of shiftId
 	 **/
@@ -81,6 +84,7 @@ class Shift {
 	}
 	/**
 	 * accessor method for shift user id
+	 * this is a foreign key
 	 *
 	 * @return int value of shift user id
 	 */
@@ -102,8 +106,18 @@ class Shift {
 		//convert and store the shift user id
 		$this->shiftUserId = intval($newShiftUserId);
 	}
+
 	/**
-	 * assessor method for shift crew id
+	 * accessor method for shift crew id
+	 * this is a foreign key
+	 *
+	 * @return int value of shift crew id
+	 **/
+	public function getShiftCrewId() {
+		return($this->shiftCrewId);
+	}
+	/**
+	 * mutator method for shift crew id
 	 *
 	 * @param int $newShiftCrewId new value of shift crew id
 	 * @throws UnexpectedValueException if $newShiftCrewId is not an integer
@@ -116,5 +130,29 @@ class Shift {
 		}
 		//convert and store the shift crew id
 		$this->shiftCrewId = intval($newShiftCrewId);
+	}
+	/**
+	 * accessor method for shift request id
+	 * this is a foreign key
+	 *
+	 * @return int value of shift request id
+	 **/
+	public function getShiftRequestId() {
+		return($this->shiftRequestId);
+	}
+	/**
+	 * mutator method for shift request id
+	 *
+	 * @param int	$newShiftRequestId new value of shift request id
+	 * @throws UnexpectedValueException if $newShiftRequestId is not an integer
+	 **/
+	public function setShiftRequestId($newShiftRequestId) {
+		//verify the shift request id is valid
+		$newShiftRequestId = filter_var($newShiftRequestId, FILTER_VALIDATE_INT);
+		if($newShiftRequestId === false) {
+			throw  (new UnexpectedValueException("shift request id is not a valid integer"));
+		}
+		//convert and store the shift crew id
+		$this>$this->shiftRequestId = intval($newShiftRequestId);
 	}
 }
