@@ -155,4 +155,36 @@ class Shift {
 		//convert and store the shift crew id
 		$this>$this->shiftRequestId = intval($newShiftRequestId);
 	}
+	/**
+	 * accessor method for shift time
+	 *
+	 * @return \DateTime value of shift time
+	 **/
+	public function getShiftTime() {
+		return($this->shiftTime);
+	}
+	/**
+	 * mutator method for shift time
+	 *
+	 * @param \DateTime|string|null $newShiftTime shift time as a DateTime object or string (or null to load the current time)
+	 * @throws \InvalidArgumentException if $newShiftTime is not a valid object or string
+	 * @throws \RangeException if $newShiftTime is a time that does not exist
+	 **/
+	public function setShiftTime($newShiftTime = null) {
+		//base case: if the time is ull, use the current time
+		if($newShiftTime === null) {
+			$this->shiftTime = new \DateTime();
+			return;
+		}
+		//store the shift time
+		try{
+			$newShiftTime = $this->validateTime($newShiftTime);
+		} catch(\InvalidArgumentException $invalidArgument) {
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		}
+		$this->shiftTime = $newShiftTime;
+	}
+
 }
