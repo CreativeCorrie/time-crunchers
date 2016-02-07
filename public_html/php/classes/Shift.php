@@ -54,7 +54,7 @@ class Shift {
 	 * this is a soft delete
 	 * @var int shiftDeleted
 	 **/
-	private $shiftDeleted;
+	private $shiftDelete;
 
 
 
@@ -153,7 +153,7 @@ class Shift {
 			throw  (new UnexpectedValueException("shift request id is not a valid integer"));
 		}
 		//convert and store the shift crew id
-		$this>$this->shiftRequestId = intval($newShiftRequestId);
+		$this->shiftRequestId = intval($newShiftRequestId);
 	}
 	/**
 	 * accessor method for shift time
@@ -178,7 +178,7 @@ class Shift {
 		}
 		//store the shift time
 		try{
-			$newShiftTime = $this->validateTime($newShiftTime);
+			$newShiftTime = $this->validateShiftTime($newShiftTime);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		} catch(\RangeException $range) {
@@ -186,5 +186,58 @@ class Shift {
 		}
 		$this->shiftTime = $newShiftTime;
 	}
+	/**
+	 * accessor method for shift date
+	 *
+	 * @return \DateTime value of shift date
+	 **/
+	public function getShiftDate() {
+		return($this->shiftDate);
+	}
+	/**
+	 * mutator method for shift date
+	 *
+	 * @param \DateTime|string|null $newShiftDate shift date as a DateTime object of string (of null to load the current time)
+	 * @throws \InvalidArgumentException if $newShiftDate is not a valid object or string
+	 * @throws \RangeException if $newShiftDate is a date that does not exist
+	 **/
+	public function setShiftDate($newShiftDate = null) {
+		//base case: if the date is null, use the current date
+		if($newShiftDate === null) {
+			$this->shiftDate = new \DateTime();
+			return;
+		}
+		//store the shift date
+		try{
+			$newShiftDate = $this->validateShiftDate($newShiftDate);
+		} catch(\InvalidArgumentException $invalidArgument) {
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		}catch(\RangeException $range) {
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		}
+		$this->shiftDate = $newShiftDate;
+	}
+	/**
+	 * accessor method for shift delete
+	 * this is the for a soft delete
+	 * this is a boolean
+	 *
+	 * @return int value of shift delete
+	 **/
+	public function getShiftDelete() {
+		return($this->shiftDelete);
+	}
 
+	/**
+	 * mutator method for shift delete
+	 *
+	 * @param int $newShiftDelete new value of shift delete
+	 * @throws UnexpectedValueException if $newShiftDelete === false
+	 **/
+	public function setShiftDelete($newShiftDelete) {
+		if(is_bool($newShiftDelete) === false) {
+			throw(new \InvalidArgumentException("not a boolean"));
+		}
+		$this->shiftDelete = $newShiftDelete;
+	}
 }
