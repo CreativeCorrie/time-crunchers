@@ -62,13 +62,13 @@ class Shift {
 	 * @param int|null $newShiftId id of crew or null if a new shift
 	 * @param int$newShiftUserId of the user who initialized this shift
 	 * @param int$newShiftCrewId of the crew assigned to this shift
-	 * @param int$newhiftRequestId of the request for time off(on) in the shift
+	 * @param int$newShiftRequestId of the request for time off(on) in the shift
 	 * @param \DateTime $newShiftTime of the time for the shift
 	 * @param \DateTime $newShiftDate of the date fo the shift
 	 * @param boolean $newShiftDelete of the boolean return of a soft deleted shift
 	 * @throws \InvalidArgumentException if data types are ot valid
-	 * @throws \RangeException if data values are out of boutnds (e.g., strings too long, negative integers)
-	 * @throws \typeerror if data tpes violate type hints
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+	 * @throws \typeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
 	public function __construct(int $newShiftId = null, int $newShiftUserId = null, int $newShiftCrewId = null, int $newShiftRequestId = null, int $newShiftTime = null, int $newShiftDate = null, bool $newShiftDelete = 0) {
@@ -279,7 +279,7 @@ class Shift {
 		$this->shiftDelete = $newShiftDelete;
 	}
 	/**
-	 * inserts shift into mySQL
+	 * inserts this Shift into mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySLQ related errors occur
@@ -290,12 +290,14 @@ class Shift {
 		if($this->shiftCrewId !== null) {
 			throw(new  \PDOException("not a new shift"));
 		}
+
 		//create query template
-		$query = "INSERT INTO shift(shiftUserId, shiftCrewId, shiftRequestId, shiftTime, shiftDate, shiftDelete) VALUES(:shiftUserId, :shiftCrewId, :shiftRequestId, :shiftTime, :shiftDate, :shiftdelete)";
+		$query = "INSERT INTO shift (shiftUserId, shiftCrewId, shiftRequestId, shiftTime, shiftDate, shiftDelete) VALUES(:shiftUserId, :shiftCrewId, :shiftRequestId, :shiftTime, :shiftDate, :shiftdelete)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
 		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftTime" => $this->shiftTime, "shiftDate" => $this->shiftDate, "shiftDelete" => $this->shiftDelete];
+		$statement->execute($parameters);
 
 		//update teh null shiftId with what mySQL just gave us
 		$this->shiftId = intval($pdo->lastInsertId());
@@ -320,4 +322,62 @@ class Shift {
 		$parameters = ["shiftId" => $this->shiftId];
 		$statement->execute($parameters);
 	}
+	/**
+	 * updates this Shift in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo) {
+		//enforce the shiftId is not null (i.e., don't update a shift that hasn't been inserted)
+		if($this->shiftId === null) {
+			throw(new \PDOException("unable to update a shift that does not exist"));
+		}
+		//create query template
+		$query = "UPDATE shift SET shiftUserId = :shiftUserId, shiftCrewId = :shiftCrewId, shiftRequestId = :shiftRequestId, shiftTime = :shiftTime, shiftDate = :shiftDate, shiftDelete = :shiftDelete WHERE shiftId = :shiftId";
+		$statement = $pdo->Prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftTime" => $this->shiftTime, "shiftDate" => $this->shiftDate, "shiftDelete" => $this->shiftDelete];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * gets the Shift by shiftId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $shiftId shift is to search for
+	 * @return Shift|null Shift found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @hrows \TypeError when variable are not the correct data type
+	 **/
+	public static function getShiftByShiftId(\Pdo $pdo, int $shiftId) {
+		//sanitize the shiftId before searching
+		if($shiftId <=0) {
+			throw(new \PDOException("shift id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT shiftId, shiftUserId, shiftCrewId, ShiftRequestId, shiftTime, shiftDate, shiftDelete FROM shift WHERE shiftId = :shiftId";
+		$statement = $pdo->prepare($query);
+
+		//bind the shift id to the place holder in the template
+		$parameters = array("shiftId => $shiftId");
+		$statement->execute($parameters);
+
+		//grab the shift from mySQL
+		try {
+			$shift = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$shift = new Shift($row["shiftId"], $row["shiftUserId"], $row["shiftCrewId"], $row["shiftRequestId"], $row ["shiftTime"], $row["shiftDate"], $row["shiftDelete"]);
+				}
+			} catch(Exception $exception) {
+				//if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+			return($shift);
+		}
 }
