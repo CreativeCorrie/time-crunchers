@@ -278,4 +278,29 @@ class Shift {
 		}
 		$this->shiftDelete = $newShiftDelete;
 	}
+	/**
+	 * inserts shift into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySLQ related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo) {
+		//enforce the shiftId is null (i.e., don't insert a crew that already exists)
+		if($this->shiftCrewId !== null) {
+			throw(new  \PDOException("not a new shift"));
+		}
+		//create query template
+		$query = "INSERT INTO shift(shiftUserId, shiftCrewId, shiftRequestId, shiftTime, shiftDate, shiftDelete)";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftTime" => $this->shiftTime, "shiftDate" => $this->shiftDate, "shiftDelete" => $this->shiftDelete];
+
+		//update teh null shiftId with what mySQL just gave us
+		$this->shiftId = intval($pdo->lastInsertId());
+	}
+	/**
+	 *
+	 **/
 }
