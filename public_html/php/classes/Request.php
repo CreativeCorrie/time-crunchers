@@ -122,7 +122,7 @@ class Request implements \JsonSerializable{
 	 * @param int $newRequestRequestorId userId of person making request
 	 *
 	 */
-	public function setRequestRequestorId($requestRequestorId) {
+	public function setRequestRequestorId($newRequestRequestorId) {
 		if($newRequestRequestorId <= 0) {
 			throw(new \RangeException("requestor id is not poitive"));
 		}
@@ -132,67 +132,105 @@ class Request implements \JsonSerializable{
 	public function getRequestAdminId() {
 		return($this->requestAdminId);
 	}
-	public function setRequestAdminId($requestAdminId) {
+	public function setRequestAdminId($newRequestAdminId) {
 		if($newRequestAdminId <= 0) {
 			throw(new \RangeException("administrator id is not positive"));
 		}
-		$this->requestAdminId = $requestAdminId;
+		$this->requestAdminId = $newRequestAdminId;
 	}
 
 	public function getRequestTimeStamp() {
 		return ($this->requestTimeStamp);
 	}
-	public function setRequestTimeStamp($requestTimeStamp) {
+	public function setRequestTimeStamp($newRequestTimeStamp) {
 		if($newRequestTimeStamp === null) {
 			$this->requestTimeStamp = new \DateTime();
 			return;
 		}
-		$this->requestTimeStamp = $requestTimeStamp;
+		$this->requestTimeStamp = $newRequestTimeStamp;
 	}
 
 	public function getRequestActionTimeStamp() {
 		return ($this->requestActionTimeStamp);
 	}
-	public function setRequestActionTimeStamp($requestActionTimeStamp) {
+	public function setRequestActionTimeStamp($newRequestActionTimeStamp) {
 		if($newRequestActionTimeStamp === null){
 			$this->requestActionTimeStamp = new \DateTime();
 			return;
 		}
-		$this->requestActionTimeStamp = $requestActionTimeStamp;
+		$this->requestActionTimeStamp = $newRequestActionTimeStamp;
 	}
 
 	public function getRequestApprove() {
 		return ($this->requestApprove);
 	}
-	public function setRequestApprove($requestApprove) {
+	public function setRequestApprove($newRequestApprove) {
 		if(is_bool($newRequestApprove) === false) {
 			throw(new \InvalidArgumentException("not a boolean"));
 		}
-		$this->requestApprove = $requestApprove;
+		$this->requestApprove = $newRequestApprove;
 	}
 
 	public function getRequestRequestorText() {
-		return ($this->requestRequestorText);
+		return ($this->newRequestRequestorText);
 	}
-	public function setRequestRequestorText(string $requestRequestorText) {
+	public function setRequestRequestorText(string $newRequestRequestorText) {
 		$newRequestRequestorText = trim($newRequestRequestorText);
 		$newRequestRequestorText = filter_var($newRequestRequestorText, FILTER_SANITIZE_STRING);
 		if(strlen($newRequestRequestorText) > 255) {
 			throw(new \RangeException("comment too large, 255 characters or less please"));
 		}
-		$this->requestRequestorText = $requestRequestorText;
+		$this->requestRequestorText = $newRequestRequestorText;
 	}
 
 	public function getRequestAdminText() {
 		return ($this->requestAdminText);
 	}
-	public function setRequestAdminText(string $requestAdminText) {
-		$newRequestAdminText = trim($requestAdminText);
+	public function setRequestAdminText(string $newRequestAdminText) {
+		$newRequestAdminText = trim($newRequestAdminText);
 		$newRequestAdminText = filter_var($newRequestAdminText, FILTER_SANITIZE_STRING);
 		if(strlen($newRequestAdminText) > 255) {
-			throw(new \RangeException("comment too large, 255 character or less pleas");)
+			throw(new \RangeException("comment too large, 255 character or less pleas"));
 		}
-		$this->requestAdminText = $requestAdminText;
+		$this->requestAdminText = $newRequestAdminText;
 	}
+
+	public function insert(\PDO $pdo) {
+		if($this->requestId !== null) {
+			throw(new \PDOException("not a new request"));
+		}
+		$query = "INSERT INTO request(requestRequestorId,requestAdminId,requestTimeStamp,
+			requestActionTimeStamp,requestApprove,requestRequestorText,requestAdminText) VALUES(:requestRequestorId,
+			:requestAdminId,:requestTimeStamp,:requestActionTimeStamp,:requestApprove,:requestRequestorText,
+			:requestAdminText)";
+		$statement = $pdo->prepare($query);
+		$formattedDate=$this->requestTimeStamp->format("Y-m-d H:i:s");
+		$parameters=["requestRequestorId"=>$this->requestRequestorId,"requestAdminId"=>$this->requestAdminId,
+			"requestTimeStamp"=>$this->requestTimeStamp,"requestActionTimeStamp"=>$this->requestActionTimeStamp,
+			"requestApprove"=>$this->requestApprove,"requestRequestorText"=>$this->requestRequestorText,
+			"requestAminText"=>$this->requestAdminText];
+		$statement->execute($parameters);
+		$this->requestId=intaval($pdo->lastInserId());
+	}
+
+	public function delete(\PDO $pdo) {
+		if($this->requestId===null){
+			throw(new \PDOException("can't delete, request does not exits"));
+		}
+		$query = "DELETE FROM request WHERE requestId = :requestId";
+		$statement=$pdo->perpare($query);
+		$parameters=["requestId" => $this->requestId];
+		$statement->execute($parameters);
+	}
+
+	public function update(\PDO $pdo) {
+		if($this->requestId===null){
+			throw(new \PDOException("can't update, request doesn't exist"));
+		}
+		$query = "UPDATE request SET requestId = :"
+
+	}
+
+
 }
 
