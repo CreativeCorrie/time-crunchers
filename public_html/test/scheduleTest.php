@@ -1,43 +1,43 @@
 <?php
-namespace Edu\Cnm\Timecrunchers;
+namespace Edu\Cnm\Timecrunchers\test;
 
 
-use Edu\Cnm\Timecrunchers\{Profile, Tweet};
+use Edu\Cnm\Timecrunchers\{ScheduleCrewId, Schedule};
 
 // grab the project test parameters
 require_once("ScheduleTest.php");
 
 // grab the class under scrutiny
-require_once(dirname(__DIR__) . "/php/classes/autoload.php");
+require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 
 /**
- * Full PHPUnit test for the Tweet class
+ * Full PHPUnit test for the Schedule class
  *
- * This is a complete PHPUnit test of the Tweet class. It is complete because *ALL* mySQL/PDO enabled methods
+ * This is a complete PHPUnit test of the Schedule class. It is complete because *ALL* mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
- * @see Tweet
- * @author Dylan McDonald <dmcdonald21@cnm.edu>
+ * @see Schedule
+ * @author Elaine Thomas <enajera2@cnm.edu>
  **/
-class TweetTest extends DataDesignTest {
+class ScheduleTest extends TimecrunchersTest {
 	/**
-	 * content of the Tweet
-	 * @var string $VALID_TWEETCONTENT
+	 * content of the Schedule
+	 * @var string $VALID_SCHEDULECONTENT
 	 **/
-	protected $VALID_TWEETCONTENT = "PHPUnit test passing";
+	protected $VALID_SCHEDULECONTENT = "PHPUnit test passing";
 	/**
-	 * content of the updated Tweet
-	 * @var string $VALID_TWEETCONTENT2
+	 * content of the updated Schedule
+	 * @var string $VALID_SCHEDULECONTENT2
 	 **/
-	protected $VALID_TWEETCONTENT2 = "PHPUnit test still passing";
+	protected $VALID_SCHEDULECONTENT2 = "PHPUnit test still passing";
 	/**
-	 * timestamp of the Tweet; this starts as null and is assigned later
-	 * @var DateTime $VALID_TWEETDATE
+	 * timestamp of the Schedule
+	 * @var DateTime $VALID_SCHEDULEDATE
 	 **/
-	protected $VALID_TWEETDATE = null;
+	protected $VALID_SCHEDULEDATE = null;
 	/**
-	 * Profile that created the Tweet; this is for foreign key relations
-	 * @var Profile profile
+	 * Id for Crew that Schedule is attached to; this is for foreign key relations
+	 * @var scheduleCrewId profile
 	 **/
 	protected $profile = null;
 
@@ -48,57 +48,56 @@ class TweetTest extends DataDesignTest {
 		// run the default setUp() method first
 		parent::setUp();
 
-		// create and insert a Profile to own the test Tweet
-		$this->profile = new Profile(null, "@phpunit", "test@phpunit.de", "+12125551212");
-		$this->profile->insert($this->getPDO());
+		// create and insert a ScheduleCrewId to own the test Schedule
+		$this->schedule = new ScheduleCrewId(null);
+		$this->schedule->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup...)
-		$this->VALID_TWEETDATE = new \DateTime();
+		$this->VALID_SCHEDULEDATE = new \DateTime();
 	}
 
 	/**
-	 * test inserting a valid Tweet and verify that the actual mySQL data matches
+	 * test inserting a valid Schedule and verify that the actual mySQL data matches
 	 **/
-	public function testInsertValidTweet() {
+	public function testInsertValidSchedule() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("schedule");
 
-		// create a new Tweet and insert to into mySQL
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Schedule and insert to into mySQL
+		$schedule = new Schedule(null, $this->scheduleCrewId->getScheduleCrewId(), $this->VALID_SCHEDULECONTENT, $this->VALID_SCHEDULEDATE);
+		$schedule->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals($pdoTweet->getProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		$this->assertEquals($pdoTweet->getTweetDate(), $this->VALID_TWEETDATE);
+		$pdoSchedule = Schedule::getScheduleByScheduleId($this->getPDO(), $schedule->getScheduleId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
+		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->profile->getScheduleCrewId());
+		$this->assertEquals($pdoSchedule->getScheduleStart(), $this->VALID_SCHEDULEDATE);
 	}
 
 	/**
-	 * test inserting a Tweet that already exists
+	 * test inserting a Schedule that already exists
 	 *
 	 * @expectedException PDOException
 	 **/
-	public function testInsertInvalidTweet() {
-		// create a Tweet with a non null tweet id and watch it fail
-		$tweet = new Tweet(DataDesignTest::INVALID_KEY, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+	public function testInsertInvalidSchedule() {
+		// create a Schedule with a non null schedule id and watch it fail
+		$schedule = new Schedule (  TimecrunchersTest::INVALID_KEY, $this->scheduleCrewId->getScheduleCrewId(), $this->VALID_SCHEDULECONTENT, $this->VALID_SCHEDULEDATE);
+		$schedule->insert($this->getPDO());
 	}
 
 	/**
-	 * test inserting a Tweet, editing it, and then updating it
+	 * test inserting a Schedule, editing it, and then updating it
 	 **/
-	public function testUpdateValidTweet() {
+	public function testUpdateValidSchedule() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("schedule");
 
-		// create a new Tweet and insert to into mySQL
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Schedule and insert to into mySQL
+		$schedule = new Schedule(null, $this->scheduleCrewId->scheduleCrewId(), $this->VALID_SCHEDULECONTENT, $this->VALID_SCHEDULEDATE);
+		$schedule->insert($this->getPDO());
 
-		// edit the Tweet and update it in mySQL
-		$tweet->setTweetContent($this->VALID_TWEETCONTENT2);
+		// edit the Schedule and update it in mySQL
+		$schedule->setTweetContent($this->VALID_TWEETCONTENT2);
 		$tweet->update($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
