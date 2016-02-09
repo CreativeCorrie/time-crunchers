@@ -10,26 +10,50 @@ namespace Edu\Cnm\Timecrunchers;
  * @author Dylan McDonald <dmcdonald21@cnm.edu>
  **/
 trait ValidateDate {
+	private static function validateDate($newDate) {
+		// base case: if the date is a DateTime object, there's no work to be done
+		if(is_object($newDate) === true && get_class($newDate) === "DateTime") {
+			return ($newDate);
+		}
+		// treat the date as a mySQL date string: Y-m-d
+		$newDate = trim($newDate);
+		if((preg_match("/^(\d{4})-(\d{2})-(\d{2})$/", $newDate, $matches)) !== 1) {
+			throw(new \InvalidArgumentException("date is not a valid date"));
+		}
+
+		// verify the date is really a valid calendar date
+		$year = intval($matches[1]);
+		$month = intval($matches[2]);
+		$day = intval($matches[3]);
+		if(checkdate($month, $day, $year) === false) {
+			throw(new \RangeException("date is not a Gregorian date"));
+		}
+
+
+		// if we got here, the date is clean
+		$newDate = \DateTime::createFromFormat("Y-m-d H:i:s", $newDate . " 00:00:00");
+		return($newDate);
+	}
 	/**
 	 * custom filter for mySQL style dates
 	 *
 	 * Converts a string to a DateTime object or false if invalid. This is designed to be used within a mutator method.
 	 *
-	 * @param mixed $newDate date to validate
+	 * @param mixed $newDateTime date to validate
 	 * @return \DateTime DateTime object containing the validated date
 	 * @see http://php.net/manual/en/class.datetime.php PHP's DateTime class
 	 * @throws \InvalidArgumentException if the date is in an invalid format
 	 * @throws \RangeException if the date is not a Gregorian date
 	 **/
-	private static function validateDate($newDate) {
+	private static function validateDateTime($newDateTime) {
 		// base case: if the date is a DateTime object, there's no work to be done
-		if(is_object($newDate) === true && get_class($newDate) === "DateTime") {
-			return($newDate);
+		if(is_object($newDateTime) === true && get_class($newDateTime) === "DateTime") {
+			return($newDateTime);
 		}
 
 		// treat the date as a mySQL date string: Y-m-d H:i:s
-		$newDate = trim($newDate);
-		if((preg_match("/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/", $newDate, $matches)) !== 1) {
+		$newDateTime = trim($newDateTime);
+		if((preg_match("/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/", $newDateTime, $matches)) !== 1) {
 			throw(new \InvalidArgumentException("date is not a valid date"));
 		}
 
@@ -50,7 +74,7 @@ trait ValidateDate {
 		}
 
 		// if we got here, the date is clean
-		$newDate = \DateTime::createFromFormat("Y-m-d H:i:s", $newDate);
-		return($newDate);
+		$newDateTime = \DateTime::createFromFormat("Y-m-d H:i:s", $newDateTime);
+		return($newDateTime);
 	}
 }
