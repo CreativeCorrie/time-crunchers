@@ -509,7 +509,7 @@ class User {
 
 	public function update(\PDO $pdo) {
 	//enforce the the userId is not null (tldr don't delete a user that is not yet inserted)
-	if($this->tweetId === null) {
+	if($this->userId === null) {
 		throw(new \PDOException("unable to delete a user that does not exist"));
 	}
 
@@ -612,13 +612,13 @@ class User {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		$row = $statement->fetch();
 		if($row !== false) {
-			$company = new company($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], 		$row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row[userActivation], 		$row["userHash"], $row["userSalt"]);
+			$company = new company($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row[userActivation], $row["userHash"], $row["userSalt"]);
 		}
-		} catch(\Exception $exception) {
+	} catch(\Exception $exception) {
 		//if the row couldn't be converted, rethrow it
 		throw(new \PDOException($exception->getMessage(), 0, $exception));
 	}
-	return($company);
+	return ($company);
 }
 
 /**
