@@ -14,6 +14,7 @@ require_once ("autoloader.php");
  **/
 
 class Shift {
+	use ValidateDate;
 	/**
 	 * id for shift this is the primary key
 	 * @var int $shiftId
@@ -220,7 +221,7 @@ class Shift {
 		}
 		//store the shift time
 		try{
-			$newShiftTime = $this->validateShiftTime($newShiftTime);
+			$newShiftTime = self::validateTime($newShiftTime);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		} catch(\RangeException $range) {
@@ -251,7 +252,7 @@ class Shift {
 		}
 		//store the shift date
 		try{
-			$newShiftDate = $this->validateShiftDate($newShiftDate);
+			$newShiftDate = self::validateTime($newShiftDate);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		}catch(\RangeException $range) {
