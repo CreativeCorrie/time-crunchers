@@ -97,26 +97,26 @@ class ScheduleTest extends TimecrunchersTest {
 		$schedule->insert($this->getPDO());
 
 		// edit the Schedule and update it in mySQL
-		$schedule->setTweetContent($this->VALID_TWEETCONTENT2);
-		$tweet->update($this->getPDO());
+		$schedule->setScheduleContent($this->VALID_SCHEDULECONTENT2);
+		$schedule->update($this->getPDO());
 
+		// I MAY HAVE AN ISSUE HERE ?!? with placement of variables
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals($pdoTweet->getProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT2);
-		$this->assertEquals($pdoTweet->getTweetDate(), $this->VALID_TWEETDATE);
+		$pdoSchedule = Schedule::getScheduleByScheduleId($this->getPDO(), $schedule->getScheduleId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
+		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->scheduleStartDate->getScheduleCrewId());
+		$this->assertEquals($pdoSchedule->getScheduleDate(), $this->VALID_SCHEDULEDATE);
 	}
 
 	/**
-	 * test updating a Tweet that already exists
+	 * test updating a Schedule that already exists
 	 *
 	 * @expectedException PDOException
 	 **/
-	public function testUpdateInvalidTweet() {
-		// create a Tweet with a non null tweet id and watch it fail
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->update($this->getPDO());
+	public function testUpdateInvalidSchedule() {
+		// create a Schedule with a non null schedule id and watch it fail
+		$schedule = new Schedule(null, $this->scheduleCrewId->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$schedule->update($this->getPDO());
 	}
 
 	/**
