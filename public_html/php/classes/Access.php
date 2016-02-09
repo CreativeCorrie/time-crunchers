@@ -262,11 +262,11 @@ class Access {
 			//if row couldn't be converted, then rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($access);
+		return ($access);
 	}
 
 	/**
-	 * gets all access
+	 * gets all accessors
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @return \SplFixedArray SplFixedArray of Tweets found or null if not found
@@ -275,7 +275,24 @@ class Access {
 	 */
 	public function getsAllAccess(\PDO $pdo) {
 		//create query template
-		$query =
+		$query = "SELECT accessID, accessName";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		//build an array of access
+		$accessors = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$access = new Access($row["acccessId"], $row["accessName"]);
+				$accessors[$accessors->key()] = $access;
+				$accessors->next();
+			} catch(\Exception $exception) {
+				//if the row couldn't be converted, then rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($accessors);
 	}
 
 }
