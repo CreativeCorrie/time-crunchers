@@ -52,32 +52,30 @@ trait ValidateDate {
 		if(is_object($newDateTime) === true && get_class($newDateTime) === "DateTime") {
 			return($newDateTime);
 		}
-
-		// treat the date as a mySQL date string: Y-m-d H:i:s
-		$newDateTime = trim($newDateTime);
-		if((preg_match("/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/", $newDateTime, $matches)) !== 1) {
-			throw(new \InvalidArgumentException("date is not a valid date"));
+		try {
+			list($date, $time) = explode(" ", $newDateTime);
+			$date = self::validateDate($date);
+			$time = self::validateTime($time);
+			list($hour, $minute, $second) = explode(":", $time);
+			$intervalSpec = "PT" . $hour . "H" . $minute . "M" . $second . "S";
+			$interval = new \DateInterval($intervalSpec);
+			$date->add($interval);
+			return($date);
+		}catch (\InvalidArgumentException $invalidArgument) {
+			//rethrow the exception to the caller
+			throw(new  \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			//rethrow the exception to the caller
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		} catch(\TypeError $typeError) {
+			//rethrow the exception to the caller
+			throw (new  \TypeError($typeError->getMessage(), 0, $typeError));
+		} catch(\Exception $exception) {
+			//rethrow the exception to the caller
+			throw(new \Exception($exception->getMessage(), 0, $exception));
 		}
 
-		// verify the date is really a valid calendar date
-		$year = intval($matches[1]);
-		$month = intval($matches[2]);
-		$day = intval($matches[3]);
-		$hour = intval($matches[4]);
-		$minute = intval($matches[5]);
-		$second = intval($matches[6]);
-		if(checkdate($month, $day, $year) === false) {
-			throw(new \RangeException("date is not a Gregorian date"));
-		}
 
-		// verify the time is really a valid wall clock time
-		if($hour < 0 || $hour >= 24 || $minute < 0 || $minute >= 60 || $second < 0  || $second >= 60) {
-			throw(new \RangeException("date is not a valid wall clock time"));
-		}
-
-		// if we got here, the date is clean
-		$newDateTime = \DateTime::createFromFormat("Y-m-d H:i:s", $newDateTime);
-		return($newDateTime);
 	}
 	/**
 	 * custom filter for mySQL style dates
