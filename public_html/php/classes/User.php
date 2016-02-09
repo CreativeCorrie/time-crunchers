@@ -472,7 +472,7 @@ class User {
 		//convert and store user salt
 		$this->userSalt = $newUserSalt;
 	}
-}
+
 
 	/**
 	 * inserts this User into mySQL

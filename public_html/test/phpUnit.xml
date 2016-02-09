@@ -1,0 +1,14 @@
+<phpunit>
+	<testsuites>
+		<testsuite name="Timecrunchers Data Design">
+			<file>CompanyTest.php</file>
+			<file>ScheduleTest.php</file>
+			<file>xxxTest.php</file>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">../php/classes</directory>
+		</whitelist>
+	</filter>
+</phpunit>
