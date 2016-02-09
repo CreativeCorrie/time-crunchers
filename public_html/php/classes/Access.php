@@ -193,6 +193,89 @@ class Access {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
-	public function
+	public function getAccessByAccessName(\PDO $pdo, string $accessName) {
+		//sanitize the description before searching
+		$accessName = trim(accessName);
+		$accessName = filter_var($accessName, FILTER_SANITIZE_STRING);
+		if(empty($accessName) === true) {
+			throw(new \PDOException("accessName is invalid"));
+		}
+
+		//create query template
+		$query = "SELECT accessId, accessName accessDate FROM access WHERE accessName LIKE :accessName";
+		$statement = $pdo->prepare($query);
+
+		//bind the accessName to the place holder template
+		$accessName = "%?accessName?%";
+		$parameters = array("accessName" => $accessName);
+		$statement->execute($parameters);
+
+		//build an array of accesss
+		$access = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement - fetch()) !== false) ;
+		if($row !== false) {
+			try {
+				$access = new Access($row["accessId"], $row["accessName"]);
+				$access[$access->key()] = $access;
+				$access->next();
+			} catch(\exception $exception) {
+				//if row couldnt be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($access);
+	}
+
+	/**
+	 * gets access by accessId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $tweetId tweet id to search for
+	 * @return Tweet|null Tweet found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public function getAccessByAccessId(\PDO $pdo, int $accessId) {
+		//sanitize the accessId before searching
+		if($accessId <= 0) {
+			throw(new \PDOException("accessId is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT accessId, accessName, accessDate FROM acccess WHERE accessId = :accessId";
+		$statement = $pdo->prepare($query);
+
+		//bind the accessId to the place holder template
+		$parameters = array("accessId" => $accessId);
+		$statement->execute($parameters);
+
+		//grab the access from mySQL
+		try {
+			$access = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$access = new ACCESS($row["accessId"], $row["accessName"]);
+			}
+		} catch(\Exception $exception) {
+			//if row couldn't be converted, then rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($access);
+	}
+
+	/**
+	 * gets all access
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of Tweets found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public function getsAllAccess(\PDO $pdo) {
+		//create query template
+		$query =
+	}
 
 }
