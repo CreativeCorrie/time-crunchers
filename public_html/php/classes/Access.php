@@ -2,14 +2,14 @@
 namespace Edu\Cnm\Timecrunchers;
 
 require_once("autoloader.php");
+
 /**
  * Access, is what is going to decide what actions you allowed to make on the site
  *
  *Access is given to the user
  *
- *@author Denzyl Fontaine
+ * @author Denzyl Fontaine
  **/
-
 class Access {
 	/**
 	 * id for access is accessId ; this is the primary key
@@ -32,21 +32,21 @@ class Access {
 	 * @throws \Exception if some other exception occurs
 	 **/
 
-public function __construct(int $newAccessId = null, string $newAccessName){
-	try{
-		$this->setAccessId($newAccessId);
-		$this->setAccessName($newAccessName);
-	} catch(\InvalidArgumentException $invalidArgument) {
-		//rethrow the exception to the caller
-		throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0,$invalidArgument));
-	} catch(\RangeException $range) {
-		//rethrow exception to caller
-		throw(new \RangeException($range->getMessage(), 0, $range));
-	} catch(\Exception $exception) {
-		//rethrow regular exception to caller
-		throw(new \Exception($exception->getMessage(), 0, $exception));
+	public function __construct(int $newAccessId = null, string $newAccessName) {
+		try {
+			$this->setAccessId($newAccessId);
+			$this->setAccessName($newAccessName);
+		} catch(\InvalidArgumentException $invalidArgument) {
+			//rethrow the exception to the caller
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			//rethrow exception to caller
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		} catch(\Exception $exception) {
+			//rethrow regular exception to caller
+			throw(new \Exception($exception->getMessage(), 0, $exception));
+		}
 	}
-}
 
 	/**
 	 * accessor method for access id
@@ -54,7 +54,7 @@ public function __construct(int $newAccessId = null, string $newAccessName){
 	 * @return int value of tweet id
 	 **/
 	public function getAccessId() {
-		return($this->accessId);
+		return ($this->accessId);
 	}
 
 	/**
@@ -81,23 +81,23 @@ public function __construct(int $newAccessId = null, string $newAccessName){
 	}
 
 
-/**
- * accessor method for accessName
- *
- * @return string of access name
- */
+	/**
+	 * accessor method for accessName
+	 *
+	 * @return string of access name
+	 */
 	public function getAccessName() {
-	return($this->accessName);
-}
+		return ($this->accessName);
+	}
 
-/**
- * mutator method for access name
- *
- * @param string$newAccessName new value for access name
- * @throws \InvalidArgumentException if new$AccessName is not a string or insecure
- * @throws \RangeException if $newAccessName is > 32
- * @throws \TypeError if $newAccessName is not a string
- */
+	/**
+	 * mutator method for access name
+	 *
+	 * @param string $newAccessName new value for access name
+	 * @throws \InvalidArgumentException if new$AccessName is not a string or insecure
+	 * @throws \RangeException if $newAccessName is > 32
+	 * @throws \TypeError if $newAccessName is not a string
+	 */
 	public function setAccessName(string $newAccessName) {
 		//verify the access name is secure
 		$newAccessName = trim($newAccessName);
@@ -114,4 +114,85 @@ public function __construct(int $newAccessId = null, string $newAccessName){
 		//store the access name
 		$this->accessName = $newAccessName;
 	}
+
+	/**
+	 * inserts access into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function insert(\PDO $pdo) {
+		//enforce access id is null
+		if($this->accessId !== null) {
+			throw(new \PDOException("not new access"));
+		}
+
+		//create query type
+		$query = "INSERT INTO access(accessId, accessName) VALUES(:accessId, :accessName)";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = ["accessId" => $this->accessId, "accessName" => $this->accessName];
+		$statement->execute($parameters);
+
+		//update the null access id with what my sqljust gave us
+		$this->accessid = intval($pdo->lastinsertId());
+	}
+
+	/**
+	 * deletes this access from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function delete(\PDO $pdo) {
+		//enforce the accessId is not null
+		if($this->accessId === null) {
+			throw(new \PDOException("cannot delete access that does not exist"));
+		}
+
+		//create query template
+		$query = "DELETE FROM access WHERE accessId = :accessId";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the placeholders in tht template
+		$parameters = ["accessId" => $this->accessId];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * updates accessId in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function update(\PDO $pdo) {
+		//enforce accessId is not null
+		if($this->accessId === null) {
+			throw(new \PDOException("unable to update a tweet that does not exist"));
+		}
+
+		//create query template
+		$query = "UPDATE access SET accessId = :accessId, accessName = :accessName";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the placeholders in tht template
+		$parameters = ["accessId" => $this->accessId, "accessName" => $this->accessName];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * gets the Tweet by content
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $tweetContent tweet content to search for
+	 * @return \SplFixedArray SplFixedArray of Tweets found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public function
+
 }
