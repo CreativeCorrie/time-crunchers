@@ -1,7 +1,7 @@
 <?php
 namespace Edu\Cnm\Timecrunchers;
 
-require_once("autoload.php");
+require_once("autoloader.php");
 
 /**
  * @author Elaine Thomas <enajera2@cnm.edu>
