@@ -115,46 +115,46 @@ class ScheduleTest extends TimecrunchersTest {
 	 **/
 	public function testUpdateInvalidSchedule() {
 		// create a Schedule with a non null schedule id and watch it fail
-		$schedule = new Schedule(null, $this->scheduleCrewId->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$schedule = new Schedule(null, $this->scheduleCrewId->getScheduleCrewId(), $this->VALID_SCHEDULECONTENT, $this->VALID_SCHEDULEDATE);
 		$schedule->update($this->getPDO());
 	}
 
 	/**
-	 * test creating a Tweet and then deleting it
+	 * test creating a Schedule and then deleting it
 	 **/
-	public function testDeleteValidTweet() {
+	public function testDeleteValidSchedule() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("schedule");
 
-		// create a new Tweet and insert to into mySQL
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Schedule and insert to into mySQL
+		$schedule = new Schedule(null, $this->scheduleCrewId->getScheduleCrewId(), $this->VALID_SCHEDULECONTENT, $this->VALID_SCHEDULEDATE);
+		$schedule->insert($this->getPDO());
 
-		// delete the Tweet from mySQL
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$tweet->delete($this->getPDO());
+		// delete the Schedule from mySQL
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
+		$schedule->delete($this->getPDO());
 
-		// grab the data from mySQL and enforce the Tweet does not exist
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertNull($pdoTweet);
-		$this->assertEquals($numRows, $this->getConnection()->getRowCount("tweet"));
+		// grab the data from mySQL and enforce the Schedule does not exist
+		$pdoSchedule = Schedule::getScheduleByScheduleId($this->getPDO(), $schedule->getScheduleId());
+		$this->assertNull($pdoSchedule);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("schedule"));
 	}
 
 	/**
-	 * test deleting a Tweet that does not exist
+	 * test deleting a Schedule that does not exist
 	 *
 	 * @expectedException PDOException
 	 **/
-	public function testDeleteInvalidTweet() {
-		// create a Tweet and try to delete it without actually inserting it
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->delete($this->getPDO());
+	public function testDeleteInvalidSchedule() {
+		// create a Schedule and try to delete it without actually inserting it
+		$schedule = new Schedule(null, $this->scheduleCrewId->getSceduleCrewId(), $this->VALID_SCHEDULECONTENT, $this->VALID_SCHEDULEDATE);
+		$schedule->delete($this->getPDO());
 	}
 
-	/**
-	 * test inserting a Tweet and regrabbing it from mySQL
+	/**+
+	 * test inserting a Schedule and regrabbing it from mySQL
 	 **/
-	public function testGetValidTweetByTweetId() {
+	public function testGetValidScheduleByScheduleId() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("tweet");
 
