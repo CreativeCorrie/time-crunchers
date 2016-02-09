@@ -156,51 +156,49 @@ class ScheduleTest extends TimecrunchersTest {
 	 **/
 	public function testGetValidScheduleByScheduleId() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("schedule");
 
-		// create a new Tweet and insert to into mySQL
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Schedule and insert to into mySQL
+		$schedule = new Schedule(null, $this->scheduleCrewId->getScheduleCrewId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$schedule->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals($pdoTweet->getProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		$this->assertEquals($pdoTweet->getTweetDate(), $this->VALID_TWEETDATE);
+		$pdoSchedule = Schedule::getScheduleByScheduleId($this->getPDO(), $schedule->getScheduleId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
+		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->scheduleCrewId->getScheduleCrewId());
+		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULEDATE);
 	}
 
 	/**
-	 * test grabbing a Tweet that does not exist
+	 * test grabbing a Schedule that does not exist
 	 **/
-	public function testGetInvalidTweetByTweetId() {
-		// grab a profile id that exceeds the maximum allowable profile id
-		$tweet = Tweet::getTweetByTweetId($this->getPDO(), DataDesignTest::INVALID_KEY);
-		$this->assertNull($tweet);
+	public function testGetInvalidScheduleByScheduleId() {
+		// grab a scheduleCrewId id that exceeds the maximum allowable scheduleCrew id
+		$schedule = Schedule::getScheduleByScheduleId($this->getPDO(), TimecrunchersTest::INVALID_KEY);
+		$this->assertNull($schedule);
 	}
 
 	/**
-	 * test grabbing a Tweet by tweet content
+	 * test grabbing a Schedule by schedule start date
 	 **/
-	public function testGetValidTweetByTweetContent() {
+	public function testGetValidScheduleByScheduleStartDate() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("schedule");
 
-		// create a new Tweet and insert to into mySQL
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Schedule and insert to into mySQL
+		$schedule = new Schedule(null, $this->scheduleCrewId->getScheduleStartDate(), $this->VALID_SCHEDULECONTENT, $this->VALID_SCHEDULEDATE);
+		$schedule->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Tweet::getTweetByTweetContent($this->getPDO(), $tweet->getTweetContent());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
+		$results = Schedule::getScheduleByScheduleStartDate($this->getPDO(), $schedule->getScheduleStartDate());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Dmcdonald21\\DataDesign\\Tweet", $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Timecrunchers\\Schedule", $results);
 
 		// grab the result from the array and validate it
-		$pdoTweet = $results[0];
-		$this->assertEquals($pdoTweet->getProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		$this->assertEquals($pdoTweet->getTweetDate(), $this->VALID_TWEETDATE);
+		$pdoSchedule = $results[0];
+		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->scheduleCrewId->getScheduleStartDate());
+		$this->assertEquals($pdoSchedule->getTweetDate(), $this->VALID_TWEETDATE);
 	}
 
 	/**
