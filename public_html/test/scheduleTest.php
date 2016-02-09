@@ -1,10 +1,11 @@
 <?php
-namespace Edu\Cnm\Dmcdonald21\DataDesign\Test;
+namespace Edu\Cnm\Timecrunchers;
 
-use Edu\Cnm\Dmcdonald21\DataDesign\{Profile, Tweet};
+
+use Edu\Cnm\Timecrunchers\{Profile, Tweet};
 
 // grab the project test parameters
-require_once("DataDesignTest.php");
+require_once("ScheduleTest.php");
 
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/php/classes/autoload.php");
