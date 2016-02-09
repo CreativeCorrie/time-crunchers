@@ -1,14 +1,14 @@
 <?php
 namespace Edu\Cnm\Timecrunchers;
 
-require_once ("autoloader.php");
+require_once("autoloader.php");
+
 /**
  * user is our smaller employees in a company
  *
  * a user is given access and is able to check a shift, create a password, input their information
  * @author Denzyl Fontaine
  */
-
 class User {
 	/**
 	 * id for the user is userId, this is the primary key
@@ -375,7 +375,7 @@ class User {
 
 		//store the user email
 		$this->userEmail = $newUserEmail;
-		}
+	}
 
 	/**
 	 * accessor method user activation
@@ -482,68 +482,92 @@ class User {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function insert(\PDO $pdo) {
-	//enforce Userid is null
-	if($this->userId !== null) {
+		//enforce Userid is null
+		if($this->userId !== null) {
 			throw(new \PDOException("not a new user"));
+		}
+
+		//create quarry template
+		$query = "INSERT INTO user(userId, userCompanyId, userAccessId, userPhone, userFirstName, userLastName, userCrewId, userEmail, userActivation, userHash, userSalt) VALUES(:userId, :userCompanyId, :userAccessId, :userPhone, :userFirstName, :userLastName, :userCrewId, :userEmail, :userActivation, :userHash, :userSalt)";
+		$statement = $pdo->prepare($query);
+
+		//bind the memeber variables to the place holders in the template
+		$parameters = ["userId" => $this->userId, "userCompanyId" => $this->userCompanyId, "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName, "userLastName" => $this->userLastName, "userCrewId" => $this->userCrewId, "userEmail" => $this->userEmail, "userActivation" => $this->userActivation, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
+		$statement->execute($parameters);
+
+		//update the null userId with the what mySQL just gave us
+		$this->userId = intval($pdo->lastInsertId());
 	}
 
-	//create quarry template
-	$query = "insert into user(userId, userCompanyId, userAccessId, userPhone, userFirstName, userLastName, userCrewId,userEmail, userActivation, userHash, userSalt)";
-	$statement = $pdo->prepare($query);
+	/**
+	 * deletes the user from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param \PDOExeption when mySQL related errors occur
+	 * @param \TypeError if $pdo is not a PDO connection object
+	 */
+	public function delete(\PDO $pdo) {
+		//enforce the the userId is not null (tldr don't delete a user that is not yet inserted)
+		if($this->userId === null) {
+			throw(new \PDOException("unable to delete a user that does not exist"));
+		}
 
-	//bind the memeber variables to the place holders in the template
-	$parameters = ["userId" =>$this->userId, "userCompanyId" =>$this->userCompanyId, "userAccessId" =>$this->userAccessId, "userPhone" =>$this->userPhone, "userFirstName" =>$this->userFirstName, "userLastName" =>$this->userLastName, "userCrewId" =>$this->userCrewId, "userEmail" =>$this->userEmail, "userActivation" =>$this->userActivation, "userHash" =>$this->userHash, "userSalt" =>$this->userSalt];
-	$statement->execute($parameters);
+		//create query template
+		$query = "DELETE FROM user WHERE userId = :userId";
+		$statement = $pdo->prepare($query);
 
-	//update the null userId with the what mySQL just gave us
-	$this->userId = intval($pdo->lastInsertId());
-}
+		// bind the member variables to the place holder in the template
+		$parameters = ["userId" => $this->userId];
+		$statement->execute($parameters);
+	}
 
-/**
- * deletes the user from mySQL
- *
- * @param \PDO $pdo PDO connection object
- * @param \PDOExeption when mySQL related errors occur
- * @param \TypeError if $pdo is not a PDO connection object
- */
+	/**
+	 * updates this user in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection to object
+	 * @throws \PDOException when mySQL related errors occurs
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
 
 	public function update(\PDO $pdo) {
-	//enforce the the userId is not null (tldr don't delete a user that is not yet inserted)
-	if($this->userId === null) {
-		throw(new \PDOException("unable to delete a user that does not exist"));
+		//enforce the userId is not null
+		if($this->userId === null) {
+			throw(new \PDOException("unable to update a user that does not exist"));
+		}
+
+		//create query template
+		$query = "UPDATE user SET userId = :userId, userCompanyId = :userCompanyId, userAccessId = :userAccessId, userPhone = :userPhoneId, userFirstName = :userFirstName, userLastName = :userLastName, userCrewId = :userCrewId, userEmail = :userEmail, userActivation = :userActivation, userHash = :userHash, userSalt = :userSalt";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = ["userId" => $this->userId, "userCompanyId" => $this->userCompanyId, "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName, "userLastName" => $this->userLastName, "userCrewId" => $this->userCrewId, "userEmail" => $this->userEmail, "userActivation" => $this->userActivaion, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
+		$statement->execute($parameters);
 	}
 
-	//create query template
-	$query = "DELETE FROM user WHERE userId = :userId";
-	$statement = $pdo->prepare($query);
+	/**
+	 * gets the user by content
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $tweetContent tweet content to search for
+	 * @return \SplFixedArray SplFixedArray of Tweets found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public function getUserByContent(\PDO $pdo, string $userfirstName) {
+		//sanitize the description before searching
+		$userfirstName = trim($userfirstName);
+		$userfirstName = filter_var($userfirstName, FILTER_SANITIZE_STRING);
+		if(empty($userfirstName) === true) {
+			throw(new \PDOException("user first name invalid"));
+		}
 
-	// bind the member variables to the place holder in the template
-	$parameters = ["userId" => $this->userId];
-	$statement->execute($parameters);
-}
-
-/**
- * updates this user in mySQL
- *
- * @param \PDO $pdo PDO connection to object
- * @throws \PDOException when mySQL related errors occurs
- * @throws \TypeError if $pdo is not a PDO connection object
- */
-
-	public function update(\PDO $pdo) {
-	//enforce the userId is not null
-	if($this->userId === null) {
-		throw(new \PDOException("unable to update a user that does not exist"));
+		//create query template
+		$query = "SELECT userId, companyId, accessId, userPhone, userFirstName, userLastName, userCrewId, userEmail, userActivation, userHash, userSalt FROM userFirstName WHERE userFirstName = :userFirstName";
+		$statement = $pdo->prepare($query)
+	}
 	}
 
-	//create query template
-	$query = "UPDATE user SET userId = :";
-	$statement = $pdo->prepare($query);
 
-	//bind the member variables to the place holders in the template
-	$parameters = ["userId" => $this->userId, "user"];
-	$statement->execute($parameters)
-}
 
 /**
  * gets the user by user id
@@ -555,71 +579,35 @@ class User {
  * @throws \TypeError when variables are not the correct content type
  */
 
-	public static function getUserId(\PDO $pdo, int userId) {
-		//sanitize the user id vefore searching
-		if($userId <= 0) {
-			throw(new \PDOException("tweet is not positive"));
-		}
-
-		//create query template
-		$query = "SELECT userId, companyId, accessId, userPhone, userFirstName, userLastName, userCrewId, 		userEmail, userActivation, userHash, userSalt";
-		$statement = $pdo->prepare($query);
-
-		//bind the userId to place a holder in template
-		$parameters = array("userId" => $userId);
-		$statement->exectute($parameters);
-
-		//grab the tweet from mySQL
-		try {
-			$tweet = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statemtent->fetch();
-			if($row !== false) {
-				$user = new User($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], 		$row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row[userActivation], 		$row["userHash"], $row["userSalt"]);
-		}
-		} catch(\Exception $excetion) {
-			//if the row couldn't be converted, rethow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		return($user);
-}
-
-/**
- * gets user by company id
- *
- * @param \PDO $pdo connection object
- * @param  int $companyId comonay id to search for
- * @return user|null user found or null if not found
- * @throws \PDOException when mySQL related error codes
- * @throws \TypeError whe variables are not the correct type content type
- **/
-	public static function getCompanyId(\PDO $pdo, int companyId) {
-	if(companyId <= 0) {
-		throw(new \PDOException("company is not positive"));
+public static function getUserId(\PDO $pdo, int userId) {
+	//sanitize the user id vefore searching
+	if($userId <= 0) {
+		throw(new \PDOException("tweet is not positive"));
 	}
 
-	//create query template
-	$query = "SELECT userId, companyId, accessId, userPhone, userFirstName, userLastName, userCrewId, 		userEmail, userActivation, userHash, userSalt";
+//create query template
+	$query = "SELECT userId, companyId, accessId, userPhone, userFirstName, userLastName, userCrewId, userEmail, userActivation, userHash, userSalt";
 	$statement = $pdo->prepare($query);
 
-	//bind the userId to place a holder in template
-	$parameters = array("companyId" => $companyId);
-	$statement->execute($parameters);
+//bind the userId to place a holder in template
+	$parameters = array("userId" => $userId);
+	$statement->exectute($parameters);
 
-	//grab the company from mySQL
+//grab the tweet from mySQL
 	try {
 		$tweet = null;
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		$row = $statement->fetch();
+		$row = $statemtent->fetch();
 		if($row !== false) {
-			$company = new company($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row[userActivation], $row["userHash"], $row["userSalt"]);
+			$user = new User($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row[userActivation], $row["userHash"], $row["userSalt"]);
 		}
-	} catch(\Exception $exception) {
-		//if the row couldn't be converted, rethrow it
+	} catch(\Exception $excetion) {
+		//if the row couldn't be converted, rethow it
 		throw(new \PDOException($exception->getMessage(), 0, $exception));
 	}
-	return ($company);
+	return ($user);
 }
+
 
 /**
  * gets all users
@@ -641,7 +629,7 @@ public static function getAllUsers(\PDO $pdo) {
 	$statement->setFetchMode(\PDO::FETCH_ASSOC);
 	while(($row = $statement->fetch()) !== false) {
 		try {
-			$user = new company($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], 		$row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row[userActivation], 		$row["userHash"], $row["userSalt"]);
+			$user = new company($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row[userActivation], $row["userHash"], $row["userSalt"]);
 			$users[$users->key()] = $users;
 			$users->next();
 		} catch(\Exception $exception) {
