@@ -1,4 +1,8 @@
 <?php
+
+namespace Edu\Cnm\Timecrunchers;
+
+require_once ("autoloader.php");
 /**
  * Crew style for Timecrunchers
  *
