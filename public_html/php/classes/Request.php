@@ -1,7 +1,7 @@
 <?php
 namespace Edu\Cnm\timecrunchers;
 
-require_once("autoload.php");
+require_once("autoloader.php");
 
 /**
  * Request Class for TimeCrunchers
@@ -11,8 +11,8 @@ require_once("autoload.php");
  *
  * @author Samuel Van Chandler <samuelvanchandler@gmail.com>
  **/
-class Request implements \JsonSerializable{
-
+class Request implements \JsonSerializable {
+	use ValidateDate;
 	/**
 	 * id for a Request, primary key
 	 * @var int $requestId
@@ -30,18 +30,18 @@ class Request implements \JsonSerializable{
 	private $requestAdminId;
 	/**
 	 * time that the request was made
-	 * @var timestamp $requestTimeStamp.
+	 * @var \DateTime $requestTimeStamp.
 	 */
 	private $requestTimeStamp;
 	/**
 	 * time that the requestApprove was commit
-	 * @var string $requestActionTimeStamp.
+	 * @var \DateTime $requestActionTimeStamp.
 	 */
 	private $requestActionTimeStamp;
 	/**
 	 * boolean return of administrator approve/deny
 	 * of user schedule request.
-	 * @var tinyint $requestApprove
+	 * @var int $requestApprove
 	 */
 	private $requestApprove;
 	/**
@@ -65,8 +65,11 @@ class Request implements \JsonSerializable{
 	 * @param boolean $newRequestApprove -boolean return of admin's response to user's request
 	 * @param string $newRequestRequestorText -string containing user's request explanation
 	 * @param string $newRequestAdminText -string containing admin's comment to user's request
-	 * @throws
-	 */
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 **/
 	public function __construct(int $newRequestId = null, int $newRequestRequestorId, int $newRequestAdminId,
 										 int $newRequestTimeStamp = null, $newRequestActionTimeStamp = null,
 										 bool $newRequestApprove = 0, string $newRequestRequestorText, $newRequestAdminText) {
@@ -79,7 +82,19 @@ class Request implements \JsonSerializable{
 			$this->setRequestApprove($newRequestApprove);
 			$this->setRequestRequestorText($newRequestRequestorText);
 			$this->setRequestAdminText($newRequestAdminText);
-		} catch
+		} catch(\InvalidArgumentException $invalidArgument) {
+			// rethrow the exception to the caller
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			// rethrow the exception to the caller
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		} catch(\TypeError $typeError) {
+			// rethrow the exception to the caller
+			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
+		} catch(\Exception $exception) {
+			// rethrow the exception to the caller
+			throw(new \Exception($exception->getMessage(), 0, $exception));
+		}
 	}
 
 	/**
@@ -98,13 +113,16 @@ class Request implements \JsonSerializable{
 	 * throws\TypeError if $newRequestId is not an integer
 	 */
 	public function setRequestId(int $newRequestId = null) {
+		//base case: if the request id is null, creates a new request without sql id... yet
 		if($newRequestId === null) {
 				$this->requestId = null;
 			return;
 		}
+		//verify the request id is positive
 		if($newRequestId <= 0) {
 			throw(new \RangeException("request id is not positive"));
 		}
+		//convert and store request id
 		$this->requestId = $newRequestId;
 	}
 
@@ -120,47 +138,105 @@ class Request implements \JsonSerializable{
 	 * mutator method for requestor's id
 	 *
 	 * @param int $newRequestRequestorId userId of person making request
-	 *
-	 */
+	 * throws \RangeException if $newRequestRequestorId is not positive
+	 * throws\TypeError if $newRequestRequestorId is not an integer
+	 **/
 	public function setRequestRequestorId($newRequestRequestorId) {
+		//verify the requestRequestorId is positive
 		if($newRequestRequestorId <= 0) {
-			throw(new \RangeException("requestor id is not poitive"));
+			throw(new \RangeException("requestor id is not positive"));
 		}
+		//convert and store requestRequestorId
 		$this->requestRequestorId = $newRequestRequestorId;
 	}
-
+	/**
+	 * accessor method for request admin id
+	 *
+	 * @return int value of request admin id
+	 */
 	public function getRequestAdminId() {
 		return($this->requestAdminId);
 	}
+	/**
+	 * mutator method for admin id
+	 *
+	 * @param int $newRequestAdminId new value of admin id
+	 * throws \RangeException if $newRequestAdminId is not positive
+	 */
 	public function setRequestAdminId($newRequestAdminId) {
+		// verify variable is positive
 		if($newRequestAdminId <= 0) {
 			throw(new \RangeException("administrator id is not positive"));
 		}
 		$this->requestAdminId = $newRequestAdminId;
 	}
-
+	/**
+	 * accessor method for request time stamp
+	 *
+	 * @return \DateTime value of request time stamp
+	 */
 	public function getRequestTimeStamp() {
 		return ($this->requestTimeStamp);
 	}
-	public function setRequestTimeStamp($newRequestTimeStamp) {
+	/**
+	 * mutator method for request time stamp
+	 *
+	 * @param \DateTime $newRequestTimeStamp time of request
+	 * @throws \InvalidArgumentException if $newRequestTimeStamp is not a valid object or string
+	 * @throws \RangeException if $newRequestTimeStamp is a date that does not exist
+	 */
+	public function setRequestTimeStamp($newRequestTimeStamp = null) {
+		// base case: if the date is null, use the current date and time
 		if($newRequestTimeStamp === null) {
 			$this->requestTimeStamp = new \DateTime();
 			return;
 		}
+		// store request date
+		try {
+			$newRequestTimeStamp = $this->validateDate($newRequestTimeStamp);
+		} catch(\InvalidArgumentException $invalidArgument) {
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		}
 		$this->requestTimeStamp = $newRequestTimeStamp;
 	}
-
+	/**
+	 * accessor method for action time stamp
+	 *
+	 * @return \DateTime value of action time stamp
+	 */
 	public function getRequestActionTimeStamp() {
 		return ($this->requestActionTimeStamp);
 	}
+	/**
+	 * mutator method for request action time stamp
+	 *
+	 * @param \DateTime $newRequestActionTimeStamp time of request approval/denial
+	 * @throws \InvalidArgumentException if $newRequestActionTimeStamp is not a valid object or string
+	 * @throws \RangeException if $newRequestActionTimeStamp is a date that does not exist
+	 */
 	public function setRequestActionTimeStamp($newRequestActionTimeStamp) {
+		// base case: if the date is null, use the current date and time
 		if($newRequestActionTimeStamp === null){
 			$this->requestActionTimeStamp = new \DateTime();
 			return;
 		}
+		//store the actiontimestamp
+		try {
+			$newRequestActionTimeStamp = $this->validateDate($newRequestActionTimeStamp);
+		} catch(\InvalidArgumentException $invalidArgument) {
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		}
 		$this->requestActionTimeStamp = $newRequestActionTimeStamp;
 	}
-
+	/**
+	 * accessor method for request approval
+	 *
+	 * @return boolean value of request approval
+	 */
 	public function getRequestApprove() {
 		return ($this->requestApprove);
 	}
@@ -170,9 +246,13 @@ class Request implements \JsonSerializable{
 		}
 		$this->requestApprove = $newRequestApprove;
 	}
-
+	/**
+	 * accessor method for requestor text
+	 *
+	 * @return string value of requestor text
+	 */
 	public function getRequestRequestorText() {
-		return ($this->newRequestRequestorText);
+		return ($this->requestRequestorText);
 	}
 	public function setRequestRequestorText(string $newRequestRequestorText) {
 		$newRequestRequestorText = trim($newRequestRequestorText);
@@ -182,7 +262,11 @@ class Request implements \JsonSerializable{
 		}
 		$this->requestRequestorText = $newRequestRequestorText;
 	}
-
+	/**
+	 * accessor method for admin text
+	 *
+	 * @return string value of admin text
+	 */
 	public function getRequestAdminText() {
 		return ($this->requestAdminText);
 	}
@@ -196,21 +280,25 @@ class Request implements \JsonSerializable{
 	}
 
 	public function insert(\PDO $pdo) {
+		//enforce the requestId is null
 		if($this->requestId !== null) {
 			throw(new \PDOException("not a new request"));
 		}
+		// create query temaplate
 		$query = "INSERT INTO request(requestRequestorId,requestAdminId,requestTimeStamp,
 			requestActionTimeStamp,requestApprove,requestRequestorText,requestAdminText) VALUES(:requestRequestorId,
 			:requestAdminId,:requestTimeStamp,:requestActionTimeStamp,:requestApprove,:requestRequestorText,
 			:requestAdminText)";
 		$statement = $pdo->prepare($query);
+
+		//bind the member variable to the place holders
 		$formattedDate=$this->requestTimeStamp->format("Y-m-d H:i:s");
 		$parameters=["requestRequestorId"=>$this->requestRequestorId,"requestAdminId"=>$this->requestAdminId,
-			"requestTimeStamp"=>$this->requestTimeStamp,"requestActionTimeStamp"=>$this->requestActionTimeStamp,
+			"requestTimeStamp"=>$formattedDate,"requestActionTimeStamp"=>$this->requestActionTimeStamp,
 			"requestApprove"=>$this->requestApprove,"requestRequestorText"=>$this->requestRequestorText,
 			"requestAminText"=>$this->requestAdminText];
 		$statement->execute($parameters);
-		$this->requestId=intaval($pdo->lastInserId());
+		$this->requestId=intval($pdo->lastInsertId());
 	}
 
 	public function delete(\PDO $pdo) {
@@ -218,7 +306,7 @@ class Request implements \JsonSerializable{
 			throw(new \PDOException("can't delete, request does not exits"));
 		}
 		$query = "DELETE FROM request WHERE requestId = :requestId";
-		$statement=$pdo->perpare($query);
+		$statement=$pdo->prepare($query);
 		$parameters=["requestId" => $this->requestId];
 		$statement->execute($parameters);
 	}
@@ -234,7 +322,7 @@ class Request implements \JsonSerializable{
 		//binding member variables to the place holders in the template
 		$formattedDate = $this->requestTimeStamp->format("Y-m-d H:i:s");
 		$parameters = ["requestRequestorID" => $this->requestRequestorId,"requestRequestorText" => $this->requestRequestorText,
-		"requestTimeStamp" => $this->requestTimeStamp];
+		"requestTimeStamp" => $formattedDate];
 		$statement->execute($parameters);
 	}
 
@@ -289,7 +377,7 @@ class Request implements \JsonSerializable{
 				$requests->next();
 			} catch(\Exception $exception) {
 				//if row couldn't be converted then throw it
-				throw(new \PDOException($exception->getMessage(),0,$exception);
+				throw(new \PDOException($exception->getMessage(),0,$exception));
 			}
 		}
 		return ($requests);
