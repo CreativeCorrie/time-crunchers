@@ -9,7 +9,7 @@ require_once("autoloader.php");
  * a user is given access and is able to check a shift, create a password, input their information
  * @author Denzyl Fontaine
  */
-class User implements \JsonSerializable {
+class User {
 	/**
 	 * id for the user is userId, this is the primary key
 	 *
@@ -655,16 +655,5 @@ class User implements \JsonSerializable {
 			}
 		}
 		return ($users);
-	}
-
-	/**
-	 * formats the state variables for JSON serialization
-	 *
-	 * @return array resulting state variables to serialize
-	 **/
-	public function jsonSerialize() {
-		$fields = get_object_vars($this);
-		$fields["tweetDate"] = intval($this->tweetDate->format("U")) * 1000;
-		return ($fields);
 	}
 }
