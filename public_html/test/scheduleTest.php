@@ -198,27 +198,27 @@ class ScheduleTest extends TimecrunchersTest {
 		// grab the result from the array and validate it
 		$pdoSchedule = $results[0];
 		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->scheduleCrewId->getScheduleStartDate());
-		$this->assertEquals($pdoSchedule->getTweetDate(), $this->VALID_TWEETDATE);
+		$this->assertEquals($pdoSchedule->getScheduleDate(), $this->VALID_SCHEDULEDATE);
 	}
 
 	/**
-	 * test grabbing a Tweet by content that does not exist
+	 * test grabbing a Schedule by schedule start date that does not exist
 	 **/
-	public function testGetInvalidTweetByTweetContent() {
-		// grab a profile id that exceeds the maximum allowable profile id
-		$tweet = Tweet::getTweetByTweetContent($this->getPDO(), "nobody ever tweeted this");
-		$this->assertCount(0, $tweet);
+	public function testGetInvalidScheduleByScheduleStartDate() {
+		// grab a schedule start id that exceeds the maximum allowable schedule start id
+		$schedule = Schedule::getScheduleByScheduleStartDate($this->getPDO(), "nobody ever created this");
+		$this->assertCount(0, $schedule);
 	}
 
 	/**
-	 * test grabbing all Tweets
+	 * test grabbing all Schedule
 	 **/
-	public function testGetAllValidTweets() {
+	public function testGetAllValidSchedules() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("schedule");
 
-		// create a new Tweet and insert to into mySQL
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		// create a new Schedule and insert to into mySQL
+		$tweet = new Schedule(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
 		$tweet->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
