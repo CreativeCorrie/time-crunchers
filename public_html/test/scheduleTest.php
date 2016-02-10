@@ -1,5 +1,5 @@
 <?php
-namespace Edu\Cnm\Timecrunchers\test;
+namespace Edu\Cnm\Timecrunchers\Test;
 
 
 use Edu\Cnm\Timecrunchers\{ScheduleCrewId, Schedule};
@@ -211,26 +211,25 @@ class ScheduleTest extends TimecrunchersTest {
 	}
 
 	/**
-	 * test grabbing all Schedule
+	 * test grabbing all Schedules
 	 **/
 	public function testGetAllValidSchedules() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("schedule");
 
 		// create a new Schedule and insert to into mySQL
-		$tweet = new Schedule(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		$schedule = new Schedule(null, $this->scheduleCrewId->getScheduleCrewId(), $this->VALID_SCHEDULECONTENT, $this->VALID_SCHEDULEDATE);
+		$schedule->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Tweet::getAllTweets($this->getPDO());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
+		$results = Schedule::getAllSchedules($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Dmcdonald21\\DataDesign\\Tweet", $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Timecrunchers\\Schedule", $results);
 
 		// grab the result from the array and validate it
-		$pdoTweet = $results[0];
-		$this->assertEquals($pdoTweet->getProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		$this->assertEquals($pdoTweet->getTweetDate(), $this->VALID_TWEETDATE);
+		$pdoSchedule = $results[0];
+		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->scheduleId->getScheduleCrewId());
+		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULEDATE);
 	}
 }
