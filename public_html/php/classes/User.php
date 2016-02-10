@@ -324,7 +324,7 @@ class User {
 	 * mutator for user crew id
 	 *
 	 * @param int|null $newUserCrewId new value for crew id
-	 * @param \RangeExcemption if user crew id is not positive
+	 * @param \RangeException if user crew id is not positive
 	 * @param \TypeError if $newCrewId is not an integer
 	 */
 	public function setUserCrewId(int $newUserCrewId = null) {
@@ -382,7 +382,7 @@ class User {
 	 *
 	 * @return int|null $newUserActivation
 	 */
-	public function getUseractivation() {
+	public function getUserActivation() {
 		return ($this->userActivation);
 	}
 
@@ -553,11 +553,11 @@ class User {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
-	public function getUserByContent(\PDO $pdo, string $userFirstName) {
+	public function getUserByContent(\PDO $pdo, string $userEmail) {
 		//sanitize the description before searching
-		$userFirstName = trim($userFirstName);
-		$userFirstName = filter_var($userFirstName, FILTER_SANITIZE_STRING);
-		if(empty($userFirstName) === true) {
+		$userEmail = trim($userEmail);
+		$userEmail = filter_var($userEmail, FILTER_SANITIZE_STRING);
+		if(empty($userEmail) === true) {
 			throw(new \PDOException("user first name invalid"));
 		}
 
@@ -566,8 +566,8 @@ class User {
 		$statement = $pdo->prepare($query);
 
 		//bind users with place holder in the template
-		$userFirstName = "%$userFirstName%";
-		$parameters = array("userFirstName" => $userFirstName);
+		$userEmail = "%$userEmail%";
+		$parameters = array("userFirstName" => $userEmail);
 		$statement->execute($parameters);
 
 		//build an array of users
