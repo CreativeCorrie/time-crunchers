@@ -13,7 +13,7 @@ require_once ("autoloader.php");
  * @author Corrie Hooker <creativecorrie@gmail.com> <Team Collaboration: TimeCrunchers>
  **/
 
-class Shift {
+class Shift implements \JsonSerializable {
 	use ValidateDate;
 	/**
 	 * id for shift this is the primary key
@@ -385,4 +385,15 @@ class Shift {
 			}
 			return($shift);
 		}
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		$fields["shiftDate"] = intval($this->shiftDate->format("U")) * 1000;
+		return($fields);
+	}
 }
