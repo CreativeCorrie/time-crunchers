@@ -30,6 +30,8 @@ class UserTesT extends TimecrunchersTest {
 	 */
 	protected $VALID_USERCONTENT2 = "PHPUnit test still passing";
 	/**
-	 * profile that created the user
+	 * profile that created the user, this is for foreign key
+	 * @var userCompanyId
 	 */
+
 }
