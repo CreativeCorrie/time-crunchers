@@ -1,27 +1,27 @@
 <?php
-namespace Edu\Cnm\Dmcdonald21\DataDesign\Test;
+namespace Edu\Cnm\Timecrunchers\Test;
 
-use Edu\Cnm\Dmcdonald21\DataDesign\{Profile, Tweet};
+use Edu\Cnm\Timecrunchers\{Profile, Tweet};
 
 // grab the project test parameters
 require_once("DataDesignTest.php");
 
 // grab the class under scrutiny
-require_once(dirname(__DIR__) . "/php/classes/autoload.php");
+require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 
 /**
- * Full PHPUnit test for the Tweet class
+ * Full PHPUnit test for the Company class
  *
  * This is a complete PHPUnit test of the Tweet class. It is complete because *ALL* mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
  * @see Tweet
- * @author Dylan McDonald <dmcdonald21@cnm.edu>
+ * @author Elaine Thomas<enajera2@cnm.edu>
  **/
-class TweetTest extends DataDesignTest {
+class CompanyTest extends TimecrunchersTest {
 	/**
-	 * content of the Tweet
-	 * @var string $VALID_TWEETCONTENT
+	 * content of the Company
+	 * @var string $VALID_COMPANYCONTENT
 	 **/
 	protected $VALID_TWEETCONTENT = "PHPUnit test passing";
 	/**
