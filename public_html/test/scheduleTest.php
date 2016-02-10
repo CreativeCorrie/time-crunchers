@@ -1,11 +1,11 @@
 <?php
 namespace Edu\Cnm\Timecrunchers\Test;
 
-
-use Edu\Cnm\Timecrunchers\{ScheduleCrewId, Schedule};
+//name the classes not the foreign key
+use Edu\Cnm\Timecrunchers\{Crew, Schedule};
 
 // grab the project test parameters
-require_once("ScheduleTest.php");
+require_once("TimecrunchersTest.php");
 
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
@@ -20,26 +20,22 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
  * @author Elaine Thomas <enajera2@cnm.edu>
  **/
 class ScheduleTest extends TimecrunchersTest {
-	/**
-	 * content of the Schedule
-	 * @var string $VALID_SCHEDULECONTENT
-	 **/
-	protected $VALID_SCHEDULECONTENT = "PHPUnit test passing";
-	/**
-	 * content of the updated Schedule
-	 * @var string $VALID_SCHEDULECONTENT2
-	 **/
-	protected $VALID_SCHEDULECONTENT2 = "PHPUnit test still passing";
+
 	/**
 	 * timestamp of the Schedule
-	 * @var DateTime $VALID_SCHEDULEDATE
+	 * @var \DateTime $VALID_SCHEDULEDATE
 	 **/
 	protected $VALID_SCHEDULEDATE = null;
 	/**
-	 * Id for Crew that Schedule is attached to; this is for foreign key relations
-	 * @var scheduleCrewId profile
+	 * timestamp of the Schedule
+	 * @var \DateTime $VALID_SCHEDULEDATE
 	 **/
-	protected $profile = null;
+	protected $VALID_SCHEDULEDATE2 = null;
+	/**
+	 * Id for Crew that Schedule is attached to; this is for foreign key relations
+	 * @var int
+	 **/
+	protected $crew = null;
 
 	/**
 	 * create dependent objects before running each test
@@ -48,9 +44,9 @@ class ScheduleTest extends TimecrunchersTest {
 		// run the default setUp() method first
 		parent::setUp();
 
-		// create and insert a ScheduleCrewId to own the test Schedule
-		$this->schedule = new ScheduleCrewId(null);
-		$this->schedule->insert($this->getPDO());
+		// create and insert a Crew to own the test Schedule
+		$this->crew = new Crew(null);
+		$this->crew->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup...)
 		$this->VALID_SCHEDULEDATE = new \DateTime();
