@@ -1,10 +1,10 @@
 <?php
 namespace Edu\Cnm\Timecrunchers\Test;
 
-use Edu\cnm\Timecrunchers\{Profile, Tweet};
+use Edu\Cnm\Timecrunchers\Company;
 
 //grab the project test parameters
-require_once ("DataDesignTest.php");
+require_once ("TimecrunchersTest.php");
 
 //grab the class under scrutiny
 require_once(dirname(__DIR__) . "php/classes/autoloader.php");
@@ -35,6 +35,18 @@ class CrewTest extends TimecrunchersTest {
 	protected $VALID_CREWDATE = null;
 	/**
 	 * Profile that created the Crew; this is for foreign key relations
-	 *
+	 * @var Company company
 	 **/
+	protected $company = null;
+
+	/**
+	 *create dependent objects before running each test
+	 **/
+	public final function setUp() {
+		//run the default setUp() method first
+		parent::setUp();
+
+		//create and insert a Company to own the test Crew
+		$this->company = new Company(null, "@phpunit", "test@phpunit.de", )
+	}
 }
