@@ -9,7 +9,7 @@ require_once("autoloader.php");
  * a user is given access and is able to check a shift, create a password, input their information
  * @author Denzyl Fontaine
  */
-class User {
+class User implements \JsonSerializable {
 	/**
 	 * id for the user is userId, this is the primary key
 	 *
@@ -553,89 +553,118 @@ class User {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
-	public function getUserByContent(\PDO $pdo, string $userfirstName) {
+	public function getUserByContent(\PDO $pdo, string $userFirstName) {
 		//sanitize the description before searching
-		$userfirstName = trim($userfirstName);
-		$userfirstName = filter_var($userfirstName, FILTER_SANITIZE_STRING);
-		if(empty($userfirstName) === true) {
+		$userFirstName = trim($userFirstName);
+		$userFirstName = filter_var($userFirstName, FILTER_SANITIZE_STRING);
+		if(empty($userFirstName) === true) {
 			throw(new \PDOException("user first name invalid"));
 		}
 
 		//create query template
 		$query = "SELECT userId, companyId, accessId, userPhone, userFirstName, userLastName, userCrewId, userEmail, userActivation, userHash, userSalt FROM userFirstName WHERE userFirstName = :userFirstName";
-		$statement = $pdo->prepare($query)
-	}
-	}
+		$statement = $pdo->prepare($query);
 
+		//bind users with place holder in the template
+		$userFirstName = "%$userFirstName%";
+		$parameters = array("userFirstName" => $userFirstName);
+		$statement->execute($parameters);
 
-
-/**
- * gets the user by user id
- *
- * @param \PDO $pdo PDO connection object
- * @param int $userId user id to search for
- * @return user|null user found or null if not found
- * @throws \PDOException when mySQL related errors occurs
- * @throws \TypeError when variables are not the correct content type
- */
-
-public static function getUserId(\PDO $pdo, int userId) {
-	//sanitize the user id vefore searching
-	if($userId <= 0) {
-		throw(new \PDOException("tweet is not positive"));
-	}
-
-//create query template
-	$query = "SELECT userId, companyId, accessId, userPhone, userFirstName, userLastName, userCrewId, userEmail, userActivation, userHash, userSalt";
-	$statement = $pdo->prepare($query);
-
-//bind the userId to place a holder in template
-	$parameters = array("userId" => $userId);
-	$statement->exectute($parameters);
-
-//grab the tweet from mySQL
-	try {
-		$tweet = null;
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		$row = $statemtent->fetch();
-		if($row !== false) {
-			$user = new User($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row[userActivation], $row["userHash"], $row["userSalt"]);
+		//build an array of users
+		$users = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PFO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$user = new User($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
+				$users[$users->key()] = $user;
+				$user->next();
+			} catch(\exception $exception) {
+				//if the row coudn't be thrown, rethrow it
+				throw(new \PDOException($exception->getmessage(), 0, $exception));
+			}
 		}
-	} catch(\Exception $excetion) {
-		//if the row couldn't be converted, rethow it
-		throw(new \PDOException($exception->getMessage(), 0, $exception));
+		return ($users);
 	}
-	return ($user);
-}
 
+	/**
+	 * gets the user by user id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $userId user id to search for
+	 * @return user|null user found or null if not found
+	 * @throws \PDOException when mySQL related errors occurs
+	 * @throws \TypeError when variables are not the correct content type
+	 */
 
-/**
- * gets all users
- *
- * @param \PDO $pdo PDO connection object
- * @return \splFixedArray splFixedArray of users found or null if not found
- * @throws \PDOException when mySQL related errors occur
- * @throws \TypeError when variables are not the correct data type
- */
+	public static function getUserByUserId(\PDO $pdo, int $userId) {
+		//sanitize the user id before searching
+		if($userId <= 0) {
+			throw(new \PDOException("tweet is not positive"));
+		}
 
-public static function getAllUsers(\PDO $pdo) {
-	//create query update
-	$query = "SELECT userId, companyId, accessId, userPhone, userFirstName, userLastName, userCrewId, 		userEmail, userActivation, userHash, userSalt";
-	$statement = $pdo->prepare($query);
-	$statement->execute();
+		//create query template
+		$query = "SELECT userId, companyId, accessId, userPhone, userFirstName, userLastName, userCrewId, userEmail, userActivation, userHash, userSalt";
+		$statement = $pdo->prepare($query);
 
-	//build an array of user
-	$users = new \SPLFixedArray($statement->fetch());
-	$statement->setFetchMode(\PDO::FETCH_ASSOC);
-	while(($row = $statement->fetch()) !== false) {
+		//bind the userId to place a holder in template
+		$parameters = array("userId" => $userId);
+		$statement->exectute($parameters);
+
+		//grab the tweet from mySQL
 		try {
-			$user = new company($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row[userActivation], $row["userHash"], $row["userSalt"]);
-			$users[$users->key()] = $users;
-			$users->next();
+			$tweet = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$user = new User($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
+			}
 		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
+			//if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
+		return ($user);
 	}
-	return ($users);
+
+
+	/**
+	 * gets all users
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \splFixedArray splFixedArray of users found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+
+	public static function getAllUsers(\PDO $pdo) {
+		//create query update
+		$query = "SELECT userId, companyId, accessId, userPhone, userFirstName, userLastName, userCrewId, 		userEmail, userActivation, userHash, userSalt";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		//build an array of user
+		$users = new \SPLFixedArray($statement->fetch());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$users = new company($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row[userActivation], $row["userHash"], $row["userSalt"]);
+				$users[$users->key()] = $users;
+				$users->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($users);
+	}
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		$fields["tweetDate"] = intval($this->tweetDate->format("U")) * 1000;
+		return ($fields);
+	}
 }
