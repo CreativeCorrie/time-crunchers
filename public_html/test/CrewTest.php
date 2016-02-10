@@ -47,6 +47,6 @@ class CrewTest extends TimecrunchersTest {
 		parent::setUp();
 
 		//create and insert a Company to own the test Crew
-		$this->company = new Company(null, "@phpunit", "test@phpunit.de", )
+		$this->company = new Company(null, "@phpunit", "test@phpunit.de" )
 	}
 }
