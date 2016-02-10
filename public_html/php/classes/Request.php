@@ -1,5 +1,5 @@
 <?php
-namespace Edu\Cnm\;
+namespace Edu\Cnm\timecrunchers;
 
 require_once("autoload.php");
 
@@ -227,9 +227,85 @@ class Request implements \JsonSerializable{
 		if($this->requestId===null){
 			throw(new \PDOException("can't update, request doesn't exist"));
 		}
-		$query = "UPDATE request SET requestId = :"
+		$query = "UPDATE request SET requestRequestorId = :requestRequestorId, requestRequestorText =
+			:requestRequestorId, requestRequestorText = :requestRequestorText, requestTimeStamp = :requestTimeStamp WHERE requestId = :requestId";
+		$statement = $pdo->prepare($query);
 
+		//binding member variables to the place holders in the template
+		$formattedDate = $this->requestTimeStamp->format("Y-m-d H:i:s");
+		$parameters = ["requestRequestorID" => $this->requestRequestorId,"requestRequestorText" => $this->requestRequestorText,
+		"requestTimeStamp" => $this->requestTimeStamp];
+		$statement->execute($parameters);
 	}
+
+	public static function getRequestByRequestId(\PDO $pdo, int $requestId) {
+		//sanitize the requestId
+		if($requestId <= 0) {
+			throw(new \PDOException("requestId isn not a positive number"));
+		}
+		// create query template
+		$query = "SELECT requestId, requestRequestorId, requestAdminId,requestTimeStamp ,requestActionTimeStamp
+		,requestApprove ,requestRequestorText ,requestAdminText from request WHERE requestId = :requestId";
+		$statement = $pdo->prepare($query);
+
+		// bind the request id to the place holder in template
+		$parameters = array("requestId" => $requestId);
+		$statement ->execute($parameters);
+
+		// grabs the request from mysql
+		try {
+			$request = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+
+			$row = $statement->fetch();
+			if($row !== false) {
+				$request = new Request($row["requestId"], $row["requestRequestorId"], $row["requestAdminId"],
+					$row["requestTimeStamp"], $row["requetActionTimeStamp"], $row["requestApprove"],
+					$row["requestRequestorText"], $row["requestAdminText"]);
+			}
+		} catch(\Exception $exception) {
+			// if row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(),0,$exception));
+		}
+		return($request);
+	}
+
+	public static function getAllRequests(\PDO $pdo) {
+		// create query template
+		$query = "SELECT requestId, requestRequestorId, requestAdminId,requestTimeStamp ,requestActionTimeStamp
+		,requestApprove ,requestRequestorText ,requestAdminText FROM request";
+		$statement= $pdo->prepare($query);
+		$statement->execute();
+
+		//build an array of requests
+		$requests = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row=$statement->fetch()) !== false) {
+			try {
+				$request = new Request($row["requestId"], $row["requestRequestorId"], $row["requestAdminId"],
+					$row["requestTimeStamp"], $row["requetActionTimeStamp"], $row["requestApprove"],
+					$row["requestRequestorText"], $row["requestAdminText"]);
+				$requests[$requests->key()] = $request;
+				$requests->next();
+			} catch(\Exception $exception) {
+				//if row couldn't be converted then throw it
+				throw(new \PDOException($exception->getMessage(),0,$exception);
+			}
+		}
+		return ($requests);
+		}
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		$fields["tweetDate"] = intval($this->requestActionTimeStamp->format("U")) * 1000;
+		return($fields);
+	}
+
+
 
 
 }
