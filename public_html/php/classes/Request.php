@@ -137,7 +137,7 @@ class Request implements \JsonSerializable {
 	/**
 	 * mutator method for requestor's id
 	 *
-	 * @param int $newRequestRequestorId userId of person making request
+	 * @param int $newRequestRequestorId userId of requestor
 	 * throws \RangeException if $newRequestRequestorId is not positive
 	 * throws\TypeError if $newRequestRequestorId is not an integer
 	 **/
@@ -392,9 +392,5 @@ class Request implements \JsonSerializable {
 		$fields["tweetDate"] = intval($this->requestActionTimeStamp->format("U")) * 1000;
 		return($fields);
 	}
-
-
-
-
 }
 

@@ -1,7 +1,7 @@
 <?php
 namespace Edu\Cnm\Timecrunchers\test;
 
-use Edu\Cnm\Timecrunchers\{UserId, User};
+use Edu\Cnm\Timecrunchers\{};
 
 //grab test parameters
 require_once("TimecrunchersTest.php");
