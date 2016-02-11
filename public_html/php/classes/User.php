@@ -383,7 +383,7 @@ class User {
 	 * @return string $newUserActivation
 	 */
 	public function getUserActivation() {
-		return ($this->userActivation);
+		return ($this->userActivaion);
 	}
 
 	/**
@@ -398,10 +398,11 @@ class User {
 		//verify $userActivation is secure
 		$newUserActivation = strtolower(trim($newUserActivation));
 
-
+		//make sure that user activation cannot be null
 		if(ctype_xdigit($newUserActivation) === false) {
 			throw(new \RangeException("user activation cannot be null"));
 		}
+		//make sure user activation =  32
 		if($newUserActivation !== 32) {
 			throw(new \RangeException("user activation must be 32"));
 		}
@@ -431,10 +432,11 @@ class User {
 		//verification that $userHash is secure
 		$newUserHash = strtolower(trim($newUserHash));
 
-
+		//make sure that user activation cannot be null
 		if(ctype_xdigit($newUserHash) === false) {
 			throw(new \RangeException("user hash cannot be null"));
 		}
+		//make sure user activation =  128
 		if($newUserHash !== 128) {
 			throw(new \RangeException("user hash has to be 128"));
 		}
@@ -464,10 +466,11 @@ class User {
 	//verification that $userSalt is secure
 	$newUserSalt = strtolower(trim($newUserSalt));
 
-
+		//make sure that user activation cannot be null
 		if(ctype_xdigit($newUserSalt) === false) {
 			throw(new \RangeException("user salt cannot be null"));
 		}
+		//make sure user activation =  64
 		if($newUserSalt !== 64) {
 			throw(new \RangeException("user salt has to be 64"));
 		}
@@ -506,7 +509,7 @@ class User {
 	 * deletes the user from mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param \PDOExeption when mySQL related errors occur
+	 * @param \PDOException when mySQL related errors occur
 	 * @param \TypeError if $pdo is not a PDO connection object
 	 */
 	public function delete(\PDO $pdo) {
