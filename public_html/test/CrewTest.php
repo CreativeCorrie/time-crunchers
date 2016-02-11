@@ -183,6 +183,6 @@ class CrewTest extends TimecrunchersTest {
 		$results = Crew::getCrewByCrewId($this->getPDO(), $crew->getCrewLocation());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\vhooker\\TimecrunchersTest")
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\vhooker\\TimecrunchersTest\\Crew", $results);
 	}
 }
