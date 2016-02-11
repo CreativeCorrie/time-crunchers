@@ -72,7 +72,7 @@ class Request implements \JsonSerializable {
 	 **/
 	public function __construct(int $newRequestId = null, int $newRequestRequestorId, int $newRequestAdminId,
 										 int $newRequestTimeStamp = null, $newRequestActionTimeStamp = null,
-										 bool $newRequestApprove = false, string $newRequestRequestorText, $newRequestAdminText) {
+										 bool $newRequestApprove = null, string $newRequestRequestorText, $newRequestAdminText) {
 		try {
 			$this->setRequestId($newRequestId);
 			$this->setRequestRequestorId($newRequestRequestorId);
