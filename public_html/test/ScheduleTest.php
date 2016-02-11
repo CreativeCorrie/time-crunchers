@@ -149,7 +149,7 @@ class ScheduleTest extends TimecrunchersTest {
 	}
 
 	/**+
-	 * test inserting a Schedule and regrabbing it from mySQL
+	 * test inserting a Schedule and re-grabbing it from mySQL
 	 **/
 	public function testGetValidScheduleByScheduleId() {
 		// count the number of rows and save it for later
