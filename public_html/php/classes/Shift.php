@@ -71,18 +71,19 @@ class Shift implements \JsonSerializable {
 	 * constructor for shift
 	 *
 	 * @param int|null $newShiftId id of crew or null if a new shift
-	 * @param int$newShiftUserId of the user who initialized this shift
-	 * @param int$newShiftCrewId of the crew assigned to this shift
-	 * @param int$newShiftRequestId of the request for time off(on) in the shift
-	 * @param $newShiftStartTime of the time a shift starts
-	 * @param  $newShiftDuration of the duration of the shift
+	 * @param int $newShiftUserId of the user who initialized this shift
+	 * @param int $newShiftCrewId of the crew assigned to this shift
+	 * @param int $newShiftRequestId of the request for time off(on) in the shift
+	 * @param string $newShiftStartTime of the time a shift starts
+	 * @param int $newShiftDuration of the duration of the shift
+	 * @param \DateTime $newShiftDate of the time of the shift
 	 * @param boolean $newShiftDelete of the boolean return of a soft deleted shift
 	 * @throws \InvalidArgumentException if data types are ot valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \typeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct(int $newShiftId = null, int $newShiftUserId = null, int $newShiftCrewId = null, int $newShiftRequestId = null, string $newShiftStartTime = null, int $newShiftDuration = null, int                                   $newShiftDate = null, bool $newShiftDelete = 0) {
+	public function __construct(int $newShiftId = null, int $newShiftUserId = null, int $newShiftCrewId = null, int $newShiftRequestId = null, string $newShiftStartTime = null, int $newShiftDuration = null,                                   \DateTime $newShiftDate = null, bool $newShiftDelete = 0) {
 		try{
 			$this->setShiftId($newShiftId);
 			$this->setShiftUserId($newShiftUserId);
@@ -278,12 +279,11 @@ class Shift implements \JsonSerializable {
 	public function setShiftDate($newShiftDate = null) {
 		//base case: if the date is null, use the current date
 		if($newShiftDate === null) {
-			$this->shiftDate = new \DateTime();
-			return;
+			throw (new \RangeException("can't create a shift without a date"));
 		}
 		//store the shift date
 		try{
-			$newShiftDate = self::validateTime($newShiftDate);
+			$newShiftDate = self::validateDate($newShiftDate);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		}catch(\RangeException $range) {
