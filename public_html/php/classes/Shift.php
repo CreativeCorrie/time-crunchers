@@ -414,14 +414,15 @@ class Shift implements \JsonSerializable {
 			return($shift);
 		}
 	/**
-	 *function to retrieve message by  receiverId
+	 *function to retrieve shifts by shiftUserId
 	 *
 	 * @param PDO $pdo PDO is a connection object
-	 * @param int $receiverId - receiverId for message to be sent
-	 * @return SplFixedArray with all messages found
+	 * @param int $shiftUserId - shiftUserId for shifts to be viewed
+	 * @return SplFixedArray with all shifts found
 	 * @throw  PDOException with mysql related errors
+	 * @throw \InvalidArguamentException if shiftUserId is not an integer
 	 **/
-	public static function getShiftsByShiftUserId(PDO $pdo, $shiftUserId) {
+	public static function getShiftsByShiftUserId(PDO $pdo, int $shiftUserId) {
 		// check that the message receiverId is valid
 		$shiftUserId = filter_var($shiftUserId, FILTER_VALIDATE_INT);
 		if($shiftUserId === false)
@@ -448,6 +449,11 @@ class Shift implements \JsonSerializable {
 			}
 		}
 		return $shifts;
+	}
+	public static function getShiftsByDateRange(\PDO $pdo, \DateTime $startDate, \DateTime $endDate) {
+		 if ($startDate->diff($endDate) === false) {
+			 throw (new \RangeException("end date cannot be less than"));
+		 }
 	}
 
 	/**
