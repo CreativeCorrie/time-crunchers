@@ -42,10 +42,16 @@ class Shift implements \JsonSerializable {
 	private $shiftRequestId;
 
 	/**
-	 * shiftTime, identifies the time of a shift
+ * shiftTime, identifies the start time of a shift
+ * @var int shiftTime
+ **/
+	private $shiftStartTime;
+
+	/**
+	 * shiftTime, identifies the duration time of a shift
 	 * @var int shiftTime
 	 **/
-	private $shiftTime;
+	private $shiftDuration;
 
 	/**
 	 *shiftDay, identifies the day of shift
@@ -68,8 +74,8 @@ class Shift implements \JsonSerializable {
 	 * @param int$newShiftUserId of the user who initialized this shift
 	 * @param int$newShiftCrewId of the crew assigned to this shift
 	 * @param int$newShiftRequestId of the request for time off(on) in the shift
-	 * @param \DateTime $newShiftTime of the time for the shift
-	 * @param \DateTime $newShiftDate of the date fo the shift
+	 * @param $newShiftTime of the time for the shift
+	 * @param  $newShiftDate of the date fo the shift
 	 * @param boolean $newShiftDelete of the boolean return of a soft deleted shift
 	 * @throws \InvalidArgumentException if data types are ot valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
@@ -82,7 +88,7 @@ class Shift implements \JsonSerializable {
 			$this->setShiftUserId($newShiftUserId);
 			$this->setShiftCrewId($newShiftCrewId);
 			$this->setShiftRequestId($newShiftRequestId);
-			$this->setShiftTime($newShiftTime);
+			$this->setShiftStartTime($newShiftTime);
 			$this->setShiftDate($newShiftDate);
 			$this->setShiftDelete($newShiftDelete);
 		} catch(\InvalidArgumentException $invalidArgument) {
@@ -199,35 +205,66 @@ class Shift implements \JsonSerializable {
 		$this->shiftRequestId = intval($newShiftRequestId);
 	}
 	/**
-	 * accessor method for shift time
-	 *
-	 * @return \DateTime value of shift time
-	 **/
-	public function getShiftTime() {
-		return($this->shiftTime);
+ * accessor method for shift start time
+ *
+ * @return \DateTime value of time a shift starts
+ **/
+	public function getShiftStartTime() {
+		return($this->shiftStartTime);
 	}
 	/**
-	 * mutator method for shift time
+	 * mutator method for shift start time
 	 *
-	 * @param \DateTime|string|null $newShiftTime shift time as a DateTime object or string (or null to load the current time)
-	 * @throws \InvalidArgumentException if $newShiftTime is not a valid object or string
-	 * @throws \RangeException if $newShiftTime is a time that does not exist
+	 * @param \DateTime|string|null $newShiftStartTime shift time as a DateTime object or string (or null to load the current time)
+	 * @throws \InvalidArgumentException if $newShiftStartTime is not a valid object or string
+	 * @throws \RangeException if $newShiftStartTime is a time that does not exist
 	 **/
-	public function setShiftTime($newShiftTime = null) {
-		//base case: if the time is ull, use the current time
-		if($newShiftTime === null) {
-			$this->shiftTime = new \DateTime();
+	public function setShiftStartTime($newShiftStartTime = null) {
+		//base case: if the time is null, use the current time
+		if($newShiftStartTime === null) {
+			$this->shiftStartTime = new \DateTime();
 			return;
 		}
 		//store the shift time
 		try{
-			$newShiftTime = self::validateTime($newShiftTime);
+			$newShiftStartTime = self::validateTime($newShiftStartTime);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		} catch(\RangeException $range) {
 			throw(new \RangeException($range->getMessage(), 0, $range));
 		}
-		$this->shiftTime = $newShiftTime;
+		$this->shiftStartTime = $newShiftStartTime;
+	}
+	/**
+	 * accessor method for shift duration time
+	 *
+	 * @return \DateTime value of the duration of a shift
+	 **/
+	public function getShiftDurationt() {
+		return($this->shiftDuration);
+	}
+	/**
+	 * mutator method for shift start time
+	 *
+	 * @param \DateTime|string|null $newShiftDuration shift time as a DateTime object or string (or null to load the current time)
+	 * @throws \InvalidArgumentException if $newShiftDuration is not a valid object or string
+	 * @throws \RangeException if $newShiftDuration is a time that does not exist
+	 **/
+	public function setShiftDuration($newShiftDuration = null) {
+		//base case: if the time is null, use the current time
+		if($newShiftDuration === null) {
+			$this->shiftDuration = new \DateTime();
+			return;
+		}
+		//store the shift time
+		try{
+			$newShiftDuratione = self::validateTime($newShiftDuration);
+		} catch(\InvalidArgumentException $invalidArgument) {
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		}
+		$this->shiftDuration = $newShiftDuration;
 	}
 	/**
 	 * accessor method for shift date
@@ -252,7 +289,7 @@ class Shift implements \JsonSerializable {
 		}
 		//store the shift date
 		try{
-			$newShiftDate = self::validateTime($newShiftDate);
+			$newShiftDate = ValidateDate::validateTime($newShiftDate);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		}catch(\RangeException $range) {
@@ -301,7 +338,8 @@ class Shift implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftTime" => $this->shiftTime, "shiftDate" => $this->shiftDate, "shiftDelete" => $this->shiftDelete];
+		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftTime" => $this->shiftStartTime, "shiftDate" => $this->shiftDate,
+                     "shiftDelete" => $this->shiftDelete];
 		$statement->execute($parameters);
 
 		//update the null shiftId with what mySQL just gave us
@@ -315,17 +353,12 @@ class Shift implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function delete(\PDO $pdo) {
-		//enforce the shift is not null (i.e., don't delete a shift that has't beenn inserted)
+		//enforce the shift is not null (i.e., don't delete a shift that has't been inserted)
 		if($this->shiftId === null) {
 			throw(new \PDOException("unable to delete a shift that does not exist"));
 		}
-		//create query template
-		$query = "DELETE FROM shift WHERE shiftId = :shiftId";
-		$statement = $pdo->prepare(($query));
-
-		//bind the member variable to the place holder in the template
-		$parameters = ["shiftId" => $this->shiftId];
-		$statement->execute($parameters);
+		$this->shiftDelete=1;
+		$this->update($pdo);
 	}
 	/**
 	 * updates this Shift in mySQL
@@ -344,7 +377,7 @@ class Shift implements \JsonSerializable {
 		$statement = $pdo->Prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftTime" => $this->shiftTime, "shiftDate" => $this->shiftDate, "shiftDelete" => $this->shiftDelete];
+		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftTime" => $this->shiftStartTime, "shiftDate" => $this->shiftDate, "shiftDelete" => $this->shiftDelete];
 		$statement->execute($parameters);
 	}
 
@@ -357,7 +390,7 @@ class Shift implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @hrows \TypeError when variable are not the correct data type
 	 **/
-	public static function getShiftByShiftId(\Pdo $pdo, int $shiftId) {
+	public static function getShiftByShiftId(\PDO $pdo, int $shiftId) {
 		//sanitize the shiftId before searching
 		if($shiftId <=0) {
 			throw(new \PDOException("shift id is not positive"));

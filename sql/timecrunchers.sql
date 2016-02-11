@@ -1,4 +1,10 @@
-
+DROP TABLE IF EXISTS shift;
+DROP TABLE IF EXISTS request;
+DROP TABLE IF EXISTS schedule;
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS access;
+DROP TABLE IF EXISTS crew;
+DROP TABLE IF EXISTS company;
 
 
 CREATE TABLE company (
@@ -82,7 +88,8 @@ CREATE TABLE shift (
 	shiftUserId INT UNSIGNED NOT NULL,
 	shiftCrewId INT UNSIGNED NOT NULL,
 	shiftRequestId INT UNSIGNED NOT NULL,
-	shiftTime VARCHAR(32),
+	shiftStartTime TIME,
+	shiftDuration INT UNSIGNED NOT NULL,
 	shiftDate DATE,
 	shiftDelete BOOLEAN DEFAULT 0,
 	INDEX(shiftUserId),
