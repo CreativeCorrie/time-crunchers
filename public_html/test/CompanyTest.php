@@ -18,7 +18,7 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
  * @see Company
  * @author Elaine Thomas<enajera2@cnm.edu>
  **/
-class CompanyTest extends TimecrunchersTest {
+class CompanyTest extends TimeCrunchersTest {
 	/**
 	 * content of the Company
 	 * @var string $VALID_COMPANYNAME

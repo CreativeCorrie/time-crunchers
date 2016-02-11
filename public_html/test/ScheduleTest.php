@@ -19,7 +19,7 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
  * @see Schedule
  * @author Elaine Thomas <enajera2@cnm.edu>
  **/
-class ScheduleTest extends TimecrunchersTest {
+class ScheduleTest extends TimeCrunchersTest {
 
 	/**
 	 * timestamp of the Schedule
