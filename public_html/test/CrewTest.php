@@ -215,7 +215,7 @@ class CrewTest extends TimecrunchersTest {
 		$this->assertCount(1, $results);
 		$this->assertContainsONlyInstancesOf("Edu\\Cnm\\Vhooker\\TimecrunchersTest\\Crew", $results);
 		//grab the result fromt eh array and validate it
-		$pdoCrew = $results[1];
+		$pdoCrew = $results[0];
 		$this->assertEquals($pdoCrew->getCompanyId(), $this->company->getCompanyId());
 		$this->assertEquals($pdoCrew->getCrewLocation(), $this->VALID_CREWLOCATION);
 		$this->assertEqulas($pdoCrew->getCrewDate(), $this->VALID_CREWDATE);
