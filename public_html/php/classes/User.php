@@ -392,7 +392,7 @@ class User {
 	 * @param string $newUserActivation string of users activation
 	 * @param \InvalidArgumentException if $userActivation was not a string
 	 * @param \RangeException if $newRangeException is not = 32
-	 * @param \TypeError if $newUserActivation is not an int
+	 * @param \TypeError if $newUserActivation is not a string
 	 */
 	public function setUserActivation(string $newUserActivation) {
 		//verify $userActivation is secure
@@ -422,20 +422,21 @@ class User {
 	/**
 	 * mutator method for user hash
 	 *
-	 * @param int|null for $newUserHash
-	 * @param \RangeException if $newUserHash is > 128
-	 * @param \TypeError if $newUserHash is not an int
+	 * @param string $newUserHash string of user hash
+	 * @param \InvalidArgumentException if $newUserHash is not a string
+	 * @param \RangeException if $newUserHash = 128
+	 * @param \TypeError if $newUserHash is not a string
 	 */
-	public function setUserHash(int $newUserHash = null) {
-		//apply filter to the input
-		if($newUserHash === null) {
-			$this->userHash = null;
-			return;
-		}
+	public function setUserHash(string $newUserHash) {
+		//verification that $userHash is secure
+		$newUserHash = strtolower(trim($newUserHash));
 
-		//verify user hash is positive
-		if($newUserHash <= 0) {
-			throw(new \RangeException("use hash is too long"));
+
+		if(ctype_xdigit($newUserHash) === false) {
+			throw(new \RangeException("user hash cannot be null"));
+		}
+		if($newUserHash !== 128) {
+			throw(new \RangeException("user hash has to be 128"));
 		}
 
 		//convert and store user activation
@@ -454,20 +455,21 @@ class User {
 	/**
 	 * mutator method for user salt
 	 *
-	 * @param int|null for $newUserSalt
-	 * @param \RangeException if $newUserSalt is > 64
-	 * @param \TypeError if $newUserSalt is not an int
+	 * @param string $newUserSalt string of user salt
+	 * @param \InvalidArgumentException if user salt is not a string
+	 * @param \RangeException if $newUserSalt = 64
+	 * @param \TypeError if $newUserSalt is not a string
 	 */
-	public function setUserSalt(int $newUserSalt = null) {
-		//apply filter to the input
-		if($newUserSalt === null) {
-			$this->userSalt = null;
-			return;
-		}
+	public function setUserSalt(string $newUserSalt) {
+	//verification that $userSalt is secure
+	$newUserSalt = strtolower(trim($newUserSalt));
 
-		//verify that user salt is positive
-		if($newUserSalt <= 0) {
-			throw(new \RangeException("user salt is too long"));
+
+		if(ctype_xdigit($newUserSalt) === false) {
+			throw(new \RangeException("user salt cannot be null"));
+		}
+		if($newUserSalt !== 64) {
+			throw(new \RangeException("user salt has to be 64"));
 		}
 
 		//convert and store user salt
