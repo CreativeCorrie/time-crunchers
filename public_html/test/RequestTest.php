@@ -41,17 +41,17 @@ class RequestTest extends TimecrunchersTest {
 	protected $VALID_REQUESTACTIONTIMESTAMP = null;
 	/**
 	 * UserId that made the Request; this is for foreign key relations
-	 * @var requestor
+	 * @var $requestor
 	 **/
 	protected $requestor = null;
 	/**
 	 * AdminId that Approves the Request; this is for foreign key relations
-	 * @var  admin
+	 * @var  $admin
 	 **/
 	protected $admin = null;
 	/**
 	 * Admin true/false approval/denial of request
-	 * @var  requestApprove
+	 * @var  $requestApprove
 	 **/
 	protected $requestApprove = null;
 
@@ -62,53 +62,65 @@ class RequestTest extends TimecrunchersTest {
 		// run the default setUp() method first
 		parent::setUp();
 
-		// create and insert a Profile to own the test Tweet
-		$this->requestor = new User(null, null, null, null, "+12125551212", "Sam", "Chandler","test@phpunit.de", );
-		$this->profile->insert($this->getPDO());
+		// create and insert a Users to own the test Request
+		$this->requestor = new User(null, null, null, null, "+12125551212", "Johnny", "Requestorman","test@phpunit.de","123","password","456");
+		$this->requestor->insert($this->getPDO());
+
+		$this->admin = new User(null, null, null, null, "+11215552121", "Suzy", "Hughes","test2@phpunit.de","321","passw0rd","654");
+		$this->admin->insert($this->getPDO());
+
 
 		// calculate the date (just use the time the unit test was setup...)
-		$this->VALID_TWEETDATE = new \DateTime();
+		$this->VALID_REQUESTTIMESTAMP = new \DateTime();
+		$this->VALID_REQUESTACTIONTIMESTAMP = new \DateTime();
 	}
 
 	/**
-	 * test inserting a valid Tweet and verify that the actual mySQL data matches
+	 * test inserting a valid Request and verify that the actual mySQL data matches
 	 **/
-	public function testInsertValidTweet() {
+	public function testInsertValidRequest() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("request");
 
-		// create a new Tweet and insert to into mySQL
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Request and insert to into mySQL
+		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
+		$request->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals($pdoTweet->getProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		$this->assertEquals($pdoTweet->getTweetDate(), $this->VALID_TWEETDATE);
+		$pdoRequest = Request::getRequestByRequestId($this->getPDO(), $request->getUserId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("request"));
+		$this->assertEquals($pdoRequest->getUserId(), $this->requestor->getUserId());
+		$this->assertEquals($pdoRequest->getUserId(), $this->admin->getUserId());
+		$this->assertEquals($pdoRequest->getRequestTimeStamp(), $this->VALID_REQUESTTIMESTAMP);
+		$this->assertEquals($pdoRequest->getRequestActionTimeStamp(), $this->VALID_REQUESTACTIONTIMESTAMP);
+		$this->assertEquals($pdoRequest->getRequestApprove(), $this->requestApprove);
+		$this->assertEquals($pdoRequest->getRequestRequestorText(), $this->VALID_REQUESTREQUESTORTEXT);
+		$this->assertEquals($pdoRequest->getRequestAdminText(), $this->VALID_REQUESTADMINTEXT);
 	}
 
 	/**
-	 * test inserting a Tweet that already exists
+	 * test inserting a Request that already exists
 	 *
 	 * @expectedException PDOException
 	 **/
-	public function testInsertInvalidTweet() {
-		// create a Tweet with a non null tweet id and watch it fail
-		$tweet = new Tweet(DataDesignTest::INVALID_KEY, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+	public function testInsertInvalidRequest() {
+		// create a Request with a non null request id and watch it fail
+		$request = new Request(TimecrunchersTest::INVALID_KEY, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
+		$request->insert($this->getPDO());
 	}
 
 	/**
 	 * test inserting a Tweet, editing it, and then updating it
 	 **/
-	public function testUpdateValidTweet() {
+	public function testUpdateValidRequest() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("request");
 
-		// create a new Tweet and insert to into mySQL
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		// create a new Request and insert into mySQL
+		$tweet = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
 		$tweet->insert($this->getPDO());
 
 		// edit the Tweet and update it in mySQL
