@@ -380,7 +380,7 @@ class User {
 	/**
 	 * accessor method user activation
 	 *
-	 * @return int|null $newUserActivation
+	 * @return string $newUserActivation
 	 */
 	public function getUserActivation() {
 		return ($this->userActivation);
@@ -389,20 +389,21 @@ class User {
 	/**
 	 * mutator method for user activation
 	 *
-	 * @param int|null for $newUserActivation
-	 * @param \RangeException if $newRangeException is > 32
+	 * @param string $newUserActivation string of users activation
+	 * @param \InvalidArgumentException if $userActivation was not a string
+	 * @param \RangeException if $newRangeException is not = 32
 	 * @param \TypeError if $newUserActivation is not an int
 	 */
-	public function setUserActivation(int $newUserActivation = null) {
-		//apply the filter to the input
-		if($newUserActivation === null) {
-			$this->userActivation = null;
-			return;
-		}
+	public function setUserActivation(string $newUserActivation) {
+		//verify $userActivation is secure
+		$newUserActivation = strtolower(trim($newUserActivation));
 
-		//verify user activation is positive
-		if($newUserActivation <= 0) {
-			throw(new \RangeException("user activation to large"));
+
+		if(ctype_xdigit($newUserActivation) === false) {
+			throw(new \RangeException("user activation cannot be null"));
+		}
+		if($newUserActivation !== 32) {
+			throw(new \RangeException("user activation must be 32"));
 		}
 
 		//convert and store user activation
@@ -545,18 +546,18 @@ class User {
 	}
 
 	/**
-	 * gets the user by content
+	 * gets the user by Email
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param string $tweetContent tweet content to search for
+	 * @param string $userEmail tweet content to search for
 	 * @return \SplFixedArray SplFixedArray of Tweets found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
-	public function getUserByContent(\PDO $pdo, string $userEmail) {
+	public function getUserByEmail(\PDO $pdo, string $userEmail) {
 		//sanitize the description before searching
 		$userEmail = trim($userEmail);
-		$userEmail = filter_var($userEmail, FILTER_SANITIZE_STRING);
+		$userEmail = filter_var($userEmail, FILTER_SANITIZE_EMAILl);
 		if(empty($userEmail) === true) {
 			throw(new \PDOException("user first name invalid"));
 		}
