@@ -83,6 +83,6 @@ class CrewTest extends TimecrunchersTest {
 	}
 
 	/**
-	 * test inserting a Crew, editing it and then updating it
+	 * test inserting a Crew, editing it and then updating i
 	 **/
 }
