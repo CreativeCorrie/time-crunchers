@@ -60,14 +60,15 @@ class ScheduleTest extends TimecrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("schedule");
 
 		// create a new Schedule and insert to into mySQL
-		$schedule = new Schedule(null, $this->scheduleCrewId->getScheduleCrewId(), $this->VALID_SCHEDULECONTENT, $this->VALID_SCHEDULEDATE);
+		$schedule = new Schedule(null, $this->crew->getScheduleCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULEDATE2);
 		$schedule->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoSchedule = Schedule::getScheduleByScheduleId($this->getPDO(), $schedule->getScheduleId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
-		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->profile->getScheduleCrewId());
-		$this->assertEquals($pdoSchedule->getScheduleStart(), $this->VALID_SCHEDULEDATE);
+		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getScheduleCrewId());
+		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULEDATE);
+		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULEDATE2);
 	}
 
 	/**

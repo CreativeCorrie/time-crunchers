@@ -1,4 +1,6 @@
 
+
+
 CREATE TABLE company (
 	companyId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	companyName VARCHAR(128) NOT NULL,
