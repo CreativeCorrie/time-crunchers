@@ -84,7 +84,7 @@ class UserTest extends TimecrunchersTest {
 	/**
 	 * test inserting a User, editing it, and then updating it
 	 **/
-	public function testDeleteValidUser() {
+	public function testUpdateValidUser() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 
@@ -99,27 +99,49 @@ class UserTest extends TimecrunchersTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoUser = User::getUserbyUserId($this->getPDO(), $user->getUserId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals()
+		$this->assertEquals($pdoUser->userId(), $this->user->userId());
+		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME2);
+	}
 
+	/**
+	 * test updating a Tweet that already exists
+	 *
+	 * @expectedException PDOException
+	 **/
+	public function testUpdateInvalidUser() {
+		//create tweet with a non null userid and watch it fail
+		$user = new User(null, $this->user->getUserId(), $this->VALID_USERFIRSTNAME);
+		$user->update($this->getPDO());
+	}
 
+	/**
+	 * test creating a Tweet and then deleting it
+	 **/
+	public function testDeleteValidUser() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("user");
 
+		//create a new user and insert into mySQL
+		$user = new User(null, $this->user->userId(), $this->VALID_USERFIRSTNAME);
+		$user->insert($this->getPDO());
 
-
-
-
-
-
-
-
-
-		//delete user from mySQL
-		$this->assertEquals($numRows + 1, $getConnection()->getRowCount("user"));
+		//delete the user from mySQL
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
 		$user->delete($this->getPDO());
 
-		//grab the data from mySQL and enforce the User does not exist
-		$pdoUser = User::getUserByUserId($this->getPDO(), $user->UserId());
+		//grab the data from mySQL and enforce the user does not exist
+		$pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
 		$this->assertNull($pdoUser);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("user"));
+	}
+
+	/**
+	 * test deleting a Tweet that does not exist
+	 *
+	 * @expectedException PDOException
+	 **/
+	public function testDeleteInvalidUser() {
+		//create
 	}
 
 }
