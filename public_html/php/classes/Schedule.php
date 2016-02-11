@@ -211,7 +211,7 @@ class Schedule implements \JsonSerializable {
 
 		// bind the member variables to the place holders in the template
 		$formattedDate = $this->scheduleStartDate->format("Y-m-d H:i:s");
-		$parameters = ["scheduleCrewId" => $this->scheduleCrewId, "scheduleStartDate" => $this->scheduleStartDate, "scheduleId" => $this->scheduleId];
+		$parameters = ["scheduleCrewId" => $this->scheduleCrewId, "scheduleStartDate" => $formattedDate, "scheduleId" => $this->scheduleId];
 		$statement->execute($parameters);
 	}
 
@@ -224,18 +224,24 @@ class Schedule implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getScheduleByScheduleStartDate(\PDO $pdo, int $scheduleStartDate) {
+	public static function getScheduleByScheduleStartDate(\PDO $pdo, $scheduleStartDate) {
 		// sanitize the scheduleId before searching
-		if($scheduleStartDate <= 0) {
-			throw(new \PDOException("schedule id is not positive"));
+		try {
+			$scheduleStartDate = self::validateDate($scheduleStartDate);
+		} catch(\Exception $invalidArgument) {
+			throw(new \PDOException($invalidArgument->getMessage(), 0, $invalidArgument));
 		}
 
+		// create two dates as a range
+		$sunrise = $scheduleStartDate->format("Y-m-d 00:00:00");
+		$sunset = $scheduleStartDate->format("Y-m-d 23:59:59");
+
 		// create query template
-		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule WHERE scheduleStartDate = :scheduleStartDate";
+		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule WHERE scheduleStartDate >= :sunrise AND scheduleStartDate <= :sunset";
 		$statement = $pdo->prepare($query);
 
 		// bind the schedule start date to the place holder in the template
-		$parameters = array("scheduleStartDate" => $scheduleStartDate);
+		$parameters = ["sunrise" => $sunrise, "sunset" => $sunset];
 		$statement->execute($parameters);
 
 		// grab the schedule from mySQL
