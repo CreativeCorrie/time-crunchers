@@ -1,13 +1,13 @@
 <?php
-namespace Edu\Cnm\Timecrunchers\test;
+namespace Edu\Cnm\Timecrunchers\Request;
 
-use Edu\Cnm\Timecrunchers\{Profile, Tweet};
+use Edu\Cnm\Timecrunchers\{User, Request};
 
 // grab the project test parameters
-require_once("DataDesignTest.php");
+require_once("TimecrunchersTest.php");
 
 // grab the class under scrutiny
-require_once(dirname(__DIR__) . "/php/classes/autoload.php");
+require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 
 /**
  * Full PHPUnit test for the Tweet class
@@ -15,30 +15,45 @@ require_once(dirname(__DIR__) . "/php/classes/autoload.php");
  * This is a complete PHPUnit test of the Tweet class. It is complete because *ALL* mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
- * @see Tweet
- * @author Dylan McDonald <dmcdonald21@cnm.edu>
+ * @see Request
+ * @author Samuel Van Chandler <samuelvanchandler@gmail.com>
  **/
-class TweetTest extends DataDesignTest {
+class RequestTest extends TimecrunchersTest {
 	/**
-	 * content of the Tweet
-	 * @var string $VALID_TWEETCONTENT
+	 * content of the
+	 * @var string $VALID_REQUESTREQUESTORTEXT
 	 **/
-	protected $VALID_TWEETCONTENT = "PHPUnit test passing";
+	protected $VALID_REQUESTREQUESTORTEXT = "PHPUnit test passing";
 	/**
-	 * content of the updated Tweet
-	 * @var string $VALID_TWEETCONTENT2
+	 * content of the
+	 * @var string $VALID_REQUESTADMINTEXT
 	 **/
-	protected $VALID_TWEETCONTENT2 = "PHPUnit test still passing";
+	protected $VALID_REQUESTADMINTEXT = "PHPUnit test passing";
 	/**
-	 * timestamp of the Tweet; this starts as null and is assigned later
-	 * @var DateTime $VALID_TWEETDATE
+	 * timestamp of the Request; this starts as null and is assigned later
+	 * @var /DateTime $VALID_REQUESTTIMESTAMP
 	 **/
-	protected $VALID_TWEETDATE = null;
+	protected $VALID_REQUESTTIMESTAMP = null;
 	/**
-	 * Profile that created the Tweet; this is for foreign key relations
-	 * @var Profile profile
+	 * timestamp of the Request; this starts as null and is assigned later
+	 * @var /DateTime $VALID_REQUESTACTIONTIMESTAMP
 	 **/
-	protected $profile = null;
+	protected $VALID_REQUESTACTIONTIMESTAMP = null;
+	/**
+	 * UserId that made the Request; this is for foreign key relations
+	 * @var requestor
+	 **/
+	protected $requestor = null;
+	/**
+	 * AdminId that Approves the Request; this is for foreign key relations
+	 * @var  admin
+	 **/
+	protected $admin = null;
+	/**
+	 * Admin true/false approval/denial of request
+	 * @var  requestApprove
+	 **/
+	protected $requestApprove = null;
 
 	/**
 	 * create dependent objects before running each test
@@ -48,7 +63,7 @@ class TweetTest extends DataDesignTest {
 		parent::setUp();
 
 		// create and insert a Profile to own the test Tweet
-		$this->profile = new Profile(null, "@phpunit", "test@phpunit.de", "+12125551212");
+		$this->requestor = new User(null, null, null, null, "+12125551212", "Sam", "Chandler","test@phpunit.de", );
 		$this->profile->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup...)

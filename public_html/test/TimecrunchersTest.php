@@ -1,5 +1,5 @@
 <?php
-namespace Edu\Cnm\Timcrunchers\Test;
+namespace Edu\Cnm\Timecrunchers\Test;
 
 //grab the encrypted properties file
 require_once("/etc/apache2/data-design/encrypted-config.php");
@@ -19,7 +19,7 @@ require_once("/etc/apache2/data-design/encrypted-config.php");
  *
  * @author Dylan McDonald <dmcdonald21@cnm.edu>
  **/
-abstract class DataDesignTest extends \PHPUnit_Extensions_Database_TestCase {
+abstract class TimeCrunchersTest extends \PHPUnit_Extensions_Database_TestCase {
 	/**
 	 * invalid id to use for an INT UNSIGNED field (maximum allowed INT UNSIGTNED in mySQL) + 1
 	 * @see https://dev.mysql.com/doc/refman/5.6/en/integer-types.html mySQL Integer Types
