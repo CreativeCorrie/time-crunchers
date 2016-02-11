@@ -184,5 +184,40 @@ class CrewTest extends TimecrunchersTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\vhooker\\TimecrunchersTest\\Crew", $results);
+
+		//grab the result fromthe array and validate it
+		$pdoCrew = $results[0];
+		$this->assertEquals($pdoCrew->getCrewLocation(), $this->VALID_CREWLOCATION);
+		$this->assertEquals($pdoCrew->getCrewDate(), $this->VALID_CREWDATE);
+	}
+	/**
+	 * test grabbing a Crew by a location that does not exist
+	 **/
+	public function testGetInvalidCrewByCrewLocation() {
+		//grab a company id that exceeds the maximum allowable company id
+		$crew = Crew::getCrewByCrewLocation($this->getPDO(), "nobody ever went here");
+		$this->assertCount(0, $crew);
+	}
+	/**
+	 * test grabbing all Crews
+	 **/
+	public function testGetallValidCrews() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowcount("crew");
+
+		//create a new Crew and insert it into mySQL
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
+		$crew->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$results = Crew::getAllCrews($this->getPDO());
+		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("crew"));
+		$this->assertCount(1, $results);
+		$this->assertContainsONlyInstancesOf("Edu\\Cnm\\Vhooker\\TimecrunchersTest\\Crew", $results);
+		//grab the result fromt eh array and validate it
+		$pdoCrew = $results[0];
+		$this->assertEquals($pdoCrew->getCompanyId(), $this->company->getCompanyId());
+		$this->assertEquals($pdoCrew->getCrewLocation(), $this->VALID_CREWLOCATION);
+		$this->assertEqulas($pdoCrew->getCrewDate(), $this->VALID_CREWDATE);
 	}
 }
