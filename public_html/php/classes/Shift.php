@@ -385,14 +385,14 @@ class Shift implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @hrows \TypeError when variable are not the correct data type
 	 **/
-	public static function getShiftByShiftId(\PDO $pdo, int $shiftId) {
+	public static function getShiftByShiftId(\PDO $pdo,int $shiftId) {
 		//sanitize the shiftId before searching
 		if($shiftId <=0) {
 			throw(new \PDOException("shift id is not positive"));
 		}
 
 		//create query template
-		$query = "SELECT shiftId, shiftUserId, shiftCrewId, ShiftRequestId, shiftTime, shiftDate, shiftDelete FROM shift WHERE shiftId = :shiftId";
+		$query = "SELECT shiftId, shiftUserId, shiftCrewId, ShiftRequestId, shiftStartTime, shiftDuration, shiftDate, shiftDelete FROM shift WHERE shiftId = :shiftId";
 		$statement = $pdo->prepare($query);
 
 		//bind the shift id to the place holder in the template
@@ -413,6 +413,42 @@ class Shift implements \JsonSerializable {
 			}
 			return($shift);
 		}
+	/**
+	 *function to retrieve message by  receiverId
+	 *
+	 * @param PDO $pdo PDO is a connection object
+	 * @param int $receiverId - receiverId for message to be sent
+	 * @return SplFixedArray with all messages found
+	 * @throw  PDOException with mysql related errors
+	 **/
+	public static function getShiftsByShiftUserId(PDO $pdo, $shiftUserId) {
+		// check that the message receiverId is valid
+		$shiftUserId = filter_var($shiftUserId, FILTER_VALIDATE_INT);
+		if($shiftUserId === false)
+			throw(new InvalidArgumentException("Shift User ID is not an integer."));
+
+		// prepare and execute query
+		$query = "SELECT shiftUserId, shiftCrewId, shiftRequestId, shiftStartTime, shiftDuration, shiftDate, shiftDelete
+		          FROM shift WHERE shiftUserId = :shiftUserId";
+		$statement = $pdo->prepare($query);
+		$parameters = array("shiftUserId" => $shiftUserId);
+		$statement->execute($parameters);
+		// build an array of message
+		$shifts = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$shift = new Shift($row["shiftId"], $row["shiftUserId"], $row["shiftCrewId"], $row["shiftRequestId"],
+										 $row["shiftStartTime"], $row["shiftDuration"], $row["shiftDate"], $row["shiftDelete"]);
+				$shifts[$shifts->key()] = $shift;
+				$shifts->next();
+			} catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return $shifts;
+	}
 
 	/**
 	 * formats the state variables for JSON serialization
