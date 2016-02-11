@@ -2,6 +2,7 @@
 namespace Edu\Cnm\Timecrunchers\Request;
 
 use Edu\Cnm\Timecrunchers\{User, Request};
+use Edu\Cnm\Timecrunchers\Test\TimeCrunchersTest;
 
 // grab the project test parameters
 require_once("TimecrunchersTest.php");
@@ -163,16 +164,16 @@ class RequestTest extends TimecrunchersTest {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("request");
 
-		// create a new Tweet and insert to into mySQL
+		// create a new Request and insert to into mySQL
 		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
 			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
 		$request->insert($this->getPDO());
 
-		// delete the Tweet from mySQL
+		// delete the Request from mySQL
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("request"));
 		$request->delete($this->getPDO());
 
-		// grab the data from mySQL and enforce the Tweet does not exist
+		// grab the data from mySQL and enforce the Request does not exist
 		$pdoRequest = Request::getRequestByRequestId($this->getPDO(), $request->getRequestId());
 		$this->assertNull($pdoRequest);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("request"));
@@ -193,20 +194,25 @@ class RequestTest extends TimecrunchersTest {
 	/**
 	 * test inserting a Request and regrabbing it from mySQL
 	 **/
-	public function testGetValidTweetByTweetId() {
+	public function testGetValidRequestByRequestId() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("request");
 
-		// create a new Tweet and insert to into mySQL
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Request and insert to into mySQL
+		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
+		$request->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals($pdoTweet->getProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		$this->assertEquals($pdoTweet->getTweetDate(), $this->VALID_TWEETDATE);
+		$pdoRequest = Request::getRequestByRequestId($this->getPDO(), $request->getRequestId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("request"));
+		$this->assertEquals($pdoRequest->getUserId(), $this->requestor->getUserId());
+		$this->assertEquals($pdoRequest->getUserId(), $this->admin->getUserId());
+		$this->assertEquals($pdoRequest->getRequestTimeStamp(), $this->VALID_REQUESTTIMESTAMP);
+		$this->assertEquals($pdoRequest->getRequestActionTimeStamp(), $this->VALID_REQUESTACTIONTIMESTAMP);
+		$this->assertEquals($pdoRequest->getRequestApprove(), $this->requestApprove);
+		$this->assertEquals($pdoRequest->getRequestRequestorText(), $this->VALID_REQUESTREQUESTORTEXT2);
+		$this->assertEquals($pdoRequest->getRequestAdminText(), $this->VALID_REQUESTADMINTEXT);
 	}
 
 	/**
@@ -214,43 +220,9 @@ class RequestTest extends TimecrunchersTest {
 	 **/
 	public function testGetInvalidTweetByTweetId() {
 		// grab a profile id that exceeds the maximum allowable profile id
-		$tweet = Tweet::getTweetByTweetId($this->getPDO(), DataDesignTest::INVALID_KEY);
-		$this->assertNull($tweet);
+		$request = Request::getRequestByRequestId($this->getPDO(), TimeCrunchersTest::INVALID_KEY);
+		$this->assertNull($request);
 	}
-
-	/**
-	 * test grabbing a Tweet by tweet content
-	 **/
-	public function testGetValidTweetByTweetContent() {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
-
-		// create a new Tweet and insert to into mySQL
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Tweet::getTweetByTweetContent($this->getPDO(), $tweet->getTweetContent());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Dmcdonald21\\DataDesign\\Tweet", $results);
-
-		// grab the result from the array and validate it
-		$pdoTweet = $results[0];
-		$this->assertEquals($pdoTweet->getProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		$this->assertEquals($pdoTweet->getTweetDate(), $this->VALID_TWEETDATE);
-	}
-
-	/**
-	 * test grabbing a Tweet by content that does not exist
-	 **/
-	public function testGetInvalidTweetByTweetContent() {
-		// grab a profile id that exceeds the maximum allowable profile id
-		$tweet = Tweet::getTweetByTweetContent($this->getPDO(), "nobody ever tweeted this");
-		$this->assertCount(0, $tweet);
-	}
-
 	/**
 	 * test grabbing all Tweets
 	 **/
