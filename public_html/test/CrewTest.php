@@ -125,7 +125,64 @@ class CrewTest extends TimecrunchersTest {
 		//create a new Crew and insert it into mySQL
 		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
 		$crew->insert($this->getPDO());
+		//delete the Crew from mySQL
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
+		$crew->delete($this->getPDO());
 
+		//grab the date from mySQL and enforce the Crew does not exist
+		$pdoCrew = Crew::getCrewByCrewId($this->getPDO(), $crew->getCrewId());
+		$this->assertNull($pdoCrew);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("crew"));
+	}
+	/**
+	 * test deleting a Crew that does not exist
+	 *
+	 * @expectedException \PDOException
+	 **/
+	public function testDeleteInvalidCrew() {
+		//create a Crew and try to delete it without actually inserting it
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
+		$crew->delete($this->getPDO());
+	}
+	/**
+	 * test inserting a Crew and regrabbing it form mySQL
+	 **/
+	public function testGetValidCrewByCrewId() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("crew");
 
+		//create a new Crew and insert it into mySQL
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$pdoCrew = Crew::getCrewByCrewId($this->getPDO(), $crew->getCrewId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
+		$this->assertEquals($pdoCrew->getCrewCompanyId(), $this->company->getCompanyId());
+		$this->assertEquals($pdoCrew->getCrewDate(), $this->VALID_CREWDATE);
+	}
+	/**
+	 * test grabbing a Crew taht does not exist
+	 **/
+	public function testGetInvalidCrewByCrewID () {
+		//grab a profile id that exceeds the maximum allowable profileid
+		$crew = Crew::getCrewByCrewId($this->getPDO(), TimecrunchersTest::INVALID_KEY);
+		$this->assertNull($crew);
+	}
+	/**
+	 * test grabbinga  Crew by crew location
+	 **/
+	public function testGetValidCrewByCrewLocation() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("crew");
+
+		//create a new Crew and insert it into mySQL
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
+		$crew->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$results = Crew::getCrewByCrewId($this->getPDO(), $crew->getCrewLocation());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\vhooker\\TimecrunchersTest")
 	}
 }
