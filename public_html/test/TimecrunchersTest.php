@@ -88,7 +88,7 @@ abstract class TimeCrunchersTest extends \PHPUnit_Extensions_Database_TestCase {
 			//connect to mySQL and provide the interface to PHPUnit
 			$config = readConfig("/etc/apache2/capstone-mysql/timecrunch.ini");
 			$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
-			$this->connection = $this->createDefaultDBConnection($pdo, config["database"]);
+			$this->connection = $this->createDefaultDBConnection($pdo, $config["database"]);
 		}
 		return($this->connection);
 	}
