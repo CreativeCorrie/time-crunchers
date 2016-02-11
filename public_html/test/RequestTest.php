@@ -216,34 +216,39 @@ class RequestTest extends TimecrunchersTest {
 	}
 
 	/**
-	 * test grabbing a Tweet that does not exist
+	 * test grabbing a Request that does not exist
 	 **/
-	public function testGetInvalidTweetByTweetId() {
+	public function testGetInvalidRequestsByRequestId() {
 		// grab a profile id that exceeds the maximum allowable profile id
 		$request = Request::getRequestByRequestId($this->getPDO(), TimeCrunchersTest::INVALID_KEY);
 		$this->assertNull($request);
 	}
 	/**
-	 * test grabbing all Tweets
+	 * test grabbing all Requests
 	 **/
-	public function testGetAllValidTweets() {
+	public function testGetAllValidRequests() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("request");
 
-		// create a new Tweet and insert to into mySQL
-		$tweet = new Tweet(null, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Request and insert to into mySQL
+		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
+		$request->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Tweet::getAllTweets($this->getPDO());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
+		$results = Request::getAllRequests($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("request"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Dmcdonald21\\DataDesign\\Tweet", $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\TimeCrunchers\\Request", $results);
 
 		// grab the result from the array and validate it
-		$pdoTweet = $results[0];
-		$this->assertEquals($pdoTweet->getProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-		$this->assertEquals($pdoTweet->getTweetDate(), $this->VALID_TWEETDATE);
+		$pdoRequest = $results[0];
+		$this->assertEquals($pdoRequest->getUserId(), $this->requestor->getUserId());
+		$this->assertEquals($pdoRequest->getUserId(), $this->admin->getUserId());
+		$this->assertEquals($pdoRequest->getRequestTimeStamp(), $this->VALID_REQUESTTIMESTAMP);
+		$this->assertEquals($pdoRequest->getRequestActionTimeStamp(), $this->VALID_REQUESTACTIONTIMESTAMP);
+		$this->assertEquals($pdoRequest->getRequestApprove(), $this->requestApprove);
+		$this->assertEquals($pdoRequest->getRequestRequestorText(), $this->VALID_REQUESTREQUESTORTEXT2);
+		$this->assertEquals($pdoRequest->getRequestAdminText(), $this->VALID_REQUESTADMINTEXT);
 	}
 }
