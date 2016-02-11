@@ -93,7 +93,7 @@ trait ValidateDate {
 		// treat the date as a mySQL date string: H:i:s
 		$newTime = trim($newTime);
 		if((preg_match("/^(\d{2}):(\d{2}):(\d{2})$/", $newTime, $matches)) !== 1) {
-			throw(new \InvalidArgumentException("date is not a valid date"));
+			throw(new \InvalidArgumentException("time is not a valid time"));
 		}
 
 		// verify the date is really a valid calendar date
