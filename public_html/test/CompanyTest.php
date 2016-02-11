@@ -1,7 +1,6 @@
 <?php
 namespace Edu\Cnm\Timecrunchers\Test;
 
-use Edu\Cnm\Timecrunchers\{Profile, Tweet};
 use Edu\Cnm\Timecrunchers\Company;
 
 // grab the project test parameters
@@ -192,15 +191,6 @@ class CompanyTest extends TimecrunchersTest {
 	}
 
 	/**
-	 * test grabbing a Company by a name that does not exist
-	 **/
-	public function testGetInvalidCompanyByCompanyName() {
-		// grab a company name that nobody likes cause why not
-		$company = Company::getCompanyByCompanyName($this->getPDO(), "This company does not exits yet");
-		$this->assertCount(0, $company);
-	}
-
-	/**
 	 * test grabbing all Company
 	 **/
 	public function testGetAllValidCompanies() {
@@ -219,7 +209,7 @@ class CompanyTest extends TimecrunchersTest {
 
 		// grab the result from the array and validate it
 		$pdoCompany = $results[0];
-		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME;
-		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME2;
+		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME);
+		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME2);
 	}
 }

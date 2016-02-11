@@ -204,8 +204,8 @@ class Company {
 		if(empty($newCompanyName) === true) {
 			throw(new \InvalidArgumentException("company name content is empty or insecure"));
 		}
-		// verify the company attn will fit in the database
-		if(strlen($newCompanyName) > 128) {
+		// verify the company name will fit in the database
+		if(strlen($newCompanyName) > 128 ) {
 			throw(new \RangeException("company name content too large"));
 		}
 
