@@ -2,7 +2,7 @@
 namespace Edu\Cnm\Timecrunchers\Test;
 
 //name the classes not the foreign key
-use Edu\Cnm\Timecrunchers\{Crew, Schedule};
+use Edu\Cnm\Timecrunchers\{Company, Crew, Schedule};
 
 // grab the project test parameters
 require_once("TimecrunchersTest.php");
@@ -42,10 +42,15 @@ class ScheduleTest extends TimeCrunchersTest {
 	 **/
 	protected $VALID_SCHEDULESTARTDATE2 = null;
 	/**
-	 * Id for Crew that Schedule is attached to; this is for foreign key relations
+	 * Crew that Schedule is attached to; this is for foreign key relations
 	 * @var int
 	 **/
 	protected $crew = null;
+	/**
+	 * Company that Schedule is attached to; this is for foreign key relations
+	 * @var int
+	 **/
+	protected $company = null;
 
 	/**
 	 * create dependent objects before running each test
@@ -54,8 +59,13 @@ class ScheduleTest extends TimeCrunchersTest {
 		// run the default setUp() method first
 		parent::setUp();
 
+		// TODO: Create company, crew
+		// create and insert new Company to test Schedule
+		$this->company = new Company(null, "Kitty Scratchers", "1600 Pennsylvania Ave NW", "Senator's Palace", "Senator Arlo", "WA", "Felis Felix", "20500", "5055551212", "kitty@aol.com", "www.kitty.com");
+		$this->company->insert($this->getPDO());
+
 		// create and insert a Crew to own the test Schedule
-		$this->crew = new Crew(null, null);
+		$this->crew = new Crew(null, "Taco Bell", $this->company->getCompanyId());
 		$this->crew->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup...)
@@ -70,7 +80,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("schedule");
 
 		// create a new Schedule and insert to into mySQL
-		$schedule = new Schedule(null, $this->crew->getScheduleCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULESTARTDATE);
+		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULESTARTDATE);
 		$schedule->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations

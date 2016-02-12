@@ -62,10 +62,10 @@ require_once ("autoloader.php");
 
 	/**accessor method for crew id
 	 *
-	 * @return int value of crew id
+	 * @return int|null value of crew id
 	 **/
 	public function getCrewId() {
-		return ($this->crewId);
+		return($this->crewId);
 	}
 	/**
 	 * Mutator method for cew id
