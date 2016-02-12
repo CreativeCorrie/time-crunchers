@@ -168,8 +168,8 @@ class RequestTest extends TimecrunchersTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoRequest = Request::getRequestByRequestId($this->getPDO(), $request->getRequestId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("request"));
-		$this->assertEquals($pdoRequest->getUserId(), $this->requestor->getUserId());
-		$this->assertEquals($pdoRequest->getUserId(), $this->admin->getUserId());
+		$this->assertEquals($pdoRequest->getRequestRequestorId(), $this->requestor->getUserId());
+		$this->assertEquals($pdoRequest->getRequestAdminId(), $this->admin->getUserId());
 		$this->assertEquals($pdoRequest->getRequestTimeStamp(), $this->VALID_REQUESTTIMESTAMP);
 		$this->assertEquals($pdoRequest->getRequestActionTimeStamp(), $this->VALID_REQUESTACTIONTIMESTAMP);
 		$this->assertEquals($pdoRequest->getRequestApprove(), $this->requestApprove);
@@ -238,8 +238,8 @@ class RequestTest extends TimecrunchersTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoRequest = Request::getRequestByRequestId($this->getPDO(), $request->getRequestId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("request"));
-		$this->assertEquals($pdoRequest->getUserId(), $this->requestor->getUserId());
-		$this->assertEquals($pdoRequest->getUserId(), $this->admin->getUserId());
+		$this->assertEquals($pdoRequest->getRequestRequestorId(), $this->requestor->getUserId());
+		$this->assertEquals($pdoRequest->getRequestAdminId(), $this->admin->getUserId());
 		$this->assertEquals($pdoRequest->getRequestTimeStamp(), $this->VALID_REQUESTTIMESTAMP);
 		$this->assertEquals($pdoRequest->getRequestActionTimeStamp(), $this->VALID_REQUESTACTIONTIMESTAMP);
 		$this->assertEquals($pdoRequest->getRequestApprove(), $this->requestApprove);
@@ -275,8 +275,8 @@ class RequestTest extends TimecrunchersTest {
 
 		// grab the result from the array and validate it
 		$pdoRequest = $results[0];
-		$this->assertEquals($pdoRequest->getUserId(), $this->requestor->getUserId());
-		$this->assertEquals($pdoRequest->getUserId(), $this->admin->getUserId());
+		$this->assertEquals($pdoRequest->getRequestRequestorId(), $this->requestor->getUserId());
+		$this->assertEquals($pdoRequest->getRequestAdminId(), $this->admin->getUserId());
 		$this->assertEquals($pdoRequest->getRequestTimeStamp(), $this->VALID_REQUESTTIMESTAMP);
 		$this->assertEquals($pdoRequest->getRequestActionTimeStamp(), $this->VALID_REQUESTACTIONTIMESTAMP);
 		$this->assertEquals($pdoRequest->getRequestApprove(), $this->requestApprove);
