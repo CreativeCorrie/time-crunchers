@@ -1,9 +1,11 @@
 <?php
 namespace Edu\Cnm\Timecrunchers\Test;
 
-use Edu\Cnm\Timecrunchers\{User, Request};
+use Edu\Cnm\Timecrunchers\Request;
+use Edu\Cnm\Timecrunchers\User;
 use Edu\Cnm\Timecrunchers\Company;
-
+use Edu\Cnm\Timecrunchers\Crew;
+use Edu\Cnm\Timecrunchers\Access;
 
 // grab the project test parameters
 require_once("TimecrunchersTest.php");
@@ -52,6 +54,16 @@ class RequestTest extends TimecrunchersTest {
 	 **/
 	protected $company = null;
 	/**
+	 * Crew ; this is for foreign key relations
+	 * @var $crew
+	 **/
+	protected $crew = null;
+	/**
+	 * Access; this is for foreign key relations
+	 * @var $access
+	 **/
+	protected $access = null;
+	/**
 	 * UserId that made the Request; this is for foreign key relations
 	 * @var $requestor
 	 **/
@@ -74,11 +86,21 @@ class RequestTest extends TimecrunchersTest {
 		// run the default setUp() method first
 		parent::setUp();
 
-		// TODO: make a company, and access level
-		$this->company = new Company();
+		// creates and inserts Company to sql for User foreign key relations
+		$this->company = new Company(null,"Taco B.","404 Taco St.","suite:666","Attention!!","NM","Burque","87106","5055551111","tb@hotmail.com","www.tocobell.com");
+		$this->company->insert($this->getPDO());
+
+		// creates and inserts Crew to sql for User foreign key relations
+		$this->crew = new Crew(null, $this->company->getCompanyId(), "the moon");
+		$this->crew->insert($this->getPDO());
+
+
+		// creates and inserts Access to sql for User foreign key relations
+		$this->access = new Access(null,"admin/requestor");
+		$this->access->insert($this->getPDO());
 
 		// create and insert a User to own the test Request
-		$this->requestor = new User(null, , null, null, "+12125551212", "Johnny", "Requestorman","test@phpunit.de","123","password","456");
+		$this->requestor = new User(null, null , null, null, "+12125551212", "Johnny", "Requestorman","test@phpunit.de","123","password","456");
 		$this->requestor->insert($this->getPDO());
 
 		$this->admin = new User(null, null, null, null, "+11215552121", "Suzy", "Hughes","test2@phpunit.de","321","passw0rd","654");
