@@ -152,7 +152,7 @@ class CompanyTest extends TimeCrunchersTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoSchedule = Company::getCompanyByCompanyId($this->getPDO(), $company->getCompanyId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("company"));
-		$this->assertEquals($pdoSchedule->getCompanyId());
+		$this->assertEquals($pdoSchedule->getCompanyId(), null);
 		$this->assertEquals($pdoSchedule->getCompanyName(), $this->VALID_COMPANYNAME);
 		$this->assertEquals($pdoSchedule->getCompanyName(), $this->VALID_COMPANYNAME2);
 	}
@@ -176,7 +176,7 @@ class CompanyTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("company");
 
 		// create a new Company and insert to into mySQL
-		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYNAME2);
+		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYADDRESS1, $this->VALID_COMPANYADDRESS2, $this->VALID_COMPANYATTN, $this->VALID_COMPANYSTATE, $this->VALID_COMPANYCITY, $this->VALID_COMPANYZIP, $this->VALID_COMPANYPHONE, $this->VALID_COMPANYEMAIL, $this->VALID_COMPANYURL);
 		$company->insert($this->getPDO());
 
 		// edit the Company and update it in mySQL
@@ -196,7 +196,7 @@ class CompanyTest extends TimeCrunchersTest {
 	 **/
 	public function testUpdateInvalidCompany() {
 		// create a Company with a non null company id and watch it fail
-		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYNAME2);
+		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYADDRESS1, $this->VALID_COMPANYADDRESS2, $this->VALID_COMPANYATTN, $this->VALID_COMPANYSTATE, $this->VALID_COMPANYCITY, $this->VALID_COMPANYZIP, $this->VALID_COMPANYPHONE, $this->VALID_COMPANYEMAIL, $this->VALID_COMPANYURL);
 		$company->update($this->getPDO());
 	}
 
@@ -208,7 +208,7 @@ class CompanyTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("company");
 
 		// create a new Company and insert to into mySQL
-		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYNAME2);
+		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYADDRESS1, $this->VALID_COMPANYADDRESS2, $this->VALID_COMPANYATTN, $this->VALID_COMPANYSTATE, $this->VALID_COMPANYCITY, $this->VALID_COMPANYZIP, $this->VALID_COMPANYPHONE, $this->VALID_COMPANYEMAIL, $this->VALID_COMPANYURL);
 		$company->insert($this->getPDO());
 
 		// delete the Company from mySQL
@@ -228,7 +228,7 @@ class CompanyTest extends TimeCrunchersTest {
 	 **/
 	public function testDeleteInvalidCompany() {
 		// create a Company and try to delete it without actually inserting it
-		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYNAME2);
+		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYADDRESS1, $this->VALID_COMPANYADDRESS2, $this->VALID_COMPANYATTN, $this->VALID_COMPANYSTATE, $this->VALID_COMPANYCITY, $this->VALID_COMPANYZIP, $this->VALID_COMPANYPHONE, $this->VALID_COMPANYEMAIL, $this->VALID_COMPANYURL);
 		$company->delete($this->getPDO());
 	}
 
@@ -240,7 +240,7 @@ class CompanyTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("company");
 
 		// create a new Company and insert to into mySQL
-		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYNAME2);
+		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYADDRESS1, $this->VALID_COMPANYADDRESS2, $this->VALID_COMPANYATTN, $this->VALID_COMPANYSTATE, $this->VALID_COMPANYCITY, $this->VALID_COMPANYZIP, $this->VALID_COMPANYPHONE, $this->VALID_COMPANYEMAIL, $this->VALID_COMPANYURL);
 		$company->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -266,7 +266,7 @@ class CompanyTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("company");
 
 		// create a new Company and insert to into mySQL
-		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYNAME2);
+		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYADDRESS1, $this->VALID_COMPANYADDRESS2, $this->VALID_COMPANYATTN, $this->VALID_COMPANYSTATE, $this->VALID_COMPANYCITY, $this->VALID_COMPANYZIP, $this->VALID_COMPANYPHONE, $this->VALID_COMPANYEMAIL, $this->VALID_COMPANYURL);
 		$company->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -289,7 +289,7 @@ class CompanyTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("company");
 
 		// create a new Company and insert to into mySQL
-		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYNAME2);
+		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYADDRESS1, $this->VALID_COMPANYADDRESS2, $this->VALID_COMPANYATTN, $this->VALID_COMPANYSTATE, $this->VALID_COMPANYCITY, $this->VALID_COMPANYZIP, $this->VALID_COMPANYPHONE, $this->VALID_COMPANYEMAIL, $this->VALID_COMPANYURL);
 		$company->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
