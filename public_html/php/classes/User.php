@@ -90,11 +90,11 @@ class User {
 		try {
 			$this->setUserId($newUserId);
 			$this->setUserCompanyId($newCompanyId);
+			$this->setUserCrewId($newUserCrewId);
 			$this->setUserAccessId($newAccessId);
 			$this->setUserPhone($newUserPhone);
 			$this->setUserFirstName($newUserFirstName);
 			$this->setUserLastName($newUserLastName);
-			$this->setUserCrewId($newUserCrewId);
 			$this->setUserEmail($newUserEmail);
 			$this->setUserActivation($newUserActivation);
 			$this->setUserHash($newUserHash);
@@ -176,6 +176,38 @@ class User {
 
 		//convert and store company id
 		$this->userCompanyId = $newUserCompanyId;
+	}
+
+	/**
+	 * accessor for user crew id
+	 *
+	 * @return int $newCrewId
+	 */
+	public function getUserCrewId() {
+		return ($this->userCrewId);
+	}
+
+	/**
+	 * mutator for user crew id
+	 *
+	 * @param int|null $newUserCrewId new value for crew id
+	 * @param \RangeException if user crew id is not positive
+	 * @param \TypeError if $newCrewId is not an integer
+	 */
+	public function setUserCrewId(int $newUserCrewId = null) {
+		//apply filter to input
+		if($newUserCrewId === null) {
+			$this->userCrewId = null;
+			return;
+		}
+
+		//verify the crew id is positive
+		if($newUserCrewId <= 0) {
+			throw(new \RangeException("crew id is not positive"));
+		}
+
+		//convert and store the crew id
+		$this->userCrewId = $newUserCrewId;
 	}
 
 	/**
@@ -311,37 +343,6 @@ class User {
 		$this->userLastName = $newUserLastName;
 	}
 
-	/**
-	 * accessor for user crew id
-	 *
-	 * @return int $newCrewId
-	 */
-	public function getUserCrewId() {
-		return ($this->userCrewId);
-	}
-
-	/**
-	 * mutator for user crew id
-	 *
-	 * @param int|null $newUserCrewId new value for crew id
-	 * @param \RangeException if user crew id is not positive
-	 * @param \TypeError if $newCrewId is not an integer
-	 */
-	public function setUserCrewId(int $newUserCrewId = null) {
-		//apply filter to input
-		if($newUserCrewId === null) {
-			$this->userCrewId = null;
-			return;
-		}
-
-		//verify the crew id is positive
-		if($newUserCrewId <= 0) {
-			throw(new \RangeException("crew id is not positive"));
-		}
-
-		//convert and store the crew id
-		$this->userCrewId = $newUserCrewId;
-	}
 
 	/**
 	 * accessor method user email
