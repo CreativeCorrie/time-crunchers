@@ -89,7 +89,7 @@ class Company {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception is thrown
 	 **/
-	public function __construct(int $newCompanyId, string $newCompanyAttn, string $newCompanyName, string $newCompanyAddress1, string $newCompanyAddress2, string $newCompanyCity, string $newCompanyState, string $newCompanyZip, string $newCompanyPhone, string $newCompanyEmail, string $newCompanyUrl) {
+	public function __construct(int $newCompanyId = null, string $newCompanyAttn, string $newCompanyName, string $newCompanyAddress1, string $newCompanyAddress2, string $newCompanyCity, string $newCompanyState, string $newCompanyZip, string $newCompanyPhone, string $newCompanyEmail, string $newCompanyUrl) {
 		try {
 			$this->setCompanyId($newCompanyId);
 			$this->setCompanyAttn($newCompanyAttn);

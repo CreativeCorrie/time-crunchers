@@ -20,17 +20,108 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
  **/
 class CompanyTest extends TimeCrunchersTest {
 	/**
-	 * content of the Company
+	 * content of the Company name
 	 * @var string $VALID_COMPANYNAME
 	 **/
 	protected $VALID_COMPANYNAME = "PHPUnit test passing";
 	/**
-	 * content of the updated Company
+	 * content of the updated Company name
 	 * @var string $VALID_COMPANYNAME2
 	 **/
-	protected $VALID_COMPANYNAME2 = "PHPUnit test still passing";
+	protected $VALID_COMPANYNAME2= "PHPUnit test still passing";
+	/**
+	 * content of the Company attn, optional
+	 * @var string $VALID_COMPANYATTN
+	 **/
+	protected $VALID_COMPANYATTN = "PHPUnit test passing";
+	/**
+	 * content of the updated Company attn, optional
+	 * @var string $VALID_COMPANYNATTN2
+	 **/
+	protected $VALID_COMPANYATTN2 = "PHPUnit test still passing";
+	/**
+	 * content of the Company address 1
+	 * @var string $VALID_COMPANYADDRESS1
+	 **/
+	protected $VALID_COMPANYADDRESS1 = "PHPUnit test passing";
+	/**
+	 * content of the updated address 1
+	 * @var string $VALID_COMPANYADDRESS12
+	 **/
+	protected $VALID_COMPANYADDRESS12 = "PHPUnit test still passing";
+	/**
+	 * content of the Company address 2 (2nd line optional)
+	 * @var string $VALID_COMPANYADDRESS2
+	 **/
+	protected $VALID_COMPANYADDRESS2 = "PHPUnit test passing";
+	/**
+	 * content of the updated Company phone number
+	 * @var string $VALID_COMPANYADDRESS22
+	 **/
+	protected $VALID_COMPANYADDRESS22 = "PHPUnit test still passing";
+	/**
+	 * content of the Company state
+	 * @var string $VALID_COMPANYSTATE
+	 **/
+	protected $VALID_COMPANYSTATE = "PHPUnit test passing";
+	/**
+	 * content of the updated Company state
+	 * @var string $VALID_COMPANYSTATE2
+	 **/
+	protected $VALID_COMPANYSTATE2 = "PHPUnit test still passing";
+	/**
+	 * content of the Company city
+	 * @var string $VALID_COMPANYCITY
+	 **/
+	protected $VALID_COMPANYCITY = "PHPUnit test passing";
+	/**
+	 * content of the updated Company city
+	 * @var string $VALID_COMPANYCITY2
+	 **/
+	protected $VALID_COMPANYCITY2 = "PHPUnit test still passing";
+	/**
+	 * content of the Company zip
+	 * @var string $VALID_COMPANYZIP
+	 **/
+	protected $VALID_COMPANYZIP = "PHPUnit test passing";
+	/**
+	 * content of the updated Company zip
+	 * @var string $VALID_COMPANYZIP2
+	 **/
+	protected $VALID_COMPANYZIP2 = "PHPUnit test still passing";
+	/**
+	 * content of the Company phone number
+	 * @var string $VALID_COMPANYPHONE
+	 **/
+	protected $VALID_COMPANYPHONE = "PHPUnit test passing";
+	/**
+	 * content of the updated Company phone number
+	 * @var string $VALID_COMPANYNAME2
+	 **/
+	protected $VALID_COMPANYPHONE2 = "PHPUnit test still passing";
+	/**
+	 * content of the Company email
+	 * @var string $VALID_COMPANYEMAIL
+	 **/
+	protected $VALID_COMPANYEMAIL = "PHPUnit test passing";
+	/**
+	 * content of the updated Company email
+	 * @var string $VALID_COMPANYEMAIL2
+	 **/
+	protected $VALID_COMPANYEMAIL2 = "PHPUnit test still passing";
+	/**
+	 * content of the Company URL
+	 * @var string $VALID_COMPANYURL
+	 **/
+	protected $VALID_COMPANYURL = "PHPUnit test passing";
+	/**
+	 * content of the updated Company URL
+	 * @var string $VALID_COMPANYURL2
+	 **/
+	protected $VALID_COMPANYURL2 = "PHPUnit test still passing";
 
 	/**
+	 *
 	 * I DON'T THINK I NEED THIS  **
 	 * create dependent objects before running each test
 
@@ -54,20 +145,20 @@ class CompanyTest extends TimeCrunchersTest {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("company");
 
-		// create a new Company and insert into mySQL
-		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYNAME2);
+		// create a new Company and insert into mySQL - put in all of the things from the constructor
+		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYADDRESS1, $this->VALID_COMPANYADDRESS2, $this->VALID_COMPANYATTN, $this->VALID_COMPANYSTATE, $this->VALID_COMPANYCITY, $this->VALID_COMPANYZIP, $this->VALID_COMPANYPHONE, $this->VALID_COMPANYEMAIL, $this->VALID_COMPANYURL);
 		$company->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoSchedule = Company::getCompanyByCompanyId($this->getPDO(), $company->getCompanyId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("company"));
-		$this->assertEquals($pdoSchedule->getScheduleId());
+		$this->assertEquals($pdoSchedule->getCompanyId());
 		$this->assertEquals($pdoSchedule->getCompanyName(), $this->VALID_COMPANYNAME);
 		$this->assertEquals($pdoSchedule->getCompanyName(), $this->VALID_COMPANYNAME2);
 	}
 
 	/**
-	 * test inserting a Tweet that already exists
+	 * test inserting a Company that already exists
 	 *
 	 * @expectedException PDOException
 	 **/
@@ -88,7 +179,7 @@ class CompanyTest extends TimeCrunchersTest {
 		$company = new Company(null, $this->VALID_COMPANYNAME, $this->VALID_COMPANYNAME2);
 		$company->insert($this->getPDO());
 
-		// edit the Tweet and update it in mySQL
+		// edit the Company and update it in mySQL
 		$company->setCompanyName($this->VALID_COMPANYNAME2);
 		$company->update($this->getPDO());
 
