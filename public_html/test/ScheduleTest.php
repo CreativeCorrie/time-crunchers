@@ -22,15 +22,25 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 class ScheduleTest extends TimeCrunchersTest {
 
 	/**
-	 * timestamp of the Schedule
-	 * @var \DateTime $VALID_SCHEDULEDATE
-	 **/
+ * timestamp of the Schedule
+ * @var \DateTime $VALID_SCHEDULEDATE
+ **/
 	protected $VALID_SCHEDULEDATE = null;
 	/**
 	 * timestamp of the Schedule
 	 * @var \DateTime $VALID_SCHEDULEDATE
 	 **/
 	protected $VALID_SCHEDULEDATE2 = null;
+	/**
+	 * start day of Schedule
+	 * @var \DateTime $VALID_SCHEDULESTARTDATE
+	 **/
+	protected $VALID_SCHEDULESTARTDATE = null;
+	/**
+	 * start day of Schedule
+	 * @var \DateTime $VALID_SCHEDULESTARTDATE
+	 **/
+	protected $VALID_SCHEDULESTARTDATE2 = null;
 	/**
 	 * Id for Crew that Schedule is attached to; this is for foreign key relations
 	 * @var int
@@ -45,7 +55,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		parent::setUp();
 
 		// create and insert a Crew to own the test Schedule
-		$this->crew = new Crew(null);
+		$this->crew = new Crew(null, null);
 		$this->crew->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup...)
@@ -60,15 +70,15 @@ class ScheduleTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("schedule");
 
 		// create a new Schedule and insert to into mySQL
-		$schedule = new Schedule(null, $this->crew->getScheduleCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULEDATE2);
+		$schedule = new Schedule(null, $this->crew->getScheduleCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULESTARTDATE);
 		$schedule->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoSchedule = Schedule::getScheduleByScheduleId($this->getPDO(), $schedule->getScheduleId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
 		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULEDATE);
-		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULEDATE2);
+		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULESTARTDATE);
+		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULESTARTDATE2);
 	}
 
 	/**
@@ -78,7 +88,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	 **/
 	public function testInsertInvalidSchedule() {
 		// create a Schedule with a non null schedule id and watch it fail
-		$schedule = new Schedule(TimecrunchersTest::INVALID_KEY, $this->crew->getCrewId(), $this->VALID_SCHEDULECONTENT, $this->VALID_SCHEDULEDATE);
+		$schedule = new Schedule(TimecrunchersTest::INVALID_KEY, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULESTARTDATE);
 		$schedule->insert($this->getPDO());
 	}
 
@@ -90,7 +100,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("schedule");
 
 		// create a new Schedule and insert into mySQL
-		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULEDATE2);
+		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULESTARTDATE);
 		$schedule->insert($this->getPDO());
 
 		// edit the Schedule and update it in mySQL
@@ -112,7 +122,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	 **/
 	public function testUpdateInvalidSchedule() {
 		// create a Schedule with a non null schedule id and watch it fail
-		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULEDATE2);
+		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULESTARTDATE);
 		$schedule->update($this->getPDO());
 	}
 
@@ -124,7 +134,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("schedule");
 
 		// create a new Schedule and insert to into mySQL
-		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULEDATE2);
+		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULESTARTDATE);
 		$schedule->insert($this->getPDO());
 
 		// delete the Schedule from mySQL
@@ -144,7 +154,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	 **/
 	public function testDeleteInvalidSchedule() {
 		// create a Schedule and try to delete it without actually inserting it
-		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULEDATE2);
+		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULESTARTDATE);
 		$schedule->delete($this->getPDO());
 	}
 
@@ -156,7 +166,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("schedule");
 
 		// create a new Schedule and insert to into mySQL
-		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULEDATE2);
+		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULESTARTDATE);
 		$schedule->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -184,7 +194,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("schedule");
 
 		// create a new Schedule and insert into mySQL
-		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULEDATE2);
+		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULESTARTDATE);
 		$schedule->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -217,7 +227,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("schedule");
 
 		// create a new Schedule and insert to into mySQL
-		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULEDATE2);
+		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULEDATE, $this->VALID_SCHEDULESTARTDATE);
 		$schedule->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations

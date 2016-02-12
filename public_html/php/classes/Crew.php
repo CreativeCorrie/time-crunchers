@@ -33,7 +33,7 @@ require_once ("autoloader.php");
 	 *
 	 * @param int|null $newCrewId id of crew or null if a new crew
 	 * @param string $newCrewLocation string of location for the crew
-	 * @param int$newCrewCompanyId of the Company that initialized this crew
+	 * @param int $newCrewCompanyId of the Company that initialized this crew
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \typeError if data types violate type hints
