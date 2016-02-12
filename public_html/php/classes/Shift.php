@@ -124,7 +124,7 @@ class Shift implements \JsonSerializable {
 	 * @param int $newShiftId new value of shift id
 	 * @throws \UnexpectedValueException if $newShiftId is ot an integer
 	 **/
-	public function setShiftId($newShiftId) {
+	public function setShiftId(int $newShiftId = null) {
 		//verify the shift id is valid
 		$newShiftId = filter_var($newShiftId, FILTER_VALIDATE_INT);
 		if($newShiftId === false) {

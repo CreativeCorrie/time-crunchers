@@ -64,16 +64,20 @@ require_once ("autoloader.php");
 	 *
 	 * @return int|null value of crew id
 	 **/
+
 	public function getCrewId() {
 		return($this->crewId);
 	}
 	/**
-	 * Mutator method for cew id
+	 * Mutator method for crew id
 	 *
 	 * @param int $newCrewId new value of crew id
 	 * @throws \UnexpectedValueException if $newCrewId is not an integer
+	 *
 	 **/
-	public function setCrewId(int $newCrewId) {
+	 
+
+	public function setCrewId(int $newCrewId = null) {
 		//verify the course id is valid
 		$newCrewId = filter_var($newCrewId, FILTER_VALIDATE_INT);
 		if($newCrewId === false) {

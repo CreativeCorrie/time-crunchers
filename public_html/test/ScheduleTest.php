@@ -59,9 +59,8 @@ class ScheduleTest extends TimeCrunchersTest {
 		// run the default setUp() method first
 		parent::setUp();
 
-		// TODO: Create company, crew
-		// create and insert new Company to test Schedule
-		$this->company = new Company(null, "Kitty Scratchers", "1600 Pennsylvania Ave NW", "Senator's Palace", "Senator Arlo", "WA", "Felis Felix", "20500", "5055551212", "kitty@aol.com", "www.kitty.com");
+		// create and insert a Company to test Schedule
+		$this->company = new Company(null, "Kitty Scratchers", "1600 Pennsylvania Ave NW", "Senator's Palace", "Senator Arlo", "WA", "Felis Felix", "20500", "+12125551212", "kitty@aol.com", "www.kitty.com");
 		$this->company->insert($this->getPDO());
 
 		// create and insert a Crew to own the test Schedule
