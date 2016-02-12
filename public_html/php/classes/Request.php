@@ -240,6 +240,11 @@ class Request implements \JsonSerializable {
 	public function getRequestApprove() {
 		return ($this->requestApprove);
 	}
+
+	/**
+	 * mutator method for request approval
+	 * @param $newRequestApprove
+	 */
 	public function setRequestApprove($newRequestApprove) {
 		if(is_bool($newRequestApprove) === false) {
 			throw(new \InvalidArgumentException("not a boolean"));
@@ -254,6 +259,11 @@ class Request implements \JsonSerializable {
 	public function getRequestRequestorText() {
 		return ($this->requestRequestorText);
 	}
+
+	/**
+	 * mutoator method fro requestor text
+	 * @param string $newRequestRequestorText
+	 */
 	public function setRequestRequestorText(string $newRequestRequestorText) {
 		$newRequestRequestorText = trim($newRequestRequestorText);
 		$newRequestRequestorText = filter_var($newRequestRequestorText, FILTER_SANITIZE_STRING);
@@ -270,6 +280,11 @@ class Request implements \JsonSerializable {
 	public function getRequestAdminText() {
 		return ($this->requestAdminText);
 	}
+
+	/**
+	 * mutator method for request admin text
+	 * @param string $newRequestAdminText
+	 */
 	public function setRequestAdminText(string $newRequestAdminText) {
 		$newRequestAdminText = trim($newRequestAdminText);
 		$newRequestAdminText = filter_var($newRequestAdminText, FILTER_SANITIZE_STRING);
@@ -389,7 +404,7 @@ class Request implements \JsonSerializable {
 	 **/
 	public function jsonSerialize() {
 		$fields = get_object_vars($this);
-		$fields["tweetDate"] = intval($this->requestActionTimeStamp->format("U")) * 1000;
+		$fields["requestDate"] = intval($this->requestTimeStamp->format("U")) * 1000;
 		return($fields);
 	}
 }
