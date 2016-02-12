@@ -164,7 +164,7 @@ class CompanyTest extends TimeCrunchersTest {
 	 **/
 	public function testInsertInvalidCompany() {
 		// create a Company with a non null company id and watch it fail
-		$company = new Company(TimecrunchersTest::INVALID_KEY, $this->VALID_COMPANYNAME, $this->VALID_COMPANYNAME2);
+		$company = new Company(TimeCrunchersTest::INVALID_KEY, $this->VALID_COMPANYNAME, $this->VALID_COMPANYADDRESS1, $this->VALID_COMPANYADDRESS2, $this->VALID_COMPANYATTN, $this->VALID_COMPANYSTATE, $this->VALID_COMPANYCITY, $this->VALID_COMPANYZIP, $this->VALID_COMPANYPHONE, $this->VALID_COMPANYEMAIL, $this->VALID_COMPANYURL);
 		$company->insert($this->getPDO());
 	}
 

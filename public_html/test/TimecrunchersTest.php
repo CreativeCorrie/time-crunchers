@@ -73,7 +73,7 @@ abstract class TimeCrunchersTest extends \PHPUnit_Extensions_Database_TestCase {
 	 * @return \PHPUnit_Extensions_Database_Operation_IDatabaseOperation delete command for the database
 	 **/
 	public final function getTearDownOperation() {
-		return(\PDOUnit_Expressions_Database_Operation_Factory::DELETE_ALL());
+		return(\PHPUnit_Extensions_Database_Operation_Factory::DELETE_ALL());
 	}
 
 	/**
