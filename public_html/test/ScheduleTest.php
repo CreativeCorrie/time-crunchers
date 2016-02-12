@@ -66,7 +66,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		$this->company->insert($this->getPDO());
 
 		// create and insert a Crew to own the test Schedule
-		$this->crew = new Crew(null, "Taco Bell", $this->company->getCompanyId());
+		$this->crew = new Crew(null, $this->company->getCompanyId(), "Taco Bell");
 		$this->crew->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup...)

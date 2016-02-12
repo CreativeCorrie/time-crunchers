@@ -495,10 +495,10 @@ class User {
 		}
 
 		//create quarry template
-		$query = "INSERT INTO user(userId, userCompanyId, userAccessId, userPhone, userFirstName, userLastName, userCrewId, userEmail, userActivation, userHash, userSalt) VALUES(:userId, :userCompanyId, :userAccessId, :userPhone, :userFirstName, :userLastName, :userCrewId, :userEmail, :userActivation, :userHash, :userSalt)";
+		$query = "INSERT INTO user(userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt) VALUES(:userCompanyId, :userCrewId, :userAccessId, :userPhone, :userFirstName, :userLastName,:userEmail, :userActivation, :userHash, :userSalt)";
 		$statement = $pdo->prepare($query);
 
-		//bind the memeber variables to the place holders in the template
+		//bind the member variables to the place holders in the template
 		$parameters = ["userId" => $this->userId, "userCompanyId" => $this->userCompanyId, "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName, "userLastName" => $this->userLastName, "userCrewId" => $this->userCrewId, "userEmail" => $this->userEmail, "userActivation" => $this->userActivation, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
 		$statement->execute($parameters);
 
