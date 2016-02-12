@@ -3,10 +3,6 @@ namespace Edu\Cnm\Timecrunchers\test;
 
 use Edu\Cnm\Timecrunchers\{Company, Access, Crew};
 
-$password = "abc123";
-$salt = bin2hex(random_bytes(16));
-$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
-
 //grab test parameters
 require_once("TimecrunchersTest.php");
 
@@ -34,7 +30,23 @@ class UserTest extends TimecrunchersTest {
 	 */
 	protected $VALID_USERFIRSTNAME2 = "PHPUnit test still passing";
 	/**
-	 * profile that created the user, this is for foreign key
+	 * password of the user
+	 * @var string $VALID_PASSWORD
+	 */
+	protected $VALID_PASSWORD = "abc123";
+	/**
+	 *
+	 * @var mixed
+	 */
+	protected $VALID_HASH = null;
+	/**
+	 *
+	 * @var string $VALID_SALT
+	 */
+	protected $VALID_SALT = null;
+
+	/**
+	 * company that created the user, this is for foreign key
 	 * @var userCompanyId
 	 */
 	protected $userCompanyId = null;
@@ -46,9 +58,12 @@ class UserTest extends TimecrunchersTest {
 		//run the default setUp() method first
 		parent::setUp();
 
-		//create and insert a profile to own the test user
-		$this->user = new User(null,  "@phpunit", "test@phpunit.de", "+12125551212");
-		$this->user->insert($this->getPDO());
+		$this->VALID_SALT = bin2hex(random_bytes(16));
+		$this->VALID_HASH = hash_pbkdf2("sha512", $this->VALID_PASSWORD, $this->VALID_SALT, 262144);
+
+		//create and insert company access and crew to own the test user
+		// TODO: new company, access, crew
+
 	}
 
 	/**
@@ -59,7 +74,7 @@ class UserTest extends TimecrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("user");
 
 		//create a new user and insert it into mySQL
-		$user = new User(null, $this->user->getUserId(), $this->VALID_USERFIRSTNAME);
+		$user = new User(null, $this->company->getCompanyId());
 		$user->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectation
