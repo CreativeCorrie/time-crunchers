@@ -2,7 +2,9 @@
 namespace Edu\Cnm\Timecrunchers\Test;
 
 //name the classes not the foreign key
-use Edu\Cnm\Timecrunchers\{Company, Crew, Schedule};
+use Edu\Cnm\Timecrunchers\Company;
+use Edu\Cnm\Timecrunchers\Crew;
+use Edu\Cnm\Timecrunchers\Schedule;
 
 // grab the project test parameters
 require_once("TimecrunchersTest.php");
@@ -43,12 +45,12 @@ class ScheduleTest extends TimeCrunchersTest {
 	protected $VALID_SCHEDULESTARTDATE2 = null;
 	/**
 	 * Crew that Schedule is attached to; this is for foreign key relations
-	 * @var int
+	 * @var Crew $crew
 	 **/
 	protected $crew = null;
 	/**
 	 * Company that Schedule is attached to; this is for foreign key relations
-	 * @var int
+	 * @var Company $company
 	 **/
 	protected $company = null;
 

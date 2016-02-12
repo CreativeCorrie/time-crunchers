@@ -92,12 +92,12 @@ class Company {
 	public function __construct(int $newCompanyId = null, string $newCompanyAttn, string $newCompanyName, string $newCompanyAddress1, string $newCompanyAddress2, string $newCompanyCity, string $newCompanyState, string $newCompanyZip, string $newCompanyPhone, string $newCompanyEmail, string $newCompanyUrl) {
 		try {
 			$this->setCompanyId($newCompanyId);
-			$this->setCompanyAttn($newCompanyAttn);
 			$this->setCompanyName($newCompanyName);
 			$this->setCompanyAddress1($newCompanyAddress1);
 			$this->setCompanyAddress2($newCompanyAddress2);
-			$this->setCompanyCity($newCompanyCity);
+			$this->setCompanyAttn($newCompanyAttn);
 			$this->setCompanyState($newCompanyState);
+			$this->setCompanyCity($newCompanyCity);
 			$this->setCompanyZip($newCompanyZip);
 			$this->setCompanyPhone($newCompanyPhone);
 			$this->setCompanyEmail($newCompanyEmail);
@@ -147,37 +147,6 @@ class Company {
 
 		//convert and store the company id
 		$this->companyId = $newCompanyId;
-	}
-
-	/**
-	 * accessor method for company attn content
-	 *
-	 * @return string value of company attn content
-	 **/
-	public function getCompanyAttn() {
-		return($this->companyAttn);
-	}
-
-	/**
-	 * mutator method for company attn
-	 *
-	 * @param string $newCompanyAttn new optional attn line
-	 * @throws \InvalidArgumentException if $newCompanyAttn is not a string or insecure
-	 * @throws \RangeException if $newCompanyAttn is > 128 characters
-	 * @throws \TypeError if $newCompanyAttn is not a string
-	 **/
-	public function setCompanyAttn(string $newCompanyAttn) {
-		// verify the company attn content is secure
-		$newCompanyAttn = trim($newCompanyAttn);
-		$newCompanyAttn = filter_var($newCompanyAttn, FILTER_SANITIZE_STRING);
-
-		// verify the company attn will fit in the database
-		if(strlen($newCompanyAttn) > 128) {
-			throw(new \RangeException("company attn content too large"));
-		}
-
-		// store the company attn content
-		$this->companyAttn = $newCompanyAttn;
 	}
 
 	/**
@@ -276,6 +245,71 @@ class Company {
 		// store the company attn content
 		$this->companyAddress2 = $newCompanyAddress2;
 	}
+	/**
+	 * accessor method for company attn content
+	 *
+	 * @return string value of company attn content
+	 **/
+	public function getCompanyAttn() {
+		return($this->companyAttn);
+	}
+
+	/**
+	 * mutator method for company attn
+	 *
+	 * @param string $newCompanyAttn new optional attn line
+	 * @throws \InvalidArgumentException if $newCompanyAttn is not a string or insecure
+	 * @throws \RangeException if $newCompanyAttn is > 128 characters
+	 * @throws \TypeError if $newCompanyAttn is not a string
+	 **/
+	public function setCompanyAttn(string $newCompanyAttn) {
+		// verify the company attn content is secure
+		$newCompanyAttn = trim($newCompanyAttn);
+		$newCompanyAttn = filter_var($newCompanyAttn, FILTER_SANITIZE_STRING);
+
+		// verify the company attn will fit in the database
+		if(strlen($newCompanyAttn) > 128) {
+			throw(new \RangeException("company attn content too large"));
+		}
+
+		// store the company attn content
+		$this->companyAttn = $newCompanyAttn;
+	}
+
+
+
+	/**
+	 * accessor method for state where company is located
+	 *
+	 * @return string state where company is located
+	 **/
+	public function getCompanyState() {
+		return($this->companyState);
+	}
+
+	/**
+	 * mutator method for state where company is located
+	 *
+	 * @param string $newCompanyState new state where company is located
+	 * @throws \InvalidArgumentException if $newCompanyState is not a string or insecure
+	 * @throws \RangeException if $newCompanyState is > 128 characters
+	 * @throws \TypeError if $newCompanyState is not a string
+	 **/
+	public function setCompanyState(string $newCompanyState) {
+		// verify the company state content is secure
+		$newCompanyState = trim($newCompanyState);
+		$newCompanyState = filter_var($newCompanyState, FILTER_SANITIZE_STRING);
+		if(empty($newCompanyState) === true) {
+			throw(new \InvalidArgumentException("company state content is empty or insecure"));
+		}
+		// verify the company state content will fit in the database
+		if(strlen($newCompanyState) > 128) {
+			throw(new \RangeException("company state content too large"));
+		}
+
+		// store the company state content
+		$this->companyState = $newCompanyState;
+	}
 
 	/**
 	 * accessor method for city where company is located
@@ -308,39 +342,6 @@ class Company {
 
 		// store the company name content
 		$this->companyCity = $newCompanyCity;
-	}
-
-	/**
-	 * accessor method for city where company is located
-	 *
-	 * @return string city where company is located
-	 **/
-	public function getCompanyState() {
-		return($this->companyState);
-	}
-
-	/**
-	 * mutator method for state where company is located
-	 *
-	 * @param string $newCompanyState new state where company is located
-	 * @throws \InvalidArgumentException if $newCompanyState is not a string or insecure
-	 * @throws \RangeException if $newCompanyState is > 128 characters
-	 * @throws \TypeError if $newCompanyState is not a string
-	 **/
-	public function setCompanyState(string $newCompanyState) {
-		// verify the company state content is secure
-		$newCompanyState = trim($newCompanyState);
-		$newCompanyState = filter_var($newCompanyState, FILTER_SANITIZE_STRING);
-		if(empty($newCompanyState) === true) {
-			throw(new \InvalidArgumentException("company state content is empty or insecure"));
-		}
-		// verify the company state content will fit in the database
-		if(strlen($newCompanyState) > 128) {
-			throw(new \RangeException("company state content too large"));
-		}
-
-		// store the company state content
-		$this->companyState = $newCompanyState;
 	}
 
 	/**

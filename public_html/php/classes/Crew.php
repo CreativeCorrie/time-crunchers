@@ -75,7 +75,7 @@ require_once ("autoloader.php");
 	 * @throws \UnexpectedValueException if $newCrewId is not an integer
 	 *
 	 **/
-	 
+
 
 	public function setCrewId(int $newCrewId = null) {
 		//verify the course id is valid
@@ -141,7 +141,7 @@ require_once ("autoloader.php");
 	}
 
 	/**
-	 * inserts crew into mySQL
+	 * inserts this Crew into mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
@@ -150,8 +150,9 @@ require_once ("autoloader.php");
 	public function insert(\PDO $pdo) {
 		//enforce the crewId is null (i.e., don't insert a crew that already exists)
 		if($this->crewId !== null) {
-			throw(new  \PDOException("not a new crew"));
+			throw(new \PDOException("not a new crew"));
 		}
+
 		//create query template
 		$query = "INSERT INTO crew(crewLocation, crewCompanyId) VALUES(:crewLocation, :crewCompanyId)";
 		$statement = $pdo->prepare($query);
