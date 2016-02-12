@@ -154,11 +154,11 @@ require_once ("autoloader.php");
 		}
 
 		//create query template
-		$query = "INSERT INTO crew(crewLocation, crewCompanyId) VALUES(:crewLocation, :crewCompanyId)";
+		$query = "INSERT INTO crew(crewCompanyId, crewLocation) VALUES(:crewCompanyId, :crewLocation)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["crewLocation" => $this->crewLocation, "crewCompanyId" => $this->crewCompanyId];
+		$parameters = ["crewCompanyId" => $this->crewCompanyId, "crewLocation" => $this->crewLocation];
 		$statement->execute($parameters);
 
 		//update the null crewId with what mySQL just gave us
@@ -197,7 +197,7 @@ require_once ("autoloader.php");
 			throw(new \PDOException("unable to update a crew that does not exist"));
 		}
 		//create query template
-		$query = "UPDATE crew SET crewLocation = :crewLocation, crewCompanyId = :crewCompanyId WHERE crewId = :crewId";
+		$query = "UPDATE crew SET crewCompanyId = :crewCompanyId, crewLocation = :crewLocation  WHERE crewId = :crewId";
 		$statement = $pdo->Prepare($query);
 
 		//bind the member variable to the place holder in the template
@@ -221,7 +221,7 @@ require_once ("autoloader.php");
 		}
 
 		//create query template
-		$query = "SELECT crewId, crewLocation, crewCompanyId FROM crew WHERE crewId = :crewId";
+		$query = "SELECT crewId, crewCompanyId, crewLocation FROM crew WHERE crewId = :crewId";
 		$statement = $pdo->prepare($query);
 
 		//bind the crew id to the place holder in the template
@@ -234,7 +234,7 @@ require_once ("autoloader.php");
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$crew = new Crew($row["crewId"], $row["crewLocation"], $row["crewCompanyId"]);
+				$crew = new Crew($row["crewId"], $row["crewCompanyId"], $row["crewLocation"]);
 				}
 			} catch(\Exception $exception) {
 				//if the row couldn't be converted, rethrow it
