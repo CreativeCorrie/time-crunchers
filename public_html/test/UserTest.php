@@ -2,7 +2,6 @@
 namespace Edu\Cnm\Timecrunchers\test;
 
 use Edu\Cnm\Timecrunchers\{Company, Access, Crew};
-use Edu\Cnm\Timcrunchers\Test\DataDesignTest;
 
 $password = "abc123";
 $salt = bin2hex(random_bytes(16));
@@ -64,7 +63,7 @@ class UserTest extends TimecrunchersTest {
 		$user->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectation
-		$pdoUser = User::getUserByUserId($this->$PDO(), $user->getUserId());
+		$pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
 		$this->assertEquals($pdoUser->getUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
@@ -141,7 +140,90 @@ class UserTest extends TimecrunchersTest {
 	 * @expectedException PDOException
 	 **/
 	public function testDeleteInvalidUser() {
-		//create
+		//create a user and try to delete without actually inserting it
+		$user = new User(null, $this->user->getUserId(), $this->VALID_USERFIRSTNAME);
+		$user->delete($user->getPDO());
 	}
 
+	/**
+	 * test inserting a Tweet and regrabbing it from mySQL
+	 **/
+	public function testGetValidUserByUserId() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("user");
+
+		//create a new $user and insert into mySQL
+		$user = new User(null, $this->user->getUserId, $this->VALID_USERFIRSTNAME);
+		$user->insert($this->getPDO());
+
+		//grab from the mySQL and enforce the fields match our expectations
+		$pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
+		$this->assertEquals($pdoUser->getUserId(), $this->user->getUserId("user"));
+		$this->assertEquals($pdoUser->getUserFirstName(), $this->user->getUserFirstName);
+	}
+
+	/**
+	 * test grabbing a Tweet that does not exist
+	 **/
+	public function testGetInvalidUserByUserId() {
+		//grab a user id that exceeds the maximum allowable user id
+		$user = User::getUserByUserId($this->getPDO(),TimeCrunchersTest::INVALID_KEY);
+		$this->assertNull($user);
+	}
+
+	/**
+	 * test grabbing a user by user first Name
+	 **/
+	public function testGetValidUserByUserFirstName() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("user");
+
+		//create a new user and insert into mySQL
+		$user = new User(null, $this->user->getUserId(), $this->VALID_USERFIRSTNAME);
+		$user->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$results = User::getUserByUserFirstName($this->getPDO(), $user->getUserFirstName());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Timecruncers\\User", $results);
+
+		//grab the result from the array and validate it
+		$pdoUser = $results[0];
+		$this->assertEquals($pdoUser->getUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
+	}
+
+	/**
+	 * test grabbing a user by first name that does not exist
+	 */
+	public function testGetInvalidUserByUserFirstName() {
+		//grab a user id that exceeds the maximum allowable user id
+		$user = User::getUserByUserFirstName($this->getPDO(), "nobody is a user");
+		$this->assertCount(0, $user);
+	}
+
+	/**
+	 * test grabbing all users
+	 */
+	public function testGetAllValidUsers() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("user");
+
+		//create a new User and insert into mySQL
+		$user = new User(null, $this->user->geUserId(), $this->VALID_USERFIRSTNAME);
+		$user->insert($this->getPDO());
+
+		//grab the data for mySQL and enforce the field match our expectations
+		$results = User::getAllUsers($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
+		$this->assertCount(1, $results);
+		$this->assertContainOnlyInstancesOf("Edu\\Cnm\\dfontaine1\\Timecrunchers\\User", $results);
+
+		//grab the result from the array and validate it
+		$pdoUser = $results[0];
+		$this->assertequals($pdoUser->getUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
+	}
 }
