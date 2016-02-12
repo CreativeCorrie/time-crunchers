@@ -1,8 +1,8 @@
 <?php
-namespace Edu\Cnm\Timecrunchers\Request;
+namespace Edu\Cnm\Timecrunchers\Test;
 
 use Edu\Cnm\Timecrunchers\{User, Request};
-use Edu\Cnm\Timecrunchers\Test\TimeCrunchersTest;
+
 
 // grab the project test parameters
 require_once("TimecrunchersTest.php");
@@ -68,7 +68,7 @@ class RequestTest extends TimecrunchersTest {
 		// run the default setUp() method first
 		parent::setUp();
 
-		// create and insert a Users to own the test Request
+		// create and insert a User to own the test Request
 		$this->requestor = new User(null, null, null, null, "+12125551212", "Johnny", "Requestorman","test@phpunit.de","123","password","456");
 		$this->requestor->insert($this->getPDO());
 
