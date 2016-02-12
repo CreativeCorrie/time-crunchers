@@ -83,7 +83,7 @@ class Shift implements \JsonSerializable {
 	 * @throws \typeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct(int $newShiftId = null, int $newShiftUserId = null, int $newShiftCrewId = null, int $newShiftRequestId = null, string $newShiftStartTime = null, int $newShiftDuration = null,                                   \DateTime $newShiftDate = null, bool $newShiftDelete = 0) {
+	public function __construct(int $newShiftId = null, int $newShiftUserId, int $newShiftCrewId, int $newShiftRequestId, string $newShiftStartTime, int $newShiftDuration,                                   \DateTime $newShiftDate, bool $newShiftDelete = false) {
 		try{
 			$this->setShiftId($newShiftId);
 			$this->setShiftUserId($newShiftUserId);
@@ -251,7 +251,7 @@ class Shift implements \JsonSerializable {
 	 * @throws \RangeException if $newShiftDuration is a time that does not exist
 	 * @throws \RangeException if $newShiftDuration is not more than 0
 	 **/
-	public function setShiftDuration(int $newShiftDuration = null) {
+	public function setShiftDuration(int $newShiftDuration) {
 		//base case: if the time is null, use the current time
 		if($newShiftDuration === null) {
 			throw (new \RangeException("can't create shift without an end time"));
@@ -422,11 +422,7 @@ class Shift implements \JsonSerializable {
 	 * @throw  PDOException with mysql related errors
 	 * @throw \InvalidArguamentException if shiftUserId is not an integer
 	 **/
-	public static function getShiftsByShiftUserId(PDO $pdo, int $shiftUserId) {
-		// check that the message receiverId is valid
-		$shiftUserId = filter_var($shiftUserId, FILTER_VALIDATE_INT);
-		if($shiftUserId === false)
-			throw(new InvalidArgumentException("Shift User ID is not an integer."));
+	public static function getShiftByShiftUserId(PDO $pdo, int $shiftUserId) {
 
 		// prepare and execute query
 		$query = "SELECT shiftUserId, shiftCrewId, shiftRequestId, shiftStartTime, shiftDuration, shiftDate, shiftDelete
@@ -434,27 +430,78 @@ class Shift implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 		$parameters = array("shiftUserId" => $shiftUserId);
 		$statement->execute($parameters);
-		// build an array of message
-		$shifts = new SplFixedArray($statement->rowCount());
+
+		// build an array of shifts
+		$shifts = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
+
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$shift = new Shift($row["shiftId"], $row["shiftUserId"], $row["shiftCrewId"], $row["shiftRequestId"],
 										 $row["shiftStartTime"], $row["shiftDuration"], $row["shiftDate"], $row["shiftDelete"]);
 				$shifts[$shifts->key()] = $shift;
 				$shifts->next();
-			} catch(Exception $exception) {
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
-				throw(new PDOException($exception->getMessage(), 0, $exception));
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
 		return $shifts;
 	}
-	public static function getShiftsByDateRange(\PDO $pdo, \DateTime $startDate, \DateTime $endDate) {
-		 if ($startDate->diff($endDate) === false) {
+
+
+	/**
+	 * getShiftBy DAte Range get all the shifts for each day and the submitted range
+	 * The Otter While loop cycles through the date range
+	 * The Inner while loop retrieves the set of shifts for each day
+	 * @param \PDO $pdo
+	 * @param \DateTime $startDate
+	 * @param \DateTime $endDate
+	 * @param int $companyId
+	 **/
+
+	public static function getShiftsByDateRange(\PDO $pdo, \DateTime $startDate, \DateTime $endDate, int $companyId) {
+
+		  if ($endDate < $startDate) {
 			 throw (new \RangeException("end date cannot be less than"));
 		 }
-	}
+
+		$sDate = $startDate->format("Y:m:d");
+		$eDate = $endDate->format("Y:m:d");
+
+			// prepare and execute query
+			$query = "SELECT shiftId, shiftUserId, shiftCrewId, shiftRequestId, shiftStartTime, shiftDuration, shiftDate, shiftDelete
+						 FROM shift
+						 WHERE shiftDate >= :startDate AND shift.shiftDate<= :endDate
+						 AND shift.shiftCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
+			$statement = $pdo->prepare($query);
+
+			// prepare the date
+			$parameters = array("startDate" => $sDate,
+										"endDate" => $eDate,
+										"companyId" => $companyId);
+			$statement->execute($parameters);
+
+			// build an array of shifts
+			$shifts = new \SplFixedArray($statement->rowCount());
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+
+			// pull shifts for each day in the range
+			while(($row = $statement->fetch()) !== false) {
+				try {
+					$shift = new Shift($row["shiftId"], $row["shiftUserId"], $row["shiftCrewId"], $row["shiftRequestId"],
+											 $row["shiftStartTime"], $row["shiftDuration"], $row["shiftDate"], $row["shiftDelete"]);
+					$shifts[$shifts->key()] = $shift;
+					$shifts->next();
+				} catch(\Exception $exception) {
+					// if the row couldn't be converted, rethrow it
+					throw(new \PDOException($exception->getMessage(), 0, $exception));
+				}
+			} //While Loop
+
+		return($shifts);
+
+	}  // getShiftByDateRange
 
 	/**
 	 * formats the state variables for JSON serialization
