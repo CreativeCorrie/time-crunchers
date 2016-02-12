@@ -7,6 +7,7 @@ use Edu\Cnm\Timecrunchers\Company;
 use Edu\Cnm\Timecrunchers\Crew;
 use Edu\Cnm\Timecrunchers\Access;
 
+
 // grab the project test parameters
 require_once("TimecrunchersTest.php");
 
@@ -55,33 +56,33 @@ class RequestTest extends TimecrunchersTest {
 	protected $company = null;
 	/**
 	 * Crew ; this is for foreign key relations
-	 * @var $crew
+	 * @var Crew $crew
 	 **/
 	protected $crew = null;
 	/**
 	 * Access; this is for foreign key relations
-	 * @var $access
+	 * @var Access $access
 	 **/
 	protected $access = null;
 	/**
 	 * UserId that made the Request; this is for foreign key relations
-	 * @var $requestor
+	 * @var User $requestor
 	 **/
 	protected $requestor = null;
 	/**
 	 * AdminId that Approves the Request; this is for foreign key relations
-	 * @var  $admin
+	 * @var  User $admin
 	 **/
 	protected $admin = null;
 	/**
 	 * Admin true/false approval/denial of request
-	 * @var  $requestApprove
+	 * @var  Request $requestApprove
 	 **/
 	protected $requestApprove = false;
 
 	/**
 	 * create dependent objects before running each test
-	 **/
+	 */
 	public final function setUp() {
 		// run the default setUp() method first
 		parent::setUp();
@@ -100,10 +101,10 @@ class RequestTest extends TimecrunchersTest {
 		$this->access->insert($this->getPDO());
 
 		// create and insert a User to own the test Request
-		$this->requestor = new User(null,$this->company->getCompanyId(),$this->crew->getCrewId(), $this->access->getAccessId(), "+12125551212", "Johnny", "Requestorman","test@phpunit.de","123","password","456");
+		$this->requestor = new User($this->requestor->getUserId(),$this->company->getCompanyId(),$this->crew->getCrewId(), $this->access->getAccessId(), "+12125551212", "Johnny", "Requestorman","test@phpunit.de","123","password","456");
 		$this->requestor->insert($this->getPDO());
 
-		$this->admin = new User(null,$this->company->getCompanyId(),$this->crew->getCrewId(), $this->access->getAccessId(), "+11215552121", "Suzy", "Hughes","test2@phpunit.de","321","passw0rd","654");
+		$this->admin = new User($this->admin->getUserId(),$this->company->getCompanyId(),$this->crew->getCrewId(), $this->access->getAccessId(), "+11215552121", "Suzy", "Hughes","test2@phpunit.de","321","passw0rd","654");
 		$this->admin->insert($this->getPDO());
 
 
@@ -127,8 +128,8 @@ class RequestTest extends TimecrunchersTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoRequest = Request::getRequestByRequestId($this->getPDO(), $request->getRequestId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("request"));
-		$this->assertEquals($pdoRequest->getUserId(), $this->requestor->getUserId());
-		$this->assertEquals($pdoRequest->getUserId(), $this->admin->getUserId());
+		$this->assertEquals($pdoRequest->getRequestRequestorId(), $this->requestor->getUserId());
+		$this->assertEquals($pdoRequest->getRequestAdminId(), $this->admin->getUserId());
 		$this->assertEquals($pdoRequest->getRequestTimeStamp(), $this->VALID_REQUESTTIMESTAMP);
 		$this->assertEquals($pdoRequest->getRequestActionTimeStamp(), $this->VALID_REQUESTACTIONTIMESTAMP);
 		$this->assertEquals($pdoRequest->getRequestApprove(), $this->requestApprove);
