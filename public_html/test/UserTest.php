@@ -2,6 +2,11 @@
 namespace Edu\Cnm\Timecrunchers\test;
 
 use Edu\Cnm\Timecrunchers\{Company, Access, Crew};
+/**
+use Edu\Cnm\Timecrunchers\Company;
+use Edu\Cnm\Timecrunchers\Access;
+use Edu\Cnm\Timecrunchers\Crew;
+**/
 
 //grab test parameters
 require_once("TimecrunchersTest.php");
