@@ -1,4 +1,4 @@
-iu<?php
+<?php
 namespace Edu\Cnm\Timecrunchers;
 
 require_once("autoloader.php");
@@ -162,7 +162,7 @@ class User {
 	 * @param \RangeException if $newUserCompanyId is not positive
 	 * @param \TypeError if $newUserCompanyId is not an integer
 	 **/
-	public function setCompanyId(int $newUserCompanyId = null) {
+	public function setUserCompanyId(int $newUserCompanyId = null) {
 		//base case: if the company is null, this is a new company id
 		if($newUserCompanyId === null) {
 			$this->userCompanyId = null;

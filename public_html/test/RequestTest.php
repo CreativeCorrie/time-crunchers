@@ -2,6 +2,7 @@
 namespace Edu\Cnm\Timecrunchers\Test;
 
 use Edu\Cnm\Timecrunchers\{User, Request};
+use Edu\Cnm\Timecrunchers\Company;
 
 
 // grab the project test parameters
@@ -46,6 +47,11 @@ class RequestTest extends TimecrunchersTest {
 	 **/
 	protected $VALID_REQUESTACTIONTIMESTAMP = null;
 	/**
+	 * Company ; this is for foreign key relations
+	 * @var $company
+	 **/
+	protected $company = null;
+	/**
 	 * UserId that made the Request; this is for foreign key relations
 	 * @var $requestor
 	 **/
@@ -68,8 +74,11 @@ class RequestTest extends TimecrunchersTest {
 		// run the default setUp() method first
 		parent::setUp();
 
+		// TODO: make a company, and access level
+		$this->company = new Company();
+
 		// create and insert a User to own the test Request
-		$this->requestor = new User(null, null, null, null, "+12125551212", "Johnny", "Requestorman","test@phpunit.de","123","password","456");
+		$this->requestor = new User(null, , null, null, "+12125551212", "Johnny", "Requestorman","test@phpunit.de","123","password","456");
 		$this->requestor->insert($this->getPDO());
 
 		$this->admin = new User(null, null, null, null, "+11215552121", "Suzy", "Hughes","test2@phpunit.de","321","passw0rd","654");
