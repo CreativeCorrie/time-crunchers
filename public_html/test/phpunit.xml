@@ -1,8 +1,9 @@
 <phpunit>
 	<testsuites>
 		<testsuite name="Timecrunchers Data Design">
-			<file>CompanyTest.php</file>
-			<file>ScheduleTest.php</file>
+			<!--<file>CompanyTest.php</file>
+			<file>ScheduleTest.php</file>-->
+			<file>RequestTest.php</file>
 		</testsuite>
 	</testsuites>
 	<filter>

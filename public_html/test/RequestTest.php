@@ -13,7 +13,7 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 /**
  * Full PHPUnit test for the Tweet class
  *
- * This is a complete PHPUnit test of the Tweet class. It is complete because *ALL* mySQL/PDO enabled methods
+ * This is a complete PHPUnit test of the Request class. It is complete because *ALL* mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
  * @see Request
@@ -151,7 +151,7 @@ class RequestTest extends TimecrunchersTest {
 	 * @expectedException PDOException
 	 **/
 	public function testUpdateInvalidRequest() {
-		// create a Request with a non null tweet id and watch it fail
+		// create a Request with a non null request id and watch it fail
 		$request = new Request(TimeCrunchersTest::INVALID_KEY, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
 			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
 		$request->update($this->getPDO());
