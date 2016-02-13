@@ -39,7 +39,7 @@ require_once ("autoloader.php");
 	 * @throws \typeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct(int $newCrewId = null, string $newCrewLocation, int $newCrewCompanyId = null) {
+	public function __construct(int $newCrewId = null, int $newCrewCompanyId = null, string $newCrewLocation) {
 		try {
 			$this->setCrewId($newCrewId);
 			$this->setCrewLocation($newCrewLocation);
