@@ -16,7 +16,9 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
  * are tested for both invalid and valid inputs.
  *
  * @see Company
+ * @author Dylan McDonald<dmcdonald21@cnm.edu>
  * @author Elaine Thomas<enajera2@cnm.edu>
+ *
  **/
 class CompanyTest extends TimeCrunchersTest {
 	/**
@@ -120,23 +122,6 @@ class CompanyTest extends TimeCrunchersTest {
 	 **/
 	protected $VALID_COMPANYURL2 = "PHPUnit test still passing";
 
-	/**
-	 *
-	 * I DON'T THINK I NEED THIS  **
-	 * create dependent objects before running each test
-
-	public final function setUp() {
-		// run the default setUp() method first
-		parent::setUp();
-
-		// create and insert a Profile to own the test Tweet
-		$this->profile = new Profile(null, "@phpunit", "test@phpunit.de", "+12125551212");
-		$this->profile->insert($this->getPDO());
-
-		// calculate the date (just use the time the unit test was setup...)
-		$this->VALID_TWEETDATE = new \DateTime();
-	}
-**/
 
 	/**
 	 * test inserting a valid Company and verify that the actual mySQL data matches
@@ -150,11 +135,19 @@ class CompanyTest extends TimeCrunchersTest {
 		$company->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoSchedule = Company::getCompanyByCompanyId($this->getPDO(), $company->getCompanyId());
+		$pdoCompany = Company::getCompanyByCompanyId($this->getPDO(), $company->getCompanyId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("company"));
-		$this->assertEquals($pdoSchedule->getCompanyId(), null);
-		$this->assertEquals($pdoSchedule->getCompanyName(), $this->VALID_COMPANYNAME);
-		$this->assertEquals($pdoSchedule->getCompanyName(), $this->VALID_COMPANYNAME2);
+		//$this->assertEquals($pdoCompany->getCompanyId(), null);
+		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME);
+		$this->assertEquals($pdoCompany->getCompanyAddress1(), $this-> VALID_COMPANYADDRESS1);
+		$this->assertEquals($pdoCompany->getCompanyAddress2(), $this-> VALID_COMPANYADDRESS2);
+		$this->assertEquals($pdoCompany->getCompanyAttn(), $this->VALID_COMPANYATTN);
+		$this->assertEquals($pdoCompany->getCompanyState(), $this->VALID_COMPANYSTATE);
+		$this->assertEquals($pdoCompany->getCompanyCity(), $this->VALID_COMPANYCITY);
+		$this->assertEquals($pdoCompany->getCompanyZip(), $this->VALID_COMPANYZIP);
+		$this->assertEquals($pdoCompany->getCompanyPhone(), $this->VALID_COMPANYPHONE);
+		$this->assertEquals($pdoCompany->getCompanyEmail(), $this->VALID_COMPANYEMAIL);
+		$this->assertEquals($pdoCompany->getCompanyUrl(), $this->VALID_COMPANYURL);
 	}
 
 	/**
@@ -186,11 +179,20 @@ class CompanyTest extends TimeCrunchersTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoCompany = Company::getCompanyByCompanyId($this->getPDO(), $company->getCompanyId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("company"));
-		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME2);
+		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME);
+		$this->assertEquals($pdoCompany->getCompanyAddress1(), $this-> VALID_COMPANYADDRESS1);
+		$this->assertEquals($pdoCompany->getCompanyAddress2(), $this-> VALID_COMPANYADDRESS2);
+		$this->assertEquals($pdoCompany->getCompanyAttn(), $this->VALID_COMPANYATTN);
+		$this->assertEquals($pdoCompany->getCompanyState(), $this->VALID_COMPANYSTATE);
+		$this->assertEquals($pdoCompany->getCompanyCity(), $this->VALID_COMPANYCITY);
+		$this->assertEquals($pdoCompany->getCompanyZip(), $this->VALID_COMPANYZIP);
+		$this->assertEquals($pdoCompany->getCompanyPhone(), $this->VALID_COMPANYPHONE);
+		$this->assertEquals($pdoCompany->getCompanyEmail(), $this->VALID_COMPANYEMAIL);
+		$this->assertEquals($pdoCompany->getCompanyUrl(), $this->VALID_COMPANYURL);
 	}
 
 	/**
-	 * test updating a Schedule that already exists
+	 * test updating a Company that already exists
 	 *
 	 * @expectedException PDOException
 	 **/
@@ -246,7 +248,16 @@ class CompanyTest extends TimeCrunchersTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoCompany = Company::getCompanyByCompanyId($this->getPDO(), $company->getCompanyId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("company"));
-		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME2);
+		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME);
+		$this->assertEquals($pdoCompany->getCompanyAddress1(), $this-> VALID_COMPANYADDRESS1);
+		$this->assertEquals($pdoCompany->getCompanyAddress2(), $this-> VALID_COMPANYADDRESS2);
+		$this->assertEquals($pdoCompany->getCompanyAttn(), $this->VALID_COMPANYATTN);
+		$this->assertEquals($pdoCompany->getCompanyState(), $this->VALID_COMPANYSTATE);
+		$this->assertEquals($pdoCompany->getCompanyCity(), $this->VALID_COMPANYCITY);
+		$this->assertEquals($pdoCompany->getCompanyZip(), $this->VALID_COMPANYZIP);
+		$this->assertEquals($pdoCompany->getCompanyPhone(), $this->VALID_COMPANYPHONE);
+		$this->assertEquals($pdoCompany->getCompanyEmail(), $this->VALID_COMPANYEMAIL);
+		$this->assertEquals($pdoCompany->getCompanyUrl(), $this->VALID_COMPANYURL);
 	}
 
 	/**
@@ -278,7 +289,15 @@ class CompanyTest extends TimeCrunchersTest {
 		// grab the result from the array and validate it
 		$pdoCompany = $results[0];
 		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME);
-		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME2);
+		$this->assertEquals($pdoCompany->getCompanyAddress1(), $this-> VALID_COMPANYADDRESS1);
+		$this->assertEquals($pdoCompany->getCompanyAddress2(), $this-> VALID_COMPANYADDRESS2);
+		$this->assertEquals($pdoCompany->getCompanyAttn(), $this->VALID_COMPANYATTN);
+		$this->assertEquals($pdoCompany->getCompanyState(), $this->VALID_COMPANYSTATE);
+		$this->assertEquals($pdoCompany->getCompanyCity(), $this->VALID_COMPANYCITY);
+		$this->assertEquals($pdoCompany->getCompanyZip(), $this->VALID_COMPANYZIP);
+		$this->assertEquals($pdoCompany->getCompanyPhone(), $this->VALID_COMPANYPHONE);
+		$this->assertEquals($pdoCompany->getCompanyEmail(), $this->VALID_COMPANYEMAIL);
+		$this->assertEquals($pdoCompany->getCompanyUrl(), $this->VALID_COMPANYURL);
 	}
 
 	/**
@@ -301,6 +320,14 @@ class CompanyTest extends TimeCrunchersTest {
 		// grab the result from the array and validate it
 		$pdoCompany = $results[0];
 		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME);
-		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME2);
+		$this->assertEquals($pdoCompany->getCompanyAddress1(), $this-> VALID_COMPANYADDRESS1);
+		$this->assertEquals($pdoCompany->getCompanyAddress2(), $this-> VALID_COMPANYADDRESS2);
+		$this->assertEquals($pdoCompany->getCompanyAttn(), $this->VALID_COMPANYATTN);
+		$this->assertEquals($pdoCompany->getCompanyState(), $this->VALID_COMPANYSTATE);
+		$this->assertEquals($pdoCompany->getCompanyCity(), $this->VALID_COMPANYCITY);
+		$this->assertEquals($pdoCompany->getCompanyZip(), $this->VALID_COMPANYZIP);
+		$this->assertEquals($pdoCompany->getCompanyPhone(), $this->VALID_COMPANYPHONE);
+		$this->assertEquals($pdoCompany->getCompanyEmail(), $this->VALID_COMPANYEMAIL);
+		$this->assertEquals($pdoCompany->getCompanyUrl(), $this->VALID_COMPANYURL);
 	}
 }

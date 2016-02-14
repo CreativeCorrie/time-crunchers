@@ -29,8 +29,7 @@ class Schedule implements \JsonSerializable {
 	 * constructor for this Schedule
 	 *
 	 * @param int|null $newScheduleId id of this Schedule or null if a new Schedule
-	 * @param int $newScheduleId id of the Profile that sent this Tweet
-	 * @param \DateTime $scheduleStartDate date 14 day interval schedule starts
+	 * @param int $newScheduleCrewId id of the Crew this schedule belongs to, foreign key
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \TypeError if data types violate type hints
@@ -59,7 +58,7 @@ class Schedule implements \JsonSerializable {
 	/**
 	 * accessor method for schedule id
 	 *
-	 * @return int|null value of schedule id
+	 * @return int value of schedule id
 	 **/
 	public function getScheduleId() {
 		return($this->scheduleId);
@@ -68,17 +67,23 @@ class Schedule implements \JsonSerializable {
 	/**
 	 * mutator method for schedule id
 	 *
-	 * @param int|null $newScheduleId new value of schedule id
+	 * @param int $newScheduleId new value of schedule id
+	 * @throws \InvalidArgumentException if $schedule id is not an integer
 	 * @throws \RangeException if $newTweetId is not positive
 	 * @throws \TypeError if $newTweetId is not an integer
 	 **/
-	public function setScheduleId(int $newScheduleId = null) {
+	public function setScheduleId(int $newScheduleId) {
 		// base case: if the schedule id is null, this a new schedule without a mySQL assigned id (yet)
 		if($newScheduleId === null) {
 			$this->scheduleId = null;
 			return;
 		}
 
+		// verify the schedule id is valid
+		$newScheduleId = filter_var($newScheduleId, FILTER_VALIDATE_INT);
+		if($newScheduleId === false) {
+			throw(new \InvalidArgumentException("schedule id is not a valid integer"));
+		}
 		// verify the schedule id is positive
 		if($newScheduleId <= 0) {
 			throw(new \RangeException("schedule id is not positive"));
@@ -126,7 +131,7 @@ class Schedule implements \JsonSerializable {
 	/**
 	 * mutator method for schedule start date
 	 *
-	 * @param \DateTime|string $newScheduleStartDate schedule start date as a DateTime object or string
+	 * @param \DateTime $newScheduleStartDate schedule start date as a DateTime object or string
 	 * @throws \InvalidArgumentException if $newScheduleStartDate is not a valid object or string
 	 * @throws \RangeException if $newScheduleStartDate is a date that does not exist
 	 **/

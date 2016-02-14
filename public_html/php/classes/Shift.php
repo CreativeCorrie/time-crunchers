@@ -241,7 +241,7 @@ class Shift implements \JsonSerializable {
 	 *
 	 * @return \DateTime value of the duration of a shift
 	 **/
-	public function getShiftDurationt() {
+	public function getShiftDuration() {
 		return($this->shiftDuration);
 	}
 	/**

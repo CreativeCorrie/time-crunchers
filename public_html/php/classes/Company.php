@@ -120,7 +120,7 @@ class Company {
 	/**
 	 *accessor method for company id
 	 *
-	 *@return int|null value of company id
+	 *@return int value of company id
 	 **/
 	public function getCompanyId () {
 		return($this->companyId);
@@ -129,7 +129,7 @@ class Company {
 	/**
 	 * mutator method for company id
 	 *
-	 * @param int|null $newCompanyId new value of company id
+	 * @param int $newCompanyId new value of company id
 	 * @throws \RangeException if $newCompanyId is not positive
 	 * @throws \TypeError if $newCompanyId is not an integer
 	 **/
@@ -139,7 +139,13 @@ class Company {
 			$this->companyId = null;
 			return;
 		}
+		//Filter int
+		$newCompanyId = filter_var($newCompanyId, FILTER_VALIDATE_INT);
 
+		//Throw type error if Company id is not valid integer
+		if($newCompanyId === false) {
+			throw(new \InvalidArgumentException("company id is not an integer"));
+		}
 		// verify the company id is positive
 		if($newCompanyId <= 0) {
 			throw(new \RangeException("company id is not positive"));

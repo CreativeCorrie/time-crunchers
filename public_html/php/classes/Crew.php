@@ -32,8 +32,8 @@ require_once ("autoloader.php");
 	 * constructor for crews
 	 *
 	 * @param int|null $newCrewId id of crew or null if a new crew
-	 * @param string $newCrewLocation string of location for the crew
 	 * @param int $newCrewCompanyId of the Company that initialized this crew
+	 * @param string $newCrewLocation string of location for the crew
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \typeError if data types violate type hints
@@ -42,8 +42,8 @@ require_once ("autoloader.php");
 	public function __construct(int $newCrewId = null, int $newCrewCompanyId = null, string $newCrewLocation) {
 		try {
 			$this->setCrewId($newCrewId);
-			$this->setCrewLocation($newCrewLocation);
 			$this->setCrewCompanyId($newCrewCompanyId);
+			$this->setCrewLocation($newCrewLocation);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			//rethrow the exception to the caller
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
@@ -75,7 +75,6 @@ require_once ("autoloader.php");
 	 * @throws \UnexpectedValueException if $newCrewId is not an integer
 	 *
 	 **/
-
 
 	public function setCrewId(int $newCrewId = null) {
 		//verify the course id is valid
