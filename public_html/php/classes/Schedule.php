@@ -31,6 +31,7 @@ class Schedule implements \JsonSerializable {
 	 *
 	 * @param int|null $newScheduleId id of this Schedule or null if a new Schedule
 	 * @param int $newScheduleCrewId id of the Crew this schedule belongs to, foreign key
+	 * @param \DateTime $newScheduleStartDate start date for this schedule
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \TypeError if data types violate type hints
