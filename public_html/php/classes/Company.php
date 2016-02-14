@@ -74,7 +74,7 @@ class Company {
 	/**
 	 *constructor for Company
 	 *
-	 * @param int |null $newCompanyId id of this Company or null if a new Company
+	 * @param int|null $newCompanyId id of this Company or null if a new Company
 	 * @param string $newCompanyAttn string containing optional attention line
 	 * @param string $newCompanyName string containing the company name
 	 * @param string $newCompanyAddress1 string containing company address line 1

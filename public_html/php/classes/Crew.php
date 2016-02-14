@@ -18,15 +18,16 @@ require_once ("autoloader.php");
 	 **/
 	private $crewId;
 
+	 /**id for the companyId
+	  * @var string crewCompanyId
+	  **/
+	 private $crewCompanyId;
+
 	/**id for the location or store
 	 * @var int crewLocation
 	 **/
 	private $crewLocation;
 
-	/**id for the companyId
-	 * @var string crewCompanyId
-	 **/
-	private $crewCompanyId;
 
 	/**
 	 * constructor for crews
@@ -68,23 +69,35 @@ require_once ("autoloader.php");
 	public function getCrewId() {
 		return($this->crewId);
 	}
-	/**
-	 * Mutator method for crew id
-	 *
-	 * @param int $newCrewId new value of crew id
-	 * @throws \UnexpectedValueException if $newCrewId is not an integer
-	 *
-	 **/
 
-	public function setCrewId(int $newCrewId = null) {
-		//verify the course id is valid
-		$newCrewId = filter_var($newCrewId, FILTER_VALIDATE_INT);
-		if($newCrewId === false) {
-			throw(new \UnexpectedValueException("crew id is not a valid integer"));
-		}
-		//convert and store the crew id
-		$this->crewId = intval($newCrewId);
-	}
+	 /**
+	  * Mutator method for image id
+	  * @param int $newCrewId of new crew
+	  * @throws \InvalidArgumentException if crew id is not an integer
+	  * @throws \RangeException if crew id is negative
+	  **/
+	 public function setCrewId(int $newCrewId = null) {
+		 //If crew id does not exist it is new, give new id
+		 if($newCrewId === null) {
+			 $this->crewId = null;
+			 return;
+		 }
+		 //verify crew id is a valid integer
+		 $newCrewId = filter_var($newCrewId, FILTER_VALIDATE_INT);
+
+		 if($newCrewId === false) {
+		 throw(new \InvalidArgumentException("crew id is not an integer"));
+	 }
+
+		 //throws range exception if crew id is not a positive integer
+		 if($newCrewId <= 0) {
+			 throw(new \RangeException("crew id must be positive"));
+		 }
+
+		 //convert and store the crew id
+		 $this->crewId = intval($newCrewId);
+	 }
+
 	/**
 	 * accessor method for location
 	 *
