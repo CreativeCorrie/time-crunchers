@@ -19,30 +19,10 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
  * are tested for both invalid and valid inputs.
  *
  * @see Schedule
- * @author Elaine Thomas <enajera2@cnm.edu>
+ * @author Dylan McDonald<dmcdonald21@cnm.edu>
+ * @author Elaine Thomas<enajera2@cnm.edu>
  **/
 class ScheduleTest extends TimeCrunchersTest {
-
-	/**
- * timestamp of the Schedule
- * @var \DateTime $VALID_SCHEDULEDATE
- **/
-	protected $VALID_SCHEDULEDATE = null;
-	/**
-	 * timestamp of the Schedule
-	 * @var \DateTime $VALID_SCHEDULEDATE
-	 **/
-	protected $VALID_SCHEDULEDATE2 = null;
-	/**
-	 * start day of Schedule
-	 * @var \DateTime $VALID_SCHEDULESTARTDATE
-	 **/
-	protected $VALID_SCHEDULESTARTDATE = null;
-	/**
-	 * start day of Schedule
-	 * @var \DateTime $VALID_SCHEDULESTARTDATE
-	 **/
-	protected $VALID_SCHEDULESTARTDATE2 = null;
 	/**
 	 * Crew that Schedule is attached to; this is for foreign key relations
 	 * @var Crew $crew
@@ -53,6 +33,16 @@ class ScheduleTest extends TimeCrunchersTest {
 	 * @var Company $company
 	 **/
 	protected $company = null;
+	/**
+	 * start day of Schedule
+	 * @var \DateTime $VALID_SCHEDULESTARTDATE
+	 **/
+	protected $VALID_SCHEDULESTARTDATE = null;
+	///**
+	// * start day of Schedule
+	// * @var \DateTime $VALID_SCHEDULESTARTDATE
+   //**/
+	//protected $VALID_SCHEDULESTARTDATE2 = null;
 
 	/**
 	 * create dependent objects before running each test

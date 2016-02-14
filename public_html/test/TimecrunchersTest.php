@@ -2,7 +2,7 @@
 namespace Edu\Cnm\Timecrunchers\Test;
 
 //grab the encrypted properties file
-require_once("/etc/apache2/data-design/encrypted-config.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 /**
  * Abstract class containing universal and project specific mySQL parameters

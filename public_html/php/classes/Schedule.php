@@ -4,7 +4,8 @@ namespace Edu\Cnm\Timecrunchers;
 require_once("autoloader.php");
 
 /**
- * @author Elaine Thomas <enajera2@cnm.edu>
+ * @author Dylan McDonald<dmcdonald21@cnm.edu>
+ * @author Elaine Thomas<enajera2@cnm.edu>
  * @version 2.0.0
  **/
 class Schedule implements \JsonSerializable {

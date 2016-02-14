@@ -10,7 +10,8 @@ require_once ("autoloader.php");
  *A Company refers to a business customer using the Timecrunchers application
  *A Company is an entity with many crews and employees
  *
- *@author Elaine Thomas <enajera2@cnm.edu>
+ * @author Dylan McDonald<dmcdonald21@cnm.edu>
+ * @author Elaine Thomas<enajera2@cnm.edu>
  *@version 2.0.0
  **/
 class Company {
