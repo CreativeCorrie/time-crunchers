@@ -420,7 +420,7 @@ class Shift implements \JsonSerializable {
 	 * @param int $shiftUserId - shiftUserId for shifts to be viewed
 	 * @return SplFixedArray with all shifts found
 	 * @throw  PDOException with mysql related errors
-	 * @throw \InvalidArguamentException if shiftUserId is not an integer
+	 * @throw \InvalidArgumentException if shiftUserId is not an integer
 	 **/
 	public static function getShiftByShiftUserId(PDO $pdo, int $shiftUserId) {
 
@@ -451,8 +451,8 @@ class Shift implements \JsonSerializable {
 
 
 	/**
-	 * getShiftBy DAte Range get all the shifts for each day and the submitted range
-	 * The Otter While loop cycles through the date range
+	 * getShiftByDateRange get all the shifts for each day of the submitted range
+	 * The Other While loop cycles through the date range
 	 * The Inner while loop retrieves the set of shifts for each day
 	 * @param \PDO $pdo
 	 * @param \DateTime $startDate
