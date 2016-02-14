@@ -14,7 +14,6 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 
 /**
  * Full PHPUnit test for the Schedule class
- *
  * This is a complete PHPUnit test of the Schedule class. It is complete because *ALL* mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
@@ -38,11 +37,6 @@ class ScheduleTest extends TimeCrunchersTest {
 	 * @var \DateTime $VALID_SCHEDULESTARTDATE
 	 **/
 	protected $VALID_SCHEDULESTARTDATE = null;
-	///**
-	// * start day of Schedule
-	// * @var \DateTime $VALID_SCHEDULESTARTDATE
-   //**/
-	//protected $VALID_SCHEDULESTARTDATE2 = null;
 
 	/**
 	 * create dependent objects before running each test
@@ -64,17 +58,17 @@ class ScheduleTest extends TimeCrunchersTest {
 	}
 
 	/**
-	 * test inserting a valid Schedule and verify that the actual mySQL data matches
+	 * Test inserting a valid schedule and verify that the actual MySQL data matches
 	 **/
 	public function testInsertValidSchedule() {
-		// count the number of rows and save it for later
+		//Count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("schedule");
 
-		// create a new Schedule and insert to into mySQL
-		$schedule = new Schedule(null, $this->crew->getCrewId(), "072516");
+		//Create a new Schedule and insert into MySQL
+		$schedule = new Schedule (null, $this->crew->getCrewId(), $this->VALID_SCHEDULESTARTDATE);
 		$schedule->insert($this->getPDO());
 
-		// grab the data from mySQL and enforce the fields match our expectations
+		//Grab data from MySQL and enforce fields to match expectations
 		$pdoSchedule = Schedule::getScheduleByScheduleId($this->getPDO(), $schedule->getScheduleId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
 		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getCrewId());

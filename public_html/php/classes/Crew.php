@@ -71,7 +71,7 @@ require_once ("autoloader.php");
 	}
 
 	 /**
-	  * Mutator method for image id
+	  * Mutator method for crew id
 	  * @param int $newCrewId of new crew
 	  * @throws \InvalidArgumentException if crew id is not an integer
 	  * @throws \RangeException if crew id is negative

@@ -66,33 +66,33 @@ class Schedule implements \JsonSerializable {
 		return($this->scheduleId);
 	}
 
+
 	/**
-	 * mutator method for schedule id
-	 *
-	 * @param int $newScheduleId new value of schedule id
-	 * @throws \InvalidArgumentException if $schedule id is not an integer
-	 * @throws \RangeException if $newTweetId is not positive
-	 * @throws \TypeError if $newTweetId is not an integer
+	 * Mutator method for schedule id
+	 * @param int $newScheduleId of new schedule
+	 * @throws \InvalidArgumentException if schedule id is not an integer
+	 * @throws \RangeException if schedule id is negative
 	 **/
-	public function setScheduleId(int $newScheduleId) {
-		// base case: if the schedule id is null, this a new schedule without a mySQL assigned id (yet)
+	public function setCrewId(int $newScheduleId = null) {
+		//If schedule id does not exist it is new, give new id
 		if($newScheduleId === null) {
-			$this->scheduleId = null;
+			$this->crewId = null;
 			return;
 		}
-
-		// verify the schedule id is valid
+		//verify schedule id is a valid integer
 		$newScheduleId = filter_var($newScheduleId, FILTER_VALIDATE_INT);
+
 		if($newScheduleId === false) {
-			throw(new \InvalidArgumentException("schedule id is not a valid integer"));
-		}
-		// verify the schedule id is positive
-		if($newScheduleId <= 0) {
-			throw(new \RangeException("schedule id is not positive"));
+			throw(new \InvalidArgumentException("schedule id is not an integer"));
 		}
 
-		// convert and store the schedule id
-		$this->scheduleId = $newScheduleId;
+		//throws range exception if schedule id is not a positive integer
+		if($newScheduleId <= 0) {
+			throw(new \RangeException("schedule id must be positive"));
+		}
+
+		//convert and store the schedule id
+		$this->scheduleId = intval($newScheduleId);
 	}
 
 	/**
