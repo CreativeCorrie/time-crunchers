@@ -7,7 +7,7 @@
  * set the configurable parameters inside the closure.
  *
  * @param string $class fully qualified class name to load
- * @see h
+ * @see http://www.php-fig.org/psr/psr-4/examples/ PSR-4 Example Autoloader
  **/
 spl_autoload_register(function($class) {
 	/**

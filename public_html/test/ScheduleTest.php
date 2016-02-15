@@ -68,7 +68,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		$schedule = new Schedule (null, $this->crew->getCrewId(), $this->VALID_SCHEDULESTARTDATE);
 		$schedule->insert($this->getPDO());
 
-		//Grab data from MySQL and enforce fields to match expectations
+		//Grab data from MySQL and enforce fields match expectations
 		$pdoSchedule = Schedule::getScheduleByScheduleId($this->getPDO(), $schedule->getScheduleId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
 		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getCrewId());
@@ -76,7 +76,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	}
 
 	/**
-	 * test inserting a Schedule that already existsJ
+	 * test inserting a Schedule that already exists
 	 *
 	 * @expectedException PDOException
 	 **/
@@ -98,14 +98,14 @@ class ScheduleTest extends TimeCrunchersTest {
 		$schedule->insert($this->getPDO());
 
 		// edit the Schedule and update it in mySQL
-		$schedule->setScheduleStartDate($this->VALID_SCHEDULESTARTDATE2);
+		$schedule->setScheduleStartDate($this->VALID_SCHEDULESTARTDATE);
 		$schedule->update($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoSchedule = Schedule::getScheduleByScheduleId($this->getPDO(), $schedule->getScheduleId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
 		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULESTARTDATE2);
+		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULESTARTDATE);
 	}
 
 	/**
@@ -181,7 +181,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	/**
 	 * test grabbing a Schedule by schedule start date
 	 **/
-	public function testGetValidScheduleByScheduleStartDate() {
+	public function testGetScheduleByScheduleStartDate() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("schedule");
 
@@ -195,6 +195,12 @@ class ScheduleTest extends TimeCrunchersTest {
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Timecrunchers\\Schedule", $results);
 
+		//get data from database and ensure fields match our expectations
+		$results = Schedule::getScheduleByScheduleStartDate($this->getPDO(), $schedule->getScheduleStartDate());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount ("schedule"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf ("Edu\\Cnm\\Timecrunchers\\Schedule", $results);
+
 		// grab the result from the array and validate it
 		$pdoSchedule = $results[0];
 		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getCrewId());
@@ -207,7 +213,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	public function testGetInvalidScheduleByScheduleStartDate() {
 		// grab a schedule by an invalid start date
 		$schedule = Schedule::getScheduleByScheduleStartDate($this->getPDO(), $this->VALID_SCHEDULESTARTDATE);
-		$this->assertCount(0, $schedule);
+		$this->assertCount(1, $schedule);
 	}
 
 	/**

@@ -7,6 +7,8 @@ require_once("autoloader.php");
  * @author Dylan McDonald<dmcdonald21@cnm.edu>
  * @author Elaine Thomas<enajera2@cnm.edu>
  * @version 2.0.0
+ *
+
  **/
 class Schedule implements \JsonSerializable {
 	use ValidateDate;
@@ -63,9 +65,8 @@ class Schedule implements \JsonSerializable {
 	 * @return int value of schedule id
 	 **/
 	public function getScheduleId() {
-		return($this->scheduleId);
+		return ($this->scheduleId);
 	}
-
 
 	/**
 	 * Mutator method for schedule id
@@ -76,7 +77,7 @@ class Schedule implements \JsonSerializable {
 	public function setCrewId(int $newScheduleId = null) {
 		//If schedule id does not exist it is new, give new id
 		if($newScheduleId === null) {
-			$this->crewId = null;
+			$this->scheduleId = null;
 			return;
 		}
 		//verify schedule id is a valid integer
@@ -101,7 +102,7 @@ class Schedule implements \JsonSerializable {
 	 * @return int value of crew schedule id
 	 **/
 	public function getScheduleCrewId() {
-		return($this->scheduleCrewId);
+		return ($this->scheduleCrewId);
 	}
 
 	/**
@@ -109,9 +110,17 @@ class Schedule implements \JsonSerializable {
 	 *
 	 * @param int $newScheduleCrewId new value of id for crew this schedule is assigned to
 	 * @throws \RangeException if $newScheduleCrewId is not positive
-	 * @throws \TypeError if $newScheduleCrewId is not an integer
+	 * @throws \InvalidArgumentException if crew id is not an integer
 	 **/
 	public function setScheduleCrewId(int $newScheduleCrewId) {
+		//validate crew id
+		$newScheduleCrewId = filter_var($newScheduleCrewId, FILTER_VALIDATE_INT);
+
+		//throws exception if crew id is not a valid integer
+		if($newScheduleCrewId === false) {
+			throw(new \InvalidArgumentException ("crew id is not an integer"));
+		}
+
 		// verify the schedule crew id is positive
 		if($newScheduleCrewId <= 0) {
 			throw(new \RangeException("scheduled crew id is not positive"));
@@ -127,7 +136,7 @@ class Schedule implements \JsonSerializable {
 	 * @return \DateTime value of schedule start date
 	 **/
 	public function getScheduleStartDate() {
-		return($this->scheduleStartDate);
+		return ($this->scheduleStartDate);
 	}
 
 	/**
@@ -137,7 +146,7 @@ class Schedule implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $newScheduleStartDate is not a valid object or string
 	 * @throws \RangeException if $newScheduleStartDate is a date that does not exist
 	 **/
-	public function setScheduleStartDate($newScheduleStartDate = null){
+	public function setScheduleStartDate($newScheduleStartDate = null) {
 
 		// store the schedule start date
 		try {
@@ -263,7 +272,7 @@ class Schedule implements \JsonSerializable {
 			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($schedule);
+		return ($schedule);
 	}
 
 	/**
@@ -304,6 +313,6 @@ class Schedule implements \JsonSerializable {
 	public function jsonSerialize() {
 		$fields = get_object_vars($this);
 		$fields["scheduleStartDate"] = intval($this->scheduleStartDate->format("U")) * 1000;
-		return($fields);
+		return ($fields);
 	}
 }
