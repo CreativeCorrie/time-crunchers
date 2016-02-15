@@ -33,7 +33,7 @@ class AccessTest extends TimeCrunchersTest {
 	protected $VALID_ACCESSNAME2 = "PHPUnit test passing";
 /**
  * create a user to get access
- * @var for user $user
+ * @var user $user
  */
 	protected $user = null;
 	/**
