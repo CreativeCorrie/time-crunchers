@@ -14,15 +14,7 @@ require_once("TimecrunchersTest.php");
 //grab the class under scrutiny
 require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 
-/**
- * Full PHPUnit test for the user class
- *
- * This is a complete PHPUnit test of the user class. It is complete because *ALL* mySQL/PDO enabled methods
- * are tested for both invalid and valid inputs.
- *
- * @see user
- * @author Denzyl Fontaine>
- **/
+
 class UserTest extends TimecrunchersTest {
 	/**
 	 * content of user

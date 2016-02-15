@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<img src="../images/talia.jpg" alt="Talia photo" height="100" width="85">
-		<h2>Talia, 27, fast-food worker</h2>
+		<h2>Talia Martinez, 27, fast-food worker</h2>
 		<p>Talia is a Samsung Note5 user and she also has an older laptop running Windows 7 at home that she bought for doing homework but now uses primarily for streaming video.  She primarily accesses the Internet on her phone but sometimes uses a tablet for the bigger screen to do anything from shopping lists to checking her social media. She enjoys streaming music videos and using social networking sites so she is proficient on a computer.
 		</p>
 
