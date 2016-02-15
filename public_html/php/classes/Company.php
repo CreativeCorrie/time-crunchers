@@ -132,7 +132,7 @@ class Company {
 	 *
 	 * @param int $newCompanyId new value of company id
 	 * @throws \RangeException if $newCompanyId is not positive
-	 * @throws \TypeError if $newCompanyId is not an integer
+	 * @throws \InvalidArgumentException if $newCompanyId is not an integer
 	 **/
 	public function setCompanyId(int $newCompanyId = null) {
 		// base case: if the company id is null, this is a new company without a mySQL assigned id (yet)
@@ -144,6 +144,7 @@ class Company {
 		$newCompanyId = filter_var($newCompanyId, FILTER_VALIDATE_INT);
 
 		//Throw type error if Company id is not valid integer
+
 		if($newCompanyId === false) {
 			throw(new \InvalidArgumentException("company id is not an integer"));
 		}
