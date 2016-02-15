@@ -8,8 +8,8 @@ require_once("autoloader.php");
  * @author Elaine Thomas<enajera2@cnm.edu>
  * @version 2.0.0
  *
-
  **/
+
 class Schedule implements \JsonSerializable {
 	use ValidateDate;
 	/**
@@ -42,7 +42,7 @@ class Schedule implements \JsonSerializable {
 	public function __construct(int $newScheduleId = null, int $newScheduleCrewId, $newScheduleStartDate = null) {
 		try {
 			$this->setScheduleId($newScheduleId);
-			$this->setScheduleCrewId($newScheduleId);
+			$this->setScheduleCrewId($newScheduleCrewId);
 			$this->setScheduleStartDate($newScheduleStartDate);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			// rethrow the exception to the caller
@@ -50,9 +50,9 @@ class Schedule implements \JsonSerializable {
 		} catch(\RangeException $range) {
 			// rethrow the exception to the caller
 			throw(new \RangeException($range->getMessage(), 0, $range));
-		} catch(\TypeError $typeError) {
+//		} catch(\TypeError $typeError) {
 			// rethrow the exception to the caller
-			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
+//			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
 		} catch(\Exception $exception) {
 			// rethrow the exception to the caller
 			throw(new \Exception($exception->getMessage(), 0, $exception));
@@ -61,7 +61,6 @@ class Schedule implements \JsonSerializable {
 
 	/**
 	 * accessor method for schedule id
-	 *
 	 * @return int value of schedule id
 	 **/
 	public function getScheduleId() {
@@ -98,7 +97,6 @@ class Schedule implements \JsonSerializable {
 
 	/**
 	 * accessor method for crew id this Schedule is assigned to
-	 *
 	 * @return int value of crew schedule id
 	 **/
 	public function getScheduleCrewId() {
@@ -107,10 +105,9 @@ class Schedule implements \JsonSerializable {
 
 	/**
 	 * mutator method for crew id this Schedule is assigned to
-	 *
 	 * @param int $newScheduleCrewId new value of id for crew this schedule is assigned to
-	 * @throws \RangeException if $newScheduleCrewId is not positive
 	 * @throws \InvalidArgumentException if crew id is not an integer
+	 * @throws \RangeException if $newScheduleCrewId is not positive
 	 **/
 	public function setScheduleCrewId(int $newScheduleCrewId) {
 		//validate crew id
@@ -159,6 +156,76 @@ class Schedule implements \JsonSerializable {
 		$this->scheduleStartDate = $newScheduleStartDate;
 	}
 
+	/**
+	 * inserts this Schedule into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo) {
+		// enforce the scheduleId is null (i.e., don't insert a schedule that already exists)
+		if($this->scheduleId !== null) {
+			throw(new \PDOException("not a new schedule"));
+		}
+
+		// create query template
+		$query = "INSERT INTO schedule(scheduleCrewId, scheduleStartDate) VALUES(:scheduleCrewId, :scheduleCrewDate)";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$formattedDate = $this->scheduleStartDate->format("Y-m-d H:i:s");
+		$parameters = ["scheduleCrewId" => $this->scheduleCrewId, "scheduleStartDate" => $formattedDate];
+		$statement->execute($parameters);
+
+		// update the null tweetId with what mySQL just gave us
+		$this->scheduleId = intval($pdo->lastInsertId());
+	}
+
+	/**
+	 * updates this Schedule in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo) {
+		// enforce the scheduleId is not null (i.e., don't update a schedule that hasn't been inserted)
+		if($this->scheduleId === null) {
+			throw(new \PDOException("unable to update a schedule that does not exist"));
+		}
+
+		// create query template
+		$query = "UPDATE schedule SET scheduleCrewId = :scheduleCrewId, scheduleStartDate = :scheduleStartDate WHERE scheduleId = :scheduleId";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$formattedDate = $this->scheduleStartDate->format("Y-m-d H:i:s");
+		$parameters = ["scheduleCrewId" => $this->scheduleCrewId, "scheduleStartDate" => $formattedDate, "scheduleId" => $this->scheduleId];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * deletes this Schedule from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo) {
+		// enforce the scheduleId is not null (i.e., don't delete a schedule that hasn't been inserted)
+		if($this->scheduleId === null) {
+			throw(new \PDOException("unable to delete a schedule that does not exist"));
+		}
+
+		// create query template
+		$query = "DELETE FROM schedule WHERE scheduleId = :scheduleId";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holder in the template
+		$parameters = ["scheduleId" => $this->scheduleId];
+		$statement->execute($parameters);
+	}
 
 	/**
 	 * gets the Schedule by schedule start date
@@ -204,6 +271,8 @@ class Schedule implements \JsonSerializable {
 		return ($schedule);
 	}
 
+
+
 	/**
 	 * gets all Schedule
 	 *
@@ -232,78 +301,6 @@ class Schedule implements \JsonSerializable {
 			}
 		}
 		return ($schedules);
-	}
-
-
-	/**
-	 * inserts this Schedule into mySQL
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 **/
-	public function insert(\PDO $pdo) {
-		// enforce the scheduleId is null (i.e., don't insert a schedule that already exists)
-		if($this->scheduleId !== null) {
-			throw(new \PDOException("not a new schedule"));
-		}
-
-		// create query template
-		$query = "INSERT INTO schedule(scheduleCrewId, scheduleStartDate) VALUES(:scheduleCrewId, :scheduleCrewDate)";
-		$statement = $pdo->prepare($query);
-
-		// bind the member variables to the place holders in the template
-		$formattedDate = $this->scheduleStartDate->format("Y-m-d H:i:s");
-		$parameters = ["scheduleCrewId" => $this->scheduleCrewId, "scheduleStartDate" => $formattedDate];
-		$statement->execute($parameters);
-
-		// update the null tweetId with what mySQL just gave us
-		$this->scheduleId = intval($pdo->lastInsertId());
-	}
-
-	/**
-	 * deletes this Schedule from mySQL
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 **/
-	public function delete(\PDO $pdo) {
-		// enforce the scheduleId is not null (i.e., don't delete a schedule that hasn't been inserted)
-		if($this->scheduleId === null) {
-			throw(new \PDOException("unable to delete a schedule that does not exist"));
-		}
-
-		// create query template
-		$query = "DELETE FROM schedule WHERE scheduleId = :scheduleId";
-		$statement = $pdo->prepare($query);
-
-		// bind the member variables to the place holder in the template
-		$parameters = ["scheduleId" => $this->scheduleId];
-		$statement->execute($parameters);
-	}
-
-	/**
-	 * updates this Schedule in mySQL
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 **/
-	public function update(\PDO $pdo) {
-		// enforce the scheduleId is not null (i.e., don't update a schedule that hasn't been inserted)
-		if($this->scheduleId === null) {
-			throw(new \PDOException("unable to update a schedule that does not exist"));
-		}
-
-		// create query template
-		$query = "UPDATE schedule SET scheduleCrewId = :scheduleCrewId, scheduleStartDate = :scheduleStartDate WHERE scheduleId = :scheduleId";
-		$statement = $pdo->prepare($query);
-
-		// bind the member variables to the place holders in the template
-		$formattedDate = $this->scheduleStartDate->format("Y-m-d H:i:s");
-		$parameters = ["scheduleCrewId" => $this->scheduleCrewId, "scheduleStartDate" => $formattedDate, "scheduleId" => $this->scheduleId];
-		$statement->execute($parameters);
 	}
 
 	/**
