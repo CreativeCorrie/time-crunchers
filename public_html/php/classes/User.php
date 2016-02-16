@@ -71,7 +71,7 @@ class User {
 	 * @param int|null $newUserId id of this user or null if new user
 	 * @param int|null $newUserCompanyId id of the company or null if new user
 	 * @param int|null $newUserCrewId id of the crew or null if new crew
-	 * @param int|null $newAccessId id of the access or null if new user
+	 * @param int|null $newUserAccessId id of the access or null if new user
 	 * @param string $newUserPhone string containing user phone number
 	 * @param string $newUserFirstName string containing user first name
 	 * @param string $newUserLastName string containing user last name
@@ -498,7 +498,7 @@ class User {
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["userId" => $this->userId, "userCompanyId" => $this->userCompanyId, "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName, "userLastName" => $this->userLastName, "userCrewId" => $this->userCrewId, "userEmail" => $this->userEmail, "userActivation" => $this->userActivation, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
+		$parameters = ["userId" => $this->userId, "userCompanyId" => $this->userCompanyId, "userCrewId" => $this->userCrewId, "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName, "userLastName" => $this->userLastName, "userEmail" => $this->userEmail, "userActivation" => $this->userActivation, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
 		$statement->execute($parameters);
 
 		//update the null userId with the what mySQL just gave us
@@ -542,11 +542,11 @@ class User {
 		}
 
 		//create query template
-		$query = "UPDATE user SET userId = :userId, userCompanyId = :userCompanyId, userAccessId = :userAccessId, userPhone = :userPhoneId, userFirstName = :userFirstName, userLastName = :userLastName, userCrewId = :userCrewId, userEmail = :userEmail, userActivation = :userActivation, userHash = :userHash, userSalt = :userSalt";
+		$query = "UPDATE user SET userId = :userId, userCompanyId = :userCompanyId, userCrewId = :userCrewId, userAccessId = :userAccessId, userPhone = :userPhoneId, userFirstName = :userFirstName, userLastName = :userLastName, userEmail = :userEmail, userActivation = :userActivation, userHash = :userHash, userSalt = :userSalt";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["userId" => $this->userId, "userCompanyId" => $this->userCompanyId, "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName, "userLastName" => $this->userLastName, "userCrewId" => $this->userCrewId, "userEmail" => $this->userEmail, "userActivation" => $this->userActivation, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
+		$parameters = ["userId" => $this->userId, "userCompanyId" => $this->userCompanyId, "userCrewId" => $this->userCrewId, "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName, "userLastName" => $this->userLastName, "userEmail" => $this->userEmail, "userActivation" => $this->userActivation, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
 		$statement->execute($parameters);
 	}
 
@@ -568,7 +568,7 @@ class User {
 		}
 
 		//create query template
-		$query = "SELECT userId, companyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM userFirstName WHERE userFirstName = :userFirstName";
+		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM userFirstName WHERE userFirstName = :userFirstName";
 		$statement = $pdo->prepare($query);
 
 		//bind users with place holder in the template
@@ -581,7 +581,7 @@ class User {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user = new User($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
+				$user = new User($row["userId"], $row["companyId"], $row["userCrewId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
 				$users[$users->key()] = $user;
 				$user->next();
 			} catch(\exception $exception) {
@@ -609,7 +609,7 @@ class User {
 		}
 
 		//create query template
-		$query = "SELECT userId, companyId, accessId, userPhone, userFirstName, userLastName, userCrewId, userEmail, userActivation, userHash, userSalt";
+		$query = "SELECT userId, userCompanyId, userCrewId, accessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt";
 		$statement = $pdo->prepare($query);
 
 		//bind the userId to place a holder in template
@@ -622,7 +622,7 @@ class User {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$user = new User($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
+				$user = new User($row["userId"], $row["companyId"], $row["userCrewId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
 			}
 		} catch(\Exception $exception) {
 			//if the row couldn't be converted, rethrow it
@@ -643,7 +643,7 @@ class User {
 
 	public static function getAllUsers(\PDO $pdo) {
 		//create query update
-		$query = "SELECT userId, companyId, accessId, userPhone, userFirstName, userLastName, userCrewId, 		userEmail, userActivation, userHash, userSalt";
+		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
