@@ -3,9 +3,7 @@ namespace Edu\Cnm\Timecrunchers\Test;
 
 //name the classes not the foreign keys
 use Edu\Cnm\Timecrunchers\Access;
-use Edu\Cnm\Timecrunchers\User;
-use Edu\Cnm\Timecrunchers\Company;
-use Edu\Cnm\Timecrunchers\Crew;
+
 
 //grab test parameters
 require_once("TimecrunchersTest.php");
@@ -33,61 +31,6 @@ class AccessTest extends TimeCrunchersTest {
 	 * @var string $VALID_ACCESSNAME2
 	 **/
 	protected $VALID_ACCESSNAME2 = "PHPUnit test passing";
-	/**
-	 * create a company for the user to belong to
-	 * @var company $company
-	 **/
-	protected $company = null;
-	/**
-	 * create a crew to belong to the company and own the user
-	 * @var crew $crew
-	 **/
-	protected $crew = null;
-	/**
-	 * create a user to get access
-	 * @var user $user
-	 **/
-	protected $user = null;
-	/**
-	 * create dependent objects before running each test
-	 **/
-	/**
-	 * password of the user
-	 * @var string $VALID_PASSWORD
-	 */
-	protected $VALID_ACTIVATION = null;
-	/**
-	 *
-	 * @var mixed
-	 */
-	protected $VALID_HASH = null;
-	/**
-	 *
-	 * @var string $VALID_SALT
-	 */
-	protected $VALID_SALT = null;
-
-	public final function setUp() {
-		//run the default setUp method first
-		parent::setUp();
-
-		$this->VALID_ACTIVATION = "abc123";
-		$this->VALID_SALT = bin2hex(random_bytes(16));
-		$this->VALID_HASH = hash_pbkdf2("sha512", $this->VALID_ACTIVATION, $this->VALID_SALT, 262144);
-
-		//create and insert a Company to own the crew
-		$this->company = new Company(null, "Taco B.","404 Taco St.","suite:666","Attention!!","NM","Burque","87106","5055551111","tb@hotmail.com","www.tocobell.com");
-		$this->company->insert($this->getPDO());
-
-		//create and insert a crew to own the user
-		$this->crew = new Crew(null, $this->company->getCompanyId(), "the moon");
-		$this->crew->insert($this->getPDO());
-
-		//create and insert a User to own the test Access
-
-		$this->user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), "5055554321", "talia", "Martinez", "talia@aol.com", "$this->VALID_ACTIVATION", "$this->VALID_HASH", "$this->VALID_SALT");
-		$this->user->insert($this->getPDO());
-	}
 
 	/**
 	 * test inserting a valid access and verify that the actual mySQL data matches
@@ -97,13 +40,13 @@ class AccessTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("access");
 
 		//create a new Access and insert into mySQL
-		$access = new Access(null, $this->user->getUserId(), $this->VALID_ACCESSNAME);
+		$access = new Access(null, $this->VALID_ACCESSNAME);
 		$access->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
 		$pdoAccess = Access::getAccessByAccessId($this->getPDO(), $access->getAccessId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("access"));
-		$this->assertEquals($pdoAccess->getUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoAccess->getAccessName(), $this->VALID_ACCESSNAME);
 	}
 
 	/**
@@ -113,7 +56,7 @@ class AccessTest extends TimeCrunchersTest {
 	 */
 	public function testInsertInvalidAccess() {
 		//create a User with a non null access id and watch it fail
-		$access = new Access(TimeCrunchersTest::INVALID_KEY, $this->user->getUserId(), $this->VALID_ACCESSNAME);
+		$access = new Access(TimeCrunchersTest::INVALID_KEY, $this->VALID_ACCESSNAME);
 		$access->insert($this->getPDO());
 	}
 
@@ -125,7 +68,7 @@ class AccessTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("access");
 
 		//create a new access and insert it into mySQL
-		$access = new Access(null, $this->user->getUserId(), $this->VALID_ACCESSNAME);
+		$access = new Access(null, $this->VALID_ACCESSNAME);
 		$access->insert($this->getPDO());
 
 		//edit the Access and update it in mySQL
@@ -135,7 +78,6 @@ class AccessTest extends TimeCrunchersTest {
 		//grab the data from mySQL and enforce the fields match our expectations
 		$pdoAccess = Access::getAccessByAccessId($this->getPDO(), $access->getaccessId);
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("access"));
-		$this->assertEquals($pdoAccess->getUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoAccess->getAccessName, $this->VALID_ACCESSNAME2);
 	}
 
@@ -146,7 +88,7 @@ class AccessTest extends TimeCrunchersTest {
 	 */
 	public function testUpdateInvalidAccess() {
 		//create an access with a non null access id and watch it fail
-		$access = new Access(null, $this->user->getUserId(), $this->VALID_ACCESSNAME);
+		$access = new Access(null, $this->VALID_ACCESSNAME);
 		$access->update($this->getPDO());
 	}
 
@@ -158,7 +100,7 @@ class AccessTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount(access);
 
 		//create new access and insert it into mySQL
-		$access = new Access(null, $this->user->userId(), $this->VALID_ACCESSNAME);
+		$access = new Access(null, $this->VALID_ACCESSNAME);
 		$access->insert($this->getPDO());
 
 		//delete the access from mySQL
@@ -178,7 +120,7 @@ class AccessTest extends TimeCrunchersTest {
 	 */
 	public function testDeleteInvalidAccess() {
 		//create access and try to delete without actually inserting it
-		$access = new Access(null, $this->user->getUserId(), $this->VALID_ACCESSNAME);
+		$access = new Access(null, $this->VALID_ACCESSNAME);
 		$access->delete($this->getPDO());
 	}
 
@@ -195,7 +137,7 @@ class AccessTest extends TimeCrunchersTest {
 
 		//grab the data from mySQL and enforce the fields match our expectations
 		$pdoAccess = Access::getAccessByAccessId($this->getPDO(), $access->getAccessId());
-		$this->assertEquals($pdoAccess->getUserId(), $this->user->getUserId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("access"));
 		$this->assertEquals($pdoAccess->getAccessName(), $this->VALID_ACCESSNAME);
 	}
 

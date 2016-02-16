@@ -403,7 +403,7 @@ class User {
 			throw(new \RangeException("user activation cannot be null"));
 		}
 		//make sure user activation =  32
-		if($newUserActivation !== 32) {
+		if(strlen($newUserActivation) !== 32) {
 			throw(new \RangeException("user activation must be 32"));
 		}
 
@@ -437,7 +437,7 @@ class User {
 			throw(new \RangeException("user hash cannot be null"));
 		}
 		//make sure user activation =  128
-		if($newUserHash !== 128) {
+		if(strlen($newUserHash) !== 128) {
 			throw(new \RangeException("user hash has to be 128"));
 		}
 
@@ -471,7 +471,7 @@ class User {
 			throw(new \RangeException("user salt cannot be null"));
 		}
 		//make sure user activation =  64
-		if($newUserSalt !== 64) {
+		if(strlen($newUserSalt) !== 64) {
 			throw(new \RangeException("user salt has to be 64"));
 		}
 
