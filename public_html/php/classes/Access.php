@@ -195,10 +195,10 @@ class Access {
 	 */
 	public function getAccessByAccessName(\PDO $pdo, string $accessName) {
 		//sanitize the description before searching
-		$accessName = trim(accessName);
+		$accessName = trim($accessName);
 		$accessName = filter_var($accessName, FILTER_SANITIZE_STRING);
 		if(empty($accessName) === true) {
-			throw(new \PDOException("accessName is invalid"))
+			throw(new \PDOException("accessName is invalid"));
 		}
 
 		//create query template
@@ -210,7 +210,7 @@ class Access {
 		$parameters = array("accessName" => $accessName);
 		$statement->execute($parameters);
 
-		//build an array of accesss
+		//build an array of access
 		$access = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement - fetch()) !== false) ;
@@ -220,7 +220,7 @@ class Access {
 				$access[$access->key()] = $access;
 				$access->next();
 			} catch(\exception $exception) {
-				//if row couldnt be converted, rethrow it
+				//if row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
