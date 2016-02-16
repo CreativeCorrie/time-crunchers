@@ -73,7 +73,7 @@ class AccessTest extends TimeCrunchersTest {
 
 		$this->VALID_ACTIVATION = "abc123";
 		$this->VALID_SALT = bin2hex(random_bytes(16));
-		$this->VALID_HASH = hash_pbkdf2("sha512", $this->VALID_PASSWORD, $this->VALID_SALT, 262144);
+		$this->VALID_HASH = hash_pbkdf2("sha512", $this->VALID_ACTIVATION, $this->VALID_SALT, 262144);
 
 		//create and insert a Company to own the crew
 		$this->company = new Company(null, "Taco B.","404 Taco St.","suite:666","Attention!!","NM","Burque","87106","5055551111","tb@hotmail.com","www.tocobell.com");
