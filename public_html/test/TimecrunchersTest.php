@@ -43,13 +43,13 @@ abstract class TimeCrunchersTest extends \PHPUnit_Extensions_Database_TestCase {
 
 		//add all the tables for the project here
 		//THESE TABLES *MUST* BE LISTED IN THE SAME ORDER THEY WERE CREATED!
-		$dataset->addTable("access");
 		$dataset->addTable("company");
 		$dataset->addTable("crew");
-		$dataset->addTable("request");
-		$dataset->addTable("schedule");
-		$dataset->addTable("shift");
+		$dataset->addTable("access");
 		$dataset->addTable("user");
+		$dataset->addTable("schedule");
+		$dataset->addTable("request");
+		$dataset->addTable("shift");
 
 		return($dataset);
 	}

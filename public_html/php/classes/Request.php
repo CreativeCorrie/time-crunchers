@@ -61,7 +61,7 @@ class Request implements \JsonSerializable {
 	 * @param int|null $newRequestId -id of the Request
 	 * @param int $newRequestRequestorId -id of user making request
 	 * @param int $newRequestAdminId -id of admin approving user's request
-	 * @param \DateTime $newRequestTimeStamp -time that user made the request
+	 * @param \DateTime|string|null $newRequestTimeStamp -time that user made the request
 	 * @param \DateTime|string|null $newRequestActionTimeStamp -time that admin approved user's request
 	 * @param boolean $newRequestApprove -boolean return of admin's response to user's request
 	 * @param string $newRequestRequestorText -string containing user's request explanation
@@ -194,7 +194,7 @@ class Request implements \JsonSerializable {
 		}
 		// store request date
 		try {
-			$newRequestTimeStamp = $this->validateDate($newRequestTimeStamp);
+			$newRequestTimeStamp = self::validateDateTime($newRequestTimeStamp);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		} catch(\RangeException $range) {
