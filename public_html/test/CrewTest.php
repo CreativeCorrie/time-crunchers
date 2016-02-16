@@ -21,7 +21,6 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
  * 
  **/
 class CrewTest extends TimecrunchersTest {
-
 	/**
 	 * location of the Crew
 	 * @var string $VALID_CREWLOCATION
@@ -32,17 +31,13 @@ class CrewTest extends TimecrunchersTest {
 	 * location of the updated Crew
 	 * @var string $VALID_CREWLOCATION2
 	 **/
-	protected  $VALID_CREWLOCATION2 = "PHPUnit test still passing";
+	protected $VALID_CREWLOCATION2 = "PHPUnit test still passing";
+
 	/**
-	 * timestamp of the Crew; this starts as nuLL and is assigned Later
-	 * @var \DateTime $VALID_CREWDATE
-	 **/
-	protected $VALID_CREWDATE = null;
-	/**
-	 * Profile that created the Crew; this is for foreign key relations
+	 * Company that created the Crew; this is for foreign key relations
 	 * @var Company $VALID_COMPANY
 	 **/
-	protected $VALID_COMPANY = null;
+	protected $company = null;
 
 	/**
 	 *create dependent objects before running each test
@@ -56,17 +51,18 @@ class CrewTest extends TimecrunchersTest {
 		$this->company->insert($this->getPDO());
 
 		//calculate the date(just use the time the unit test was setup...)
-		$this->VALID_CREWDATE = new  \DateTime();
+		//$this->VALID_CREWDATE = new \DateTime();
 	}
 
 	/**
 	 * test inserting a valid Crew and verify that the actual mySQL date matches
 	 **/
-	public  function testInsertValidCrew($crew) {
+	public  function testInsertValidCrew() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConection()->getRowCount("crew");
 
 		//create a new Crew and insert to into mySQL
+		$crew = new Crew(null, $this->company->getCompanyId(), "Taco Bell");
 		$crew->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
@@ -82,19 +78,19 @@ class CrewTest extends TimecrunchersTest {
 	 **/
 	public function testInsertInvalidCrew() {
 		//create a Crew with anon null crew id and watch it fail
-		$crew = new Crew(TimecrunchersTest::INVALID_KEY, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
+		$crew = new Crew(TimecrunchersTest::INVALID_KEY, $this->company->getCompanyId(), $this->VALID_CREWLOCATION);
 		$crew->insert($this->getPDO());
 	}
 
 	/**
-	 * test inserting a Crew, editing it and then updating i
+	 * test inserting a Crew, editing it and then updating it
 	 **/
 	public function testUpdateValidCrew() {
 		//count the  number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("crew");
 
 		//create a new Crew and insert to into mySQL
-		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION);
 		$crew->insert($this->getPDO());
 
 		//edit the Crew and update it in mySQL
@@ -106,8 +102,8 @@ class CrewTest extends TimecrunchersTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
 		$this->assertEquals($pdoCrew->getCrewCompanyId(), $this->company->getCompanyId());
 		$this->assertEquals($pdoCrew->getCrewLocation(), $this->VALID_CREWLOCATION2);
-		$this->assertEquals($pdoCrew->getCrewDate(), $this->VALID_CREWDATE);
 	}
+
 	/**
 	 * test updating a Crew that already exists
 	 *
@@ -115,7 +111,7 @@ class CrewTest extends TimecrunchersTest {
 	 **/
 	public function testUpdateInvalidCrew() {
 		//create a Crew with a non null crew id and watch it fail
-		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION);
 		$crew->update($this->getPDO());
 	}
 
@@ -127,7 +123,7 @@ class CrewTest extends TimecrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("crew");
 
 		//create a new Crew and insert it into mySQL
-		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION);
 		$crew->insert($this->getPDO());
 		//delete the Crew from mySQL
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
@@ -145,7 +141,7 @@ class CrewTest extends TimecrunchersTest {
 	 **/
 	public function testDeleteInvalidCrew() {
 		//create a Crew and try to delete it without actually inserting it
-		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION);
 		$crew->delete($this->getPDO());
 	}
 	/**
@@ -156,16 +152,19 @@ class CrewTest extends TimecrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("crew");
 
 		//create a new Crew and insert it into mySQL
-		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION);
+		$crew->insert($this->getPDO());
+
+		//edit the crew and update it in mySQL
+		$crew->update($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
 		$pdoCrew = Crew::getCrewByCrewId($this->getPDO(), $crew->getCrewId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
 		$this->assertEquals($pdoCrew->getCrewCompanyId(), $this->company->getCompanyId());
-		$this->assertEquals($pdoCrew->getCrewDate(), $this->VALID_CREWDATE);
 	}
 	/**
-	 * test grabbing a Crew taht does not exist
+	 * test grabbing a Crew that does not exist
 	 **/
 	public function testGetInvalidCrewByCrewID () {
 		//grab a profile id that exceeds the maximum allowable profileid
@@ -173,14 +172,14 @@ class CrewTest extends TimecrunchersTest {
 		$this->assertNull($crew);
 	}
 	/**
-	 * test grabbinga  Crew by crew location
+	 * test grabbing a Crew by crew location
 	 **/
 	public function testGetValidCrewByCrewLocation() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("crew");
 
 		//create a new Crew and insert it into mySQL
-		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION);
 		$crew->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
@@ -189,10 +188,9 @@ class CrewTest extends TimecrunchersTest {
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\vhooker\\TimecrunchersTest\\Crew", $results);
 
-		//grab the result fromthe array and validate it
+		//grab the result from the array and validate it
 		$pdoCrew = $results[0];
 		$this->assertEquals($pdoCrew->getCrewLocation(), $this->VALID_CREWLOCATION);
-		$this->assertEquals($pdoCrew->getCrewDate(), $this->VALID_CREWDATE);
 	}
 	/**
 	 * test grabbing a Crew by a location that does not exist
@@ -205,12 +203,12 @@ class CrewTest extends TimecrunchersTest {
 	/**
 	 * test grabbing all Crews
 	 **/
-	public function testGetallValidCrews() {
+	public function testGetAllValidCrews() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowcount("crew");
 
 		//create a new Crew and insert it into mySQL
-		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION, $this->VALID_CREWDATE);
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION);
 		$crew->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
@@ -218,10 +216,9 @@ class CrewTest extends TimecrunchersTest {
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("crew"));
 		$this->assertCount(1, $results);
 		$this->assertContainsONlyInstancesOf("Edu\\Cnm\\Vhooker\\TimecrunchersTest\\Crew", $results);
-		//grab the result fromt eh array and validate it
+		//grab the result from the array and validate it
 		$pdoCrew = $results[0];
 		$this->assertEquals($pdoCrew->getCompanyId(), $this->company->getCompanyId());
 		$this->assertEquals($pdoCrew->getCrewLocation(), $this->VALID_CREWLOCATION);
-		$this->assertEqulas($pdoCrew->getCrewDate(), $this->VALID_CREWDATE);
 	}
 }
