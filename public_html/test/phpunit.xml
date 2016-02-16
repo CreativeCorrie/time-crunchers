@@ -1,10 +1,10 @@
 <phpunit>
 	<testsuites>
 		<testsuite name="Timecrunchers Test">
-			<file>AccessTest.php</file>
+			<!--<file>AccessTest.php</file>-->
 			<!--<file>CompanyTest.php</file>-->
 			<!--<file>CrewTest.php</file>-->
-			<!--<file>RequestTest.php</file>-->
+			<file>RequestTest.php</file>
 			<!--<file>ScheduleTest.php</file>-->
 			<!--<file>ShiftTest.php</file>-->
 			<!--<file>UserTest.php</file>-->

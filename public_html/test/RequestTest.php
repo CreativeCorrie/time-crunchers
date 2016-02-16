@@ -102,7 +102,7 @@ class RequestTest extends TimecrunchersTest {
 
 
 		// creates and inserts Access to sql for User foreign key relations
-		$this->access = new Access(null,"admin/requestor");
+		$this->access = new Access(null,"requestor or admin");
 		$this->access->insert($this->getPDO());
 
 		// create and insert a User to own the test Request
@@ -127,7 +127,7 @@ class RequestTest extends TimecrunchersTest {
 
 		// create a new Request and insert to into mySQL
 		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
-			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -150,7 +150,7 @@ class RequestTest extends TimecrunchersTest {
 	public function testInsertInvalidRequest() {
 		// create a Request with a non null request id and watch it fail
 		$request = new Request(TimeCrunchersTest::INVALID_KEY, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
-			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->insert($this->getPDO());
 	}
 
@@ -163,7 +163,7 @@ class RequestTest extends TimecrunchersTest {
 
 		// create a new Request and insert into mySQL
 		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
-			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->insert($this->getPDO());
 
 		// edit the Request and update it in mySQL
@@ -190,7 +190,7 @@ class RequestTest extends TimecrunchersTest {
 	public function testUpdateInvalidRequest() {
 		// create a Request with a non null request id and watch it fail
 		$request = new Request(TimeCrunchersTest::INVALID_KEY, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
-			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->update($this->getPDO());
 	}
 
@@ -203,7 +203,7 @@ class RequestTest extends TimecrunchersTest {
 
 		// create a new Request and insert to into mySQL
 		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
-			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->insert($this->getPDO());
 
 		// delete the Request from mySQL
@@ -224,7 +224,7 @@ class RequestTest extends TimecrunchersTest {
 	public function testDeleteInvalidRequest() {
 		// create a Request and try to delete it without actually inserting it
 		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
-			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->delete($this->getPDO());
 	}
 
@@ -237,7 +237,7 @@ class RequestTest extends TimecrunchersTest {
 
 		// create a new Request and insert to into mySQL
 		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
-			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -269,7 +269,7 @@ class RequestTest extends TimecrunchersTest {
 
 		// create a new Request and insert to into mySQL
 		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
-			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTADMINTEXT, $this->VALID_REQUESTACTIONTIMESTAMP);
+			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations

@@ -61,7 +61,7 @@ class Request implements \JsonSerializable {
 	 * @param int|null $newRequestId -id of the Request
 	 * @param int $newRequestRequestorId -id of user making request
 	 * @param int $newRequestAdminId -id of admin approving user's request
-	 * @param int|null $newRequestTimeStamp -time that user made the request
+	 * @param \DateTime $newRequestTimeStamp -time that user made the request
 	 * @param \DateTime|string|null $newRequestActionTimeStamp -time that admin approved user's request
 	 * @param boolean $newRequestApprove -boolean return of admin's response to user's request
 	 * @param string $newRequestRequestorText -string containing user's request explanation
@@ -72,7 +72,7 @@ class Request implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 **/
 	public function __construct(int $newRequestId = null, int $newRequestRequestorId = null, int $newRequestAdminId = null,
-										 int $newRequestTimeStamp = null, $newRequestActionTimeStamp = null,
+										 $newRequestTimeStamp = null, $newRequestActionTimeStamp = null,
 										 bool $newRequestApprove = false, string $newRequestRequestorText, string $newRequestAdminText) {
 		try {
 			$this->setRequestId($newRequestId);
@@ -312,7 +312,7 @@ class Request implements \JsonSerializable {
 		$parameters=["requestRequestorId"=>$this->requestRequestorId,"requestAdminId"=>$this->requestAdminId,
 			"requestTimeStamp"=>$formattedDate,"requestActionTimeStamp"=>$this->requestActionTimeStamp,
 			"requestApprove"=>$this->requestApprove,"requestRequestorText"=>$this->requestRequestorText,
-			"requestAminText"=>$this->requestAdminText];
+			"requestAdminText"=>$this->requestAdminText];
 		$statement->execute($parameters);
 		$this->requestId=intval($pdo->lastInsertId());
 	}

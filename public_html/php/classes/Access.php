@@ -202,7 +202,7 @@ class Access {
 		}
 
 		//create query template
-		$query = "SELECT accessId, accessName accessDate FROM access WHERE accessName LIKE :accessName";
+		$query = "SELECT accessId, accessName FROM access WHERE accessName LIKE :accessName";
 		$statement = $pdo->prepare($query);
 
 		//bind the accessName to the place holder template
