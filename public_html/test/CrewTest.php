@@ -59,10 +59,10 @@ class CrewTest extends TimecrunchersTest {
 	 **/
 	public  function testInsertValidCrew() {
 		//count the number of rows and save it for later
-		$numRows = $this->getConection()->getRowCount("crew");
+		$numRows = $this->getConnection()->getRowCount("crew");
 
 		//create a new Crew and insert to into mySQL
-		$crew = new Crew(null, $this->company->getCompanyId(), "Taco Bell");
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWLOCATION);
 		$crew->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
@@ -186,7 +186,14 @@ class CrewTest extends TimecrunchersTest {
 		$results = Crew::getCrewByCrewId($this->getPDO(), $crew->getCrewLocation());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\vhooker\\TimecrunchersTest\\Crew", $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\vhooker\\TimecrunchersTest\\Crew", $results);
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
+		$this->assertEquals($pdoTweet->getProfileId(), $this->profile->getProfileId());
+		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT2);
+		$this->assertEquals($pdoTweet->getTweetDate(), $this->VALID_TWEETDATE);
 
 		//grab the result from the array and validate it
 		$pdoCrew = $results[0];
@@ -215,7 +222,7 @@ class CrewTest extends TimecrunchersTest {
 		$results = Crew::getAllCrews($this->getPDO());
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("crew"));
 		$this->assertCount(1, $results);
-		$this->assertContainsONlyInstancesOf("Edu\\Cnm\\Vhooker\\TimecrunchersTest\\Crew", $results);
+		$this->assertContainsONlyInstancesOf("Edu\\Cnm\\vhooker\\TimecrunchersTest\\Crew", $results);
 		//grab the result from the array and validate it
 		$pdoCrew = $results[0];
 		$this->assertEquals($pdoCrew->getCompanyId(), $this->company->getCompanyId());

@@ -237,7 +237,7 @@ require_once ("autoloader.php");
 		$statement = $pdo->prepare($query);
 
 		//bind the crew id to the place holder in the template
-		$parameters = array("crewId => $crewId");
+		$parameters = array("crewId" => $crewId);
 		$statement->execute($parameters);
 
 		//grab the crew from mySQL
