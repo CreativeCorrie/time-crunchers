@@ -22,6 +22,11 @@ class User {
 	 */
 	private $userCompanyId;
 	/**
+	 * userCrewId
+	 * @var string $userCrewId
+	 */
+	private $userCrewId;
+	/**
 	 * userAccessId
 	 * @var int $userAccessId
 	 */
@@ -41,11 +46,6 @@ class User {
 	 * @var string $userLastName
 	 */
 	private $userLastName;
-	/**
-	 * userCrewId
-	 * @var string $userCrewId
-	 */
-	private $userCrewId;
 	/**
 	 * userEmail
 	 * @var string $userEmail
@@ -69,24 +69,23 @@ class User {
 
 	/**
 	 * @param int|null $newUserId id of this user or null if new user
-	 * @param int|null $newCompanyId id of the company or null if new user
+	 * @param int|null $newUserCompanyId id of the company or null if new user
+	 * @param int|null $newUserCrewId id of the crew or null if new crew
 	 * @param int|null $newAccessId id of the access or null if new user
 	 * @param string $newUserPhone string containing user phone number
 	 * @param string $newUserFirstName string containing user first name
 	 * @param string $newUserLastName string containing user last name
-	 * @param int|null $newUserCrewId id of the crew or null if new crew
 	 * @param string $newUserEmail string containing user email
-	 * @param int|null $newUserActivation containing user activation info
-	 * @param int|null $newUserHash containing user password info
-	 * @param int|null $newUserSalt containing user password info
-	 *
+	 * @param string $newUserActivation containing user activation info
+	 * @param string $newUserHash containing user password info
+	 * @param string $newUserSalt containing user password info
 	 * @throws \InvalidArgumentException if the data types are not valid
 	 * @throws \RangeException if data values are out of bounds
 	 * @throws \TypeError if data types violate type hints
 	 * @thorws \Exception if some other exception occurs
 	 **/
 
-	public function __construct(int $newUserId = null, int $newUserCompanyId = null, int $newUserAccessId = null, string $newUserPhone, string $newUserFirstName, string $newUserLastName, int $newUserCrewId = null, string $newUserEmail, string $newUserActivation, string $newUserHash, string $newUserSalt) {
+	public function __construct(int $newUserId = null, int $newUserCompanyId = null, int $newUserCrewId = null, int $newUserAccessId = null, string $newUserPhone, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserActivation, string $newUserHash, string $newUserSalt) {
 		try {
 			$this->setUserId($newUserId);
 			$this->setUserCompanyId($newUserCompanyId);
