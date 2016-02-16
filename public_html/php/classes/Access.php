@@ -129,15 +129,15 @@ class Access {
 		}
 
 		//create query type
-		$query = "INSERT INTO access(accessId, accessName) VALUES(:accessId, :accessName)";
+		$query = "INSERT INTO access(accessName) VALUES(:accessName)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["accessId" => $this->accessId, "accessName" => $this->accessName];
+		$parameters = ["accessName" => $this->accessName];
 		$statement->execute($parameters);
 
 		//update the null access id with what my sqljust gave us
-		$this->accessid = intval($pdo->lastinsertId());
+		$this->accessId = intval($pdo->lastinsertId());
 	}
 
 	/**
@@ -188,7 +188,7 @@ class Access {
 	 * gets the Tweet by content
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param string $tweetContent tweet content to search for
+	 * @param string $accessName tweet content to search for
 	 * @return \SplFixedArray SplFixedArray of Tweets found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
