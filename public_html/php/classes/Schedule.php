@@ -253,7 +253,7 @@ class Schedule implements \JsonSerializable {
 		}
 
 		//Create query
-		$query = "SELECT scheduleId, scheduleStartDate FROM schedule WHERE scheduleId = :scheduleId";
+		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule WHERE scheduleId = :scheduleId";
 		$statement = $pdo->prepare($query);
 
 		//Binds
@@ -266,7 +266,7 @@ class Schedule implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$schedule = new Schedule($row["scheduleId"], $row["scheduleStartDate"]);
+				$schedule = new Schedule($row["scheduleId"], $row["scheduleCrewId"], $row["scheduleStartDate"]);
 			}
 		} catch(\Exception $exception) {
 			//if the row couldn't be converted

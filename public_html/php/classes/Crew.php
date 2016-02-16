@@ -160,21 +160,26 @@ require_once ("autoloader.php");
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function insert(\PDO $pdo) {
+
 		//enforce the crewId is null (i.e., don't insert a crew that already exists)
 		if($this->crewId !== null) {
 			throw(new \PDOException("not a new crew"));
 		}
 
 		//create query template
+
 		$query = "INSERT INTO crew(crewCompanyId, crewLocation) VALUES(:crewCompanyId, :crewLocation)";
 		$statement = $pdo->prepare($query);
+
 
 		//bind the member variables to the place holders in the template
 		$parameters = ["crewCompanyId" => $this->crewCompanyId, "crewLocation" => $this->crewLocation];
 		$statement->execute($parameters);
 
+
 		//update the null crewId with what mySQL just gave us
 		$this->crewId = intval($pdo->lastInsertId());
+
 	}
 	/**
 	 * deletes this crew from mySQL
@@ -292,3 +297,10 @@ require_once ("autoloader.php");
 		 return($crewLocation);
 	 }
 }
+
+//require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+//$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
+//$company = new Company(null, "Kitty Scratchers", "1600 Pennsylvania Ave NW", "Senator's Palace", "Senator Arlo", "WA", "Felis Felix", "20500", "+12125551212", "kitty@aol.com", "www.kitty.com");
+//$company->insert($pdo);
+//$crew = new Crew(null, $company->getCompanyId(), "Taco Bell");
+//$crew->insert($pdo);
