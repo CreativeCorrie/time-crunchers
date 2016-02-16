@@ -87,14 +87,10 @@ class RequestTest extends TimecrunchersTest {
 		// run the default setUp() method first
 		parent::setUp();
 
-		$s = "1";
-		$string32 = str_pad($s, 32, "2");
-		$string64 = str_pad($s, 64, "3");
-		$string128 = str_pad($s, 128, "4");
-
-		$VALID_ACTIVATION = "abc123";
-		$VALID_SALT = bin2hex(random_bytes(16));
-		$VALID_HASH = hash_pbkdf2("sha512",$VALID_ACTIVATION,$VALID_SALT, 262144);
+		$password = "abc123";
+		$activation = bin2hex(random_bytes(16));
+		$salt = bin2hex(random_bytes(32));
+		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
 
 		// creates and inserts Company to sql for User foreign key relations
 		$this->company = new Company(null,"Taco B.","404 Taco St.","suite:666","Attention!!","NM","Burque","87106","5055551111","tb@hotmail.com","www.tocobell.com");
@@ -110,10 +106,10 @@ class RequestTest extends TimecrunchersTest {
 		$this->access->insert($this->getPDO());
 
 		// create and insert a User to own the test Request
-		$this->requestor = new User(null ,$this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Johnny", "Requestorman","test@phpunit.de",$string32,$string128,$string64);
+		$this->requestor = new User(null ,$this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Johnny", "Requestorman","test@phpunit.de", $activation, $hash, $salt);
 		$this->requestor->insert($this->getPDO());
 
-		$this->admin = new User(null ,$this->company->getCompanyId(),$this->crew->getCrewId(), $this->access->getAccessId(), "5552121", "Suzy", "Hughes","test2@phpunit.de",$string32,$string128,$string64);
+		$this->admin = new User(null ,$this->company->getCompanyId(),$this->crew->getCrewId(), $this->access->getAccessId(), "5552121", "Suzy", "Hughes","test2@phpunit.de", $activation, $hash, $salt);
 		$this->admin->insert($this->getPDO());
 
 
