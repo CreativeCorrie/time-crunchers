@@ -213,7 +213,7 @@ require_once ("autoloader.php");
 		$statement = $pdo->Prepare($query);
 
 		//bind the member variable to the place holder in the template
-		$parameters = ["crewId" => $this->crewId];
+		$parameters = ["crewId" => $this->crewId, "crewCompanyId" => $this->crewCompanyId, "crewLocation" => $this->crewLocation];
 		$statement->execute($parameters);
 	}
 

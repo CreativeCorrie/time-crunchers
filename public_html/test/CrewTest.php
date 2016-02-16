@@ -57,7 +57,7 @@ class CrewTest extends TimecrunchersTest {
 	/**
 	 * test inserting a valid Crew and verify that the actual mySQL date matches
 	 **/
-	public  function testInsertValidCrew() {
+	public function testInsertValidCrew() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("crew");
 
@@ -68,7 +68,7 @@ class CrewTest extends TimecrunchersTest {
 		//grab the data from mySQL and enforce the fields match our expectations
 		$pdoCrew = Crew::getCrewByCrewId($this->getPDO(), $crew->getCrewId());
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("crew"));
-		$this->assertEquals($pdoCrew->getCompanyId(), $this->company->getCompanyId());
+		$this->assertEquals($pdoCrew->getCrewCompanyId(), $this->company->getCompanyId());
 		$this->assertEquals($pdoCrew->getCrewLocation(), $this->VALID_CREWLOCATION);
 	}
 	/**
@@ -188,13 +188,6 @@ class CrewTest extends TimecrunchersTest {
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\vhooker\\TimecrunchersTest\\Crew", $results);
 
-		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals($pdoTweet->getProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT2);
-		$this->assertEquals($pdoTweet->getTweetDate(), $this->VALID_TWEETDATE);
-
 		//grab the result from the array and validate it
 		$pdoCrew = $results[0];
 		$this->assertEquals($pdoCrew->getCrewLocation(), $this->VALID_CREWLOCATION);
@@ -225,7 +218,7 @@ class CrewTest extends TimecrunchersTest {
 		$this->assertContainsONlyInstancesOf("Edu\\Cnm\\vhooker\\TimecrunchersTest\\Crew", $results);
 		//grab the result from the array and validate it
 		$pdoCrew = $results[0];
-		$this->assertEquals($pdoCrew->getCompanyId(), $this->company->getCompanyId());
+		$this->assertEquals($pdoCrew->getCrewCompanyId(), $this->company->getCompanyId());
 		$this->assertEquals($pdoCrew->getCrewLocation(), $this->VALID_CREWLOCATION);
 	}
 }
