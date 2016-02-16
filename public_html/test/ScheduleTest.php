@@ -2,9 +2,9 @@
 namespace Edu\Cnm\Timecrunchers\Test;
 
 //name the required classes not the foreign key
+use Edu\Cnm\Timecrunchers\Schedule;
 use Edu\Cnm\Timecrunchers\Company;
 use Edu\Cnm\Timecrunchers\Crew;
-use Edu\Cnm\Timecrunchers\Schedule;
 
 // grab the project test parameters
 require_once("TimecrunchersTest.php");
