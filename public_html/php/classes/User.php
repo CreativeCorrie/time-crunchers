@@ -86,12 +86,12 @@ class User {
 	 * @thorws \Exception if some other exception occurs
 	 **/
 
-	public function __construct(int $newUserId = null, int $newCompanyId = null, int $newAccessId = null, string $newUserPhone, string $newUserFirstName, string $newUserLastName, int $newUserCrewId = null, string $newUserEmail, int $newUserActivation = null, int $newUserHash = null, int $newUserSalt = null) {
+	public function __construct(int $newUserId = null, int $newUserCompanyId = null, int $newUserAccessId = null, string $newUserPhone, string $newUserFirstName, string $newUserLastName, int $newUserCrewId = null, string $newUserEmail, string $newUserActivation, string $newUserHash, string $newUserSalt) {
 		try {
 			$this->setUserId($newUserId);
-			$this->setUserCompanyId($newCompanyId);
+			$this->setUserCompanyId($newUserCompanyId);
 			$this->setUserCrewId($newUserCrewId);
-			$this->setUserAccessId($newAccessId);
+			$this->setUserAccessId($newUserAccessId);
 			$this->setUserPhone($newUserPhone);
 			$this->setUserFirstName($newUserFirstName);
 			$this->setUserLastName($newUserLastName);

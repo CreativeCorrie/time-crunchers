@@ -64,7 +64,7 @@ class AccessTest extends TimeCrunchersTest {
 		$this->crew->insert($this->getPDO());
 
 		//create and insert a User to own the test Access
-		$this->user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), "5055554321", "talia", "Martinez", "talia@aol.com");
+		$this->user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), "5055554321", "talia", "Martinez", "talia@aol.com","abc123", "bin2hex(random_bytes(16))", "hash_pbkdf2(sha512, abc123, bin2hex(random_bytes(16)) , 262144)");
 		$this->user->insert($this->getPDO());
 	}
 
