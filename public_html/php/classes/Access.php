@@ -213,7 +213,7 @@ class Access {
 		//build an array of access
 		$access = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement - fetch()) !== false) ;
+		while(($row = $statement->fetch()) !== false);
 		if($row !== false) {
 			try {
 				$access = new Access($row["accessId"], $row["accessName"]);
@@ -243,7 +243,7 @@ class Access {
 		}
 
 		//create query template
-		$query = "SELECT accessId, accessName, accessDate FROM access WHERE accessId = :accessId";
+		$query = "SELECT accessId, accessName FROM access WHERE accessId = :accessId";
 		$statement = $pdo->prepare($query);
 
 		//bind the accessId to the place holder template

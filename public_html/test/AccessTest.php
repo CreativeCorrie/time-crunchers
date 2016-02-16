@@ -132,7 +132,7 @@ class AccessTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("access");
 
 		//create a new access and insert into mySQL
-		$access = new ACCESS(null, $this->VALID_ACCESSNAME);
+		$access = new Access(null, $this->VALID_ACCESSNAME);
 		$this->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
