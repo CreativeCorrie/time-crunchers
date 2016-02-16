@@ -556,7 +556,7 @@ class Company {
 	}
 
 	/**
-	 * gets the Tweet by company name
+	 * gets the Company by company name
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param string $companyName company content to search for

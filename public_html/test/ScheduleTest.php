@@ -60,6 +60,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	/**
 	 * Test inserting a valid schedule and verify that the actual MySQL data matches
 	 **/
+
 	public function testInsertValidSchedule() {
 		//Count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("schedule");

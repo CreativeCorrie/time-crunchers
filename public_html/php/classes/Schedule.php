@@ -170,7 +170,7 @@ class Schedule implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "INSERT INTO schedule(scheduleCrewId, scheduleStartDate) VALUES(:scheduleCrewId, :scheduleCrewDate)";
+		$query = "INSERT INTO schedule(scheduleCrewId, scheduleStartDate) VALUES(:scheduleCrewId, :scheduleStartDate)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
@@ -178,9 +178,15 @@ class Schedule implements \JsonSerializable {
 		$parameters = ["scheduleCrewId" => $this->scheduleCrewId, "scheduleStartDate" => $formattedDate];
 		$statement->execute($parameters);
 
-		// update the null tweetId with what mySQL just gave us
+		// update the null scheduleId with what mySQL just gave us
 		$this->scheduleId = intval($pdo->lastInsertId());
 	}
+
+	/**
+	 * Get schedule by schedule id
+	 *
+	 * @param
+	 */
 
 	/**
 	 * updates this Schedule in mySQL
@@ -228,7 +234,7 @@ class Schedule implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the Schedule by schedule start date
+	 * Gets the Schedule by schedule start date
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param \DateTime $scheduleStartDate to search for
@@ -271,7 +277,42 @@ class Schedule implements \JsonSerializable {
 		return ($schedule);
 	}
 
+	/**
+	* @param \PDO $pdo PDO connection object
+	* @param int $scheduleId schedule id to search for
+	* @return Schedule|null Schedule found or null if not found
+	* @throws \PDOException when mySQL related errors occur
+	* @throws \TypeError when variables are not the correct data type
+	**/
+	public static function getScheduleByScheduleId(\PDO $pdo, int $scheduleId) {
+		// sanitize the scheduleId before searching
+		if($scheduleId <= 0) {
+			throw(new \PDOException("schedule id is not positive"));
+		}
 
+		// create query template
+		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		// bind the schedule id to the place holder in the template
+		$parameters = array("scheduleId" => $scheduleId);
+		$statement->execute($parameters);
+
+		// grab the schedule from mySQL
+		try {
+			$schedule = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$schedule = new Schedule($row["scheduleId"], $row["scheduleStartDate"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($schedule);
+	}
 
 	/**
 	 * gets all Schedule
