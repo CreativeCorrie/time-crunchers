@@ -1,17 +1,16 @@
 <?php
 namespace Edu\Cnm\Timecrunchers\Test;
 
-use Edu\Cnm\Timecrunchers\Company;
 use Edu\Cnm\Timecrunchers\Crew;
 
-//grab the project test parameters
-require_once ("TimecrunchersTest.php");
+// grab the project test parameters
+require_once("TimecrunchersTest.php");
 
-//grab the class under scrutiny
-require_once(dirname(__DIR__) . "php/classes/autoloader.php");
+// grab the class under scrutiny
+require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 
 /**
- * FuLL PHPUnit test for the Crew class
+ * Full PHPUnit test for the Crew class
  *
  * This is a complete PHPUnit test of the Crew class. It is complete because *ALL* my SQL/PDO enabled methods are tested for both invalid and valid inputs.
  *
