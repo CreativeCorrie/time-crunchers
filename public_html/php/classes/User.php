@@ -97,7 +97,7 @@ class User {
 			$this->setUserEmail($newUserEmail);
 			$this->setUserActivation($newUserActivation);
 			$this->setUserHash($newUserHash);
-			$this->setUserSalt($newUserHash);
+			$this->setUserSalt($newUserSalt);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			//rethrow the exception to the caller
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
