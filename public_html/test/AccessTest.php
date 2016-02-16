@@ -132,7 +132,7 @@ class AccessTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("access");
 
 		//create a new access and insert into mySQL
-		$access = new ACCESSS(null, $this->user->getUserId(), $this->VALID_ACCESSNAME);
+		$access = new ACCESSS(null, $this->VALID_ACCESSNAME);
 		$this->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
@@ -158,7 +158,7 @@ class AccessTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("access");
 
 		//create a new access and insert into mySQL
-		$access = new Access(null, $this->user->UserId(), $this->VALID_ACCESSNAME);
+		$access = new Access(null, $this->VALID_ACCESSNAME);
 		$this->insert($this->getPDO());
 
 		//grab the data form mySQL and enforce the fields match our expectations
@@ -169,7 +169,6 @@ class AccessTest extends TimeCrunchersTest {
 
 		//grab the result from the array and validate it
 		$pdoAccess = $results[0];
-		$this->assertEquals($pdoAccess->getUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoAccess->getAccessName(), $this->VALID_ACCESSNAME);
 	}
 
@@ -190,7 +189,7 @@ class AccessTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("access");
 
 		//create a new access and insert into mySQL
-		$access = new Access(null, $this->user->getUserId(), $this->VALID_ACCESSNAME);
+		$access = new Access(null, $this->VALID_ACCESSNAME);
 		$access->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
@@ -201,7 +200,6 @@ class AccessTest extends TimeCrunchersTest {
 
 		//grab the result from the array and validate it
 		$pdoAccess = $results[0];
-		$this->assertequals($pdoAccess->getUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoAccess->getAccessName(), $this->VALID_ACCESSNAME);
 	}
 }
