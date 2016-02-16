@@ -4,6 +4,7 @@ namespace Edu\Cnm\Timecrunchers\Test;
 //name the classes not the foreign keys
 use Edu\Cnm\Timecrunchers\Access;
 use Edu\Cnm\Timecrunchers\User;
+use Edu\Cnm\Timecrunchers\Company;
 use Edu\Cnm\Timecrunchers\Crew;
 
 //grab test parameters
@@ -25,29 +26,42 @@ class AccessTest extends TimeCrunchersTest {
 	/**
 	 * content of the access
 	 * @var string $VALID_ACCESSNAME
-	 */
+	 **/
 	protected $VALID_ACCESSNAME = "PHPUnit test passing";
 	/**
 	 * content of updated access
 	 * @var string $VALID_ACCESSNAME2
-	 */
+	 **/
 	protected $VALID_ACCESSNAME2 = "PHPUnit test passing";
-/**
- * create a user to get access
- * @var user $user
- */
-	protected $user = null;
 	/**
-	 *create a crew to belong to the company and own the user
-	 *@var crew $crew
-	 */
+	 * create a company for the user to belong to
+	 * @var company $company
+	 **/
+	protected $company = null;
+	/**
+	 * create a crew to belong to the company and own the user
+	 * @var crew $crew
+	 **/
 	protected $crew = null;
+	/**
+	 * create a user to get access
+	 * @var user $user
+	 **/
+	protected $user = null;
 	/**
 	 * create dependent objects before running each test
 	 **/
 	public final function setUp() {
 		//run the default setUp method first
 		parent::setUp();
+
+		//create and insert a Company to own the crew
+		$this->company = new Company(null, "Taco B.","404 Taco St.","suite:666","Attention!!","NM","Burque","87106","5055551111","tb@hotmail.com","www.tocobell.com");
+		$this->company->insert($this->getPDO());
+
+		//create and insert a crew to own the user
+		$this->crew = new Crew(null, $this->company->getCompanyId(), "the moon");
+		$this->crew->insert($this->getPDO());
 
 		//create and insert a User to own the test Access
 		$this->user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), "5055554321", "talia", "Martinez", "talia@aol.com");
