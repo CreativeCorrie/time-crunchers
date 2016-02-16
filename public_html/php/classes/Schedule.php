@@ -1,9 +1,14 @@
 <?php
 namespace Edu\Cnm\Timecrunchers;
 
-require_once("autoloader.php");
+require_once ("autoloader.php");
 
 /**
+ * Schedule, a collection of work shifts
+ *
+ *A Schedule refers to a 14 day collection of shifts
+ *A Schedule is an entity assigned to a crew
+ *
  * @author Dylan McDonald<dmcdonald21@cnm.edu>
  * @author Elaine Thomas<enajera2@cnm.edu>
  * @version 2.0.0
@@ -143,7 +148,12 @@ class Schedule implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $newScheduleStartDate is not a valid object or string
 	 * @throws \RangeException if $newScheduleStartDate is a date that does not exist
 	 **/
-	public function setScheduleStartDate($newScheduleStartDate = null) {
+		public function setScheduleStartDate($newScheduleStartDate = null) {
+			//If date is null, set current time and date
+			if($newScheduleStartDate === null) {
+				$this->scheduleStartDate = new \DateTime();
+				return;
+			}
 
 		// store the schedule start date
 		try {
@@ -181,12 +191,6 @@ class Schedule implements \JsonSerializable {
 		// update the null scheduleId with what mySQL just gave us
 		$this->scheduleId = intval($pdo->lastInsertId());
 	}
-
-	/**
-	 * Get schedule by schedule id
-	 *
-	 * @param
-	 */
 
 	/**
 	 * updates this Schedule in mySQL
@@ -234,6 +238,44 @@ class Schedule implements \JsonSerializable {
 	}
 
 	/**
+	 * Gets schedule by scheduleId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $scheduleId id to search for
+	 * @return Schedule or null if not found
+	 * @throws \PDOException when MySQL-related error occurs
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getScheduleByScheduleId(\PDO $pdo, int $scheduleId) {
+		//Sanitize
+		if($scheduleId <= 0) {
+			throw(new \PDOException("schedule id must be positive"));
+		}
+
+		//Create query
+		$query = "SELECT scheduleId, scheduleStartDate FROM schedule WHERE scheduleId = :scheduleId";
+		$statement = $pdo->prepare($query);
+
+		//Binds
+		$parameters = array("scheduleId" => $scheduleId);
+		$statement->execute($parameters);
+
+		//grab schedule from MySQL
+		try {
+			$schedule = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$schedule = new Schedule($row["scheduleId"], $row["scheduleStartDate"]);
+			}
+		} catch(\Exception $exception) {
+			//if the row couldn't be converted
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($schedule);
+	}
+
+	/**
 	 * Gets the Schedule by schedule start date
 	 *
 	 * @param \PDO $pdo PDO connection object
@@ -277,45 +319,9 @@ class Schedule implements \JsonSerializable {
 		return ($schedule);
 	}
 
-	/**
-	* @param \PDO $pdo PDO connection object
-	* @param int $scheduleId schedule id to search for
-	* @return Schedule|null Schedule found or null if not found
-	* @throws \PDOException when mySQL related errors occur
-	* @throws \TypeError when variables are not the correct data type
-	**/
-	public static function getScheduleByScheduleId(\PDO $pdo, int $scheduleId) {
-		// sanitize the scheduleId before searching
-		if($scheduleId <= 0) {
-			throw(new \PDOException("schedule id is not positive"));
-		}
-
-		// create query template
-		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule";
-		$statement = $pdo->prepare($query);
-		$statement->execute();
-
-		// bind the schedule id to the place holder in the template
-		$parameters = array("scheduleId" => $scheduleId);
-		$statement->execute($parameters);
-
-		// grab the schedule from mySQL
-		try {
-			$schedule = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$schedule = new Schedule($row["scheduleId"], $row["scheduleStartDate"]);
-			}
-		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		return ($schedule);
-	}
 
 	/**
-	 * gets all Schedule
+	 * gets all Schedules
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @return \SplFixedArray SplFixedArray of Schedules found or null if not found
