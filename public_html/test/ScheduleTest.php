@@ -1,7 +1,7 @@
 <?php
 namespace Edu\Cnm\Timecrunchers\Test;
 
-//name the classes not the foreign key
+//name the required classes not the foreign key
 use Edu\Cnm\Timecrunchers\Company;
 use Edu\Cnm\Timecrunchers\Crew;
 use Edu\Cnm\Timecrunchers\Schedule;
@@ -24,12 +24,12 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 class ScheduleTest extends TimeCrunchersTest {
 	/**
 	 * Crew that Schedule is attached to; this is for foreign key relations
-	 * @var Crew $crew
+	 * @var \Edu\Cnm\Timecrunchers\Crew crew
 	 **/
 	protected $crew = null;
 	/**
 	 * Company that Schedule is attached to; this is for foreign key relations
-	 * @var Company $company
+	 * @var \Edu\Cnm\Timecrunchers\Company company
 	 **/
 	protected $company = null;
 	/**

@@ -1,6 +1,7 @@
 <?php
 namespace Edu\Cnm\Timecrunchers\Test;
 
+//name the required classes to build Company
 use Edu\Cnm\Timecrunchers\Company;
 
 // grab the project test parameters
@@ -26,102 +27,60 @@ class CompanyTest extends TimeCrunchersTest {
 	 * @var string $VALID_COMPANYNAME
 	 **/
 	protected $VALID_COMPANYNAME = "PHPUnit test passing";
-//	/**
-//	 * content of the updated Company name
-//	 * @var string $VALID_COMPANYNAME2
-//**/
-//	protected $VALID_COMPANYNAME2= "PHPUnit test still passing";
+
 	/**
 	 * content of the Company attn, optional
 	 * @var string $VALID_COMPANYATTN
 	 **/
 	protected $VALID_COMPANYATTN = "PHPUnit test passing";
-//	/**
-//	 * content of the updated Company attn, optional
-//	 * @var string $VALID_COMPANYNATTN2
-//	 **/
-//	protected $VALID_COMPANYATTN2 = "PHPUnit test still passing";
+
 	/**
 	 * content of the Company address 1
 	 * @var string $VALID_COMPANYADDRESS1
 	 **/
 	protected $VALID_COMPANYADDRESS1 = "PHPUnit test passing";
-//	/**
-//	 * content of the updated address 1
-//	 * @var string $VALID_COMPANYADDRESS12
-//	 **/
-//	protected $VALID_COMPANYADDRESS12 = "PHPUnit test still passing";
+
 	/**
 	 * content of the Company address 2 (2nd line optional)
 	 * @var string $VALID_COMPANYADDRESS2
 	 **/
 	protected $VALID_COMPANYADDRESS2 = "PHPUnit test passing";
-//	/**
-//	 * content of the updated Company phone number
-//	 * @var string $VALID_COMPANYADDRESS22
-//	 **/
-//	protected $VALID_COMPANYADDRESS22 = "PHPUnit test still passing";
+
 	/**
 	 * content of the Company state
 	 * @var string $VALID_COMPANYSTATE
 	 **/
 	protected $VALID_COMPANYSTATE = "PHPUnit test passing";
-//	/**
-//	 * content of the updated Company state
-//	 * @var string $VALID_COMPANYSTATE2
-//	 **/
-//	protected $VALID_COMPANYSTATE2 = "PHPUnit test still passing";
+
 	/**
 	 * content of the Company city
 	 * @var string $VALID_COMPANYCITY
 	 **/
 	protected $VALID_COMPANYCITY = "PHPUnit test passing";
-//	/**
-//	 * content of the updated Company city
-//	 * @var string $VALID_COMPANYCITY2
-//	 **/
-//	protected $VALID_COMPANYCITY2 = "PHPUnit test still passing";
+
 	/**
 	 * content of the Company zip
 	 * @var string $VALID_COMPANYZIP
 	 **/
 	protected $VALID_COMPANYZIP = "PHPUnit test passing";
-//	/**
-//	 * content of the updated Company zip
-//	 * @var string $VALID_COMPANYZIP2
-//	 **/
-//	protected $VALID_COMPANYZIP2 = "PHPUnit test still passing";
+
 	/**
 	 * content of the Company phone number
 	 * @var string $VALID_COMPANYPHONE
 	 **/
 	protected $VALID_COMPANYPHONE = "PHPUnit test passing";
-//	/**
-//	 * content of the updated Company phone number
-//	 * @var string $VALID_COMPANYNAME2
-//	 **/
-//	protected $VALID_COMPANYPHONE2 = "PHPUnit test still passing";
+
 	/**
 	 * content of the Company email
 	 * @var string $VALID_COMPANYEMAIL
 	 **/
 	protected $VALID_COMPANYEMAIL = "PHPUnit test passing";
-//	/**
-//	 * content of the updated Company email
-//	 * @var string $VALID_COMPANYEMAIL2
-//	 **/
-//	protected $VALID_COMPANYEMAIL2 = "PHPUnit test still passing";
+
 	/**
 	 * content of the Company URL
 	 * @var string $VALID_COMPANYURL
 	 **/
 	protected $VALID_COMPANYURL = "PHPUnittestpassing";
-//	/**
-//	 * content of the updated Company URL
-//	 * @var string $VALID_COMPANYURL2
-//	 **/
-//	protected $VALID_COMPANYURL2 = "PHPUnit test still passing";
-
 
 	/**
 	 * test inserting a valid Company and verify that the actual mySQL data matches
