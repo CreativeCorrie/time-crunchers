@@ -53,9 +53,9 @@ class User {
 	private $userEmail;
 	/**
 	 * userActivation
-	 * @var int $userActivaiton
+	 * @var int $userActivation
 	 */
-	private $userActivaion;
+	private $userActivation;
 	/**
 	 * userHash
 	 * @var int $userHash
@@ -383,7 +383,7 @@ class User {
 	 * @return string $newUserActivation
 	 */
 	public function getUserActivation() {
-		return ($this->userActivaion);
+		return ($this->userActivation);
 	}
 
 	/**
@@ -546,7 +546,7 @@ class User {
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["userId" => $this->userId, "userCompanyId" => $this->userCompanyId, "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName, "userLastName" => $this->userLastName, "userCrewId" => $this->userCrewId, "userEmail" => $this->userEmail, "userActivation" => $this->userActivaion, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
+		$parameters = ["userId" => $this->userId, "userCompanyId" => $this->userCompanyId, "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName, "userLastName" => $this->userLastName, "userCrewId" => $this->userCrewId, "userEmail" => $this->userEmail, "userActivation" => $this->userActivation, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
 		$statement->execute($parameters);
 	}
 
@@ -568,7 +568,7 @@ class User {
 		}
 
 		//create query template
-		$query = "SELECT userId, companyId, accessId, userPhone, userFirstName, userLastName, userCrewId, userEmail, userActivation, userHash, userSalt FROM userFirstName WHERE userFirstName = :userFirstName";
+		$query = "SELECT userId, companyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM userFirstName WHERE userFirstName = :userFirstName";
 		$statement = $pdo->prepare($query);
 
 		//bind users with place holder in the template
@@ -578,14 +578,14 @@ class User {
 
 		//build an array of users
 		$users = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PFO::FETCH_ASSOC);
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$user = new User($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
 				$users[$users->key()] = $user;
 				$user->next();
 			} catch(\exception $exception) {
-				//if the row coudn't be thrown, rethrow it
+				//if the row could not be thrown, rethrow it
 				throw(new \PDOException($exception->getmessage(), 0, $exception));
 			}
 		}
@@ -652,7 +652,7 @@ class User {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$users = new company($row["userId"], $row["companyId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userCrewId"], $row["userEmail"], $row[userActivation], $row["userHash"], $row["userSalt"]);
+				$users = new company($row["userId"], $row["companyId"], $row["crewId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row[userActivation], $row["userHash"], $row["userSalt"]);
 				$users[$users->key()] = $users;
 				$users->next();
 			} catch(\Exception $exception) {
