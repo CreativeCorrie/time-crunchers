@@ -2,6 +2,7 @@
 namespace Edu\Cnm\Timecrunchers\Test;
 
 use Edu\Cnm\Timecrunchers\Crew;
+use Edu\Cnm\Timecrunchers\Company;
 
 // grab the project test parameters
 require_once("TimecrunchersTest.php");
@@ -15,19 +16,23 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
  * This is a complete PHPUnit test of the Crew class. It is complete because *ALL* my SQL/PDO enabled methods are tested for both invalid and valid inputs.
  *
  * @see Crew
+ * @author Dylan McDonald<dmcdonald21@cnm.edu>
  * @author Corrie Hooker<creativecorrie@gmail.com> <Team Collaboration: TimeCrunchers>
+ * 
  **/
 class CrewTest extends TimecrunchersTest {
+
 	/**
 	 * location of the Crew
 	 * @var string $VALID_CREWLOCATION
 	 **/
 	PROTECTED $VALID_CREWLOCATION = "PHPUnit test passing";
+
 	/**
 	 * location of the updated Crew
 	 * @var string $VALID_CREWLOCATION2
 	 **/
-	protected  $VALID_CREWLOCATION2 = "PHPUnit tes still passing";
+	protected  $VALID_CREWLOCATION2 = "PHPUnit test still passing";
 	/**
 	 * timestamp of the Crew; this starts as nuLL and is assigned Later
 	 * @var \DateTime $VALID_CREWDATE
@@ -35,9 +40,9 @@ class CrewTest extends TimecrunchersTest {
 	protected $VALID_CREWDATE = null;
 	/**
 	 * Profile that created the Crew; this is for foreign key relations
-	 * @var Company company
+	 * @var Company $VALID_COMPANY
 	 **/
-	protected $company = null;
+	protected $VALID_COMPANY = null;
 
 	/**
 	 *create dependent objects before running each test
@@ -47,7 +52,7 @@ class CrewTest extends TimecrunchersTest {
 		parent::setUp();
 
 		//create and insert a Company to own the test Crew
-		$this->company = new Company(null, "@phpunit", "test@phpunit.de", "+12125551212");
+		$this->company = new Company(null, "Kitty Scratchers", "1600 Pennsylvania Ave NW", "Senator's Palace", "Senator Arlo", "WA", "Felis Felix", "20500", "+12125551212", "kitty@aol.com", "www.kitty.com");
 		$this->company->insert($this->getPDO());
 
 		//calculate the date(just use the time the unit test was setup...)
