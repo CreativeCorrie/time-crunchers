@@ -4,7 +4,6 @@ namespace Edu\Cnm\Timecrunchers\Test;
 //name the classes not the foreign keys
 use Edu\Cnm\Timecrunchers\Access;
 use Edu\Cnm\Timecrunchers\User;
-use Edu\Cnm\Timecrunchers\Company;
 use Edu\Cnm\Timecrunchers\Crew;
 
 //grab test parameters
