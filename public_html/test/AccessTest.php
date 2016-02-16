@@ -51,9 +51,29 @@ class AccessTest extends TimeCrunchersTest {
 	/**
 	 * create dependent objects before running each test
 	 **/
+	/**
+	 * password of the user
+	 * @var string $VALID_PASSWORD
+	 */
+	protected $VALID_ACTIVATION = "abc123";
+	/**
+	 *
+	 * @var mixed
+	 */
+	protected $VALID_HASH = null;
+	/**
+	 *
+	 * @var string $VALID_SALT
+	 */
+	protected $VALID_SALT = null;
+
 	public final function setUp() {
 		//run the default setUp method first
 		parent::setUp();
+
+		$this->VALID_ACTIVATION = "abc123";
+		$this->VALID_SALT = bin2hex(random_bytes(16));
+		$this->VALID_HASH = hash_pbkdf2("sha512", $this->VALID_PASSWORD, $this->VALID_SALT, 262144);
 
 		//create and insert a Company to own the crew
 		$this->company = new Company(null, "Taco B.","404 Taco St.","suite:666","Attention!!","NM","Burque","87106","5055551111","tb@hotmail.com","www.tocobell.com");
@@ -64,7 +84,8 @@ class AccessTest extends TimeCrunchersTest {
 		$this->crew->insert($this->getPDO());
 
 		//create and insert a User to own the test Access
-		$this->user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), "5055554321", "talia", "Martinez", "talia@aol.com","abc123", "bin2hex(random_bytes(16))", "hash_pbkdf2(sha512, abc123, bin2hex(random_bytes(16)) , 262144)");
+
+		$this->user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), "5055554321", "talia", "Martinez", "talia@aol.com");
 		$this->user->insert($this->getPDO());
 	}
 

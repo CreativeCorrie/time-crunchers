@@ -30,7 +30,7 @@ class UserTest extends TimecrunchersTest {
 	 * password of the user
 	 * @var string $VALID_PASSWORD
 	 */
-	protected $VALID_PASSWORD = "abc123";
+	protected $VALID_ACTIVATION = "abc123";
 	/**
 	 *
 	 * @var mixed
@@ -63,6 +63,7 @@ class UserTest extends TimecrunchersTest {
 		//run the default setUp() method first
 		parent::setUp();
 
+		$this->VALID_ACTIVATION = "abc123";
 		$this->VALID_SALT = bin2hex(random_bytes(16));
 		$this->VALID_HASH = hash_pbkdf2("sha512", $this->VALID_PASSWORD, $this->VALID_SALT, 262144);
 
