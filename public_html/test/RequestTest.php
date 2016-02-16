@@ -43,12 +43,12 @@ class RequestTest extends TimecrunchersTest {
 	 * timestamp of the Request; this starts as null and is assigned later
 	 * @var /DateTime $VALID_REQUESTTIMESTAMP
 	 **/
-	protected $VALID_REQUESTTIMESTAMP = null;
+	protected $VALID_REQUESTTIMESTAMP = "time pass";
 	/**
 	 * timestamp of the Request; this starts as null and is assigned later
 	 * @var /DateTime $VALID_REQUESTACTIONTIMESTAMP
 	 **/
-	protected $VALID_REQUESTACTIONTIMESTAMP = null;
+	protected $VALID_REQUESTACTIONTIMESTAMP = "time pass";
 	/**
 	 * Company ; this is for foreign key relations
 	 * @var $company
@@ -101,10 +101,10 @@ class RequestTest extends TimecrunchersTest {
 		$this->access->insert($this->getPDO());
 
 		// create and insert a User to own the test Request
-		$this->requestor = new User($this->requestor->getUserId(),$this->company->getCompanyId(),$this->crew->getCrewId(), $this->access->getAccessId(), "+12125551212", "Johnny", "Requestorman","test@phpunit.de","123","password","456");
+		$this->requestor = new User(null ,$this->company->getCompanyId(),$this->crew->getCrewId(), $this->access->getAccessId(), "5551212", "Johnny", "Requestorman","test@phpunit.de","abc123","password","456");
 		$this->requestor->insert($this->getPDO());
 
-		$this->admin = new User($this->admin->getUserId(),$this->company->getCompanyId(),$this->crew->getCrewId(), $this->access->getAccessId(), "+11215552121", "Suzy", "Hughes","test2@phpunit.de","321","passw0rd","654");
+		$this->admin = new User(null ,$this->company->getCompanyId(),$this->crew->getCrewId(), $this->access->getAccessId(), "5552121", "Suzy", "Hughes","test2@phpunit.de","bca321","passw0rd","654");
 		$this->admin->insert($this->getPDO());
 
 

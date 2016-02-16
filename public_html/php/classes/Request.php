@@ -1,5 +1,5 @@
 <?php
-namespace Edu\Cnm\timecrunchers;
+namespace Edu\Cnm\Timecrunchers;
 
 require_once("autoloader.php");
 
@@ -71,9 +71,9 @@ class Request implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct(int $newRequestId = null, int $newRequestRequestorId, int $newRequestAdminId,
+	public function __construct(int $newRequestId = null, int $newRequestRequestorId = null, int $newRequestAdminId = null,
 										 int $newRequestTimeStamp = null, $newRequestActionTimeStamp = null,
-										 bool $newRequestApprove = false, string $newRequestRequestorText, $newRequestAdminText) {
+										 bool $newRequestApprove = false, string $newRequestRequestorText, string $newRequestAdminText) {
 		try {
 			$this->setRequestId($newRequestId);
 			$this->setRequestRequestorId($newRequestRequestorId);
