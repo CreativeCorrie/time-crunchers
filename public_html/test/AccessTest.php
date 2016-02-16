@@ -76,7 +76,7 @@ class AccessTest extends TimeCrunchersTest {
 		$access->update($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
-		$pdoAccess = Access::getAccessByAccessId($this->getPDO(), $access->getAccessId);
+		$pdoAccess = Access::getAccessByAccessId($this->getPDO(), $access->getAccessId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("access"));
 		$this->assertEquals($pdoAccess->getAccessName, $this->VALID_ACCESSNAME2);
 	}
@@ -153,7 +153,7 @@ class AccessTest extends TimeCrunchersTest {
 	/**
 	 * test grabbing access by access name
 	 **/
-	public function testGetValidAccessByAccessContent() {
+	public function testGetValidAccessByAccessName() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("access");
 
