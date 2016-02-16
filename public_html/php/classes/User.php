@@ -53,17 +53,17 @@ class User {
 	private $userEmail;
 	/**
 	 * userActivation
-	 * @var int $userActivation
+	 * @var string $userActivation
 	 */
 	private $userActivation;
 	/**
 	 * userHash
-	 * @var int $userHash
+	 * @var string $userHash
 	 */
 	private $userHash;
 	/**
 	 * userSalt
-	 * @var int $userSalt
+	 * @var string $userSalt
 	 */
 	private $userSalt;
 
