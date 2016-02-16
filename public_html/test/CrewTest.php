@@ -183,7 +183,7 @@ class CrewTest extends TimecrunchersTest {
 		$crew->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
-		$results = Crew::getCrewByCrewId($this->getPDO(), $crew->getCrewLocation());
+		$results = Crew::getCrewByCrewLocation($this->getPDO(), $crew->getCrewLocation());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\vhooker\\TimecrunchersTest\\Crew", $results);

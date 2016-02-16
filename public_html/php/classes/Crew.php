@@ -254,4 +254,41 @@ require_once ("autoloader.php");
 			}
 			return($crew);
 		}
+	 /**
+	  * gets the Crew by crewLocation
+	  *
+	  * @param \PDO $pdo PDO connection object
+	  * @param string $crewLocation location to search for
+	  * @return Crew|null Crew found or null if not found
+	  * @throws \PDOException when mySQL related errors occur
+	  * @throws \TypeError when variable are not the correct data type
+	  **/
+	 public static function getCrewByCrewLocation(\PDO $pdo, string $crewLocation) {
+		 //sanitize the crewLocation before searching
+		 if($crewLocation <=0) {
+			 throw(new \PDOException("crew is not a location"));
+		 }
+
+		 //create query template
+		 $query = "SELECT crewId, crewCompanyId, crewLocation FROM crew WHERE crewLocation = :crewLocation";
+		 $statement = $pdo->prepare($query);
+
+		 //bind the crew location to the place holder in the template
+		 $parameters = array("crewLocation" => $crewLocation);
+		 $statement->execute($parameters);
+
+		 //grab the crew from mySQL
+		 try {
+			 $crewLocation = null;
+			 $statement->setFetchMode(\PDO::FETCH_ASSOC);
+			 $row = $statement->fetch();
+			 if($row !== false) {
+				 $crewLocation = new Crew($row["crewId"], $row["crewCompanyId"], $row["crewLocation"]);
+			 }
+		 } catch(\Exception $exception) {
+			 //if the row couldn't be converted, rethrow it
+			 throw(new \PDOException($exception->getMessage(), 0, $exception));
+		 }
+		 return($crewLocation);
+	 }
 }
