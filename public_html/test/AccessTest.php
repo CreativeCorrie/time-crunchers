@@ -55,7 +55,7 @@ class AccessTest extends TimeCrunchersTest {
 	 * password of the user
 	 * @var string $VALID_PASSWORD
 	 */
-	protected $VALID_ACTIVATION = "abc123";
+	protected $VALID_ACTIVATION = null;
 	/**
 	 *
 	 * @var mixed
@@ -85,7 +85,7 @@ class AccessTest extends TimeCrunchersTest {
 
 		//create and insert a User to own the test Access
 
-		$this->user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), "5055554321", "talia", "Martinez", "talia@aol.com");
+		$this->user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), "5055554321", "talia", "Martinez", "talia@aol.com", "$this->VALID_ACTIVATION", "$this->VALID_HASH", "$this->VALID_SALT");
 		$this->user->insert($this->getPDO());
 	}
 
