@@ -41,7 +41,6 @@ class UserTest extends TimecrunchersTest {
 	 * @var string $VALID_SALT
 	 */
 	protected $VALID_SALT = null;
-
 	/**
 	 * company that created the user, this is for foreign key
 	 * @var $company

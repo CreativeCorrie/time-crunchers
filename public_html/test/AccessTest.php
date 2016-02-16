@@ -39,11 +39,8 @@ class AccessTest extends TimeCrunchersTest {
  */
 	protected $user = null;
 	/**
-	 *
-	 */
-	protected $company = null;
-	/**
-	 *
+	 *create a crew to belong to the company and own the user
+	 *@var crew $crew
 	 */
 	protected $crew = null;
 	/**
@@ -71,7 +68,7 @@ class AccessTest extends TimeCrunchersTest {
 
 		//grab the data from mySQL and enforce the fields match our expectations
 		$pdoAccess = Access::getAccessByAccessId($this->getPDO(), $access->getAccessId());
-		$this->assertEquals(numRows + 1, $this->getConnection()->getRowCount("access"));
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("access"));
 		$this->assertEquals($pdoAccess->getUserId(), $this->user->getUserId());
 	}
 
