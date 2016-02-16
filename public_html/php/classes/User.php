@@ -498,7 +498,7 @@ class User {
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["userId" => $this->userId, "userCompanyId" => $this->userCompanyId, "userCrewId" => $this->userCrewId, "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName, "userLastName" => $this->userLastName, "userEmail" => $this->userEmail, "userActivation" => $this->userActivation, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
+		$parameters = ["userCompanyId" => $this->userCompanyId, "userCrewId" => $this->userCrewId, "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName, "userLastName" => $this->userLastName, "userEmail" => $this->userEmail, "userActivation" => $this->userActivation, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
 		$statement->execute($parameters);
 
 		//update the null userId with the what mySQL just gave us

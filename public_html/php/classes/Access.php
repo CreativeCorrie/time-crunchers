@@ -198,7 +198,7 @@ class Access {
 		$accessName = trim(accessName);
 		$accessName = filter_var($accessName, FILTER_SANITIZE_STRING);
 		if(empty($accessName) === true) {
-			throw(new \PDOException("accessName is invalid"));
+			throw(new \PDOException("accessName is invalid"))
 		}
 
 		//create query template
@@ -232,7 +232,7 @@ class Access {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param int $tweetId tweet id to search for
-	 * @return Tweet|null Tweet found or null if not found
+	 * @return int|null Tweet found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
@@ -243,7 +243,7 @@ class Access {
 		}
 
 		//create query template
-		$query = "SELECT accessId, accessName, accessDate FROM acccess WHERE accessId = :accessId";
+		$query = "SELECT accessId, accessName, accessDate FROM access WHERE accessId = :accessId";
 		$statement = $pdo->prepare($query);
 
 		//bind the accessId to the place holder template
