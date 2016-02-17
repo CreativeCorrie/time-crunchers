@@ -80,7 +80,7 @@ class ShiftTest extends TimeCrunchersTest {
 		$this->crew->insert($this->getPDO());
 
 		//create and insert a Request to test Shift
-		$this->request = new Request(null, $this->request->getRequestRequestorId(), $this->request->getRequestAdminId(), "1998-07-05 07:00:00", 1, "I can haz time off nao, plz?", "Yes, and bring me a semmich.");
+		$this->request = new Request(null, $this->request->getRequestRequestorId(), $this->request->getRequestAdminId(), "1998-07-05 07:00:00", 1, "I can haz time off nao, plz?", "Yes, and bring me a sandwich.");
 		$this->request->insert($this->getPDO());
 
 		//calculate the date (just use the time the unit test was setup...)
@@ -94,10 +94,11 @@ class ShiftTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("shift");
 
 		//create a new Shift and insert to into mySQL
-		$shift = new Shift (null, $this->user->getUserId(), $this->crew->getCrewId(), $this->request->getRequestorId(), $this->VALID $this->VALID_SHIFTSTARTTIME);
+		$shift = new Shift (null, $this->user->getUserId(), $this->crew->getCrewId(), $this->request->getRequestorId(), $this->VALID_SHIFTSTARTTIME,$this->VALID_SHIFTDURATION, $this->VALID_SHIFTDATE, $this->VALID_SHIFTDELETE );
 		$shift->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
+		// TODO: this is where Elaine stopped..
 		$pdoShift = Shift::getShiftByShiftId($this->getPDO(), $shift->getShiftId());
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("shift"));
 		$this->assertEquals($pdoShift->getShiftUserId(), $this->user->getUserId());
