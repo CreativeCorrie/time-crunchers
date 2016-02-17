@@ -85,7 +85,7 @@ class User {
 	 * @throws \Exception if some other exception occurs
 	 **/
 
-	public function __construct(int $newUserId = null, int $newUserCompanyId = null, int $newUserCrewId = null, int $newUserAccessId = null, string $newUserPhone, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserActivation, string $newUserHash, string $newUserSalt) {
+	public function __construct(int $newUserId = null, int $newUserCompanyId, int $newUserCrewId, int $newUserAccessId, string $newUserPhone, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserActivation, string $newUserHash, string $newUserSalt) {
 		try {
 			$this->setUserId($newUserId);
 			$this->setUserCompanyId($newUserCompanyId);
@@ -396,6 +396,7 @@ class User {
 	public function setUserActivation(string $newUserActivation) {
 		//verify $userActivation is secure
 		$newUserActivation = strtolower(trim($newUserActivation));
+		var_dump($newUserActivation);
 
 		//make sure that user activation cannot be null
 		if(ctype_xdigit($newUserActivation) === false) {
