@@ -78,7 +78,7 @@ class UserTest extends TimeCrunchersTest {
 		$this->VALID_USERHASH = hash_pbkdf2("sha512", $password, $this->VALID_USERSALT, 262144);
 
 		//create and insert a new company to own the crew the user belongs to
-		$this->company = new Company(null, $this->company->getCompanyId(), "Kitty Scratchers", "1600 Pennsylvania Ave NW", "Senator's Palace", "Senator Arlo", "WA", "Felis Felix", "20500", "5055551212", "kitty@aol.com", "www.kitty.com");
+		$this->company = new Company(null, "Taco B.","404 Taco St.","suite:666","Attention!!","NM","Burque","87106","5055551111","tb@hotmail.com","www.tocobell.com");
 		$this->company->insert($this->getPDO());
 
 		// create and insert a crew to own the test Schedule
