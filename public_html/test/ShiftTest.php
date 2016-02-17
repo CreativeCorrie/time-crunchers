@@ -4,6 +4,9 @@ namespace Edu\Cnm\Timecrunchers\Test;
 use Edu\Cnm\Timecrunchers\Shift;
 use Edu\Cnm\Timecrunchers\User;
 use Edu\Cnm\Timecrunchers\Request;
+use Edu\Cnm\Timecrunchers\Company;
+use Edu\Cnm\Timecrunchers\Crew;
+use Edu\Cnm\Timecrunchers\Access;
 
 // grab the project test parameters
 require_once("TimecrunchersTest.php");
@@ -24,6 +27,12 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 class ShiftTest extends TimeCrunchersTest {
 
 	/**
+	 * Company ; this is for foreign key relations
+	 * @var $company
+	 **/
+	protected $company = null;
+
+	/**
 	 * User that shift is attached to; this is for foreign key relations
 	 * @var \Edu\Cnm\Timecrunchers\User user
 	 **/
@@ -40,6 +49,12 @@ class ShiftTest extends TimeCrunchersTest {
 	 * @var \Edu\Cnm\Timecrunchers\Request request
 	 **/
 	protected $request = null;
+
+	/**
+	 * Access; this is for foreign key relations
+	 * @var Access $access
+	 **/
+	protected $access = null;
 
 	/**
 	 * start time of a Shift
@@ -70,9 +85,23 @@ class ShiftTest extends TimeCrunchersTest {
 	public final function setUp() {
 		//run the default setUp() method first
 		parent::setUp();
+// ***********************
+		$password = "abc123";
+		$activation = bin2hex(random_bytes(16));
+		$salt = bin2hex(random_bytes(32));
+		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
 
+		// creates and inserts Company to sql for User foreign key relations
+		$this->company = new Company(null,"Taco B.","404 Taco St.","suite:666","Attention!!","NM","Burque","87106","5055551111","tb@hotmail.com","www.tocobell.com");
+		$this->company->insert($this->getPDO());
+
+		// creates and inserts Access to sql for User foreign key relations
+		$this->access = new Access(null,"requestor or admin");
+		$this->access->insert($this->getPDO());
+
+//*****************
 		//create and insert a User to test Shift
-		$this->user = new User(null, $this->user->getUserId(), $this->user->getUserCompanyId(), $this->user->getUserAccessId(), "+12125551212", "Talia", "Talsballs", "talia@luna.net", "si mon", "gobblydeegook", "salt");
+		$this->user = new User((null, $this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Johnny", "Requestorman","test@phpunit.de", $activation, $hash, $salt);
 		$this->user->insert($this->getPDO());
 
 		// create and insert a Crew to own the test Schedule
@@ -94,7 +123,7 @@ class ShiftTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("shift");
 
 		//create a new Shift and insert to into mySQL
-		$shift = new Shift (null, $this->user->getUserId(), $this->crew->getCrewId(), $this->request->getRequestorId(), $this->VALID_SHIFTSTARTTIME,$this->VALID_SHIFTDURATION, $this->VALID_SHIFTDATE, $this->VALID_SHIFTDELETE);
+		$shift = new Shift (null, $this->user->getUserId(), $this->crew->getCrewId(), $this->request->getRequestId(), $this->VALID_SHIFTSTARTTIME,$this->VALID_SHIFTDURATION, $this->VALID_SHIFTDATE, $this->VALID_SHIFTDELETE );
 		$shift->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
@@ -103,7 +132,7 @@ class ShiftTest extends TimeCrunchersTest {
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("shift"));
 		$this->assertEquals($pdoShift->getShiftUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoShift->getShiftCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoShift->getShiftAccessId(), $this->access->getAccessId());
+		$this->assertEquals($pdoShift->getShiftRequestId(), $this->request->getRequestId());
 		$this->assertEquals($pdoShift->getShiftStartTime(), $this->VALID_SHIFTSTARTTIME);
 		$this->assertEquals($pdoShift->getShiftDuration(), $this-> VALID_SHIFTDURATION);
 		$this->assertEquals($pdoShift->getShiftDate(), $this-> VALID_SHIFTDATE);
@@ -140,7 +169,7 @@ class ShiftTest extends TimeCrunchersTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("shift"));
 		$this->assertEquals($pdoShift->getShiftUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoShift->getShiftCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoShift->getShiftAccessId(), $this->access->getAccessId);
+		$this->assertEquals($pdoShift->getShiftRequestId(), $this->request->getRequestId());
 		$this->assertEquals($pdoShift->getShiftStartTime(), $this->VALID_SHIFTSTARTTIME);
 		$this->assertEquals($pdoShift->getShiftDuration(), $this-> VALID_SHIFTDURATION);
 		$this->assertEquals($pdoShift->getShiftDate(), $this-> VALID_SHIFTDATE);
@@ -203,7 +232,7 @@ class ShiftTest extends TimeCrunchersTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("shift"));
 		$this->assertEquals($pdoShift->getShiftUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoShift->getShiftCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoShift->getShiftAccessId(), $this->access->getAccessId);
+		$this->assertEquals($pdoShift->getShiftRequestId(), $this->request->getRequestId());
 		$this->assertEquals($pdoShift->getShiftStartTime(), $this->VALID_SHIFTSTARTTIME);
 		$this->assertEquals($pdoShift->getShiftDuration(), $this-> VALID_SHIFTDURATION);
 		$this->assertEquals($pdoShift->getShiftDate(), $this-> VALID_SHIFTDATE);
@@ -233,7 +262,7 @@ class ShiftTest extends TimeCrunchersTest {
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("shift"));
 		$this->assertEquals($pdoShift->getShiftUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoShift->getShiftCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoShift->getShiftAccessId(), $this->access->getAccessId);
+		$this->assertEquals($pdoShift->getShiftRequestId(), $this->request->getRequestId());
 		$this->assertEquals($pdoShift->getShiftStartTime(), $this->VALID_SHIFTSTARTTIME);
 		$this->assertEquals($pdoShift->getShiftDuration(), $this-> VALID_SHIFTDURATION);
 		$this->assertEquals($pdoShift->getShiftDate(), $this-> VALID_SHIFTDATE);
@@ -259,7 +288,7 @@ class ShiftTest extends TimeCrunchersTest {
 		$pdoShift = $results[0];
 		$this->assertEquals($pdoShift->getShiftUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoShift->getShiftCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoShift->getShiftAccessId(), $this->access->getAccessId);
+		$this->assertEquals($pdoShift->getShiftRequestId(), $this->request->getRequestId());
 		$this->assertEquals($pdoShift->getShiftStartTime(), $this->VALID_SHIFTSTARTTIME);
 		$this->assertEquals($pdoShift->getShiftDuration(), $this-> VALID_SHIFTDURATION);
 		$this->assertEquals($pdoShift->getShiftDate(), $this-> VALID_SHIFTDATE);
