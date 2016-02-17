@@ -82,7 +82,7 @@ class User {
 	 * @throws \InvalidArgumentException if the data types are not valid
 	 * @throws \RangeException if data values are out of bounds
 	 * @throws \TypeError if data types violate type hints
-	 * @thorws \Exception if some other exception occurs
+	 * @throws \Exception if some other exception occurs
 	 **/
 
 	public function __construct(int $newUserId = null, int $newUserCompanyId = null, int $newUserCrewId = null, int $newUserAccessId = null, string $newUserPhone, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserActivation, string $newUserHash, string $newUserSalt) {
@@ -390,7 +390,6 @@ class User {
 	 * mutator method for user activation
 	 *
 	 * @param string $newUserActivation string of users activation
-	 * @param \InvalidArgumentException if $userActivation was not a string
 	 * @param \RangeException if $newRangeException is not = 32
 	 * @param \TypeError if $newUserActivation is not a string
 	 */
@@ -582,8 +581,8 @@ class User {
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$user = new User($row["userId"], $row["companyId"], $row["userCrewId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
-				$users[$users->key()] = $user;
-				$user->next();
+				$user[$users->key()] = $user;
+				$users->next();
 			} catch(\exception $exception) {
 				//if the row could not be thrown, rethrow it
 				throw(new \PDOException($exception->getmessage(), 0, $exception));
