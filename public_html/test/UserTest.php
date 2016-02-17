@@ -130,8 +130,8 @@ class UserTest extends TimeCrunchersTest {
 	 **/
 	public function testInsertInvalidUser() {
 		//create new user with a null user Id and watch it fail
-		$user = new User(DataDesignTest::INVALID_KEY, $this->user->getUserId(), $this->VAL_USERFIRSTNAME);
-		$user->$this->insert($this->getPDO());
+		$user = new User(TimeCrunchersTest::INVALID_KEY, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
+		$user->insert($this->getPDO());
 	}
 
 	/**
@@ -142,11 +142,17 @@ class UserTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("user");
 
 		//create a new user and insert it into mySQL
-		$user = new User(null, $this->user->getUserId(), $this->VALID_USERFIRSTNAME);
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->insert($this->getPDO());
 
 		//edit the user and update it in mySQL
-		$user->setUserFirstName($this->VALID_USERFIRSTNAME2);
+		$user->setUserPhone($this->VALID_USERPHONE);
+		$user->setUserFirstName($this->VALID_USERFIRSTNAME);
+		$user->setUserLastName($this->VALID_USERLASTNAME);
+		$user->setUserEmail($this->VALID_USEREMAIL);
+		$user->setUserActivation($this->VALID_USERACTIVATION);
+		$user->setUserHash($this->VALID_USERHASH);
+		$user->getUserSalt($this->VALID_USERSALT);
 		$user->update($this->PDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
