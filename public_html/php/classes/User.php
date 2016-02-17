@@ -148,7 +148,7 @@ class User {
 	/**
 	 * accessor method for companyId
 	 *
-	 * @return int|null value of company id
+	 * @return int value of company id
 	 */
 	public function getUserCompanyId() {
 		return ($this->userCompanyId);
@@ -157,7 +157,7 @@ class User {
 	/**
 	 * mutator method for company id
 	 *
-	 * @param int|null $newUserCompanyId new value for company id
+	 * @param int $newUserCompanyId new value for company id
 	 * @param \RangeException if $newUserCompanyId is not positive
 	 * @param \TypeError if $newUserCompanyId is not an integer
 	 **/
@@ -189,7 +189,7 @@ class User {
 	/**
 	 * mutator for user crew id
 	 *
-	 * @param int|null $newUserCrewId new value for crew id
+	 * @param int $newUserCrewId new value for crew id
 	 * @param \RangeException if user crew id is not positive
 	 * @param \TypeError if $newCrewId is not an integer
 	 */
@@ -212,7 +212,7 @@ class User {
 	/**
 	 * accessor method for access id
 	 *
-	 * @return int|null $newAccessId
+	 * @return int $newAccessId
 	 */
 	public function getUserAccessId() {
 		return ($this->userAccessId);
@@ -221,7 +221,7 @@ class User {
 	/**
 	 * mutator method for access id
 	 *
-	 * @param int|null $newUserAccessId new value for access id
+	 * @param int $newUserAccessId new value for access id
 	 * @param \RangeException if $newUserAccessId is not positive
 	 * @param \TypeError if $newUserAccessId is not an integer
 	 **/
@@ -413,7 +413,7 @@ class User {
 	/**
 	 * accessor method for user hash
 	 *
-	 * @return int|null for $newUserHash
+	 * @return string for $newUserHash
 	 */
 	public function getUserHash() {
 		return ($this->userHash);
