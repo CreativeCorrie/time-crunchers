@@ -94,7 +94,7 @@ class UserTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("user");
 
 		//create a new User and insert it into mySQL
-		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectation
@@ -119,7 +119,7 @@ class UserTest extends TimeCrunchersTest {
 	 **/
 	public function testInsertInvalidUser() {
 		//create new user with a null user Id and watch it fail
-		$user = new User(TimeCrunchersTest::INVALID_KEY, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
+		$user = new User(TimeCrunchersTest::INVALID_KEY, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->insert($this->getPDO());
 	}
 
@@ -131,7 +131,7 @@ class UserTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("user");
 
 		//create a new user and insert it into mySQL
-		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->insert($this->getPDO());
 
 		//edit the user and update it in mySQL
@@ -165,7 +165,7 @@ class UserTest extends TimeCrunchersTest {
 	 **/
 	public function testUpdateInvalidUser() {
 		//create tweet with a non null userId and watch it fail
-		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->update($this->getPDO());
 	}
 
@@ -177,7 +177,7 @@ class UserTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("user");
 
 		//create a new user and insert into mySQL
-		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->insert($this->getPDO());
 
 		//delete the user from mySQL
@@ -205,8 +205,9 @@ class UserTest extends TimeCrunchersTest {
 	 * @expectedException PDOException
 	 **/
 	public function testDeleteInvalidUser() {
+
 		//create a user and try to delete without actually inserting it
-		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->delete($user->getPDO());
 	}
 
@@ -218,7 +219,7 @@ class UserTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("user");
 
 		//create a new $user and insert into mySQL
-		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->insert($this->getPDO());
 
 		//grab from the mySQL and enforce the fields match our expectations
@@ -252,7 +253,7 @@ class UserTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("user");
 
 		//create a new user and insert into mySQL
-		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
