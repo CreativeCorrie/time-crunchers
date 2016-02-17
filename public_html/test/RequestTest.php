@@ -126,10 +126,8 @@ class RequestTest extends TimecrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("request");
 
 		// create a new Request and insert to into mySQL
-		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
-			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
+		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP, $this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->insert($this->getPDO());
-
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoRequest = Request::getRequestByRequestId($this->getPDO(), $request->getRequestId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("request"));
@@ -162,8 +160,7 @@ class RequestTest extends TimecrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("request");
 
 		// create a new Request and insert into mySQL
-		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
-			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
+		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP, $this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->insert($this->getPDO());
 
 		// edit the Request and update it in mySQL
@@ -202,8 +199,7 @@ class RequestTest extends TimecrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("request");
 
 		// create a new Request and insert to into mySQL
-		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
-			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
+		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP, $this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->insert($this->getPDO());
 
 		// delete the Request from mySQL
