@@ -332,14 +332,14 @@ class Request implements \JsonSerializable {
 		if($this->requestId===null){
 			throw(new \PDOException("can't update, request doesn't exist"));
 		}
-		$query = "UPDATE request SET requestRequestorId = :requestRequestorId, requestRequestorText =
-			:requestRequestorId, requestRequestorText = :requestRequestorText, requestTimeStamp = :requestTimeStamp WHERE requestId = :requestId";
+		$query = "UPDATE request SET requestRequestorId = :requestRequestorId, requestRequestorText = :requestRequestorText,
+ 			requestTimeStamp = :requestTimeStamp WHERE requestId = :requestId";
 		$statement = $pdo->prepare($query);
 
 		//binding member variables to the place holders in the template
 		$formattedDate = $this->requestTimeStamp->format("Y-m-d H:i:s");
-		$parameters = ["requestRequestorID" => $this->requestRequestorId,"requestRequestorText" => $this->requestRequestorText,
-		"requestTimeStamp" => $formattedDate];
+		$parameters = ["requestRequestorId" => $this->requestRequestorId,"requestRequestorText" => $this->requestRequestorText,
+		"requestTimeStamp" => $formattedDate, "requestId" =>$this->requestId];
 		$statement->execute($parameters);
 	}
 
@@ -388,7 +388,7 @@ class Request implements \JsonSerializable {
 		while(($row=$statement->fetch()) !== false) {
 			try {
 				$request = new Request($row["requestId"], $row["requestRequestorId"], $row["requestAdminId"],
-					$row["requestTimeStamp"], $row["requetActionTimeStamp"], $row["requestApprove"],
+					$row["requestTimeStamp"], $row["requestActionTimeStamp"], $row["requestApprove"],
 					$row["requestRequestorText"], $row["requestAdminText"]);
 				$requests[$requests->key()] = $request;
 				$requests->next();
