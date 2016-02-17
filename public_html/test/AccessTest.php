@@ -105,7 +105,7 @@ class AccessTest extends TimeCrunchersTest {
 
 		//delete the access from mySQL
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("access"));
-		$this->delete($this->getPDO());
+		$access->delete($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
 		$pdoAccess = Access::getAccessByAccessId($this->getPDO(), $access->getAccessId());
@@ -133,7 +133,7 @@ class AccessTest extends TimeCrunchersTest {
 
 		//create a new access and insert into mySQL
 		$access = new Access(null, $this->VALID_ACCESSNAME);
-		$this->insert($this->getPDO());
+		$access->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
 		$pdoAccess = Access::getAccessByAccessId($this->getPDO(), $access->getAccessId());
@@ -159,7 +159,7 @@ class AccessTest extends TimeCrunchersTest {
 
 		//create a new access and insert into mySQL
 		$access = new Access(null, $this->VALID_ACCESSNAME);
-		$this->insert($this->getPDO());
+		$access->insert($this->getPDO());
 
 		//grab the data form mySQL and enforce the fields match our expectations
 		$results = Access::getAccessByAccessName($this->getPDO(), $access->getAccessName());
