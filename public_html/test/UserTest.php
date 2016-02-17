@@ -1,12 +1,9 @@
 <?php
 namespace Edu\Cnm\Timecrunchers\test;
 
-use Edu\Cnm\Timecrunchers\{Company, Access, Crew};
-/**
 use Edu\Cnm\Timecrunchers\Company;
-use Edu\Cnm\Timecrunchers\Access;
 use Edu\Cnm\Timecrunchers\Crew;
-**/
+use Edu\Cnm\Timecrunchers\User;
 
 //grab test parameters
 require_once("TimecrunchersTest.php");
@@ -17,20 +14,45 @@ require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 
 class UserTest extends TimecrunchersTest {
 	/**
-	 * content of user
-	 * @var string $VALID_USERCONTENT
+	 * company that created the user, this is for foreign key
+	 * @var $company
 	 */
+	protected $company = null;
+	/**
+	 * crew the user is assgined to
+	 * @var $crew
+	 */
+	protected $crew = null;
+	/**
+	 * content of userPhone
+	 * @var string userPhone
+	 **/
+	protected $VALID_USERPHONE = "PHPUnit test is passing";
+	/**
+	 * content of userFirstName
+	 * @var string $VALID_USERCONTENT
+	 **/
 	protected $VALID_USERFIRSTNAME = "PHPUnit test passing";
 	/**
-	 * content of updated user
+	 * content of updated userFirstname
 	 * @var string $VALID_USERCONTENT2
 	 */
 	protected $VALID_USERFIRSTNAME2 = "PHPUnit test still passing";
 	/**
+	 * content of userLastName
+	 * @var string $VALID_USERLASTNAME
+	 **/
+	protected $VALID_USERLASTNAME = "PHPUnit test is passing";
+	/**
+	 * content of userEmail
+	 * @var string $VALID_USEREMAIL
+	 **/
+	protected $VALID_USEREMAIL = "PHPUnit test is passing";
+	/**
 	 * password of the user
-	 * @var string $VALID_PASSWORD
+	 * @var string $VALID_ACTIVATION
 	 */
-	protected $VALID_ACTIVATION = "abc123";
+	protected $VALID_ACTIVATION = null;
 	/**
 	 *
 	 * @var mixed
@@ -42,42 +64,26 @@ class UserTest extends TimecrunchersTest {
 	 */
 	protected $VALID_SALT = null;
 	/**
-	 * company that created the user, this is for foreign key
-	 * @var $company
-	 */
-	protected $company = null;
-	/**
-	 * access given to the user
-	 * @var $access
-	 */
-	protected $access = null;
-	/**
-	 * crew the user is assgined to
-	 * @var $crew
-	 */
-	protected $crew = null;
-	/**
 	 * create dependent objects before running each test
 	 */
 	public final function setUp() {
 		//run the default setUp() method first
 		parent::setUp();
 
-		$this->VALID_ACTIVATION = "abc123";
-		$this->VALID_SALT = bin2hex(random_bytes(16));
-		$this->VALID_HASH = hash_pbkdf2("sha512", $this->VALID_PASSWORD, $this->VALID_SALT, 262144);
+		$password = "abc123";
+		$activation = bin2hex(random_bytes(16));
+		$salt = bin2hex(random_bytes(32));
+		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
 
 		//create and insert company access and crew to own the test user
 		// TODO: new company, access, crew
 		$this->company = new Company(null, $this->company->getCompanyId(), "Kitty Scratchers", "1600 Pennsylvania Ave NW", "Senator's Palace", "Senator Arlo", "WA", "Felis Felix", "20500", "5055551212", "kitty@aol.com", "www.kitty.com");
 		$this->company->insert($this->getPDO());
 
-		$this->access = new Access(null, $this->company->getCompanyId(), "employee");
-		$this->access->insert($this->getPDO());
-
 		$this->crew = new Crew(null, $this->comapny->getCompanyId(), "Albuquerque");
 		$this->crew->insert($this->getPDO());
 
+		$this->user = new User(null, $this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Johnny", "Requestorman","test@phpunit.de", $activation, $hash, $salt);
 	}
 
 	/**

@@ -106,7 +106,7 @@ class RequestTest extends TimecrunchersTest {
 		$this->access->insert($this->getPDO());
 
 		// create and insert a User to own the test Request
-		$this->requestor = new User(null ,$this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Johnny", "Requestorman","test@phpunit.de", $activation, $hash, $salt);
+		$this->requestor = new User(null, $this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Johnny", "Requestorman","test@phpunit.de", $activation, $hash, $salt);
 		$this->requestor->insert($this->getPDO());
 
 		$this->admin = new User(null ,$this->company->getCompanyId(),$this->crew->getCrewId(), $this->access->getAccessId(), "5552121", "Suzy", "Hughes","test2@phpunit.de", $activation, $hash, $salt);
