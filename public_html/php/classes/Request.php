@@ -20,12 +20,12 @@ class Request implements \JsonSerializable {
 	 */
 	private $requestId;
 	/**
-	 * userId of requestor
+	 * userId of requestor, foreign key
 	 * @var int $requestRequestorId
 	 */
 	private $requestRequestorId;
 	/**
-	 * userId of administrator preforming requestApprove
+	 * userId of administrator preforming requestApprove, foreign key
 	 * @var int $requestAdminId
 	 */
 	private $requestAdminId;
@@ -71,7 +71,7 @@ class Request implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct(int $newRequestId = null, int $newRequestRequestorId = null, int $newRequestAdminId = null,
+	public function __construct(int $newRequestId = null, int $newRequestRequestorId, int $newRequestAdminId = null,
 										 $newRequestTimeStamp = null, $newRequestActionTimeStamp = null,
 										 bool $newRequestApprove = false, string $newRequestRequestorText, string $newRequestAdminText) {
 		try {
@@ -163,12 +163,14 @@ class Request implements \JsonSerializable {
 	 *
 	 * @param int $newRequestAdminId new value of admin id
 	 * throws \RangeException if $newRequestAdminId is not positive
+	 * throws\TypeError if $newRequestAdminId is not an integer
 	 */
 	public function setRequestAdminId($newRequestAdminId) {
 		// verify variable is positive
 		if($newRequestAdminId <= 0) {
 			throw(new \RangeException("administrator id is not positive"));
 		}
+		// converts and stores
 		$this->requestAdminId = $newRequestAdminId;
 	}
 	/**
@@ -192,7 +194,7 @@ class Request implements \JsonSerializable {
 			$this->requestTimeStamp = new \DateTime();
 			return;
 		}
-		// store request date
+		// store request date, utilizes data parsing function
 		try {
 			$newRequestTimeStamp = self::validateDateTime($newRequestTimeStamp);
 		} catch(\InvalidArgumentException $invalidArgument) {
@@ -223,7 +225,7 @@ class Request implements \JsonSerializable {
 			$this->requestActionTimeStamp = new \DateTime();
 			return;
 		}
-		//store the actiontimestamp
+		//store the actiontimestamp,  utilizes data parsing function
 		try {
 			$newRequestActionTimeStamp = $this->validateDateTime($newRequestActionTimeStamp);
 		} catch(\InvalidArgumentException $invalidArgument) {
@@ -231,6 +233,7 @@ class Request implements \JsonSerializable {
 		} catch(\RangeException $range) {
 			throw(new \RangeException($range->getMessage(), 0, $range));
 		}
+		// conver
 		$this->requestActionTimeStamp = $newRequestActionTimeStamp;
 	}
 	/**
@@ -245,6 +248,7 @@ class Request implements \JsonSerializable {
 	/**
 	 * mutator method for request approval
 	 * @param $newRequestApprove
+	 * @throws \InvalidArgumentException if input isn't a boolean
 	 */
 	public function setRequestApprove($newRequestApprove) {
 		if(is_bool($newRequestApprove) === false) {
@@ -262,10 +266,12 @@ class Request implements \JsonSerializable {
 	}
 
 	/**
-	 * mutoator method fro requestor text
+	 * mutator method for requestor text
 	 * @param string $newRequestRequestorText
+	 * @throws \RangeException if string exceeds 255 characters
 	 */
 	public function setRequestRequestorText(string $newRequestRequestorText) {
+		// trims and sanitizes text, throws exception if it exceeds 255 characters
 		$newRequestRequestorText = trim($newRequestRequestorText);
 		$newRequestRequestorText = filter_var($newRequestRequestorText, FILTER_SANITIZE_STRING);
 		if(strlen($newRequestRequestorText) > 255) {
@@ -285,8 +291,10 @@ class Request implements \JsonSerializable {
 	/**
 	 * mutator method for request admin text
 	 * @param string $newRequestAdminText
+	 * @throws \RangeException if string exceeds 255 characters
 	 */
 	public function setRequestAdminText(string $newRequestAdminText) {
+		// trims and sanitizes text, throws exception if it exceeds 255 characters
 		$newRequestAdminText = trim($newRequestAdminText);
 		$newRequestAdminText = filter_var($newRequestAdminText, FILTER_SANITIZE_STRING);
 		if(strlen($newRequestAdminText) > 255) {
@@ -294,7 +302,13 @@ class Request implements \JsonSerializable {
 		}
 		$this->requestAdminText = $newRequestAdminText;
 	}
-
+	/**
+	 * inserts this Request into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
 	public function insert(\PDO $pdo) {
 		//enforce the requestId is null
 		if($this->requestId !== null) {
@@ -308,54 +322,68 @@ class Request implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//bind the member variable to the place holders
-		$formattedDate=$this->requestTimeStamp->format("Y-m-d H:i:s");
-		$formattedDate2=$this->requestTimeStamp->format("Y-m-d H:i:s");
-		$parameters=["requestRequestorId"=>$this->requestRequestorId,"requestAdminId"=>$this->requestAdminId,
-			"requestTimeStamp"=>$formattedDate,"requestActionTimeStamp"=>$formattedDate2,
-			"requestApprove"=>$this->requestApprove,"requestRequestorText"=>$this->requestRequestorText,
-			"requestAdminText"=>$this->requestAdminText];
+		$formattedDate = $this->requestTimeStamp->format("Y-m-d H:i:s");
+		$formattedDate2 = $this->requestTimeStamp->format("Y-m-d H:i:s");
+		$parameters = ["requestRequestorId" => $this->requestRequestorId, "requestAdminId" => $this->requestAdminId,"requestTimeStamp" => $formattedDate, "requestActionTimeStamp" => $formattedDate2, "requestApprove" => $this->requestApprove, "requestRequestorText" => $this->requestRequestorText, "requestAdminText" => $this->requestAdminText];
 		$statement->execute($parameters);
 		$this->requestId = intval($pdo->lastInsertId());
 	}
-
+	/**
+	 * deletes this Request from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
 	public function delete(\PDO $pdo) {
-		if($this->requestId===null){
+		if($this->requestId === null){
 			throw(new \PDOException("can't delete, request does not exits"));
 		}
 		$query = "DELETE FROM request WHERE requestId = :requestId";
-		$statement=$pdo->prepare($query);
-		$parameters=["requestId" => $this->requestId];
+		$statement = $pdo->prepare($query);
+		$parameters = ["requestId" => $this->requestId];
 		$statement->execute($parameters);
 	}
-
+	/**
+	 * updates this Request in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
 	public function update(\PDO $pdo) {
-		if($this->requestId===null){
+		if($this->requestId === null){
 			throw(new \PDOException("can't update, request doesn't exist"));
 		}
-		$query = "UPDATE request SET requestRequestorId = :requestRequestorId, requestRequestorText = :requestRequestorText,
- 			requestTimeStamp = :requestTimeStamp WHERE requestId = :requestId";
+		$query = "UPDATE request SET requestRequestorId = :requestRequestorId, requestRequestorText = :requestRequestorText, requestTimeStamp = :requestTimeStamp WHERE requestId = :requestId";
 		$statement = $pdo->prepare($query);
 
 		//binding member variables to the place holders in the template
 		$formattedDate = $this->requestTimeStamp->format("Y-m-d H:i:s");
-		$parameters = ["requestRequestorId" => $this->requestRequestorId,"requestRequestorText" => $this->requestRequestorText,
-		"requestTimeStamp" => $formattedDate, "requestId" =>$this->requestId];
+		$parameters = ["requestRequestorId" => $this->requestRequestorId,"requestRequestorText" => $this->requestRequestorText, "requestTimeStamp" => $formattedDate, "requestId" => $this->requestId];
 		$statement->execute($parameters);
 	}
-
+	/**
+	 * gets the Request by requestId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $requestId request id to search for
+	 * @return Request|null Request found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
 	public static function getRequestByRequestId(\PDO $pdo, int $requestId) {
 		//sanitize the requestId
 		if($requestId <= 0) {
 			throw(new \PDOException("requestId isn not a positive number"));
 		}
 		// create query template
-		$query = "SELECT requestId, requestRequestorId, requestAdminId, requestTimeStamp ,requestActionTimeStamp,
-		requestApprove ,requestRequestorText ,requestAdminText from request WHERE requestId = :requestId";
+		$query = "SELECT requestId, requestRequestorId, requestAdminId, requestTimeStamp, requestActionTimeStamp, requestApprove ,requestRequestorText ,requestAdminText from request WHERE requestId = :requestId";
 		$statement = $pdo->prepare($query);
 
 		// bind the request id to the place holder in template
 		$parameters = array("requestId" => $requestId);
-		$statement ->execute($parameters);
+		$statement->execute($parameters);
 
 		// grabs the request from mysql
 		try {
@@ -364,9 +392,7 @@ class Request implements \JsonSerializable {
 
 			$row = $statement->fetch();
 			if($row !== false) {
-				$request = new Request($row["requestId"], $row["requestRequestorId"], $row["requestAdminId"],
-					$row["requestTimeStamp"], $row["requestActionTimeStamp"], $row["requestApprove"],
-					$row["requestRequestorText"], $row["requestAdminText"]);
+				$request = new Request($row["requestId"], $row["requestRequestorId"], $row["requestAdminId"], $row["requestTimeStamp"], $row["requestActionTimeStamp"], $row["requestApprove"], $row["requestRequestorText"], $row["requestAdminText"]);
 			}
 		} catch(\Exception $exception) {
 			// if row couldn't be converted, rethrow it
@@ -374,22 +400,25 @@ class Request implements \JsonSerializable {
 		}
 		return($request);
 	}
-
+	/**
+	 * gets all Requests
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of Requests found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
 	public static function getAllRequests(\PDO $pdo) {
 		// create query template
-		$query = "SELECT requestId, requestRequestorId, requestAdminId,requestTimeStamp ,requestActionTimeStamp
-		,requestApprove ,requestRequestorText ,requestAdminText FROM request";
-		$statement= $pdo->prepare($query);
+		$query = "SELECT requestId, requestRequestorId, requestAdminId, requestTimeStamp, requestActionTimeStamp, requestApprove , requestRequestorText ,requestAdminText FROM request";
+		$statement = $pdo->prepare($query);
 		$statement->execute();
-
 		//build an array of requests
 		$requests = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row=$statement->fetch()) !== false) {
+		while(($row = $statement->fetch()) !== false) {
 			try {
-				$request = new Request($row["requestId"], $row["requestRequestorId"], $row["requestAdminId"],
-					$row["requestTimeStamp"], $row["requestActionTimeStamp"], $row["requestApprove"],
-					$row["requestRequestorText"], $row["requestAdminText"]);
+				$request = new Request($row["requestId"], $row["requestRequestorId"], $row["requestAdminId"], $row["requestTimeStamp"], $row["requestActionTimeStamp"], $row["requestApprove"], $row["requestRequestorText"], $row["requestAdminText"]);
 				$requests[$requests->key()] = $request;
 				$requests->next();
 			} catch(\Exception $exception) {
