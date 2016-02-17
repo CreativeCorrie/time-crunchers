@@ -1,30 +1,30 @@
 <?php
 namespace Edu\Cnm\Timecrunchers\Test;
 
+use Edu\Cnm\Timecrunchers\Shift;
 use Edu\Cnm\Timecrunchers\User;
-use Edu\Cnm\Timecrunchers\Crew;
 use Edu\Cnm\Timecrunchers\Request;
 
-//grab the project test parameters
-require_once ("TimecrunchersTest.php");
+// grab the project test parameters
+require_once("TimecrunchersTest.php");
 
-//grab the class under scrutiny
-require_once(dirname(__DIR__) . "php/classes/autoloader.php");
+// grab the class under scrutiny
+require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 
 /**
  * Full PHPUnit test for the Shift class
  *
- * This is a compplete PHPUnit tes of the Shift class. It is complee because *ALL* mySQL/PDO enabled methods
+ * This is a complete PHPUnit test of the Shift class. It is complete because *ALL* mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
  * @see Shift
  * @author Dylan McDonald<dmcdonald21@cnm.edu>
  * @@author Corrie Hooker<creativecorrie@gmail.com> <Team Collaboration: TimeCrunchers>
  **/
-class ShiftTest extends TimecrunchersTest {
+class ShiftTest extends TimeCrunchersTest {
 
 	/**
-	 * userId that shift is attached to; this is for foreign key relations
+	 * User that shift is attached to; this is for foreign key relations
 	 * @var \Edu\Cnm\Timecrunchers\User user
 	 **/
 	protected $user = null;
@@ -45,7 +45,7 @@ class ShiftTest extends TimecrunchersTest {
 	 * start time of a Shift
 	 * @var \DateTime $VALID_SHIFTSTARTTIME
 	 **/
-	protected $VALID_SHIFTSTARTTIME = null;
+	protected $VALID_SHIFTSTARTTIME = "02:02:02";
 
 	/**
 	 * duration of a Shift
@@ -57,7 +57,7 @@ class ShiftTest extends TimecrunchersTest {
 	 * Date of a Shift
 	 * @var \DateTime $VALID_SHIFTDATE
 	 **/
-	protected $VALID_SHIFTDATE = null;
+	protected $VALID_SHIFTDATE = "2016:02:15";
 
 	/**
 	 * Boolean true/false to soft delete a shift
@@ -72,15 +72,15 @@ class ShiftTest extends TimecrunchersTest {
 		parent::setUp();
 
 		//create and insert a User to test Shift
-		$this->user = new User(null, $this->user->getuserId(), "Talia");
+		$this->user = new User(null, $this->user->getUserId(), $this->user->getUserCompanyId(), $this->user->getUserAccessId(), "+12125551212", "Talia", "Talsballs", "talia@luna.net", "si mon", "gobblydeegook", "salt");
 		$this->user->insert($this->getPDO());
 
-		//create and insert a Crew to test Shift
-		$this->crew = new Crew(null, $this->crew->getCrewId(), "Taco Bell");
+		// create and insert a Crew to own the test Schedule
+		$this->crew = new Crew(null, $this->crew->getCrewId(), "Burque");
 		$this->crew->insert($this->getPDO());
 
 		//create and insert a Request to test Shift
-		$this->request = new Crew(null, $this->request->getRequestId());
+		$this->request = new Request(null, $this->request->getRequestRequestorId(), $this->request->getRequestAdminId(), "1998-07-05 07:00:00", 1, "I can haz time off nao, plz?", "Yes, and bring me a semmich.");
 		$this->request->insert($this->getPDO());
 
 		//calculate the date (just use the time the unit test was setup...)
@@ -94,7 +94,7 @@ class ShiftTest extends TimecrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("shift");
 
 		//create a new Shift and insert to into mySQL
-		$shift = new Shift(null, $this->shfit->getShiftId(), $this->VALID_SHIFTSTARTTIME);
+		$shift = new Shift (null, $this->user->getUserId(), $this->crew->getCrewId(), $this->request->getRequestorId(), $this->VALID $this->VALID_SHIFTSTARTTIME);
 		$shift->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations

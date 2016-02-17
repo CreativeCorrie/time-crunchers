@@ -14,7 +14,8 @@ require_once ("autoloader.php");
  * @author Elaine Thomas<enajera2@cnm.edu>
  *@version 2.0.0
  **/
-class Company {
+class Company implements \JsonSerializable {
+	use ValidateDate;
 	/**
 	 * id for this Company; this is the primary key
 	 * @var int $companyId
@@ -665,5 +666,8 @@ class Company {
 		return ($companies);
 	}
 
-
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		return ($fields);
+	}
 }
