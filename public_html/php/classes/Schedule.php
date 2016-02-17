@@ -11,7 +11,7 @@ require_once ("autoloader.php");
  *
  * @author Dylan McDonald<dmcdonald21@cnm.edu>
  * @author Elaine Thomas<enajera2@cnm.edu>
- * @version 2.0.0
+ * @version 0.0.x
  *
  **/
 
@@ -55,9 +55,9 @@ class Schedule implements \JsonSerializable {
 		} catch(\RangeException $range) {
 			// rethrow the exception to the caller
 			throw(new \RangeException($range->getMessage(), 0, $range));
-//		} catch(\TypeError $typeError) {
-			// rethrow the exception to the caller
-//			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
+		} catch(\TypeError $typeError) {
+			//rethrow the exception to the caller
+			throw(new \TypeError($typeError->getMessage(), 0, $typeError));
 		} catch(\Exception $exception) {
 			// rethrow the exception to the caller
 			throw(new \Exception($exception->getMessage(), 0, $exception));

@@ -96,7 +96,6 @@ class CompanyTest extends TimeCrunchersTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoCompany = Company::getCompanyByCompanyId($this->getPDO(), $company->getCompanyId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("company"));
-		//$this->assertEquals($pdoCompany->getCompanyId(), null);
 		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME);
 		$this->assertEquals($pdoCompany->getCompanyAddress1(), $this-> VALID_COMPANYADDRESS1);
 		$this->assertEquals($pdoCompany->getCompanyAddress2(), $this-> VALID_COMPANYADDRESS2);
@@ -260,7 +259,7 @@ class CompanyTest extends TimeCrunchersTest {
 	}
 
 	/**
-	 * test grabbing all Company
+	 * test grabbing all Companies
 	 **/
 	public function testGetAllValidCompanies() {
 		// count the number of rows and save it for later

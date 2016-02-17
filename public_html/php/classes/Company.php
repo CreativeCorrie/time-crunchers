@@ -7,12 +7,12 @@ require_once ("autoloader.php");
 /**
  * Company, a business
  *
- *A Company refers to a business customer using the Timecrunchers application
- *A Company is an entity with many crews and employees
+ * A Company refers to a business customer using the Timecrunchers application
+ * A Company is an entity with many crews and employees
  *
  * @author Dylan McDonald<dmcdonald21@cnm.edu>
  * @author Elaine Thomas<enajera2@cnm.edu>
- *@version 2.0.0
+ * @version 0.0.x
  **/
 class Company implements \JsonSerializable {
 	use ValidateDate;
@@ -644,7 +644,7 @@ class Company implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getAllCompanies(\PDO $pdo) {
+	public static function getAllValidCompanies(\PDO $pdo) {
 		// create query template
 		$query = "SELECT companyId, companyAttn, companyName, companyAddress1, companyAddress2, companyCity, companyState, companyZip, companyPhone, companyEmail, companyUrl FROM company";
 		$statement = $pdo->prepare($query);
