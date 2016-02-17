@@ -279,19 +279,19 @@ class Access {
 		$statement->execute();
 
 		//build an array of access
-		$accessors = new \SplFixedArray($statement->rowCount());
+		$access = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$access = new Access($row["acccessId"], $row["accessName"]);
-				$accessors[$accessors->key()] = $access;
-				$accessors->next();
+				$access = new Access($row["accessId"], $row["accessName"]);
+				$access[$access->key()] = $access;
+				$access->next();
 			} catch(\Exception $exception) {
 				//if the row couldn't be converted, then rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($accessors);
+		return($access);
 	}
 
 }
