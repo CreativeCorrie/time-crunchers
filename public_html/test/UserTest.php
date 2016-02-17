@@ -1,9 +1,10 @@
 <?php
 namespace Edu\Cnm\Timecrunchers\test;
 
+use Edu\Cnm\Timecrunchers\User;
 use Edu\Cnm\Timecrunchers\Company;
 use Edu\Cnm\Timecrunchers\Crew;
-use Edu\Cnm\Timecrunchers\User;
+use Edu\Cnm\Timecrunchers\Access;
 
 //grab test parameters
 require_once("TimecrunchersTest.php");
@@ -12,17 +13,22 @@ require_once("TimecrunchersTest.php");
 require_once(dirname(__DIR__) . "/php/classes/autoloader.php");
 
 
-class UserTest extends TimecrunchersTest {
+class UserTest extends TimeCrunchersTest {
 	/**
-	 * company that created the user, this is for foreign key
-	 * @var $company
+	 * company that created the user, this is for foreign key relations
+	 * @var \Edu\Cnm\Timecrunchers\Company company
 	 */
 	protected $company = null;
 	/**
-	 * crew the user is assgined to
-	 * @var $crew
+	 * crew the user is assigned to, this is for foreign key relations
+	 * @var \Edu\Cnm\Timecrunchers\Crew crew
 	 */
 	protected $crew = null;
+	/**
+	 * access id is the accessId, this is for foreign key relations
+	 * @var \Edu\Cnm\Timecrunchers\Access access
+	 */
+	protected $access = null;
 	/**
 	 * content of userPhone
 	 * @var string userPhone
@@ -30,14 +36,14 @@ class UserTest extends TimecrunchersTest {
 	protected $VALID_USERPHONE = "PHPUnit test is passing";
 	/**
 	 * content of userFirstName
-	 * @var string $VALID_USERCONTENT
+	 * @var string $VALID_USERFIRSTNAME
 	 **/
 	protected $VALID_USERFIRSTNAME = "PHPUnit test passing";
-	/**
-	 * content of updated userFirstname
-	 * @var string $VALID_USERCONTENT2
-	 */
-	protected $VALID_USERFIRSTNAME2 = "PHPUnit test still passing";
+//	/**
+//	 * content of updated userFirstname
+//	 * @var string $VALID_USERCONTENT2
+//	 */
+//	protected $VALID_USERFIRSTNAME2 = "PHPUnit test still passing";
 	/**
 	 * content of userLastName
 	 * @var string $VALID_USERLASTNAME
@@ -52,17 +58,18 @@ class UserTest extends TimecrunchersTest {
 	 * password of the user
 	 * @var string $VALID_ACTIVATION
 	 */
-	protected $VALID_ACTIVATION = null;
+	protected $VALID_USERACTIVATION = null;
 	/**
-	 *
+	 * hash used to encrypt user info
 	 * @var mixed
 	 */
-	protected $VALID_HASH = null;
+	protected $VALID_USERHASH = null;
 	/**
-	 *
+	 * salt used to encrypt hash
 	 * @var string $VALID_SALT
 	 */
-	protected $VALID_SALT = null;
+	protected $VALID_USERSALT = null;
+
 	/**
 	 * create dependent objects before running each test
 	 */
@@ -70,20 +77,24 @@ class UserTest extends TimecrunchersTest {
 		//run the default setUp() method first
 		parent::setUp();
 
+		//this is for the hash & salt
 		$password = "abc123";
 		$activation = bin2hex(random_bytes(16));
 		$salt = bin2hex(random_bytes(32));
 		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
 
-		//create and insert company access and crew to own the test user
-		// TODO: new company, access, crew
+		//create and insert a new company to own the crew the user belongs to
 		$this->company = new Company(null, $this->company->getCompanyId(), "Kitty Scratchers", "1600 Pennsylvania Ave NW", "Senator's Palace", "Senator Arlo", "WA", "Felis Felix", "20500", "5055551212", "kitty@aol.com", "www.kitty.com");
 		$this->company->insert($this->getPDO());
 
-		$this->crew = new Crew(null, $this->comapny->getCompanyId(), "Albuquerque");
+		// create and insert a crew to own the test Schedule
+		$this->crew = new Crew(null, $this->company->getCompanyId(), "Taco Bell");
 		$this->crew->insert($this->getPDO());
 
-		$this->user = new User(null, $this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Johnny", "Requestorman","test@phpunit.de", $activation, $hash, $salt);
+		//create and insert a new access instance for the user
+		$this->access = new Access(null, $this->access->getAccessName());
+
+		//		$this->user = new User(null, $this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Johnny", "Requestorman","test@phpunit.de", $activation, $hash, $salt);
 	}
 
 	/**
@@ -93,15 +104,23 @@ class UserTest extends TimecrunchersTest {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 
-		//create a new user and insert it into mySQL
-		$user = new User(null, $this->company->getCompanyId());
+		//create a new User and insert it into mySQL
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectation
 		$pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
-		$this->assertEquals($pdoUser->getUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
+		$this->assertEquals($pdoUser->getUserCompanyId(), $this->company->getUserCompanyId());
+		$this->assertEquals($pdoUser->getUserCrewId(), $this->crew->getUserCrewId());
+		$this->assertEquals($pdoUser->getUserAccessId(), $this->access->getUserAccessId());
+		$this->assertSame($pdoUser->getUserPhone(), $this->VALID_USERPHONE);
+		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
+		$this->assertSame($pdoUser->getUserLastName(), $this->VALID_USERLASTNAME);
+		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_USEREMAIL);
+		$this->assertSame($pdoUser->getUserActivation(), $this->VALID_USERACTIVATION);
+		$this->assertSame($pdoUser->getUserHash(), $this->VALID_USERHASH);
+		$this->assertSame($pdoUser->getUserSalt(), $this->VALID_USERSALT);
 	}
 
 	/**

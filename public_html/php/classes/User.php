@@ -23,7 +23,7 @@ class User {
 	private $userCompanyId;
 	/**
 	 * userCrewId
-	 * @var string $userCrewId
+	 * @var int $userCrewId
 	 */
 	private $userCrewId;
 	/**
