@@ -225,7 +225,7 @@ class Request implements \JsonSerializable {
 		}
 		//store the actiontimestamp
 		try {
-			$newRequestActionTimeStamp = $this->validateDate($newRequestActionTimeStamp);
+			$newRequestActionTimeStamp = $this->validateDateTime($newRequestActionTimeStamp);
 		} catch(\InvalidArgumentException $invalidArgument) {
 			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		} catch(\RangeException $range) {
@@ -309,12 +309,13 @@ class Request implements \JsonSerializable {
 
 		//bind the member variable to the place holders
 		$formattedDate=$this->requestTimeStamp->format("Y-m-d H:i:s");
+		$formattedDate2=$this->requestTimeStamp->format("Y-m-d H:i:s");
 		$parameters=["requestRequestorId"=>$this->requestRequestorId,"requestAdminId"=>$this->requestAdminId,
-			"requestTimeStamp"=>$formattedDate,"requestActionTimeStamp"=>$this->requestActionTimeStamp,
+			"requestTimeStamp"=>$formattedDate,"requestActionTimeStamp"=>$formattedDate2,
 			"requestApprove"=>$this->requestApprove,"requestRequestorText"=>$this->requestRequestorText,
 			"requestAdminText"=>$this->requestAdminText];
 		$statement->execute($parameters);
-		$this->requestId=intval($pdo->lastInsertId());
+		$this->requestId = intval($pdo->lastInsertId());
 	}
 
 	public function delete(\PDO $pdo) {
@@ -348,8 +349,8 @@ class Request implements \JsonSerializable {
 			throw(new \PDOException("requestId isn not a positive number"));
 		}
 		// create query template
-		$query = "SELECT requestId, requestRequestorId, requestAdminId,requestTimeStamp ,requestActionTimeStamp
-		,requestApprove ,requestRequestorText ,requestAdminText from request WHERE requestId = :requestId";
+		$query = "SELECT requestId, requestRequestorId, requestAdminId, requestTimeStamp ,requestActionTimeStamp,
+		requestApprove ,requestRequestorText ,requestAdminText from request WHERE requestId = :requestId";
 		$statement = $pdo->prepare($query);
 
 		// bind the request id to the place holder in template
@@ -364,7 +365,7 @@ class Request implements \JsonSerializable {
 			$row = $statement->fetch();
 			if($row !== false) {
 				$request = new Request($row["requestId"], $row["requestRequestorId"], $row["requestAdminId"],
-					$row["requestTimeStamp"], $row["requetActionTimeStamp"], $row["requestApprove"],
+					$row["requestTimeStamp"], $row["requestActionTimeStamp"], $row["requestApprove"],
 					$row["requestRequestorText"], $row["requestAdminText"]);
 			}
 		} catch(\Exception $exception) {
