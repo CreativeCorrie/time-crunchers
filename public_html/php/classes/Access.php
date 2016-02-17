@@ -51,7 +51,7 @@ class Access {
 	/**
 	 * accessor method for access id
 	 *
-	 * @return int value of tweet id
+	 * @return int value of accessId
 	 **/
 	public function getAccessId() {
 		return ($this->accessId);
@@ -272,9 +272,9 @@ class Access {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
-	public function getsAllAccess(\PDO $pdo) {
+	public function getAllAccess(\PDO $pdo) {
 		//create query template
-		$query = "SELECT accessID, accessName";
+		$query = "SELECT accessId accessName";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
