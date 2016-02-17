@@ -206,7 +206,7 @@ class Access {
 		$statement = $pdo->prepare($query);
 
 		//bind the accessName to the place holder template
-		$accessName = "%?accessName?%";
+		$accessName = "%$accessName?%";
 		$parameters = array("accessName" => $accessName);
 		$statement->execute($parameters);
 
@@ -230,7 +230,7 @@ class Access {
 	 * gets access by accessId
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param int $tweetId tweet id to search for
+	 * @param int $accessId access id to search for
 	 * @return int|null Tweet found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
