@@ -40,7 +40,7 @@ require_once ("autoloader.php");
 	 * @throws \typeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct(int $newCrewId = null, int $newCrewCompanyId = null, string $newCrewLocation) {
+	public function __construct(int $newCrewId = null, int $newCrewCompanyId = null, string $newCrewLocation = "") {
 		try {
 			$this->setCrewId($newCrewId);
 			$this->setCrewCompanyId($newCrewCompanyId);
@@ -270,8 +270,8 @@ require_once ("autoloader.php");
 	  **/
 	 public static function getCrewByCrewLocation(\PDO $pdo, string $crewLocation) {
 		 //sanitize the crewLocation before searching
-		 if($crewLocation <=0) {
-			 throw(new \PDOException("crew is not a location"));
+		 if($crewLocation === "") {
+			 throw(new \PDOException("location is not a place"));
 		 }
 
 		 //create query template
@@ -284,6 +284,18 @@ require_once ("autoloader.php");
 
 		 //grab the crew from mySQL
 		 try {
+
+		//create query template
+		 $query = "SELECT crewId, crewCompanyId, crewLocation FROM crew WHERE crewLocation = :crewLocation";
+		 $statement = $pdo->prepare($query);
+
+			 //bind the crew location to the place holder in the template
+			 $parameters = array("crewLocation" => $crewLocation);
+			 $statement->execute($parameters);
+
+			 //grab the crew from mySQL
+
+
 			 $crewLocation = null;
 			 $statement->setFetchMode(\PDO::FETCH_ASSOC);
 			 $row = $statement->fetch();

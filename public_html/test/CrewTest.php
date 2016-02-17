@@ -185,7 +185,7 @@ class CrewTest extends TimecrunchersTest {
 		//grab the data from mySQL and enforce the fields match our expectations
 		$results = Crew::getCrewByCrewLocation($this->getPDO(), $crew->getCrewLocation());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
-		$this->assertCount(1, $results);
+		$this->assertEquals(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\vhooker\\TimecrunchersTest\\Crew", $results);
 
 		//grab the result from the array and validate it
@@ -194,11 +194,12 @@ class CrewTest extends TimecrunchersTest {
 	}
 	/**
 	 * test grabbing a Crew by a location that does not exist
+	 *
+	 * @expectedException PDOExpection
 	 **/
 	public function testGetInvalidCrewByCrewLocation() {
 		//grab a company id that exceeds the maximum allowable company id
 		$crew = Crew::getCrewByCrewLocation($this->getPDO(), "nobody ever went here");
-		$this->assertCount(0, $crew);
 	}
 	/**
 	 * test grabbing all Crews
