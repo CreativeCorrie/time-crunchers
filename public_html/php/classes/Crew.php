@@ -309,6 +309,35 @@ require_once ("autoloader.php");
 		 }
 		 return($crewLocation);
 	 }
+	 /**
+	  *gets all Crews
+	  *
+	  * @param \PDO $pdo PDO connection object
+	  * @return \SplFixedArray SplFixedArray of Crews found or null if not found
+	  * @throws \PDOException when mySQL related errors occur
+	  * @throws \TypeError when variables are not the correct data type
+	  **/
+	 public static function getAllCrews(\PDO $pdo) {
+		// create query template
+		 $query = "SELECT crewId, crewCompanyId, crewLocation FROM crew";
+		 $statement = $pdo->prepare($query);
+		 $statement->execute();
+
+		 // build an array of crewws
+		 $crews = new \SplFixedArray($statement->rowCount());
+		 $statement->setFetchMode(\PDO::FETCH_ASSOC);
+		 while(($row = $statement->fetch()) !== false) {
+			 try {
+				 $crew = new Crew($row["crewId"], $row["crewCompanyId"], $row["crewLocation"]);
+				 $crews[$crews->key()] = $crew;
+				 $crews->next();
+			 } catch(\Exception $exception) {
+				 // if the row couldn't be converted, rethrow it
+				 throw(new \PDOException($exception->getMessage(), 0, $exception));
+			 }
+		 }
+		 return ($crews);
+	 }
 }
 
 //require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
