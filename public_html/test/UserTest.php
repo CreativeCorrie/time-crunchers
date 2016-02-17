@@ -157,9 +157,12 @@ class UserTest extends TimeCrunchersTest {
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoUser = User::getUserbyUserId($this->getPDO(), $user->getUserId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals($pdoUser->userId(), $this->user->userId());
-		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME2);
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
+		$this->assertEquals($pdoUser->getUserCompanyId(), $this->company->getCompanyId());
+		$this->assertEquals($pdoUser->getUserCrewId(), $this->crew->getCrewId());
+		$this->assertSame($pdoUser->getUserPhone(), $this->VALID_USERPHONE)
+		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
+		// TODO:add the rest of these
 	}
 
 	/**
