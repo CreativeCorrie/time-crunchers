@@ -211,19 +211,19 @@ class Access {
 		$statement->execute($parameters);
 
 		//build an array of access
-		$access = new \SplFixedArray($statement->rowCount());
+		$accessors = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 				try {
 					$access = new Access($row["accessId"], $row["accessName"]);
-					$access[$access->key()] = $access;
-					$access->next();
+					$accessors[$accessors->key()] = $access;
+					$accessors->next();
 				} catch(\exception $exception) {
 					//if row couldn't be converted, rethrow it
 					throw(new \PDOException($exception->getMessage(), 0, $exception));
 				}
 			}
-			return ($access);
+			return ($accessors);
 	}
 
 	/**
@@ -274,24 +274,24 @@ class Access {
 	 */
 	public function getAllAccess(\PDO $pdo) {
 		//create query template
-		$query = "SELECT accessId accessName";
+		$query = "SELECT accessId, accessName";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
 		//build an array of access
-		$access = new \SplFixedArray($statement->rowCount());
+		$accessors = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$access = new Access($row["accessId"], $row["accessName"]);
-				$access[$access->key()] = $access;
-				$access->next();
+				$accessors[$accessors->key()] = $access;
+				$accessors->next();
 			} catch(\Exception $exception) {
 				//if the row couldn't be converted, then rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($access);
+		return($accessors);
 	}
 
 }
