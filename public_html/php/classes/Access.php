@@ -185,7 +185,7 @@ class Access {
 	}
 
 	/**
-	 * gets the Tweet by content
+	 * gets the access by accessName
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param string $accessName tweet content to search for
@@ -206,7 +206,7 @@ class Access {
 		$statement = $pdo->prepare($query);
 
 		//bind the accessName to the place holder template
-		$accessName = "%$accessName?%";
+		$accessName = "%$accessName%";
 		$parameters = array("accessName" => $accessName);
 		$statement->execute($parameters);
 
@@ -274,7 +274,7 @@ class Access {
 	 */
 	public function getAllAccess(\PDO $pdo) {
 		//create query template
-		$query = "SELECT accessId, accessName";
+		$query = "SELECT accessId, accessName FROM access";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
