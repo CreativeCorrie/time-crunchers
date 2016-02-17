@@ -99,7 +99,7 @@ class ShiftTest extends TimecrunchersTest {
 
 		//grab the data from mySQL and enforce the fields match our expectations
 		$pdoShift = Shift::getShiftByShiftId($this->getPDO(), $shift->getShiftId());
-		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("user"));
+		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("shift"));
 		$this->assertEquals($pdoShift->getShiftUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoShift->getShiftCrewId(), $this->crew->getCrewId());
 		$this->assertEquals($pdoShift->getShiftAccessId(), $this->access->getAccessId);
@@ -120,7 +120,7 @@ class ShiftTest extends TimecrunchersTest {
 	}
 
 	/**
-	 * test inserting a Shift, editing it, and then updating it
+	 *test inserting a Shift, editing it, and then updating it
 	 **/
 	public function testUpdateValidShift() {
 		//count the number of rows and save it for later
@@ -176,5 +176,92 @@ class ShiftTest extends TimecrunchersTest {
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("shift"));
 	}
 
+	/**
+	 *test deleting a Shift that does not exist
+	 *
+	 * @expectedException PDOException
+	 **/
+	public function testDeleteInvalidShift() {
+		// create a Shift and try to delete it without actually inserting it
+		$shift = new Shift(null, $this->user->getUserId(), $this->crew->getCrewId(), $this->request->getRequestId(), $this->VALID_SHIFTSTARTTIME, $this->VALID_SHIFTDURATION, $this->VALID_SHIFTDATE, $this->VALID_SHIFTDELETE);
+		$shift->insert($this->getPDO());
+	}
+	/**
+	 *test inserting a Shift, and regrabbing it from mySQL
+	 **/
+	public function testGetValidShiftByShiftID() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("shift");
 
+		//create a new Shift and insert to into mySQL
+		$shift = new Shift(null, $this->user->getUserId(), $this->crew->getCrewId(), $this->request->getRequestId(), $this->VALID_SHIFTSTARTTIME, $this->VALID_SHIFTDURATION, $this->VALID_SHIFTDATE, $this->VALID_SHIFTDELETE);
+		$shift->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$pdoShift = Shift::getShiftByShiftId($this->getPDO(), $shift->getShiftId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("shift"));
+		$this->assertEquals($pdoShift->getShiftUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoShift->getShiftCrewId(), $this->crew->getCrewId());
+		$this->assertEquals($pdoShift->getShiftAccessId(), $this->access->getAccessId);
+		$this->assertEquals($pdoShift->getShiftStartTime(), $this->VALID_SHIFTSTARTTIME);
+		$this->assertEquals($pdoShift->getShiftDuration(), $this-> VALID_SHIFTDURATION);
+		$this->assertEquals($pdoShift->getShiftDate(), $this-> VALID_SHIFTDATE);
+		$this->assertEquals($pdoShift->getShiftDelete(), $this->VALID_SHIFTDELETE);
+	}
+	/**
+	 *test grabbing a Shift by a start time that does not exist
+	 **/
+	public function testGetInvalidShiftByShiftID() {
+		// grab a shift id that exceeds the maximum allowable shift start time
+		$shift = shift::getShiftByShiftStartTime($this->getPDO(), "this shift does not exist");
+		$this->assertCount(0, $shift);
+	}
+	/**
+	 *test grabbing a shift by shiftStartTime
+	 **/
+	public function testGetValidShiftByShiftStartTime() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("shift");
+
+		//create a new Shift and insert to into mySQL
+		$shift = new Shift(null, $this->shfit->getShiftId(), $this->VALID_SHIFTSTARTTIME);
+		$shift->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$pdoShift = Shift::getShiftByShiftId($this->getPDO(), $shift->getShiftId());
+		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("shift"));
+		$this->assertEquals($pdoShift->getShiftUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoShift->getShiftCrewId(), $this->crew->getCrewId());
+		$this->assertEquals($pdoShift->getShiftAccessId(), $this->access->getAccessId);
+		$this->assertEquals($pdoShift->getShiftStartTime(), $this->VALID_SHIFTSTARTTIME);
+		$this->assertEquals($pdoShift->getShiftDuration(), $this-> VALID_SHIFTDURATION);
+		$this->assertEquals($pdoShift->getShiftDate(), $this-> VALID_SHIFTDATE);
+		$this->assertEquals($pdoShift->getShiftDelete(), $this->VALID_SHIFTDELETE);
+	}
+	/**
+	 *test grabbing all shifts
+	 **/
+	public function testGetAllValidShifts() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("shift");
+
+		//create a new Shift and insert to into mySQL
+		$shift = new Shift(null, $this->shift->getShiftId(), $this->VALID_SHIFTSTARTTIME);
+		$shift->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$results = Shift::getAllShifts($this->getPDO());
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Timecrunchers\\Sift", $results);
+
+		//grab the result from the array and validate it
+		$pdoShift = $results[0];
+		$this->assertEquals($pdoShift->getShiftUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoShift->getShiftCrewId(), $this->crew->getCrewId());
+		$this->assertEquals($pdoShift->getShiftAccessId(), $this->access->getAccessId);
+		$this->assertEquals($pdoShift->getShiftStartTime(), $this->VALID_SHIFTSTARTTIME);
+		$this->assertEquals($pdoShift->getShiftDuration(), $this-> VALID_SHIFTDURATION);
+		$this->assertEquals($pdoShift->getShiftDate(), $this-> VALID_SHIFTDATE);
+		$this->assertEquals($pdoShift->getShiftDelete(), $this->VALID_SHIFTDELETE);
+	}
 }
