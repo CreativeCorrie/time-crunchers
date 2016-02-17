@@ -261,7 +261,7 @@ class CompanyTest extends TimeCrunchersTest {
 	/**
 	 * test grabbing all Companies
 	 **/
-	public function testGetAllValidCompanies() {
+	public function testGetAllCompanies() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("company");
 
@@ -277,15 +277,15 @@ class CompanyTest extends TimeCrunchersTest {
 
 		// grab the result from the array and validate it
 		$pdoCompany = $results[0];
-		$this->assertEquals($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME);
-		$this->assertEquals($pdoCompany->getCompanyAddress1(), $this-> VALID_COMPANYADDRESS1);
-		$this->assertEquals($pdoCompany->getCompanyAddress2(), $this-> VALID_COMPANYADDRESS2);
-		$this->assertEquals($pdoCompany->getCompanyAttn(), $this->VALID_COMPANYATTN);
-		$this->assertEquals($pdoCompany->getCompanyState(), $this->VALID_COMPANYSTATE);
-		$this->assertEquals($pdoCompany->getCompanyCity(), $this->VALID_COMPANYCITY);
-		$this->assertEquals($pdoCompany->getCompanyZip(), $this->VALID_COMPANYZIP);
-		$this->assertEquals($pdoCompany->getCompanyPhone(), $this->VALID_COMPANYPHONE);
-		$this->assertEquals($pdoCompany->getCompanyEmail(), $this->VALID_COMPANYEMAIL);
-		$this->assertEquals($pdoCompany->getCompanyUrl(), $this->VALID_COMPANYURL);
+		$this->assertSame($pdoCompany->getCompanyName(), $this->VALID_COMPANYNAME);
+		$this->assertSame($pdoCompany->getCompanyAddress1(), $this-> VALID_COMPANYADDRESS1);
+		$this->assertSame($pdoCompany->getCompanyAddress2(), $this-> VALID_COMPANYADDRESS2);
+		$this->assertSame($pdoCompany->getCompanyAttn(), $this->VALID_COMPANYATTN);
+		$this->assertSame($pdoCompany->getCompanyState(), $this->VALID_COMPANYSTATE);
+		$this->assertSame($pdoCompany->getCompanyCity(), $this->VALID_COMPANYCITY);
+		$this->assertSame($pdoCompany->getCompanyZip(), $this->VALID_COMPANYZIP);
+		$this->assertSame($pdoCompany->getCompanyPhone(), $this->VALID_COMPANYPHONE);
+		$this->assertSame($pdoCompany->getCompanyEmail(), $this->VALID_COMPANYEMAIL);
+		$this->assertSame($pdoCompany->getCompanyUrl(), $this->VALID_COMPANYURL);
 	}
 }
