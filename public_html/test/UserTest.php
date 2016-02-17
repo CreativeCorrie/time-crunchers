@@ -4,7 +4,6 @@ namespace Edu\Cnm\Timecrunchers\test;
 use Edu\Cnm\Timecrunchers\User;
 use Edu\Cnm\Timecrunchers\Company;
 use Edu\Cnm\Timecrunchers\Crew;
-use Edu\Cnm\Timecrunchers\Access;
 
 //grab test parameters
 require_once("TimecrunchersTest.php");
@@ -25,11 +24,6 @@ class UserTest extends TimeCrunchersTest {
 	 */
 	protected $crew = null;
 	/**
-	 * access id is the accessId, this is for foreign key relations
-	 * @var \Edu\Cnm\Timecrunchers\Access access
-	 */
-	protected $access = null;
-	/**
 	 * content of userPhone
 	 * @var string userPhone
 	 **/
@@ -39,11 +33,11 @@ class UserTest extends TimeCrunchersTest {
 	 * @var string $VALID_USERFIRSTNAME
 	 **/
 	protected $VALID_USERFIRSTNAME = "PHPUnit test passing";
-//	/**
-//	 * content of updated userFirstname
-//	 * @var string $VALID_USERCONTENT2
-//	 */
-//	protected $VALID_USERFIRSTNAME2 = "PHPUnit test still passing";
+	/**
+	 * content of updated userFirstname
+	 * @var string $VALID_USERCONTENT2
+	 */
+	protected $VALID_USERFIRSTNAME2 = "PHPUnit test still passing";
 	/**
 	 * content of userLastName
 	 * @var string $VALID_USERLASTNAME
@@ -79,9 +73,9 @@ class UserTest extends TimeCrunchersTest {
 
 		//this is for the hash & salt
 		$password = "abc123";
-		$activation = bin2hex(random_bytes(16));
-		$salt = bin2hex(random_bytes(32));
-		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
+		$this->VALID_USERACTIVATION = bin2hex(random_bytes(16));
+		$this->VALID_USERSALT = bin2hex(random_bytes(32));
+		$this->VALID_USERHASH = hash_pbkdf2("sha512", $password, $this->VALID_USERSALT, 262144);
 
 		//create and insert a new company to own the crew the user belongs to
 		$this->company = new Company(null, $this->company->getCompanyId(), "Kitty Scratchers", "1600 Pennsylvania Ave NW", "Senator's Palace", "Senator Arlo", "WA", "Felis Felix", "20500", "5055551212", "kitty@aol.com", "www.kitty.com");
@@ -90,11 +84,6 @@ class UserTest extends TimeCrunchersTest {
 		// create and insert a crew to own the test Schedule
 		$this->crew = new Crew(null, $this->company->getCompanyId(), "Taco Bell");
 		$this->crew->insert($this->getPDO());
-
-		//create and insert a new access instance for the user
-		$this->access = new Access(null, $this->access->getAccessName());
-
-		//		$this->user = new User(null, $this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Johnny", "Requestorman","test@phpunit.de", $activation, $hash, $salt);
 	}
 
 	/**
@@ -118,9 +107,9 @@ class UserTest extends TimeCrunchersTest {
 		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
 		$this->assertSame($pdoUser->getUserLastName(), $this->VALID_USERLASTNAME);
 		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_USEREMAIL);
-		$this->assertSame($pdoUser->getUserActivation(), $this->VALID_USERACTIVATION);
-		$this->assertSame($pdoUser->getUserHash(), $this->VALID_USERHASH);
-		$this->assertSame($pdoUser->getUserSalt(), $this->VALID_USERSALT);
+		$this->assertEquals($pdoUser->getUserActivation(), $this->VALID_USERACTIVATION);
+		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USERHASH);
+		$this->assertEqualsa($pdoUser->getUserSalt(), $this->VALID_USERSALT);
 	}
 
 	/**
@@ -160,9 +149,13 @@ class UserTest extends TimeCrunchersTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
 		$this->assertEquals($pdoUser->getUserCompanyId(), $this->company->getCompanyId());
 		$this->assertEquals($pdoUser->getUserCrewId(), $this->crew->getCrewId());
-		$this->assertSame($pdoUser->getUserPhone(), $this->VALID_USERPHONE)
-		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
-		// TODO:add the rest of these
+		$this->assertSame($pdoUser->getUserPhone(), $this->VALID_USERPHONE);
+		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME2);
+		$this->assertSame($pdoUser->getUserLastName(), $this->VALID_USERLASTNAME);
+		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_USEREMAIL);
+		$this->assertEquals($pdoUser->getUserActivation(), $this->VALID_USERACTIVATION);
+		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USERHASH);
+		$this->assertEquals($pdoUser->getUserSalt(), $this->VALID_USERSALT);
 	}
 
 	/**
@@ -171,8 +164,8 @@ class UserTest extends TimeCrunchersTest {
 	 * @expectedException PDOException
 	 **/
 	public function testUpdateInvalidUser() {
-		//create tweet with a non null userid and watch it fail
-		$user = new User(null, $this->user->getUserId(), $this->VALID_USERFIRSTNAME);
+		//create tweet with a non null userId and watch it fail
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->update($this->getPDO());
 	}
 
@@ -184,7 +177,7 @@ class UserTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("user");
 
 		//create a new user and insert into mySQL
-		$user = new User(null, $this->user->userId(), $this->VALID_USERFIRSTNAME);
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->insert($this->getPDO());
 
 		//delete the user from mySQL
@@ -195,6 +188,15 @@ class UserTest extends TimeCrunchersTest {
 		$pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
 		$this->assertNull($pdoUser);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("user"));
+		$this->assertEquals($pdoUser->getUserCompanyId(), $this->company->getCompanyId());
+		$this->assertEquals($pdoUser->getUserCrewId(), $this->crew->getCrewId());
+		$this->assertSame($pdoUser->getUserPhone(), $this->VALID_USERPHONE);
+		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
+		$this->assertSame($pdoUser->getUserLastName(), $this->VALID_USERLASTNAME);
+		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_USEREMAIL);
+		$this->assertEquals($pdoUser->getUserActivation(), $this->VALID_USERACTIVATION);
+		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USERHASH);
+		$this->assertEquals($pdoUser->getUserSalt(), $this->VALID_USERSALT);
 	}
 
 	/**
@@ -204,26 +206,33 @@ class UserTest extends TimeCrunchersTest {
 	 **/
 	public function testDeleteInvalidUser() {
 		//create a user and try to delete without actually inserting it
-		$user = new User(null, $this->user->getUserId(), $this->VALID_USERFIRSTNAME);
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->delete($user->getPDO());
 	}
 
 	/**
-	 * test inserting a Tweet and regrabbing it from mySQL
+	 * test inserting a Access and regrabbing it from mySQL
 	 **/
 	public function testGetValidUserByUserId() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 
 		//create a new $user and insert into mySQL
-		$user = new User(null, $this->user->getUserId, $this->VALID_USERFIRSTNAME);
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->insert($this->getPDO());
 
 		//grab from the mySQL and enforce the fields match our expectations
 		$pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
-		$this->assertEquals($pdoUser->getUserId(), $this->user->getUserId("user"));
-		$this->assertEquals($pdoUser->getUserFirstName(), $this->user->getUserFirstName);
+		$this->assertEquals($pdoUser->getUserCompanyId(), $this->company->getCompanyId());
+		$this->assertEquals($pdoUser->getUserCrewId(), $this->crew->getCrewId());
+		$this->assertSame($pdoUser->getUserPhone(), $this->VALID_USERPHONE);
+		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
+		$this->assertSame($pdoUser->getUserLastName(), $this->VALID_USERLASTNAME);
+		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_USEREMAIL);
+		$this->assertEquals($pdoUser->getUserActivation(), $this->VALID_USERACTIVATION);
+		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USERHASH);
+		$this->assertEquals($pdoUser->getUserSalt(), $this->VALID_USERSALT);
 	}
 
 	/**
@@ -243,7 +252,7 @@ class UserTest extends TimeCrunchersTest {
 		$numRows = $this->getConnection()->getRowCount("user");
 
 		//create a new user and insert into mySQL
-		$user = new User(null, $this->user->getUserId(), $this->VALID_USERFIRSTNAME);
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
@@ -254,8 +263,15 @@ class UserTest extends TimeCrunchersTest {
 
 		//grab the result from the array and validate it
 		$pdoUser = $results[0];
-		$this->assertEquals($pdoUser->getUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
+		$this->assertEquals($pdoUser->getUserCompanyId(), $this->company->getCompanyId());
+		$this->assertEquals($pdoUser->getUserCrewId(), $this->crew->getCrewId());
+		$this->assertSame($pdoUser->getUserPhone(), $this->VALID_USERPHONE);
+		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
+		$this->assertSame($pdoUser->getUserLastName(), $this->VALID_USERLASTNAME);
+		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_USEREMAIL);
+		$this->assertEquals($pdoUser->getUserActivation(), $this->VALID_USERACTIVATION);
+		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USERHASH);
+		$this->assertEquals($pdoUser->getUserSalt(), $this->VALID_USERSALT);
 	}
 
 	/**
@@ -274,19 +290,8 @@ class UserTest extends TimeCrunchersTest {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 
-		//create a new User and insert into mySQL
-		$user = new User(null, $this->user->geUserId(), $this->VALID_USERFIRSTNAME);
-		$user->insert($this->getPDO());
-
 		//grab the data for mySQL and enforce the field match our expectations
 		$results = User::getAllUsers($this->getPDO());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
-		$this->assertCount(1, $results);
-		$this->assertContainOnlyInstancesOf("Edu\\Cnm\\Timecrunchers\\User", $results);
-
-		//grab the result from the array and validate it
-		$pdoUser = $results[0];
-		$this->assertequals($pdoUser->getUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
+		$this->assertEquals($numRows, $results->count());
 	}
 }

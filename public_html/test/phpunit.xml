@@ -7,7 +7,7 @@
 			<!--<file>RequestTest.php</file>-->
 			<!--<file>ScheduleTest.php</file>-->
 			<!--<file>ShiftTest.php</file>-->
-			<!--<file>UserTest.php</file>-->
+			<file>UserTest.php</file>
 		</testsuite>
 	</testsuites>
 	<filter>

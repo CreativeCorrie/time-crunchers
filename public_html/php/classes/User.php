@@ -648,12 +648,12 @@ class User {
 		$statement->execute();
 
 		//build an array of user
-		$users = new \SPLFixedArray($statement->fetch());
+		$users = new \SPLFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$users = new company($row["userId"], $row["companyId"], $row["crewId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row[userActivation], $row["userHash"], $row["userSalt"]);
-				$users[$users->key()] = $users;
+				$user = new User($row["userId"], $row["companyId"], $row["crewId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row[userActivation], $row["userHash"], $row["userSalt"]);
+				$users[$users->key()] = $user;
 				$users->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
