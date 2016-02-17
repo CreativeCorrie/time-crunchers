@@ -423,7 +423,7 @@ class Shift implements \JsonSerializable {
 	 * @throw  PDOException with mysql related errors
 	 * @throw \InvalidArgumentException if shiftUserId is not an integer
 	 **/
-	public static function getShiftByShiftUserId(PDO $pdo, int $shiftUserId) {
+	public static function getShiftByShiftUserId(\PDO $pdo, int $shiftUserId) {
 
 		// prepare and execute query
 		$query = "SELECT shiftUserId, shiftCrewId, shiftRequestId, shiftStartTime, shiftDuration, shiftDate, shiftDelete
@@ -434,7 +434,7 @@ class Shift implements \JsonSerializable {
 
 		// build an array of shifts
 		$shifts = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 
 		while(($row = $statement->fetch()) !== false) {
 			try {
@@ -460,7 +460,7 @@ class Shift implements \JsonSerializable {
 	 * @param \DateTime $endDate
 	 * @param int $companyId
 	 **/
-
+s
 	public static function getShiftsByDateRange(\PDO $pdo, \DateTime $startDate, \DateTime $endDate, int $companyId) {
 
 		  if ($endDate < $startDate) {

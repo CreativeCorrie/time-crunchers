@@ -127,7 +127,6 @@ class ShiftTest extends TimeCrunchersTest {
 		$shift->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
-		// TODO: this is where Elaine stopped..
 		$pdoShift = Shift::getShiftByShiftId($this->getPDO(), $shift->getShiftId());
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("shift"));
 		$this->assertEquals($pdoShift->getShiftUserId(), $this->user->getUserId());
@@ -242,11 +241,12 @@ class ShiftTest extends TimeCrunchersTest {
 	/**
 	 *test grabbing a Shift by a start time that does not exist
 	 **/
-	public function testGetInvalidShiftByShiftID() {
+	public function testGetInvalidShiftByShiftId() {
 		// grab a shift id that exceeds the maximum allowable shift start time
-		$shift = shift::getShiftByShiftStartTime($this->getPDO(), "this shift does not exist");
+		$shift = shift::getShiftByShiftId($this->getPDO(), "this shift does not exist");
 		$this->assertCount(0, $shift);
 	}
+	//TODO: STOPPED HERE
 	/**
 	 *test grabbing a shift by shiftStartTime
 	 **/
