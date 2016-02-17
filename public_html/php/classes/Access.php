@@ -136,8 +136,8 @@ class Access {
 		$parameters = ["accessName" => $this->accessName];
 		$statement->execute($parameters);
 
-		//update the null access id with what my sqljust gave us
-		$this->accessId = intval($pdo->lastinsertId());
+		//update the null access id with what my sqlj ust gave us
+		$this->accessId = intval($pdo->lastInsertId());
 	}
 
 	/**
@@ -213,18 +213,17 @@ class Access {
 		//build an array of access
 		$access = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false);
-		if($row !== false) {
-			try {
-				$access = new Access($row["accessId"], $row["accessName"]);
-				$access[$access->key()] = $access;
-				$access->next();
-			} catch(\exception $exception) {
-				//if row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
+		while(($row = $statement->fetch()) !== false) {
+				try {
+					$access = new Access($row["accessId"], $row["accessName"]);
+					$access[$access->key()] = $access;
+					$access->next();
+				} catch(\exception $exception) {
+					//if row couldn't be converted, rethrow it
+					throw(new \PDOException($exception->getMessage(), 0, $exception));
+				}
 			}
-		}
-		return ($access);
+			return ($access);
 	}
 
 	/**
