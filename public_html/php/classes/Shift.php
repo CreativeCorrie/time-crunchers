@@ -10,6 +10,7 @@ require_once ("autoloader.php");
  * This can be extended to include more information on shifts for TimeCrunchers
  * This is a weak entity
  *
+ * @author Dylan McDonald<dmcdonald21@cnm.edu>
  * @author Corrie Hooker <creativecorrie@gmail.com> <Team Collaboration: TimeCrunchers>
  **/
 

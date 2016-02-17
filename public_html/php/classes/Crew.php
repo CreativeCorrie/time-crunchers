@@ -9,6 +9,7 @@ require_once ("autoloader.php");
  * This crew style is for data collection and storage for TimeCrunchers
  * This can be extended to include more information on crews for TimeCrunchers
  *
+ * @author Dylan McDonald<dmcdonald21@cnm.edu>
  * @author Corrie Hooker <creativecorrie@gmail.com> <Team Collaboration: TimeCrunchers>
  **/
  class Crew {
