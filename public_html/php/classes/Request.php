@@ -315,12 +315,7 @@ class Request implements \JsonSerializable {
 			throw(new \PDOException("not a new request"));
 		}
 		// create query temaplate
-		$query = "INSERT INTO request(requestRequestorId,requestAdminId,requestTimeStamp,
-			requestActionTimeStamp,requestApprove,requestRequestorText,requestAdminText) VALUES(:requestRequestorId,
-			:requestAdminId,:requestTimeStamp,:requestActionTimeStamp,:requestApprove,:requestRequestorText,
-			:requestAdminText)";
-		$statement = $pdo->prepare($query);
-
+		$query = "INSERT INTO request(requestRequestorId, requestAdminId, requestTimeStamp, requestActionTimeStamp, requestApprove, requestRequestorText, requestAdminText) VALUES(:requestRequestorId, :requestAdminId, :requestTimeStamp, :requestActionTimeStamp, :requestApprove, :requestRequestorText, :requestAdminText)";		$statement = $pdo->prepare($query);
 		//bind the member variable to the place holders
 		$formattedDate = $this->requestTimeStamp->format("Y-m-d H:i:s");
 		$formattedDate2 = $this->requestTimeStamp->format("Y-m-d H:i:s");
@@ -382,7 +377,7 @@ class Request implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the request id to the place holder in template
-		$parameters = array("requestId" => $requestId);
+		$parameters = ["requestId" => $requestId];
 		$statement->execute($parameters);
 
 		// grabs the request from mysql
