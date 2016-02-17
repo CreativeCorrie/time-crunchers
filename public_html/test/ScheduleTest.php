@@ -36,7 +36,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	 * start day of Schedule
 	 * @var \DateTime $VALID_SCHEDULESTARTDATE
 	 **/
-	protected $VALID_SCHEDULESTARTDATE = null;
+	protected $VALID_SCHEDULESTARTDATE = "2016:02:15";
 
 	/**
 	 * create dependent objects before running each test
@@ -72,7 +72,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		$pdoSchedule = Schedule::getScheduleByScheduleId($this->getPDO(), $schedule->getScheduleId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
 		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULESTARTDATE);
+		$this->assertSame($pdoSchedule->getScheduleStartDate()->format("Y:m:d"), $schedule->getScheduleStartDate()->format("Y:m:d"));
 	}
 
 	/**
@@ -105,7 +105,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		$pdoSchedule = Schedule::getScheduleByScheduleId($this->getPDO(), $schedule->getScheduleId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
 		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULESTARTDATE);
+		$this->assertSame($pdoSchedule->getScheduleStartDate()->format("Y:m:d"), $schedule->getScheduleStartDate()->format("Y:m:d"));
 	}
 
 	/**
@@ -166,9 +166,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		$pdoSchedule = Schedule::getScheduleByScheduleId($this->getPDO(), $schedule->getScheduleId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
 		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULESTARTDATE);
-
-
+		$this->assertSame($pdoSchedule->getScheduleStartDate()->format("Y:m:d"), $schedule->getScheduleStartDate()->format("Y:m:d"));
 	}
 
 	/**
@@ -192,21 +190,17 @@ class ScheduleTest extends TimeCrunchersTest {
 		$schedule->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Schedule::getScheduleByScheduleStartDate($this->getPDO(), $schedule->getScheduleStartDate());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Timecrunchers\\Schedule", $results);
-
-//		//get data from database and ensure fields match our expectations
-//		$results = Schedule::getScheduleByScheduleStartDate($this->getPDO(), $schedule->getScheduleStartDate());
-//		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount ("schedule"));
-//		$this->assertCount(1, $results);
-//		$this->assertContainsOnlyInstancesOf ("Edu\\Cnm\\Timecrunchers\\Schedule", $results);
+		$pdoSchedules = Schedule::getScheduleByScheduleStartDate($this->getPDO(), $schedule->getScheduleStartDate());
+		$this->assertTrue($pdoSchedules->count() > 0);
 
 		// grab the result from the array and validate it
-		$pdoSchedule = $results[0];
-		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULESTARTDATE);
+		foreach ($pdoSchedules as $pdoSchedule) {
+			if ($pdoSchedule->getScheduleId()=== $schedule->getScheduleId()) {
+				$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
+				$this->assertEquals($pdoSchedule->getScheduleCrewId(), $schedule->getScheduleCrewId());
+				$this->assertSame($pdoSchedule->getScheduleStartDate()->format("Y:m:d"), $schedule->getScheduleStartDate()->format("Y:m:d"));
+			}
+		}
 	}
 
 	/**
@@ -215,7 +209,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	public function testGetInvalidScheduleByScheduleStartDate() {
 		// grab a schedule by an invalid start date
 		$schedule = Schedule::getScheduleByScheduleStartDate($this->getPDO(), $this->VALID_SCHEDULESTARTDATE);
-		$this->assertCount(1, $schedule);
+		$this->assertCount(0, $schedule);
 	}
 
 	/**
@@ -238,6 +232,6 @@ class ScheduleTest extends TimeCrunchersTest {
 		// grab the result from the array and validate it
 		$pdoSchedule = $results[0];
 		$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoSchedule->getScheduleStartDate(), $this->VALID_SCHEDULESTARTDATE);
+		$this->assertSame($pdoSchedule->getScheduleStartDate()->format("Y:m:d"), $schedule->getScheduleStartDate()->format("Y:m:d"));
 	}
 }

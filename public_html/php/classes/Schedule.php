@@ -247,7 +247,7 @@ class Schedule implements \JsonSerializable {
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
 	public static function getScheduleByScheduleId(\PDO $pdo, int $scheduleId) {
-		//Sanitize
+		//Sanitize the schedule id first
 		if($scheduleId <= 0) {
 			throw(new \PDOException("schedule id must be positive"));
 		}
@@ -256,7 +256,7 @@ class Schedule implements \JsonSerializable {
 		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule WHERE scheduleId = :scheduleId";
 		$statement = $pdo->prepare($query);
 
-		//Binds
+		//Bind the schedule id to the place holder in the template
 		$parameters = array("scheduleId" => $scheduleId);
 		$statement->execute($parameters);
 
@@ -276,49 +276,44 @@ class Schedule implements \JsonSerializable {
 	}
 
 	/**
-	 * Gets the Schedule by schedule start date
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @param \DateTime $scheduleStartDate to search for
-	 * @return Schedule|null Schedule found or null if not found
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when variables are not the correct data type
-	 **/
-	public static function getScheduleByScheduleStartDate(\PDO $pdo, $scheduleStartDate) {
-		// sanitize the scheduleId before searching
-		try {
-			$scheduleStartDate = self::validateDate($scheduleStartDate);
-		} catch(\Exception $invalidArgument) {
-			throw(new \PDOException($invalidArgument->getMessage(), 0, $invalidArgument));
+	* gets the Schedule by scheduleStartDate
+	*
+	* @param \PDO $pdo PDO connection object
+	* @param \DateTime $scheduleStartDate schedule content to search for
+	* @return \SplFixedArray SplFixedArray of Schedules found
+	* @throws \PDOException when mySQL related errors occur
+	* @throws \TypeError when variables are not the correct data type
+	**/
+	public static function getScheduleByScheduleStartDate(\PDO $pdo, \DateTime $scheduleStartDate) {
+		// verify the start date before searching
+		if(empty($scheduleStartDate) === true) {
+			throw(new \PDOException("schedule start date invalid"));
 		}
 
-		// create two dates as a range
-		$sunrise = $scheduleStartDate->format("Y-m-d 00:00:00");
-		$sunset = $scheduleStartDate->format("Y-m-d 23:59:59");
-
 		// create query template
-		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule WHERE scheduleStartDate >= :sunrise AND scheduleStartDate <= :sunset";
+		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule WHERE scheduleStartDate = :scheduleStartDate";
 		$statement = $pdo->prepare($query);
 
 		// bind the schedule start date to the place holder in the template
-		$parameters = ["sunrise" => $sunrise, "sunset" => $sunset];
+		$date=$scheduleStartDate->format("Y:m:d");
+		$parameters = array("scheduleStartDate" => $date);
 		$statement->execute($parameters);
 
-		// grab the schedule from mySQL
-		try {
-			$schedule = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$schedule = new Schedule ($row["scheduleId"], $row["scheduleCrewId"], $row["scheduleStartDate"]);
+		// build an array of schedules
+		$schedules = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$schedule = new Schedule($row["scheduleId"], $row["scheduleCrewId"], $row["scheduleStartDate"]);
+				$schedules[$schedules->key()] = $schedule;
+				$schedules->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return ($schedule);
+		return ($schedules);
 	}
-
 
 	/**
 	 * gets all Schedules
