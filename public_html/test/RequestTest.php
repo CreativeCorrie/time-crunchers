@@ -189,7 +189,7 @@ class RequestTest extends TimecrunchersTest {
 	 **/
 	public function testUpdateInvalidRequest() {
 		// create a Request with a non null request id and watch it fail
-		$request = new Request(TimeCrunchersTest::INVALID_KEY, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
+		$request = new Request(null , $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP,
 			$this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->update($this->getPDO());
 	}
