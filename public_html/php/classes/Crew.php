@@ -275,39 +275,29 @@ require_once ("autoloader.php");
 			 throw(new \PDOException("location is not a place"));
 		 }
 
-		 //create query template
-		 $query = "SELECT crewId, crewCompanyId, crewLocation FROM crew WHERE crewLocation = :crewLocation";
-		 $statement = $pdo->prepare($query);
-
-		 //bind the crew location to the place holder in the template
-		 $parameters = array("crewLocation" => $crewLocation);
-		 $statement->execute($parameters);
-
 		 //grab the crew from mySQL
 		 try {
 
 		//create query template
-		 $query = "SELECT crewId, crewCompanyId, crewLocation FROM crew WHERE crewLocation = :crewLocation";
-		 $statement = $pdo->prepare($query);
+			 $query = "SELECT crewId, crewCompanyId, crewLocation FROM crew WHERE crewLocation = :crewLocation";
+			 $statement = $pdo->prepare($query);
 
 			 //bind the crew location to the place holder in the template
 			 $parameters = array("crewLocation" => $crewLocation);
 			 $statement->execute($parameters);
 
 			 //grab the crew from mySQL
-
-
-			 $crewLocation = null;
 			 $statement->setFetchMode(\PDO::FETCH_ASSOC);
 			 $row = $statement->fetch();
 			 if($row !== false) {
-				 $crewLocation = new Crew($row["crewId"], $row["crewCompanyId"], $row["crewLocation"]);
+				 $crew = new Crew($row["crewId"], $row["crewCompanyId"], $row["crewLocation"]);
+				 return($crew);
 			 }
 		 } catch(\Exception $exception) {
 			 //if the row couldn't be converted, rethrow it
 			 throw(new \PDOException($exception->getMessage(), 0, $exception));
 		 }
-		 return($crewLocation);
+
 	 }
 	 /**
 	  *gets all Crews
@@ -323,7 +313,7 @@ require_once ("autoloader.php");
 		 $statement = $pdo->prepare($query);
 		 $statement->execute();
 
-		 // build an array of crewws
+		 // build an array of crews
 		 $crews = new \SplFixedArray($statement->rowCount());
 		 $statement->setFetchMode(\PDO::FETCH_ASSOC);
 		 while(($row = $statement->fetch()) !== false) {
@@ -339,10 +329,3 @@ require_once ("autoloader.php");
 		 return ($crews);
 	 }
 }
-
-//require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-//$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
-//$company = new Company(null, "Kitty Scratchers", "1600 Pennsylvania Ave NW", "Senator's Palace", "Senator Arlo", "WA", "Felis Felix", "20500", "+12125551212", "kitty@aol.com", "www.kitty.com");
-//$company->insert($pdo);
-//$crew = new Crew(null, $company->getCompanyId(), "Taco Bell");
-//$crew->insert($pdo);

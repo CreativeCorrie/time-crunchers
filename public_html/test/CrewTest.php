@@ -183,23 +183,20 @@ class CrewTest extends TimecrunchersTest {
 		$crew->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
-		$results = Crew::getCrewByCrewLocation($this->getPDO(), $crew->getCrewLocation());
+		$pdoCrew = Crew::getCrewByCrewLocation($this->getPDO(), $crew->getCrewLocation());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
-		$this->assertEquals(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\vhooker\\TimecrunchersTest\\Crew", $results);
+		$this->assertEquals($pdoCrew->getCrewId(), $crew->getCrewId());
+		$this->assertEquals($pdoCrew->getCrewLocation(), $crew->getCrewLocation());
+		$this->assertEquals($pdoCrew->getCrewCompanyId(), $crew->getCrewCompanyId());
 
-		//grab the result from the array and validate it
-		$pdoCrew = $results[0];
-		$this->assertEquals($pdoCrew->getCrewLocation(), $this->VALID_CREWLOCATION);
 	}
 	/**
 	 * test grabbing a Crew by a location that does not exist
-	 *
-	 * @expectedException PDOExpection
 	 **/
 	public function testGetInvalidCrewByCrewLocation() {
 		//grab a company id that exceeds the maximum allowable company id
 		$crew = Crew::getCrewByCrewLocation($this->getPDO(), "nobody ever went here");
+		$this->assertNull ($crew);
 	}
 	/**
 	 * test grabbing all Crews
@@ -213,13 +210,15 @@ class CrewTest extends TimecrunchersTest {
 		$crew->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
-		$results = Crew::getAllCrews($this->getPDO());
-		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("crew"));
-		$this->assertCount(1, $results);
-		$this->assertContainsONlyInstancesOf("Edu\\Cnm\\vhooker\\TimecrunchersTest\\Crew", $results);
-		//grab the result from the array and validate it
-		$pdoCrew = $results[0];
-		$this->assertEquals($pdoCrew->getCrewCompanyId(), $this->company->getCompanyId());
-		$this->assertEquals($pdoCrew->getCrewLocation(), $this->VALID_CREWLOCATION);
+		$pdoCrews = Crew::getAllCrews($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
+
+		foreach($pdoCrews as $pdoCrew) {
+			if($pdoCrew->getCrewId() === $crew->getCrewId()) {
+				$this->assertEquals($pdoCrew->getCrewId(), $crew->getCrewId());
+				$this->assertEquals($pdoCrew->getCrewLocation(), $crew->getCrewLocation());
+				$this->assertEquals($pdoCrew->getCrewCompanyId(), $crew->getCrewCompanyId());
+			}
+		}
 	}
 }
