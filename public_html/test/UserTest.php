@@ -26,7 +26,7 @@ class UserTest extends TimeCrunchersTest {
 	protected $crew = null;
 	/**
 	 * access the user is assigned, this is the foreign key relations
-	 *@var \Edu\Cnm\Timecrunchers\Access access
+	 * @var \Edu\Cnm\Timecrunchers\Access access
 	 */
 	protected $access = null;
 	/**
@@ -53,7 +53,7 @@ class UserTest extends TimeCrunchersTest {
 	 * content of userEmail
 	 * @var string $VALID_USEREMAIL
 	 **/
-	protected $VALID_USEREMAIL = "PHPUnit test is passing";
+	protected $VALID_USEREMAIL = "test@email.com";
 	/**
 	 * password of the user
 	 * @var string $VALID_ACTIVATION
@@ -84,7 +84,7 @@ class UserTest extends TimeCrunchersTest {
 		$this->VALID_USERHASH = hash_pbkdf2("sha512", $password, $this->VALID_USERSALT, 262144);
 
 		//create and insert a new company to own the crew the user belongs to
-		$this->company = new Company(null, "Taco B.","404 Taco St.","suite:666","Attention!!","NM","Burque","87106","5055551111","tb@hotmail.com","www.tocobell.com");
+		$this->company = new Company(null, "Taco B.", "404 Taco St.", "suite:666", "Attention!!", "NM", "Burque", "87106", "5055551111", "tb@hotmail.com", "www.tocobell.com");
 		$this->company->insert($this->getPDO());
 
 		// create and insert a crew to own the test Schedule
@@ -129,7 +129,7 @@ class UserTest extends TimeCrunchersTest {
 	 **/
 	public function testInsertInvalidUser() {
 		//create new user with a null user Id and watch it fail
-		$user = new User(TimeCrunchersTest::INVALID_KEY, $this->company->getCompanyId(), $this->crew->getCrewId(),$this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
+		$user = new User(TimeCrunchersTest::INVALID_KEY, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
 		$user->insert($this->getPDO());
 	}
 
@@ -243,7 +243,7 @@ class UserTest extends TimeCrunchersTest {
 	 **/
 	public function testGetInvalidUserByUserId() {
 		//grab a user id that exceeds the maximum allowable user id
-		$user = User::getUserByUserId($this->getPDO(),TimeCrunchersTest::INVALID_KEY);
+		$user = User::getUserByUserId($this->getPDO(), TimeCrunchersTest::INVALID_KEY);
 		$this->assertNull($user);
 	}
 
@@ -256,12 +256,10 @@ class UserTest extends TimeCrunchersTest {
 
 		//create a new user and insert into mySQL
 		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
-		//var_dump($user);
 		$user->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
 		$results = User::getUserByUserEmail($this->getPDO(), $user->getUserEmail());
-		var_dump($results);
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
 		$this->assertEquals($results->getUserCompanyId(), $this->company->getCompanyId());
 		$this->assertEquals($results->getUserCrewId(), $this->crew->getCrewId());
@@ -281,13 +279,17 @@ class UserTest extends TimeCrunchersTest {
 	public function testGetInvalidUserByUserEmail() {
 		//grab a user id that exceeds the maximum allowable user id
 		$user = User::getUserByUserEmail($this->getPDO(), "nobody is a user");
-		$this->assertCount(0, $user);
+		$this->assertNull($user);
 	}
 
 	/**
 	 * test grabbing all users
 	 */
 	public function testGetAllValidUsers() {
+		//create a new user and insert into mySQL
+		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
+		$user->insert($this->getPDO());
+
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 

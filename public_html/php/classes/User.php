@@ -462,8 +462,8 @@ class User {
 	 * @param \TypeError if $newUserSalt is not a string
 	 */
 	public function setUserSalt(string $newUserSalt) {
-	//verification that $userSalt is secure
-	$newUserSalt = strtolower(trim($newUserSalt));
+		//verification that $userSalt is secure
+		$newUserSalt = strtolower(trim($newUserSalt));
 
 		//make sure that user activation cannot be null
 		if(ctype_xdigit($newUserSalt) === false) {
@@ -492,7 +492,7 @@ class User {
 			throw(new \PDOException("not a new user"));
 		}
 
-		//create quarry template
+		//create query template
 		$query = "INSERT INTO user(userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt) VALUES(:userCompanyId, :userCrewId, :userAccessId, :userPhone, :userFirstName, :userLastName,:userEmail, :userActivation, :userHash, :userSalt)";
 		$statement = $pdo->prepare($query);
 
@@ -558,35 +558,31 @@ class User {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
-	public function getUserByUserEmail(\PDO $pdo, string $userEmail) {
+	public static function getUserByUserEmail(\PDO $pdo, string $userEmail) {
 		//sanitize the description before searching
 		$userEmail = trim($userEmail);
 		$userEmail = filter_var($userEmail, FILTER_SANITIZE_EMAIL);
 		if(empty($userEmail) === true) {
 			throw(new \PDOException("user email invalid"));
 		}
-
 		//create query template
-		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM user WHERE userEmail = :userEmail" ;
+		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM user WHERE userEmail = :userEmail";
 		$statement = $pdo->prepare($query);
-
 		//bind users with place holder in the template
-		$userEmail = "%$userEmail%";
+		//$userEmail = "%$userEmail%";
 		$parameters = array("userEmail" => $userEmail);
 		$statement->execute($parameters);
-
-		//build an array of users
-			try {
-				$user = null;
-				$statement->setFetchMode(\PDO::FETCH_ASSOC);
-				$row = $statement->fetch();
-				if($row !== false) {
-				$user = new User($row["userId"], $row["companyId"], $row["userCrewId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
+		try {
+			$user = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$user = new User($row["userId"], $row["userCompanyId"], $row["userCrewId"], $row["userAccessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
 			}
-		}	catch(\Exception $exception) {
-				//if row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
+		} catch(\Exception $exception) {
+			//if row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
 		return ($user);
 	}
 
@@ -650,7 +646,7 @@ class User {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user = new User($row["userId"], $row["companyId"], $row["crewId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
+				$user = new User($row["userId"], $row["userCompanyId"], $row["userCrewId"], $row["userAccessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
 				$users[$users->key()] = $user;
 				$users->next();
 			} catch(\Exception $exception) {

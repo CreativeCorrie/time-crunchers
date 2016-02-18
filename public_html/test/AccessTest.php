@@ -166,8 +166,6 @@ class AccessTest extends TimeCrunchersTest {
 		//grab the data form mySQL and enforce the fields match our expectations
 		$results = Access::getAccessByAccessName($this->getPDO(), $access->getAccessName());
 
-		var_dump($results);
-
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("access"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Timecrunchers\\access", $results);
