@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS company;
 
 
 CREATE TABLE company (
-	companyId v,
+	companyId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	companyName VARCHAR(128) NOT NULL,
 	companyAddress1 VARCHAR(128) NOT NULL,
 	companyAddress2 VARCHAR(128),
@@ -49,6 +49,7 @@ CREATE TABLE user(
 	userActivation CHAR(32),
 	userHash CHAR(128),
 	userSalt CHAR(64),
+	UNIQUE(userEmail),
 	INDEX(userCompanyId),
 	INDEX(userCrewId),
 	INDEX(userAccessId),

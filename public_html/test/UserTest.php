@@ -256,26 +256,23 @@ class UserTest extends TimeCrunchersTest {
 
 		//create a new user and insert into mySQL
 		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
+		//var_dump($user);
 		$user->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
 		$results = User::getUserByUserEmail($this->getPDO(), $user->getUserEmail());
+		var_dump($results);
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Timecrunhcers\\User", $results);
-
-		//grab the result from the array and validate it
-		$pdoUser = $results[0];
-		$this->assertEquals($pdoUser->getUserCompanyId(), $this->company->getCompanyId());
-		$this->assertEquals($pdoUser->getUserCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoUser->getUserAccessId(), $this->access->getAccessId());
-		$this->assertSame($pdoUser->getUserPhone(), $this->VALID_USERPHONE);
-		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
-		$this->assertSame($pdoUser->getUserLastName(), $this->VALID_USERLASTNAME);
-		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_USEREMAIL);
-		$this->assertEquals($pdoUser->getUserActivation(), $this->VALID_USERACTIVATION);
-		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USERHASH);
-		$this->assertEquals($pdoUser->getUserSalt(), $this->VALID_USERSALT);
+		$this->assertEquals($results->getUserCompanyId(), $this->company->getCompanyId());
+		$this->assertEquals($results->getUserCrewId(), $this->crew->getCrewId());
+		$this->assertEquals($results->getUserAccessId(), $this->access->getAccessId());
+		$this->assertSame($results->getUserPhone(), $this->VALID_USERPHONE);
+		$this->assertSame($results->getUserFirstName(), $this->VALID_USERFIRSTNAME);
+		$this->assertSame($results->getUserLastName(), $this->VALID_USERLASTNAME);
+		$this->assertSame($results->getUserEmail(), $this->VALID_USEREMAIL);
+		$this->assertEquals($results->getUserActivation(), $this->VALID_USERACTIVATION);
+		$this->assertEquals($results->getUserHash(), $this->VALID_USERHASH);
+		$this->assertEquals($results->getUserSalt(), $this->VALID_USERSALT);
 	}
 
 	/**

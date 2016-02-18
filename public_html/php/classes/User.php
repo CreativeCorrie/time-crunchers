@@ -651,7 +651,7 @@ class User {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user = new User($row["userId"], $row["companyId"], $row["crewId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row[userActivation], $row["userHash"], $row["userSalt"]);
+				$user = new User($row["userId"], $row["companyId"], $row["crewId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
 				$users[$users->key()] = $user;
 				$users->next();
 			} catch(\Exception $exception) {
