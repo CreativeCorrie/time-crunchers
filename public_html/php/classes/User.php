@@ -561,7 +561,7 @@ class User {
 	public function getUserByUserEmail(\PDO $pdo, string $userEmail) {
 		//sanitize the description before searching
 		$userEmail = trim($userEmail);
-		$userEmail = filter_var($userEmail, FILTER_SANITIZE_EMAILl);
+		$userEmail = filter_var($userEmail, FILTER_SANITIZE_EMAIL);
 		if(empty($userEmail) === true) {
 			throw(new \PDOException("user email invalid"));
 		}
