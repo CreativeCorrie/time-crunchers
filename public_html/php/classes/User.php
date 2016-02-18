@@ -563,11 +563,11 @@ class User {
 		$userEmail = trim($userEmail);
 		$userEmail = filter_var($userEmail, FILTER_SANITIZE_EMAILl);
 		if(empty($userEmail) === true) {
-			throw(new \PDOException("user first name invalid"));
+			throw(new \PDOException("user email invalid"));
 		}
 
 		//create query template
-		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM userFirstName WHERE userFirstName = :userFirstName";
+		$query = "SELECT userId, userCompanyId,userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM user WHERE userEmail = :userEmail" ;
 		$statement = $pdo->prepare($query);
 
 		//bind users with place holder in the template
@@ -608,11 +608,11 @@ class User {
 		}
 
 		//create query template
-		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM userFirstName WHERE userFirstName = :userFirstName";
+		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM user WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
 
 		//bind the userId to place a holder in template
-		$parameters = ["userId" => $userId];
+		$parameters = array("userId" => $userId);
 		$statement->execute($parameters);
 
 		//grab the user from mySQL
@@ -642,7 +642,7 @@ class User {
 
 	public static function getAllUsers(\PDO $pdo) {
 		//create query update
-		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM userFirstName WHERE userFirstName = :userFirstName";
+		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM user";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
