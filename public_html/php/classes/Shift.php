@@ -460,7 +460,6 @@ class Shift implements \JsonSerializable {
 	 **/
 
 	public static function getShiftsByDateRange(\PDO $pdo, \DateTime $startDate, \DateTime $endDate, int $companyId) {
-
 		  if ($endDate < $startDate) {
 			 throw (new \RangeException("end date cannot be less than"));
 		 }
