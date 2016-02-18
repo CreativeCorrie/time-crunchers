@@ -396,7 +396,6 @@ class User {
 	public function setUserActivation(string $newUserActivation) {
 		//verify $userActivation is secure
 		$newUserActivation = strtolower(trim($newUserActivation));
-		var_dump($newUserActivation);
 
 		//make sure that user activation cannot be null
 		if(ctype_xdigit($newUserActivation) === false) {
@@ -614,7 +613,7 @@ class User {
 
 		//bind the userId to place a holder in template
 		$parameters = array("userId" => $userId);
-		$statement->exectute($parameters);
+		$statement->execute($parameters);
 
 		//grab the tweet from mySQL
 		try {
