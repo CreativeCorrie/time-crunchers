@@ -151,8 +151,8 @@ class UserTest extends TimeCrunchersTest {
 		$user->setUserEmail($this->VALID_USEREMAIL);
 		$user->setUserActivation($this->VALID_USERACTIVATION);
 		$user->setUserHash($this->VALID_USERHASH);
-		$user->getUserSalt($this->VALID_USERSALT);
-		$user->update($this->PDO());
+		$user->setUserSalt($this->VALID_USERSALT);
+		$user->update($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoUser = User::getUserbyUserId($this->getPDO(), $user->getUserId());
