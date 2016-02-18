@@ -576,19 +576,18 @@ class User {
 		$statement->execute($parameters);
 
 		//build an array of users
-		$users = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
 			try {
+				$user = null;
+				$statement->setFetchMode(\PDO::FETCH_ASSOC);
+				$row = $statement->fetch();
+				if($row !== false) {
 				$user = new User($row["userId"], $row["companyId"], $row["userCrewId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
-				$user[$users->key()] = $user;
-				$users->next();
-			} catch(\exception $exception) {
-				//if the row could not be thrown, rethrow it
-				throw(new \PDOException($exception->getmessage(), 0, $exception));
 			}
-		}
-		return ($users);
+		}	catch(\Exception $exception) {
+				//if row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		return ($user);
 	}
 
 	/**
