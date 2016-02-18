@@ -77,14 +77,14 @@ class Shift implements \JsonSerializable {
 	 * @param int $newShiftRequestId of the request for time off(on) in the shift
 	 * @param string $newShiftStartTime of the time a shift starts
 	 * @param int $newShiftDuration of the duration of the shift
-	 * @param \DateTime $newShiftDate of the time of the shift
+	 * @param string $newShiftDate of the time of the shift
 	 * @param boolean $newShiftDelete of the boolean return of a soft deleted shift
 	 * @throws \InvalidArgumentException if data types are ot valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \typeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct(int $newShiftId = null, int $newShiftUserId, int $newShiftCrewId, int $newShiftRequestId, string $newShiftStartTime, int $newShiftDuration,                                   \DateTime $newShiftDate, bool $newShiftDelete = false) {
+	public function __construct(int $newShiftId = null, int $newShiftUserId, int $newShiftCrewId, int $newShiftRequestId, string $newShiftStartTime, int $newShiftDuration, string $newShiftDate, bool $newShiftDelete = false) {
 		try{
 			$this->setShiftId($newShiftId);
 			$this->setShiftUserId($newShiftUserId);
@@ -126,6 +126,10 @@ class Shift implements \JsonSerializable {
 	 * @throws \UnexpectedValueException if $newShiftId is ot an integer
 	 **/
 	public function setShiftId(int $newShiftId = null) {
+		if($newShiftId === null) {
+			$this->shiftId = null;
+			return;
+		}
 		//verify the shift id is valid
 		$newShiftId = filter_var($newShiftId, FILTER_VALIDATE_INT);
 		if($newShiftId === false) {
@@ -325,16 +329,20 @@ class Shift implements \JsonSerializable {
 	public function insert(\PDO $pdo) {
 		//enforce the shiftId is null (i.e., don't insert a crew that already exists)
 		if($this->shiftCrewId !== null) {
-			throw(new  \PDOException("not a new shift"));
+			throw(new \PDOException("not a new shift"));
 		}
 
 		//create query template
 		$query = "INSERT INTO shift (shiftUserId, shiftCrewId, shiftRequestId, shiftStartTime, shiftDuration, shiftDate, shiftDelete)
-                VALUES(:shiftUserId, :shiftCrewId, :shiftRequestId, :shiftStartTime, :shiftDuration, :shiftDate, :shiftdelete)";
+                VALUES(:shiftUserId, :shiftCrewId, :shiftRequestId, :shiftStartTime, :shiftDuration, :shiftDate, :shiftDelete)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftTime" => $this->shiftStartTime, "shiftDate" => $this->shiftDate,
+		$parameters = ["shiftUserId" => $this->shiftUserId,
+							"shiftCrewId" => $this->shiftCrewId,
+							"shiftRequestId" => $this->shiftRequestId,
+							"shiftTime" => $this->shiftStartTime,
+							"shiftDate" => $this->shiftDate,
                      "shiftDelete" => $this->shiftDelete];
 		$statement->execute($parameters);
 

@@ -111,11 +111,11 @@ class ShiftTest extends TimeCrunchersTest {
 
 //*****************
 		//create and insert a User to test Shift
-		$this->requestor = new User(null, $this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Johnny", "Requestorman","test@phpunit.de", $activation, $hash, $salt);
+		$this->requestor = new User(null, $this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Johnny", "Requestorman","test1@phpunit.de", $activation, $hash, $salt);
 		$this->requestor->insert($this->getPDO());
 
 		//create and insert a User to test Shift
-		$this->admin = new User(null, $this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Dave", "Adminman","test@phpunit.de", $activation, $hash, $salt);
+		$this->admin = new User(null, $this->company->getCompanyId(),$this->crew->getCrewId(),$this->access->getAccessId(), "5551212", "Dave", "Adminman","test2@phpunit.de", $activation, $hash, $salt);
 		$this->admin->insert($this->getPDO());
 
 		//create and insert a Request to test Shift
