@@ -198,17 +198,6 @@ class UserTest extends TimeCrunchersTest {
 		//grab the data from mySQL and enforce the user does not exist
 		$pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
 		$this->assertNull($pdoUser);
-		$this->assertEquals($numRows, $this->getConnection()->getRowCount("user"));
-		$this->assertEquals($pdoUser->getUserCompanyId(), $this->company->getCompanyId());
-		$this->assertEquals($pdoUser->getUserCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoUser->getUserAccessId(), $this->access->getAccessId());
-		$this->assertSame($pdoUser->getUserPhone(), $this->VALID_USERPHONE);
-		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME);
-		$this->assertSame($pdoUser->getUserLastName(), $this->VALID_USERLASTNAME);
-		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_USEREMAIL);
-		$this->assertEquals($pdoUser->getUserActivation(), $this->VALID_USERACTIVATION);
-		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USERHASH);
-		$this->assertEquals($pdoUser->getUserSalt(), $this->VALID_USERSALT);
 	}
 
 	/**
@@ -259,7 +248,7 @@ class UserTest extends TimeCrunchersTest {
 	}
 
 	/**
-	 * test grabbing a user by user first Name
+	 * test grabbing a user by userEmail
 	 **/
 	public function testGetValidUserByUserEmail() {
 		//count the number of rows and save it for later

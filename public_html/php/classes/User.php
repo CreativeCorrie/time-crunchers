@@ -558,7 +558,7 @@ class User {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
-	public function getUserByEmail(\PDO $pdo, string $userEmail) {
+	public function getUserByUserEmail(\PDO $pdo, string $userEmail) {
 		//sanitize the description before searching
 		$userEmail = trim($userEmail);
 		$userEmail = filter_var($userEmail, FILTER_SANITIZE_EMAILl);
