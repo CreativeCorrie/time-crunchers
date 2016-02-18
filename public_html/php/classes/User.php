@@ -604,11 +604,11 @@ class User {
 	public static function getUserByUserId(\PDO $pdo, int $userId) {
 		//sanitize the user id before searching
 		if($userId <= 0) {
-			throw(new \PDOException("tweet is not positive"));
+			throw(new \PDOException("userId is not positive"));
 		}
 
 		//create query template
-		$query = "SELECT userId, userCompanyId, userCrewId, accessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt";
+		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM userFirstName WHERE userFirstName = :userFirstName";
 		$statement = $pdo->prepare($query);
 
 		//bind the userId to place a holder in template
