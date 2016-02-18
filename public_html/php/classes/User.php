@@ -567,12 +567,12 @@ class User {
 		}
 
 		//create query template
-		$query = "SELECT userId, userCompanyId,userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM user WHERE userEmail = :userEmail" ;
+		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM user WHERE userEmail = :userEmail" ;
 		$statement = $pdo->prepare($query);
 
 		//bind users with place holder in the template
 		$userEmail = "%$userEmail%";
-		$parameters = array("userFirstName" => $userEmail);
+		$parameters = array("userEmail" => $userEmail);
 		$statement->execute($parameters);
 
 		//build an array of users

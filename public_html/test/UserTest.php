@@ -146,7 +146,7 @@ class UserTest extends TimeCrunchersTest {
 
 		//edit the user and update it in mySQL
 		$user->setUserPhone($this->VALID_USERPHONE);
-		$user->setUserFirstName($this->VALID_USERFIRSTNAME);
+		$user->setUserFirstName($this->VALID_USERFIRSTNAME2);
 		$user->setUserLastName($this->VALID_USERLASTNAME);
 		$user->setUserEmail($this->VALID_USEREMAIL);
 		$user->setUserActivation($this->VALID_USERACTIVATION);
@@ -209,7 +209,7 @@ class UserTest extends TimeCrunchersTest {
 
 		//create a user and try to delete without actually inserting it
 		$user = new User(null, $this->company->getCompanyId(), $this->crew->getCrewId(), $this->access->getAccessId(), $this->VALID_USERPHONE, $this->VALID_USERFIRSTNAME, $this->VALID_USERLASTNAME, $this->VALID_USEREMAIL, $this->VALID_USERACTIVATION, $this->VALID_USERHASH, $this->VALID_USERSALT);
-		$user->delete($user->getPDO());
+		$user->delete($this->getPDO());
 	}
 
 	/**
