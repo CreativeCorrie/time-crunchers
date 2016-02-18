@@ -487,7 +487,7 @@ class User {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function insert(\PDO $pdo) {
-		//enforce Userid is null
+		//enforce userId is null
 		if($this->userId !== null) {
 			throw(new \PDOException("not a new user"));
 		}
@@ -642,7 +642,7 @@ class User {
 
 	public static function getAllUsers(\PDO $pdo) {
 		//create query update
-		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt";
+		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM userFirstName WHERE userFirstName = :userFirstName";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
