@@ -261,7 +261,7 @@ class UserTest extends TimeCrunchersTest {
 	/**
 	 * test grabbing a user by user first Name
 	 **/
-	public function testGetValidUserByUserFirstName() {
+	public function testGetValidUserByUserEmail() {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 
@@ -270,7 +270,7 @@ class UserTest extends TimeCrunchersTest {
 		$user->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
-		$results = User::getUserByUserFirstName($this->getPDO(), $user->getUserFirstName());
+		$results = User::getUserByUserEmail($this->getPDO(), $user->getUserEmail());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Timecrunhcers\\User", $results);
