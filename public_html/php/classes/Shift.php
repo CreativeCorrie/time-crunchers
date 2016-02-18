@@ -449,8 +449,6 @@ class Shift implements \JsonSerializable {
 		}
 		return $shifts;
 	}
-
-
 	/**
 	 * getShiftByDateRange get all the shifts for each day of the submitted range
 	 * The Other While loop cycles through the date range
@@ -460,7 +458,7 @@ class Shift implements \JsonSerializable {
 	 * @param \DateTime $endDate
 	 * @param int $companyId
 	 **/
-s
+
 	public static function getShiftsByDateRange(\PDO $pdo, \DateTime $startDate, \DateTime $endDate, int $companyId) {
 
 		  if ($endDate < $startDate) {
