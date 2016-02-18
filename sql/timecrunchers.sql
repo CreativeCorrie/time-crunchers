@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS company;
 
 
 CREATE TABLE company (
-	companyId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	companyId v,
 	companyName VARCHAR(128) NOT NULL,
 	companyAddress1 VARCHAR(128) NOT NULL,
 	companyAddress2 VARCHAR(128),
