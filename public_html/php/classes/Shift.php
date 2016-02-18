@@ -84,7 +84,7 @@ class Shift implements \JsonSerializable {
 	 * @throws \typeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct(int $newShiftId = null, int $newShiftUserId, int $newShiftCrewId, int $newShiftRequestId, string $newShiftStartTime, int $newShiftDuration, string $newShiftDate, bool $newShiftDelete = false) {
+	public function __construct($newShiftId, int $newShiftUserId, int $newShiftCrewId, int $newShiftRequestId, string $newShiftStartTime, int $newShiftDuration, string $newShiftDate, bool $newShiftDelete = false) {
 		try{
 			$this->setShiftId($newShiftId);
 			$this->setShiftUserId($newShiftUserId);
@@ -102,7 +102,7 @@ class Shift implements \JsonSerializable {
 			throw(new \RangeException($range->getMessage(), 0, $range));
 		} catch(\TypeError $typeError) {
 			//rethrow the exception to the caller
-			throw (new  \TypeError($typeError->getMessage(), 0, $typeError));
+			throw (new \TypeError($typeError->getMessage(), 0, $typeError));
 		} catch(\Exception $exception) {
 			//rethrow the exception to the caller
 			throw(new \Exception($exception->getMessage(), 0, $exception));
@@ -125,16 +125,14 @@ class Shift implements \JsonSerializable {
 	 * @param int $newShiftId new value of shift id
 	 * @throws \UnexpectedValueException if $newShiftId is ot an integer
 	 **/
-	public function setShiftId(int $newShiftId = null) {
+	public function setShiftId($newShiftId) {
 		if($newShiftId === null) {
 			$this->shiftId = null;
 			return;
 		}
-		//verify the shift id is valid
-		$newShiftId = filter_var($newShiftId, FILTER_VALIDATE_INT);
-		if($newShiftId === false) {
-			throw(new \UnexpectedValueException("shift id is not a valid integer"));
-		}
+		if($newShiftId < 0 ) {
+			throw(new \OutOfRangeException("shift id needs to be positive"));
+			}
 		//convert and store the shift id
 		$this->shiftId = intval($newShiftId);
 	}
@@ -328,7 +326,7 @@ class Shift implements \JsonSerializable {
 	 **/
 	public function insert(\PDO $pdo) {
 		//enforce the shiftId is null (i.e., don't insert a crew that already exists)
-		if($this->shiftCrewId !== null) {
+		if($this->shiftId !== null) {
 			throw(new \PDOException("not a new shift"));
 		}
 
@@ -338,12 +336,13 @@ class Shift implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["shiftUserId" => $this->shiftUserId,
-							"shiftCrewId" => $this->shiftCrewId,
+		$parameters = ["shiftUserId"    => $this->shiftUserId,
+							"shiftCrewId"    => $this->shiftCrewId,
 							"shiftRequestId" => $this->shiftRequestId,
-							"shiftTime" => $this->shiftStartTime,
-							"shiftDate" => $this->shiftDate,
-                     "shiftDelete" => $this->shiftDelete];
+							"shiftStartTime" => $this->shiftStartTime,
+							"shiftDuration"  => $this->shiftDuration,
+							"shiftDate"      => $this->shiftDate->format("Y:m:d"),
+                     "shiftDelete"    => $this->shiftDelete];
 		$statement->execute($parameters);
 
 		//update the null shiftId with what mySQL just gave us
@@ -405,16 +404,15 @@ class Shift implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//bind the shift id to the place holder in the template
-		$parameters = array("shiftId => $shiftId");
+		$parameters = array("shiftId" => $shiftId);
 		$statement->execute($parameters);
 
 		//grab the shift from mySQL
 		try {
-			$shift = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$shift = new Shift($row["shiftId"], $row["shiftUserId"], $row["shiftCrewId"], $row["shiftRequestId"], $row ["shiftTime"], $row["shiftDate"], $row["shiftDelete"]);
+				$shift = new Shift($row["shiftId"], $row["shiftUserId"], $row["shiftCrewId"], $row["shiftRequestId"], $row ["shiftStartTime"], $row ["shiftDuration"], $row["shiftDate"], $row["shiftDelete"]);
 				}
 			} catch(\Exception $exception) {
 				//if the row couldn't be converted, rethrow it
