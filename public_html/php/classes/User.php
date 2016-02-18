@@ -617,7 +617,7 @@ class User {
 
 		//grab the tweet from mySQL
 		try {
-			$tweet = null;
+			$user = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
