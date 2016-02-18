@@ -541,7 +541,7 @@ class User {
 		}
 
 		//create query template
-		$query = "UPDATE user SET userId = :userId, userCompanyId = :userCompanyId, userCrewId = :userCrewId, userAccessId = :userAccessId, userPhone = :userPhoneId, userFirstName = :userFirstName, userLastName = :userLastName, userEmail = :userEmail, userActivation = :userActivation, userHash = :userHash, userSalt = :userSalt";
+		$query = "UPDATE user SET userId = :userId, userCompanyId = :userCompanyId, userCrewId = :userCrewId, userAccessId = :userAccessId, userPhone = :userPhone, userFirstName = :userFirstName, userLastName = :userLastName, userEmail = :userEmail, userActivation = :userActivation, userHash = :userHash, userSalt = :userSalt";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
