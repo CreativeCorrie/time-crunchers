@@ -160,10 +160,10 @@ class UserTest extends TimeCrunchersTest {
 		$this->assertEquals($pdoUser->getUserCompanyId(), $this->company->getCompanyId());
 		$this->assertEquals($pdoUser->getUserCrewId(), $this->crew->getCrewId());
 		$this->assertEquals($pdoUser->getUserAccessId(), $this->access->getAccessId());
-		$this->assertSame($pdoUser->getUserPhone(), $this->VALID_USERPHONE);
-		$this->assertSame($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME2);
-		$this->assertSame($pdoUser->getUserLastName(), $this->VALID_USERLASTNAME);
-		$this->assertSame($pdoUser->getUserEmail(), $this->VALID_USEREMAIL);
+		$this->assertEquals($pdoUser->getUserPhone(), $this->VALID_USERPHONE);
+		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_USERFIRSTNAME2);
+		$this->assertEquals($pdoUser->getUserLastName(), $this->VALID_USERLASTNAME);
+		$this->assertEquals($pdoUser->getUserEmail(), $this->VALID_USEREMAIL);
 		$this->assertEquals($pdoUser->getUserActivation(), $this->VALID_USERACTIVATION);
 		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_USERHASH);
 		$this->assertEquals($pdoUser->getUserSalt(), $this->VALID_USERSALT);
