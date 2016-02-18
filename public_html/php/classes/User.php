@@ -612,10 +612,10 @@ class User {
 		$statement = $pdo->prepare($query);
 
 		//bind the userId to place a holder in template
-		$parameters = array("userId" => $userId);
+		$parameters = ["userId" => $userId];
 		$statement->execute($parameters);
 
-		//grab the tweet from mySQL
+		//grab the user from mySQL
 		try {
 			$user = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
