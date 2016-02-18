@@ -621,7 +621,7 @@ class User {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$user = new User($row["userId"], $row["companyId"], $row["userCrewId"], $row["accessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
+				$user = new User($row["userId"], $row["userCompanyId"], $row["userCrewId"], $row["userAccessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
 			}
 		} catch(\Exception $exception) {
 			//if the row couldn't be converted, rethrow it
