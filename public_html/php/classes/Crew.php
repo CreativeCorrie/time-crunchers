@@ -12,7 +12,7 @@ require_once ("autoloader.php");
  * @author Dylan McDonald<dmcdonald21@cnm.edu>
  * @author Corrie Hooker <creativecorrie@gmail.com> <Team Collaboration: TimeCrunchers>
  **/
- class Crew {
+ class Crew implements \JsonSerializable{
 
 	/**id for crew; this is the primary key.
 	 * @var int crewId
@@ -327,5 +327,15 @@ require_once ("autoloader.php");
 			 }
 		 }
 		 return ($crews);
+	 }
+	 /**
+	  * formats the state variables for JSON serialization
+	  *
+	  * @return array resulting state variables to serialize
+	  **/
+	 public function jsonSerialize() {
+		 $fields = get_object_vars($this);
+		 $fields["shiftDate"] = intval($this->shiftDate->format("U")) * 1000;
+		 return($fields);
 	 }
 }
