@@ -10,7 +10,7 @@ require_once("autoloader.php");
  *
  * @author Denzyl Fontaine
  **/
-class Access {
+class Access implements \JsonSerializable {
 	/**
 	 * id for access is accessId ; this is the primary key
 	 * @var int $accessId
@@ -76,7 +76,7 @@ class Access {
 			throw(new \RangeException("access id is not positive"));
 		}
 
-		//convert and store the tweet id
+		//convert and store the access id
 		$this->accessId = $newAccessId;
 	}
 
@@ -172,7 +172,7 @@ class Access {
 	public function update(\PDO $pdo) {
 		//enforce accessId is not null
 		if($this->accessId === null) {
-			throw(new \PDOException("unable to update a tweet that does not exist"));
+			throw(new \PDOException("unable to update access that does not exist"));
 		}
 
 		//create query template
@@ -294,4 +294,13 @@ class Access {
 		return($accessors);
 	}
 
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		return($fields);
+	}
 }

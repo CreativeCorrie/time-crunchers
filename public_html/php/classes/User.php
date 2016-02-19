@@ -9,7 +9,7 @@ require_once("autoloader.php");
  * a user is given access and is able to check a shift, create a password, input their information
  * @author Denzyl Fontaine
  */
-class User {
+class User implements \JsonSerializable {
 	/**
 	 * id for the user is userId, this is the primary key
 	 *
@@ -553,8 +553,8 @@ class User {
 	 * gets the user by Email
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param string $userEmail tweet content to search for
-	 * @return \SplFixedArray SplFixedArray of Tweets found
+	 * @param string $userEmail access content to search for
+	 * @return \SplFixedArray SplFixedArray of users found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
@@ -655,5 +655,14 @@ class User {
 			}
 		}
 		return ($users);
+	}
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		return($fields);
 	}
 }
