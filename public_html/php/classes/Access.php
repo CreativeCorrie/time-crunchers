@@ -61,7 +61,7 @@ class Access {
 	 * mutator method for access id
 	 *
 	 * @param int|null $newAccessId new value for access id
-	 * @throws \RangeException if $newAccessId is not postive
+	 * @throws \RangeException if $newAccessId is not positive
 	 * @throws \TypeError if $newAccessId is not an integer
 	 */
 	public function setAccessId(int $newAccessId = null) {
@@ -188,8 +188,8 @@ class Access {
 	 * gets the access by accessName
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param string $accessName tweet content to search for
-	 * @return \SplFixedArray SplFixedArray of Tweets found
+	 * @param string $accessName access content to search for
+	 * @return \SplFixedArray SplFixedArray of accessors found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
@@ -231,7 +231,7 @@ class Access {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param int $accessId access id to search for
-	 * @return int|null Tweet found or null if not found
+	 * @return int|null access found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
@@ -268,7 +268,7 @@ class Access {
 	 * gets all accessors
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @return \SplFixedArray SplFixedArray of Tweets found or null if not found
+	 * @return \SplFixedArray SplFixedArray of accessors found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
