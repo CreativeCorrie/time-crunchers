@@ -285,7 +285,7 @@ class ShiftTest extends TimeCrunchersTest {
 		//count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("shift");
 
-		//create a new Shift and insert to into mySQL
+		//create a new Shift and insert it into mySQL
 		$shift = new Shift(null, $this->shift->getShiftId(), $this->VALID_SHIFTSTARTTIME);
 		$shift->insert($this->getPDO());
 

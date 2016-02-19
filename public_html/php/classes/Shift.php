@@ -23,7 +23,7 @@ class Shift implements \JsonSerializable {
 	private $shiftId;
 
 	/**
-	 * shiftuserId, to identify the user
+	 * shiftUserId, to identify the user
 	 * @var int $shiftUserId
 	 **/
 	private $shiftUserId;
@@ -49,22 +49,22 @@ class Shift implements \JsonSerializable {
 	private $shiftStartTime;
 
 	/**
-	 * shiftStartTime, identifies the duration time of a shift
-	 * @var int shiftStartTime
+	 * shiftDuration, identifies the duration time of a shift
+	 * @var int shiftDuration
 	 **/
 	private $shiftDuration;
 
 	/**
-	 *shiftDay, identifies the day of shift
-	 * @var int shiftDay
+	 *shiftDate, identifies the day of shift
+	 * @var int shiftDate
 	 *this may be a timestamp?
 	 **/
 	private $shiftDate;
 
 	/**
-	 *shiftDeleted, identifies or an action for un-needed shifts
+	 *shiftDelete, identifies or an action for un-needed shifts
 	 * this is a soft delete
-	 * @var int shiftDeleted
+	 * @var int shiftDelete
 	 **/
 	private $shiftDelete;
 
