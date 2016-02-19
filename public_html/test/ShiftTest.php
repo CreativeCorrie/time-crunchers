@@ -226,7 +226,7 @@ class ShiftTest extends TimeCrunchersTest {
 		$shift->insert($this->getPDO());
 	}
 	/**
-	 *test inserting a Shift, and regrabbing it from mySQL
+	 *test inserting a Shift, and re-grabbing it from mySQL
 	 **/
 	public function testGetValidShiftByShiftID() {
 		//count the number of rows and save it for later
@@ -292,7 +292,6 @@ class ShiftTest extends TimeCrunchersTest {
 		//grab the data from mySQL and enforce the fields match our expectations
 		$results = Shift::getAllShifts($this->getPDO());
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Timecrunchers\\Sift", $results);
 
 		//grab the result from the array and validate it
 		$pdoShift = $results[0];

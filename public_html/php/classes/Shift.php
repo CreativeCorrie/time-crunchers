@@ -43,14 +43,14 @@ class Shift implements \JsonSerializable {
 	private $shiftRequestId;
 
 	/**
- * shiftTime, identifies the start time of a shift
- * @var int shiftTime
+ * shiftStartTime, identifies the start time of a shift
+ * @var int shiftStartTime
  **/
 	private $shiftStartTime;
 
 	/**
-	 * shiftTime, identifies the duration time of a shift
-	 * @var int shiftTime
+	 * shiftStartTime, identifies the duration time of a shift
+	 * @var int shiftStartTime
 	 **/
 	private $shiftDuration;
 
@@ -323,6 +323,7 @@ class Shift implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySLQ related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
+	 * @format to re-format the shift date
 	 **/
 	public function insert(\PDO $pdo) {
 		//enforce the shiftId is null (i.e., don't insert a crew that already exists)
@@ -380,7 +381,7 @@ class Shift implements \JsonSerializable {
 		$statement = $pdo->Prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftTime" => $this->shiftStartTime, "shiftDate" => $this->shiftDate, "shiftDelete" => $this->shiftDelete];
+		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftStartTime" => $this->shiftStartTime, "shiftDuration" => $this->shiftDuration, "shiftDate" => $this->shiftDate, "shiftDelete" => $this->shiftDelete];
 		$statement->execute($parameters);
 	}
 
@@ -391,7 +392,7 @@ class Shift implements \JsonSerializable {
 	 * @param int $shiftId shift is to search for
 	 * @return Shift|null Shift found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
-	 * @hrows \TypeError when variable are not the correct data type
+	 * @throws \TypeError when variable are not the correct data type
 	 **/
 	public static function getShiftByShiftId(\PDO $pdo,int $shiftId) {
 		//sanitize the shiftId before searching
