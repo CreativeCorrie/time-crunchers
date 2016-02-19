@@ -396,7 +396,7 @@ class Shift implements \JsonSerializable {
 	 **/
 	public static function getShiftByShiftId(\PDO $pdo,int $shiftId) {
 		//sanitize the shiftId before searching
-		if($shiftId <=0) {
+		if($shiftId <= 0) {
 			throw(new \PDOException("shift id is not positive"));
 		}
 
@@ -410,6 +410,7 @@ class Shift implements \JsonSerializable {
 
 		//grab the shift from mySQL
 		try {
+			$shift = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
@@ -424,9 +425,9 @@ class Shift implements \JsonSerializable {
 	/**
 	 *function to retrieve shifts by shiftUserId
 	 *
-	 * @param PDO $pdo PDO is a connection object
+	 * @param \PDO $pdo PDO is a connection object
 	 * @param int $shiftUserId - shiftUserId for shifts to be viewed
-	 * @return SplFixedArray with all shifts found
+	 * @return SplFixedArray SplFixedArray with all shifts found
 	 * @throw  PDOException with mysql related errors
 	 * @throw \InvalidArgumentException if shiftUserId is not an integer
 	 **/
@@ -468,7 +469,7 @@ class Shift implements \JsonSerializable {
 
 	public static function getShiftsByDateRange(\PDO $pdo, \DateTime $startDate, \DateTime $endDate, int $companyId) {
 		  if ($endDate < $startDate) {
-			 throw (new \RangeException("end date cannot be less than"));
+			 throw (new \RangeException("end date cannot be less than start date"));
 		 }
 
 		$sDate = $startDate->format("Y:m:d");
@@ -489,7 +490,7 @@ class Shift implements \JsonSerializable {
 
 			// build an array of shifts
 			$shifts = new \SplFixedArray($statement->rowCount());
-			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 
 			// pull shifts for each day in the range
 			while(($row = $statement->fetch()) !== false) {
