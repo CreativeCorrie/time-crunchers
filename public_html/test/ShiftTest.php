@@ -301,19 +301,23 @@ class ShiftTest extends TimeCrunchersTest {
 		//create a new Shift and insert it into mySQL
 		$shift = new Shift(null, $this->requestor->getUserId(), $this->crew->getCrewId(), $this->request->getRequestId(), $this->VALID_SHIFTSTARTTIME, $this->VALID_SHIFTDURATION, $this->VALID_SHIFTDATE, $this->VALID_SHIFTDELETE);
 		$shift->insert($this->getPDO());
+		$this->AssertEquals($numRows + 1, $this->getConnection()->getRowCount("shift"));
 
 		//grab the data from mySQL and enforce the fields match our expectations
-		$results = Shift::getAllShifts($this->getPDO());
-		$this->assertCount(1, $results);
+		$pdoShifts = Shift::getAllShifts($this->getPDO());
+
 
 		//grab the result from the array and validate it
-		$pdoShift = $results[0];
-		$this->assertEquals($pdoShift->getShiftUserId(), $this->requestor->getUserId());
-		$this->assertEquals($pdoShift->getShiftCrewId(), $this->crew->getCrewId());
-		$this->assertEquals($pdoShift->getShiftRequestId(), $this->request->getRequestId());
-		$this->assertEquals($pdoShift->getShiftStartTime(), $this->VALID_SHIFTSTARTTIME);
-		$this->assertEquals($pdoShift->getShiftDuration(), $this->VALID_SHIFTDURATION);
-		$this->assertEquals($pdoShift->getShiftDate()->format("Y-m-d"), $this->VALID_SHIFTDATE);
-		$this->assertEquals($pdoShift->getShiftDelete(), $this->VALID_SHIFTDELETE);
+		foreach($pdoShifts as $pdoShift) {
+			if($pdoShift->getShiftId() === $shift->getShiftId()) {
+				$this->assertEquals($pdoShift->getShiftUserId(), $this->requestor->getUserId());
+				$this->assertEquals($pdoShift->getShiftCrewId(), $this->crew->getCrewId());
+				$this->assertEquals($pdoShift->getShiftRequestId(), $this->request->getRequestId());
+				$this->assertEquals($pdoShift->getShiftStartTime(), $this->VALID_SHIFTSTARTTIME);
+				$this->assertEquals($pdoShift->getShiftDuration(), $this->VALID_SHIFTDURATION);
+				$this->assertEquals($pdoShift->getShiftDate()->format("Y-m-d"), $this->VALID_SHIFTDATE);
+				$this->assertEquals($pdoShift->getShiftDelete(), $this->VALID_SHIFTDELETE);
+			}
+		}
 	}
 }
