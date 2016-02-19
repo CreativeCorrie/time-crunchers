@@ -88,7 +88,7 @@ require_once ("autoloader.php");
 
 		 if($newCrewId === false) {
 		 throw(new \InvalidArgumentException("crew id is not an integer"));
-	 }
+	 	}
 
 		 //throws range exception if crew id is not a positive integer
 		 if($newCrewId <= 0) {
@@ -297,7 +297,6 @@ require_once ("autoloader.php");
 			 //if the row couldn't be converted, rethrow it
 			 throw(new \PDOException($exception->getMessage(), 0, $exception));
 		 }
-
 	 }
 
 	 /**
@@ -336,7 +335,6 @@ require_once ("autoloader.php");
 	  **/
 	 public function jsonSerialize() {
 		 $fields = get_object_vars($this);
-		 $fields["shiftDate"] = intval($this->shiftDate->format("U")) * 1000;
 		 return($fields);
 	 }
 }
