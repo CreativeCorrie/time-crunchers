@@ -381,7 +381,8 @@ class Shift implements \JsonSerializable {
 		$statement = $pdo->Prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftStartTime" => $this->shiftStartTime, "shiftDuration" => $this->shiftDuration, "shiftDate" => $this->shiftDate, "shiftDelete" => $this->shiftDelete];
+		$sDate = $this->shiftDate->format("Y-m-d");
+		$parameters = ["shiftUserId" => $this->shiftUserId, "shiftCrewId" => $this->shiftCrewId, "shiftRequestId" => $this->shiftRequestId, "shiftStartTime" => $this->shiftStartTime, "shiftDuration" => $this->shiftDuration, "shiftDate" => $sDate, "shiftDelete" => $this->shiftDelete, "shiftId" =>$this->shiftId];
 		$statement->execute($parameters);
 	}
 
@@ -401,7 +402,7 @@ class Shift implements \JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT shiftId, shiftUserId, shiftCrewId, ShiftRequestId, shiftStartTime, shiftDuration, shiftDate, shiftDelete FROM shift WHERE shiftId = :shiftId";
+		$query = "SELECT shiftId, shiftUserId, shiftCrewId, shiftRequestId, shiftStartTime, shiftDuration, shiftDate, shiftDelete FROM shift WHERE shiftId = :shiftId";
 		$statement = $pdo->prepare($query);
 
 		//bind the shift id to the place holder in the template
@@ -472,8 +473,8 @@ class Shift implements \JsonSerializable {
 			 throw (new \RangeException("end date cannot be less than start date"));
 		 }
 
-		$sDate = $startDate->format("Y:m:d");
-		$eDate = $endDate->format("Y:m:d");
+		$sDate = $startDate->format("Y-m-d");
+		$eDate = $endDate->format("Y-m-d");
 
 			// prepare and execute query
 			$query = "SELECT shiftId, shiftUserId, shiftCrewId, shiftRequestId, shiftStartTime, shiftDuration, shiftDate, shiftDelete

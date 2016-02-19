@@ -58,7 +58,7 @@ class UserTest extends TimeCrunchersTest {
 	 * password of the user
 	 * @var string $VALID_ACTIVATION
 	 */
-	protected $VALID_USERACTIVATION = null;
+	protected $VALID_USERACTIVATION = "fluffy kitty";
 	/**
 	 * hash used to encrypt user info
 	 * @var mixed

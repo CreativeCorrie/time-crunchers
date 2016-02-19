@@ -270,7 +270,7 @@ class CompanyTest extends TimeCrunchersTest {
 		$company->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Company::getCompanyByCompanyName($this->getPDO(), $company->getCompanyName());
+		$results = Company::getAllCompanies($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("company"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Timecrunchers\\Company", $results);
