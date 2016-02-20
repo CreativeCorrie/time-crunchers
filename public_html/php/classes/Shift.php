@@ -361,7 +361,7 @@ class Shift implements \JsonSerializable {
 		if($this->shiftId === null) {
 			throw(new \PDOException("unable to delete a shift that does not exist"));
 		}
-		$this->shiftDelete=1;
+		$this->shiftDelete = 0;
 		$this->update($pdo);
 	}
 	/**
