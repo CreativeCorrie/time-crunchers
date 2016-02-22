@@ -66,9 +66,9 @@ try {
 				$reply->data = $company;
 			}
 		} else {
-			$companys = Company::getAllCompanys($pdo);
-			if($companys !== null) {
-				$reply->data = $companys;
+			$companies = Company::getAllCompanies($pdo);
+			if($companies !== null) {
+				$reply->data = $companies;
 			}
 		}
 
