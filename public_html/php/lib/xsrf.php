@@ -46,6 +46,7 @@ function setXsrfCookie($cookiePath = "/") {
 	}
 	setcookie("XSRF-TOKEN", $_SESSION["XSRF-TOKEN"], 0, $cookiePath);
 }
+
 /**
  * verifies the X-XSRF-TOKEN sent by Angular matches the XSRF-TOKEN saved in this session.
  * This function returns nothing, but will throw an exception when something does not match

@@ -178,7 +178,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		$this->assertNull($schedule);
 	}
 
-	/** RIGHT HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	/**
 	 * test grabbing a Schedule by schedule start date
 	 **/
 	public function testGetScheduleByScheduleStartDate() {
