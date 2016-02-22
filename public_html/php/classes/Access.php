@@ -308,4 +308,24 @@ class Access implements \JsonSerializable {
 		$fields = get_object_vars($this);
 		return($fields);
 	}
+
+	/**
+	 * DRY method of detecting whether an Admin is logged in
+	 *
+	 * @return bool true if Admin false if not
+	 * @throws  \RuntimeException when the user is not logged in
+	 **/
+	public static function isAdminLoggedIn() {
+		if(session_status() !== PHP_SESSION_ACTIVE) {
+			session_start();
+		}
+		if(empty($_SESSION["accessLevel"]) === true) {
+			throw(new \RuntimeException("Please log in or sign up."));
+		}
+		if($_SESSION["accessLevel"]->getAccessId() === Access::ADMIN) {
+			return(true);
+		} else {
+			return(false);
+		}
+	}
 }

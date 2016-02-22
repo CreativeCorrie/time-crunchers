@@ -38,9 +38,7 @@ try {
 
 	//if a put and a user, temporarily give admin access to the user
 	if($method === "PUT") {
-		if($_SESSION["accessLevel"]) {
 
-		}
 	}
 	//sanitize the id
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
