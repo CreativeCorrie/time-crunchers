@@ -25,7 +25,7 @@ $reply->data = null;
 
 try {
 	// create the Pusher connection
-	$config = readConfig("/etc/apache2/capstone-mysql/breadbasket.ini");
+	$config = readConfig("/etc/apache2/capstone-mysql/timecrunch.ini");
 	$pusherConfig = json_decode($config["pusher"]);
 	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["debug" => true, "encrypted" => true]);
 
