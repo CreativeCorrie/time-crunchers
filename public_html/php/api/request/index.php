@@ -38,7 +38,11 @@ try {
 
 	//if a put and a user, temporarily give admin access to the user
 	if($method === "PUT") {
-
+		if(Access::isAdminLoggedIn() === true) {
+			// adminy thingz herez
+		} else {
+			throw(new RuntimeException("Must be an Administrator to access."));
+		}
 	}
 	//sanitize the id
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
