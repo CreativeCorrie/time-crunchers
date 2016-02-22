@@ -24,10 +24,6 @@ $reply->status = 200;
 $reply->data = null;
 
 try {
-	// create the Pusher connection
-	$config = readConfig("/etc/apache2/capstone-mysql/timecrunch.ini");
-	$pusherConfig = json_decode($config["pusher"]);
-	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["debug" => true, "encrypted" => true]);
 
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/timecrunch.ini");
@@ -39,29 +35,34 @@ try {
 	}
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
-	//if a put and a volunteer, temporarily give admin access to the user
 
+	//if a put and a user, temporarily give admin access to the user
 	if($method === "PUT") {
-		$_SESSION["user"]->userAccessId(true);
+		if($_SESSION["accessLevel"]) {
+
+		}
 	}
 	//sanitize the id
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
-		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
+		throw(new InvalidArgumentException("id not found", 405));
 	}
 
+
 	//sanitize and trim the other fields
-	$requestId = filter_input(INPUT_GET, "requestId", FILTER_VALIDATE_INT);
+
 	$requestRequestorId = filter_input(INPUT_GET, "requestRequestorId", FILTER_VALIDATE_INT);
 	$requestAdminId = filter_input(INPUT_GET, "requestAdminId", FILTER_VALIDATE_INT);
-	$requestTimeStamp = filter_input(INPUT_GET, "requestTimeStamp", FILTER_SANITIZE_STRING);
-	$requestActionTimeStamp = filter_input(INPUT_GET, "requestTimeStamp", FILTER_SANITIZE_STRING);
+ //enclose optionals in if block
 	$requestApprove = filter_input(INPUT_GET, "requestApprove", FILTER_VALIDATE_BOOLEAN);
 	$requestRequestorText = filter_input(INPUT_GET, "requestRequestorText", FILTER_SANITIZE_STRING);
 	$requestAdminText = filter_input(INPUT_GET, "requestAdminText", FILTER_SANITIZE_STRING);
-	//handle all RESTful calls to request//get some or all requests
+	if(empty($requestTimeStamp) === true){
+
+	}
+	//handle all RESTful calls to request, get some or all requests
 	if($method === "GET") {
 		//set an XSRF cookie on get requests
 		setXsrfCookie("/");
@@ -69,7 +70,7 @@ try {
 		//get the request based on the given field
 		if(empty($id) === false) {
 			$reply->data = Request::getRequestByRequestId($pdo, $id);
-		} elseif(empty($orgId) === false);
+		} elseif(empty($companyId) === false);
 	//	} else {
 
 			// not sure about this...
@@ -109,12 +110,11 @@ try {
 					throw(new RuntimeException("Request does not exist", 404));
 				}
 				$request = Request::getRequestByRequestId($pdo, $id);
-				$request = setRequestTimeStamp($requestObject->requestTimeStamp);
-				$request = setRequestActionTimeStamp($requestObject->requestActionTimeStamp);
-				$request = setRequestRequestorText($requestObject->requestRequestorText);
-				$request = setRequestAdminText($requestObject->requetAdminText);
+				$request->setRequestTimeStamp($requestObject->requestTimeStamp);
+				$request->setRequestActionTimeStamp($requestObject->requestActionTimeStamp);
+				$request->setRequestRequestorText($requestObject->requestRequestorText);
+				$request->setRequestAdminText($requestObject->requetAdminText);
 				$request->update($pdo);
-				$pusher->trigger("request", "update", $request);
 				//if this isn't supposed to be an admin, take away the temporary admin access
 				$security = User::getUserByUserId($pdo, $_SESSION["user"]->getUserId());
 				if($security->getUserAccessId() === false) {
@@ -127,7 +127,6 @@ try {
 					$requestObject->requestActionTimeStamp, $requestObject->requestActionTimeStamp, $requestObject->requestApprove,
 					$requestObject->requestRequestorText, $requestObject->requestRequestorAdminText);
 				$request->insert($pdo);
-				$pusher->trigger("request", "new", $request);
 				$reply->message = "Request submitted successfully";
 			}
 		} elseif($method === "DELETE") {
@@ -138,13 +137,12 @@ try {
 			$request->delete($pdo);
 			$deletedObject = new stdClass();
 			$deletedObject->requestId = $id;
-			$pusher->trigger("request", "delete", $deletedObject);
 			$reply->message = "Request deleted successfully";
 		}
 	} else {
 		//if not an admin and attempting a method other than get, throw an exception
 		if((empty($method) === false) && ($method !== "GET")) {
-			throw(new RangeException("admin only", 401));
+			throw(new RangeException("administrator only privilege", 401));
 		}
 	}
 } catch(Exception $exception) {

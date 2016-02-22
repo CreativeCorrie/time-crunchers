@@ -411,6 +411,7 @@ class Request implements \JsonSerializable {
 		//build an array of requests
 		$requests = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		// filter by company - see one of corries classes shift?
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$request = new Request($row["requestId"], $row["requestRequestorId"], $row["requestAdminId"], $row["requestTimeStamp"], $row["requestActionTimeStamp"], $row["requestApprove"], $row["requestRequestorText"], $row["requestAdminText"]);

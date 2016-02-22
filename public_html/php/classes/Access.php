@@ -12,6 +12,11 @@ require_once("autoloader.php");
  **/
 class Access implements \JsonSerializable {
 	/**
+	 * constant to symbolically refer to administrative access
+	 */
+	const ADMIN = 1;
+
+	/**
 	 * id for access is accessId ; this is the primary key
 	 * @var int $accessId
 	 */
