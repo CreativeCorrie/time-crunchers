@@ -53,7 +53,7 @@ try {
 				$reply->data = $schedule;
 			}
 		} else if(empty($scheduleAddress1) === false) {
-			$schedule = Schedule::getScheduleByScheduleName($pdo, $scheduleAddress1);
+			$schedule = Schedule::getScheduleByScheduleCrewId($pdo, $scheduleCrewId);
 			if($schedule !== null) {
 				$reply->data = $schedule;
 			}
@@ -98,7 +98,7 @@ try {
 					$schedule->insert($pdo);
 
 					$reply->message = "Schedule created OK";
-				}
+				}}
 
 			} else if($method === "DELETE") {
 				verifyXsrf();
@@ -114,7 +114,6 @@ try {
 
 				$reply->message = "Schedule deleted OK";
 			}
-
 		} else {
 			//if not an admin, and attempting a method other than get, throw an exception
 			if((empty($method) === false) && ($method !== "GET")) {
@@ -123,7 +122,9 @@ try {
 		}
 
 		//send exception back to the caller
-	} catch(Exception $exception) {
+	}
+
+catch(Exception $exception) {
 		$reply->status = $exception->getCode();
 		$reply->message = $exception->getMessage();
 	}
