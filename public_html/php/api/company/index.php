@@ -4,6 +4,7 @@ require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(dirname(__DIR__))) . "php/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\Timecrunchers\Company;
+
 //use Edu\Cnm\Timecrunchers\User;
 
 /**
@@ -90,81 +91,79 @@ try {
 				}
 				if(empty($requestObject->companyAddress2) === true) {
 					$requestObject->companyAddress2 = null;
+				}
+				if(empty($requestObject->companyAttn) === true) {
+					$requestObject->companyAttn = null;
+				}
+				if(empty($requestObject->companyState) === true) {
+					throw(new InvalidArgumentException ("company state cannot be empty", 405));
+				}
+				if(empty($requestObject->companyCity) === true) {
+					throw(new InvalidArgumentException ("company city cannot be empty", 405));
+				}
+				if(empty($requestObject->companyZip) === true) {
+					throw(new InvalidArgumentException ("company phone cannot be empty", 405));
+				}
+				if(empty($requestObject->companyPhone) === true) {
+					throw(new InvalidArgumentException ("company city cannot be empty", 405));
+				}
+				if(empty($requestObject->companyEmail) === true) {
+					throw(new InvalidArgumentException ("company email cannot be empty", 405));
+				}
+				if(empty($requestObject->companyUrl) === true) {
+					$requestObject->companyUrl = null;
+				}
 
-					if(empty($requestObject->companyAttn) === true) {
-						$requestObject->companyAttn = null;
-					}
-
-					if(empty($requestObject->companyState) === true) {
-						throw(new InvalidArgumentException ("company state cannot be empty", 405));
-					}
-
-					if(empty($requestObject->companyCity) === true) {
-						throw(new InvalidArgumentException ("company city cannot be empty", 405));
-					}
-					if(empty($requestObject->companyZip) === true) {
-						throw(new InvalidArgumentException ("company phone cannot be empty", 405));
-					}
-					if(empty($requestObject->companyPhone) === true) {
-						throw(new InvalidArgumentException ("company city cannot be empty", 405));
-					}
-					if(empty($requestObject->companyEmail) === true) {
-						throw(new InvalidArgumentException ("company email cannot be empty", 405));
-					}
-					if(empty($requestObject->companyUrl) === true) {
-						$requestObject->companyUrl = null;
-					}
-
-					//perform the actual put or post
-					if($method === "PUT") {
-						$company = Company::getCompanyByCompanyId($pdo, $id);
-						if($company === null) {
-							throw(new RuntimeException("Company does not exist", 404));
-						}
-
-						$company = new Company($id, $requestObject->companyName, $requestObject->companyAddress1, $requestObject->companyAddress2, $requestObject->companyAttn, $requestObject->companyState, $requestObject->companyCity, $requestObject->companyZip, $requestObject->companyPhone, $requestObject->companyEmail,
-							$requestObject->companyUrl);
-						$company->update($pdo);
-
-						$reply->message = "Company updated OK";
-
-					} else if($method === "POST") {
-						$company = new Company(null, $requestObject->companyName, $requestObject->companyAddress1, $requestObject->companyAddress2, $requestObject->companyAttn, $requestObject->companyState, $requestObject->companyCity, $requestObject->companyZip, $requestObject->companyPhone, $requestObject->companyEmail,
-							$requestObject->companyUrl);
-						$company->insert($pdo);
-
-						$reply->message = "Company created OK";
-					}
-
-				} else if($method === "DELETE") {
-					verifyXsrf();
-
+				//perform the actual put or post
+				if($method === "PUT") {
 					$company = Company::getCompanyByCompanyId($pdo, $id);
 					if($company === null) {
 						throw(new RuntimeException("Company does not exist", 404));
 					}
 
-					$company->delete($pdo);
-					$deletedObject = new stdClass();
-					$deletedObject->companyId = $id;
+					$company = new Company($id, $requestObject->companyName, $requestObject->companyAddress1, $requestObject->companyAddress2, $requestObject->companyAttn, $requestObject->companyState, $requestObject->companyCity, $requestObject->companyZip, $requestObject->companyPhone, $requestObject->companyEmail,
+						$requestObject->companyUrl);
+					$company->update($pdo);
 
-					$reply->message = "Company deleted OK";
+					$reply->message = "Company updated OK";
+
+				} else if($method === "POST") {
+					$company = new Company(null, $requestObject->companyName, $requestObject->companyAddress1, $requestObject->companyAddress2, $requestObject->companyAttn, $requestObject->companyState, $requestObject->companyCity, $requestObject->companyZip, $requestObject->companyPhone, $requestObject->companyEmail,
+						$requestObject->companyUrl);
+					$company->insert($pdo);
+
+					$reply->message = "Company created OK";
+				}}
+
+			} else if($method === "DELETE") {
+				verifyXsrf();
+
+				$company = Company::getCompanyByCompanyId($pdo, $id);
+				if($company === null) {
+					throw(new RuntimeException("Company does not exist", 404));
 				}
 
-			} else {
-				//if not an admin, and attempting a method other than get, throw an exception
-				if((empty($method) === false) && ($method !== "GET")) {
-					throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
-				}
+				$company->delete($pdo);
+				$deletedObject = new stdClass();
+				$deletedObject->companyId = $id;
+
+				$reply->message = "Company deleted OK";
 			}
+		} else {
+			//if not an admin, and attempting a method other than get, throw an exception
+			if((empty($method) === false) && ($method !== "GET")) {
+				throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
+			}
+		}
 
-			//send exception back to the caller
-		}
-	catch
-		(Exception $exception) {
-			$reply->status = $exception->getCode();
-			$reply->message = $exception->getMessage();
-		}
+		//send exception back to the caller
+	}
+
+catch
+	(Exception $exception) {
+		$reply->status = $exception->getCode();
+		$reply->message = $exception->getMessage();
+	}
 header("Content-type: application/json");
 if($reply->data === null) {
 	unset($reply->data);
