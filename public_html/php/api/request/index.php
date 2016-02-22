@@ -30,9 +30,9 @@ try {
 	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["debug" => true, "encrypted" => true]);
 
 	//grab the mySQL connection
-	$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/breadbasket.ini");
+	$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/timecrunch.ini");
 
-	//if the volunteer session is empty, the user is not logged in, throw an exception
+	//if the user session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["user"]) === true) {
 		setXsrfCookie("/");
 		throw(new RuntimeException("Please log-in or sign up", 401));
@@ -61,7 +61,7 @@ try {
 	$requestApprove = filter_input(INPUT_GET, "requestApprove", FILTER_VALIDATE_BOOLEAN);
 	$requestRequestorText = filter_input(INPUT_GET, "requestRequestorText", FILTER_SANITIZE_STRING);
 	$requestAdminText = filter_input(INPUT_GET, "requestAdminText", FILTER_SANITIZE_STRING);
-	//handle all RESTful calls to listing //get some or all Listings
+	//handle all RESTful calls to request//get some or all requests
 	if($method === "GET") {
 		//set an XSRF cookie on get requests
 		setXsrfCookie("/");
@@ -105,8 +105,8 @@ try {
 			//perform the actual put or post
 			if($method === "PUT") {
 				$request = Request::getRequestByRequestId($pdo, $id);
-				if($listing === null) {
-					throw(new RuntimeException("Listing does not exist", 404));
+				if(request === null) {
+					throw(new RuntimeException("Request does not exist", 404));
 				}
 				$request = Request::getRequestByRequestId($pdo, $id);
 				$request = setRequestTimeStamp($requestObject->requestTimeStamp);
@@ -120,9 +120,9 @@ try {
 				if($security->getUserAccessId() === false) {
 					$_SESSION["user"]->setUserAccessId(false);
 				}
-				$reply->message = "Listing updated OK";
+				$reply->message = "Request updated successfully";
 			} elseif($method === "POST") {
-				//create new listing
+				//create new request
 				$request = new Request(null, $_SESSION["user"]->getRequestorUserId(), $_SESSION["user"]->getAdminId(), $requestObject->requestTimestamp,
 					$requestObject->requestActionTimeStamp, $requestObject->requestActionTimeStamp, $requestObject->requestApprove,
 					$requestObject->requestRequestorText, $requestObject->requestRequestorAdminText);
