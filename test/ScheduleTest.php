@@ -212,6 +212,29 @@ class ScheduleTest extends TimeCrunchersTest {
 		$this->assertCount(0, $schedule);
 	}
 
+
+	public function testGetScheduleByScheduleCrewId() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("schedule");
+
+		//create a new Schedule and insert it into mySQL
+		$schedule = new Schedule(null, $this->crew->getCrewId(), $this->VALID_SCHEDULESTARTDATE);
+		$schedule->insert($this->getPDO());
+		$this->AssertEquals($numRows + 1, $this->getConnection()->getRowCount("schedule"));
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$pdoSchedules = Schedule::getScheduleByScheduleCrewId($this->getPDO(), $schedule->getScheduleCrewId());
+
+
+		//grab the result from the array and validate it
+		foreach($pdoSchedules as $pdoSchedule) {
+			if($pdoSchedule->getScheduleCrewId() === $schedule->getScheduleCrewId()) {
+				$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getCrewId());
+				$this->assertEquals($pdoSchedule->getScheduleStartDate()->format("Y-m-d"), $this->VALID_SCHEDULESTARTDATE);
+			}
+		}
+	}
+
 	/**
 	 * test grabbing all Schedules
 	 **/

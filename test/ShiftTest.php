@@ -321,7 +321,6 @@ class ShiftTest extends TimeCrunchersTest {
 		}
 	}
 
-
 	/**
 	 * test get shifts by User Id
 	 **/

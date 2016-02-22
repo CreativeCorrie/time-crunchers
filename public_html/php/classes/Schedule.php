@@ -276,6 +276,40 @@ class Schedule implements \JsonSerializable {
 	}
 
 	/**
+	 *function to retrieve schedules by scheduleCrewId
+	 *
+	 * @param \PDO $pdo PDO is a connection object
+	 * @param int $scheduleCrewId - scheduleCrewId for schedules to be viewed
+	 * @return \SplFixedArray SplFixedArray with all schedules found
+	 * @throw  \PDOException with mysql related errors
+	 **/
+	public static function getScheduleByScheduleCrewId(\PDO $pdo, int $scheduleCrewId) {
+
+		// prepare and execute query
+		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate
+		          FROM schedule WHERE scheduleCrewId = :scheduleCrewId";
+		$statement = $pdo->prepare($query);
+		$parameters = array("scheduleCrewId" => $scheduleCrewId);
+		$statement->execute($parameters);
+
+		// build an array of schedules
+		$schedules = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$schedule = new Schedule($row["scheduleId"], $row["scheduleCrewId"], $row["scheduleStartDate"]);
+				$schedules[$schedules->key()] = $schedule;
+				$schedules->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return $schedules;
+	}
+
+	/**
 	* gets the Schedule by scheduleStartDate
 	*
 	* @param \PDO $pdo PDO connection object
