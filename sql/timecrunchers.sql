@@ -102,5 +102,5 @@ CREATE TABLE shift (
 	PRIMARY KEY(shiftId)
 );
 
-
+INSERT INTO access (accessId, accessName) VALUES (1, "Administrator");
 
