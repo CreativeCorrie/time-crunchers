@@ -5,7 +5,7 @@ require_once dirname(dirname(dirname(__DIR__))) . "php/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\Timecrunchers\Company;
 
-//use Edu\Cnm\Timecrunchers\User;
+
 
 /**
  * Controller/API for Company Class

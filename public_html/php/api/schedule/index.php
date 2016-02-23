@@ -2,8 +2,9 @@
 
 require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(dirname(__DIR__))) . "php/lib/xsrf.php";
-require_once ("/etc/apache2/capstone-mysql/encrypted-config.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\Timecrunchers\Schedule;
+use Edu\Cnm\Timecrunchers\Access;
 
 
 /**
@@ -64,6 +65,15 @@ try {
 			}
 		}
 
+		//	block non-admin users from doing admin-only tasks
+		if($method === "PUT") {
+			if(Access::isAdminLoggedIn() === true) {
+				// adminy thingz herez
+			} else {
+				throw(new RuntimeException("Must be an Administrator to access."));
+			}
+		}
+
 		//if the session belongs to an admin, allow post, put, and delete methods
 		if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserIsAdmin() === true) {
 
@@ -98,36 +108,37 @@ try {
 					$schedule->insert($pdo);
 
 					$reply->message = "Schedule created OK";
-				}}
-
-			} else if($method === "DELETE") {
-				verifyXsrf();
-
-				$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
-				if($schedule === null) {
-					throw(new RuntimeException("Schedule does not exist", 404));
 				}
-
-				$schedule->delete($pdo);
-				$deletedObject = new stdClass();
-				$deletedObject->scheduleId = $id;
-
-				$reply->message = "Schedule deleted OK";
 			}
-		} else {
-			//if not an admin, and attempting a method other than get, throw an exception
-			if((empty($method) === false) && ($method !== "GET")) {
-				throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
+
+		} else if($method === "DELETE") {
+			verifyXsrf();
+
+			$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
+			if($schedule === null) {
+				throw(new RuntimeException("Schedule does not exist", 404));
 			}
+
+			$schedule->delete($pdo);
+			$deletedObject = new stdClass();
+			$deletedObject->scheduleId = $id;
+
+			$reply->message = "Schedule deleted OK";
 		}
-
-		//send exception back to the caller
+	} else {
+		//if not an admin, and attempting a method other than get, throw an exception
+		if((empty($method) === false) && ($method !== "GET")) {
+			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
+		}
 	}
 
-catch(Exception $exception) {
-		$reply->status = $exception->getCode();
-		$reply->message = $exception->getMessage();
-	}
+	//send exception back to the caller
+} catch(Exception $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
+}
+//this is the end of the try block
+
 header("Content-type: application/json");
 if($reply->data === null) {
 	unset($reply->data);
