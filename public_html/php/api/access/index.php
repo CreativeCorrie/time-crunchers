@@ -105,7 +105,29 @@ try {
 			//kill the temporary admin access, if they're not supposed to have it
 			//check to see if the password is not null; this means it's a regular access changing their password and not an admin
 			//prevents admins from being logged out for editing their regular accesses
+			if(($access->getAccessIsAdmin() === false) && ($requestObject->accessPassword !== null)) {
+				$_SESSION["access"]->setAccessIsAdmin(false);
+			}
+			$reply->message = "access updated ok";
+	} elseif($method === "POST") {
 
+			//if they shouldn't have admin access to this method, kill the temp access and boot them
+			//check by retrieving their original access from the DB and checking
+			$security = Access::getAccessId($pdo, $_SESSION["access"]->getAccessId());
+			if($security->getAccessIsAdmin() === false);
+			throw(new RuntimeException("Access Denied", 403));
 		}
-	}
+
+		$password = bin2hex(openssl_random_pseudo_bytes(32));
+		$salt = bin2hex(openssl_random_pseudo_bytes(32));
+		$hash = hash_pbkdf2("rpx505", $password, $salt, 262144, 128);
+		$emailActivation = bin2hex(openssl_random_pseudo_bytes(8));
+
+		//create new volunteer
+		$access = new Access($id, $_SESSION["access"]->getAccessId(), $requestObject->accessName);
+			$access->insert($pdo);
+
+		$reply->message = "access created ok";
+
 }
+echo json_encode($reply);
