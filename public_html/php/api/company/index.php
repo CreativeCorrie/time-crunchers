@@ -4,7 +4,7 @@ require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(dirname(__DIR__))) . "php/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\Timecrunchers\Company;
-
+use Edu\Cnm\Timecrunchers\Access;
 
 
 /**
@@ -26,6 +26,12 @@ $reply->data = null;
 try {
 	//Grab MySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/time-crunchers.ini");
+
+	//if the company session is empty, the user is not logged in, throw an exception
+	if(empty($_SESSION["user"]) === true) {
+		setXsrfCookie("/");
+		throw(new RuntimeException("Please log-in or sign up", 401));
+	}
 
 	//Determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
@@ -74,66 +80,68 @@ try {
 		}
 
 		//if the session belongs to an admin, allow post, put, and delete methods
-		if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserIsAdmin() === true) {
+		if($method === "PUT") {
+			if(Access::isAdminLoggedIn() === true) {
 
-			if($method === "PUT" || $method === "POST") {
+				if($method === "PUT" || $method === "POST") {
 
-				verifyXsrf();
-				$requestContent = file_get_contents("php://input");
-				$requestObject = json_decode($requestContent);
+					verifyXsrf();
+					$requestContent = file_get_contents("php://input");
+					$requestObject = json_decode($requestContent);
 
-				//make sure all fields are present, in order to prevent database issues
-				if(empty($requestObject->companyName) === true) {
-					throw(new InvalidArgumentException ("company name cannot be empty", 405));
-				}
-				if(empty($requestObject->companyAddress1) === true) {
-					throw(new InvalidArgumentException ("company address cannot be empty", 405));
-				}
-				if(empty($requestObject->companyAddress2) === true) {
-					$requestObject->companyAddress2 = null;
-				}
-				if(empty($requestObject->companyAttn) === true) {
-					$requestObject->companyAttn = null;
-				}
-				if(empty($requestObject->companyState) === true) {
-					throw(new InvalidArgumentException ("company state cannot be empty", 405));
-				}
-				if(empty($requestObject->companyCity) === true) {
-					throw(new InvalidArgumentException ("company city cannot be empty", 405));
-				}
-				if(empty($requestObject->companyZip) === true) {
-					throw(new InvalidArgumentException ("company phone cannot be empty", 405));
-				}
-				if(empty($requestObject->companyPhone) === true) {
-					throw(new InvalidArgumentException ("company city cannot be empty", 405));
-				}
-				if(empty($requestObject->companyEmail) === true) {
-					throw(new InvalidArgumentException ("company email cannot be empty", 405));
-				}
-				if(empty($requestObject->companyUrl) === true) {
-					$requestObject->companyUrl = null;
-				}
-
-				//perform the actual put or post
-				if($method === "PUT") {
-					$company = Company::getCompanyByCompanyId($pdo, $id);
-					if($company === null) {
-						throw(new RuntimeException("Company does not exist", 404));
+					//make sure all fields are present, in order to prevent database issues
+					if(empty($requestObject->companyName) === true) {
+						throw(new InvalidArgumentException ("company name cannot be empty", 405));
+					}
+					if(empty($requestObject->companyAddress1) === true) {
+						throw(new InvalidArgumentException ("company address cannot be empty", 405));
+					}
+					if(empty($requestObject->companyAddress2) === true) {
+						$requestObject->companyAddress2 = null;
+					}
+					if(empty($requestObject->companyAttn) === true) {
+						$requestObject->companyAttn = null;
+					}
+					if(empty($requestObject->companyState) === true) {
+						throw(new InvalidArgumentException ("company state cannot be empty", 405));
+					}
+					if(empty($requestObject->companyCity) === true) {
+						throw(new InvalidArgumentException ("company city cannot be empty", 405));
+					}
+					if(empty($requestObject->companyZip) === true) {
+						throw(new InvalidArgumentException ("company phone cannot be empty", 405));
+					}
+					if(empty($requestObject->companyPhone) === true) {
+						throw(new InvalidArgumentException ("company city cannot be empty", 405));
+					}
+					if(empty($requestObject->companyEmail) === true) {
+						throw(new InvalidArgumentException ("company email cannot be empty", 405));
+					}
+					if(empty($requestObject->companyUrl) === true) {
+						$requestObject->companyUrl = null;
 					}
 
-					$company = new Company($id, $requestObject->companyName, $requestObject->companyAddress1, $requestObject->companyAddress2, $requestObject->companyAttn, $requestObject->companyState, $requestObject->companyCity, $requestObject->companyZip, $requestObject->companyPhone, $requestObject->companyEmail,
-						$requestObject->companyUrl);
-					$company->update($pdo);
+					//perform the actual put or post
+					if($method === "PUT") {
+						$company = Company::getCompanyByCompanyId($pdo, $id);
+						if($company === null) {
+							throw(new RuntimeException("Company does not exist", 404));
+						}
 
-					$reply->message = "Company updated OK";
+						$company = new Company($id, $requestObject->companyName, $requestObject->companyAddress1, $requestObject->companyAddress2, $requestObject->companyAttn, $requestObject->companyState, $requestObject->companyCity, $requestObject->companyZip, $requestObject->companyPhone, $requestObject->companyEmail,
+							$requestObject->companyUrl);
+						$company->update($pdo);
 
-				} else if($method === "POST") {
-					$company = new Company(null, $requestObject->companyName, $requestObject->companyAddress1, $requestObject->companyAddress2, $requestObject->companyAttn, $requestObject->companyState, $requestObject->companyCity, $requestObject->companyZip, $requestObject->companyPhone, $requestObject->companyEmail,
-						$requestObject->companyUrl);
-					$company->insert($pdo);
+						$reply->message = "Company updated OK";
 
-					$reply->message = "Company created OK";
-				}}
+					} else if($method === "POST") {
+						$company = new Company(null, $requestObject->companyName, $requestObject->companyAddress1, $requestObject->companyAddress2, $requestObject->companyAttn, $requestObject->companyState, $requestObject->companyCity, $requestObject->companyZip, $requestObject->companyPhone, $requestObject->companyEmail,
+							$requestObject->companyUrl);
+						$company->insert($pdo);
+
+						$reply->message = "Company created OK";
+					}
+				}
 
 			} else if($method === "DELETE") {
 				verifyXsrf();
@@ -148,22 +156,18 @@ try {
 				$deletedObject->companyId = $id;
 
 				$reply->message = "Company deleted OK";
-			}
-		} else {
-			//if not an admin, and attempting a method other than get, throw an exception
-			if((empty($method) === false) && ($method !== "GET")) {
-				throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
+			} else {
+				throw(new \RuntimeException("Must be an administrator to access."));
 			}
 		}
-
-		//send exception back to the caller
 	}
 
-catch
-	(Exception $exception) {
-		$reply->status = $exception->getCode();
-		$reply->message = $exception->getMessage();
-	}
+	//send exception back to the caller
+} catch
+(Exception $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
+}
 header("Content-type: application/json");
 if($reply->data === null) {
 	unset($reply->data);
