@@ -145,7 +145,7 @@ class CrewTest extends TimecrunchersTest {
 		$crew->delete($this->getPDO());
 	}
 	/**
-	 * test inserting a Crew and regrabbing it form mySQL
+	 * test inserting a Crew and re-grabbing it form mySQL
 	 **/
 	public function testGetValidCrewByCrewId() {
 		//count the number of rows and save it for later
@@ -188,8 +188,30 @@ class CrewTest extends TimecrunchersTest {
 		$this->assertEquals($pdoCrew->getCrewId(), $crew->getCrewId());
 		$this->assertEquals($pdoCrew->getCrewLocation(), $crew->getCrewLocation());
 		$this->assertEquals($pdoCrew->getCrewCompanyId(), $crew->getCrewCompanyId());
+	}
+
+	/**
+	 * test grabbing a crew by crewCompanyId
+	 **/
+
+	public function testGetValidCrewByCrewCompanyId() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("crew");
+
+		//create a new Crew an insert it into mySQL
+		$crew = new Crew(null, $this->company->getCompanyId(), $this->VALID_CREWCOMPANYID);
+		$crew->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$pdoCrew = Crew::getCrewByCrewLocation($this->getPDO(), $crew->getCrewLocation());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("crew"));
+		$this->assertEquals($pdoCrew->getCrewId(), $crew->getCrewId());
+		$this->assertEquals($pdoCrew->getCrewLocation(), $crew->getCrewLocation());
+		$this->assertEquals($pdoCrew->getCrewCompanyId(), $crew->getCrewCompanyId());
 
 	}
+
+
 	/**
 	 * test grabbing a Crew by a location that does not exist
 	 **/
