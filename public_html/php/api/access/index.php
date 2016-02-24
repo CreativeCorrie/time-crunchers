@@ -17,9 +17,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 }
 
 //prepare an empty reply
-$relpy = new stdClass();
+$reply = new stdClass();
 $reply->status = 200;
-$repy->data = null;
+$reply->data = null;
 
 try {
 	//grab the mySQL
@@ -32,7 +32,7 @@ try {
 	}
 
 	//determine which HTTP method was used
-	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ?_SERVER[HTTP_X_HTTP_METHOD] : $_server["REQUEST_METHOD"];
+	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER[HTTP_X_HTTP_METHOD] : $_server["REQUEST_METHOD"];
 
 	//sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
@@ -73,11 +73,9 @@ try {
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 
-
-
 			//make sure all fields are present, in order to fix database issues
 			if(empty($requestObject->volAccessName) === true) {
-				throw(new InvalidArgumentException ("accesName cannot be null", 405));
+				throw(new InvalidArgumentException ("accessName cannot be null", 405));
 			}
 			//perform put or post
 			if($method ==="PUT") {
@@ -88,8 +86,8 @@ try {
 				//check to make sure a non-admin is only attempting to edit themselves
 				//if not, take their temp access and throw an exception
 				$security = Access::getAccessByAccessId($pdo, $_SESSION["access"]->getAccessId());
-				if(($security->getAccessisAdmin() === false) && ($_SESSION["access"]->getAccessId()
-					$_SESSION["access"]->setAccessisAdmin(false);
+				if(($security->getAccessIsAdmin() === false) && ($_SESSION["access"]->getAccessId() {
+					$_SESSION["access"]->setAccessIsAdmin(false);
 				throw(new RunTimeException("only admins can modify entries", 403));
 			}
 
@@ -128,6 +126,8 @@ try {
 			$access->insert($pdo);
 
 		$reply->message = "access created ok";
-
+		}
+	}
 }
 echo json_encode($reply);
+
