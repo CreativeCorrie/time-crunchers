@@ -260,7 +260,41 @@ require_once ("autoloader.php");
 			}
 			return($crew);
 		}
+
 	 /**
+	  *function to retrieve crews by crewCompanyId
+	  *
+	  * @param \PDO $pdo PDO is a connection object
+	  * @param int $crewCompanyId - crewCompanyId for crews to be viewed
+	  * @return SplFixedArray SplFixedArray with all crews found
+	  * @throw  PDOException with mysql related errors
+	  **/
+	 public static function getCrewByCrewCompanyId(\PDO $pdo, int $crewCompanyId) {
+
+		 //create query template
+		 $query = "SELECT crewId, crewCompanyId, crewLocation FROM crew WHERE crewId = :crewId";
+		 $statement = $pdo->prepare($query);
+		 $parameters = array("crewCompanyId" => $crewCompanyId);
+		 $statement->execute($parameters);
+
+		 // build an array of crews
+		 $crew = new \SplFixedArray($statement->rowCount());
+		 $statement->setFetchMode(\PDO::FETCH_ASSOC);
+
+		 while(($row = $statement->fetch()) !== false) {
+			 try {
+				 $crew = new Crew($row["CrewId"], $row["crewCompanyId"], $row["crewLocation"]);
+				 $crews[$crews->key()] = $crew;
+				 $crews->next();
+			 } catch(\Exception $exception) {
+				 // if the row couldn't be converted, rethrow it
+				 throw(new \PDOException($exception->getMessage(), 0, $exception));
+			 }
+		 }
+		 return $crews;
+	 }
+
+		 /**
 	  * gets the Crew by crewLocation
 	  *
 	  * @param \PDO $pdo PDO connection object
