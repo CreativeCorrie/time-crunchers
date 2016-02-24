@@ -4,9 +4,10 @@ namespace Edu\Cnm\Timecrunchers;
 
 use MongoDB\Driver\Exception\RuntimeException;
 
-require_once dirname(dirname(__DIR__)) . "../php/classes/autoloader.php";
-require_once dirname(dirname(__DIR__)) . "/lib/xsrf/php";
+require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
+require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache/capstone-mysql/encrypted-config.php");
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/vendor/autoload.php");
 
 /**
  * controller/api for the shift class
@@ -15,7 +16,7 @@ require_once("/etc/apache/capstone-mysql/encrypted-config.php");
  **/
 
 //verify the xsrf challenge
-if(session_start() !== PHP_SESSION_ACTIVE) {
+if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
 
@@ -28,23 +29,20 @@ try {
 	//grab the mySQL connection
 	$pdo = connectToEncrytedMySQL("#");
 
-	//temporary test field: please remove later
-	$_SESSION["shift"] = Shift::getShiftByShiftId($pdo, 146);
-
-	//if the shift session is empty, the user is not logged in, then an exception is thrown
+	//if the shift session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["shift"]) === true) {
 		setXsrfCookie("/");
-		throw(new \RuntimeException("Please log-in or sign up", 401));
+		throw(new RuntimeException("Please log-in or sign up", 401));
 	}
 
 	//determine which HTTP method was used
-	$method = array_key_exists("HTTP_X_HTTP_Method", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
+	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
-		throw(new \InvalidArgumentException("id cannot be empty or negative, 405"));
+		throw(new InvalidArgumentException("id cannot be empty or negative, 405"));
 	}
 	//sanitize and trim the other fields
 	$ShiftUserId = filter_input(INPUT_GET, "shiftUserId", FILTER_SANITIZE_NUMBER_INT);
