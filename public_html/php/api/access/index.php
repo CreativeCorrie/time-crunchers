@@ -4,10 +4,11 @@ require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(__DIR__)) . "lib/xsrf.php";
 require_once("/etc/apache2/Timecrunchers-mysql/encryption-config.php");
 require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "vendor/autolader.php");
+use Edu\Cnm\Timecrunchers\Access;
 
 
 /**
- * controller/api for the volunteer class
+ * controller/api for the access class
  *
  * @author Denzyl Fontaine
  **/
@@ -26,7 +27,7 @@ try {
 	//grab the mySQL
 	$pdo = connectToEncryptedMySQL("#");
 
-	//if the volunteer session is empty, the user is not logged in, throw an exception
+	//if the access session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["access"]) === true) {
 		setXsrfCookie("/");
 		throw(new RunTimeException("Please log-in or sign up", 401));
@@ -42,17 +43,19 @@ try {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 	//sanitize and trim other fields
-	$accessId = filter_input(INPUT_GET, "accessId", FILTER_VALIDATE_INT);
+	// this is an optional field - wrap it in an if
 	$accessName = filter_input(INPUT_GET, "accessName", FILTER_SANITIZE_STRING);
 
 	//handle REST calls, while only allowing administrators to access database-modifying methods
 	if($method === "GET") {
 		//set XSRF cookie
-		setXsrfCookie("/");
+		setXsrfCookie();
 
-		//get the volunteer based on the given field
+		//get the access based on the given field
 		if(empty($id) ===false) {
 			$access = Access::getAccessByAccessId($pdo, $id);
+			// this is for restricting by company - remember is access is wide open
+			// however keep this stuff for other APIs :D
 			if($access !== null && $access->getOrgId() === $_SESSION["access"]->getOrgId()) {
 				$reply->data = $access;
 			}
@@ -75,7 +78,7 @@ try {
 			$requestObject = json_decode($requestContent);
 
 			//make sure all fields are present, in order to fix database issues
-			if(empty($requestObject->volAccessName) === true) {
+			if(empty($requestObject->accessName) === true) {
 				throw(new InvalidArgumentException ("accessName cannot be null", 405));
 			}
 			//perform put or post
@@ -87,18 +90,16 @@ try {
 				//check to make sure a non-admin is only attempting to edit themselves
 				//if not, take their temp access and throw an exception
 				$security = Access::getAccessByAccessId($pdo, $_SESSION["access"]->getAccessId());
-				if(($security->getAccessIsAdmin() === false) && ($_SESSION["access"]->getAccessId() {
-					$_SESSION["access"]->setAccessIsAdmin(false);
-				throw(new RunTimeException("only admins can modify entries", 403));
-			}
+				// use the example from Slack to determine admins
+				if($method === "PUT") {
+					if(Access::isAdminLoggedIn() === true) {
+						// adminy thingz here
+					} else {
+						throw(new RuntimeException("Must be an Administrator to access."));
+					}
+				}
 
 			$access->setAccessName($requestObject->accessName);
-
-			//if there is a password, hash it and set it
-			if($requestObject->accessPassword !== null) {
-				$hash = hash_pdkdf2("rpx505", $requestObject->accessPassword, $access->getAccessSalt(), 626411, 128);
-				$access->setAccessHash($hash);
-			}
 
 			$access->update($pdo);
 			//kill the temporary admin access, if they're not supposed to have it
@@ -113,20 +114,15 @@ try {
 			//if they shouldn't have admin access to this method, kill the temp access and boot them
 			//check by retrieving their original access from the DB and checking
 			$security = Access::getAccessId($pdo, $_SESSION["access"]->getAccessId());
-			if($security->getAccessIsAdmin() === false);
+			if($security->getAccessIsAdmin() === false) {
 			throw(new RuntimeException("Access Denied", 403));
 		}
-
-		$password = bin2hex(openssl_random_pseudo_bytes(32));
-		$salt = bin2hex(openssl_random_pseudo_bytes(32));
-		$hash = hash_pbkdf2("rpx505", $password, $salt, 262144, 128);
-		$emailActivation = bin2hex(openssl_random_pseudo_bytes(8));
-
-		//create new volunteer
-		$access = new Access($id, $_SESSION["access"]->getAccessId(), $requestObject->accessName);
+			//create new access
+			$access = new Access($id, $_SESSION["access"]->getAccessId(), $requestObject->accessName);
 			$access->insert($pdo);
 
-		$reply->message = "access created ok";
+			$reply->message = "access created ok";
+
 		}
 	}
 }
