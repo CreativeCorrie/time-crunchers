@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_User} !-f
+RewriteCond %{REQUEST_User} !-d
+RewriteRule ^/?(\d+)?$ ?id=$&%{QUERY_STRING}
+</IfModule>
