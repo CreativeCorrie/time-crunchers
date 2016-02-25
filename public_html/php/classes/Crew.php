@@ -283,7 +283,7 @@ require_once ("autoloader.php");
 
 		 while(($row = $statement->fetch()) !== false) {
 			 try {
-				 $crew = new Crew($row["CrewId"], $row["crewCompanyId"], $row["crewLocation"]);
+				 $crew = new Crew($row["crewId"], $row["crewCompanyId"], $row["crewLocation"]);
 				 $crews[$crews->key()] = $crew;
 				 $crews->next();
 			 } catch(\Exception $exception) {
