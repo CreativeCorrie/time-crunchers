@@ -27,7 +27,7 @@ $reply->data = null;
 
 try {
 	//grab the sql connection
-	$pdo = connecToEncrytedMySQL();
+	$pdo = connectToEncrytedMySQL();
 
 	//if the user session is empty, user is not logged in, throw an exception
 	if(empty($_session["volunteer"]) === true) {
@@ -52,5 +52,20 @@ try {
 	userFirstName = filter_input(INPUT_GET, userFirstName, FILTER_SANITIZE_STRING);
 	UserLastName = filter_input(INPUT_GET, userLastName, FILTER_SANITIZE_STRING);
 	userEmail = filter_input(INPUT_GET, userEmail, FILTER_SANITIZE_STRING);
+	userActivation = filter_input(INPUT_GET, userActivation, FILTER_SANITIZE_STRING);
+	userHash = filter_input(INPUT_GET, userActivation, FILTER_SANITIZE_STRING);
+	userSalt = filter_input(INPUT_GET, userSalt, FILTER_SANITIZE_STRING);
+
+	//handle rest calls, while only allowing admins to access database-modifying methods
+	if($method === GET) {
+		//set xsrf-cookie
+		setXsrfCookie("/");
+
+		//get the user based on the given
+		if(empty($id) === false) {
+			$user = User::getUserByUserId($pdo, $id);
+			if(user !== null && $_)
+		}
+	}
 
 }
