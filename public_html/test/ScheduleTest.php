@@ -36,7 +36,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	 * start day of Schedule
 	 * @var \DateTime $VALID_SCHEDULESTARTDATE
 	 **/
-	protected $VALID_SCHEDULESTARTDATE = "2016:02:15";
+	protected $VALID_SCHEDULESTARTDATE = "2016-02-15";
 
 	/**
 	 * create dependent objects before running each test
@@ -230,7 +230,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		foreach($pdoSchedules as $pdoSchedule) {
 			if($pdoSchedule->getScheduleCrewId() === $schedule->getScheduleCrewId()) {
 				$this->assertEquals($pdoSchedule->getScheduleCrewId(), $this->crew->getCrewId());
-				$this->assertEquals($pdoSchedule->getScheduleStartDate()->format("Y-m-d"), $this->VALID_SCHEDULESTARTDATE);
+				$this->assertEquals($pdoSchedule->getScheduleStartDate(), $schedule->getScheduleStartDate());
 			}
 		}
 	}

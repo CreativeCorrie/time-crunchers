@@ -5,6 +5,7 @@ require_once dirname(dirname(__DIR__)) . "lib/xsrf.php";
 require_once("/etc/apache2/Timecrunchers-mysql/encryption-config.php");
 require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "vendor/autolader.php");
 
+
 /**
  * controller/api for the volunteer class
  *

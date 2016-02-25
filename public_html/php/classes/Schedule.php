@@ -284,6 +284,10 @@ class Schedule implements \JsonSerializable {
 	 * @throw  \PDOException with mysql related errors
 	 **/
 	public static function getScheduleByScheduleCrewId(\PDO $pdo, int $scheduleCrewId) {
+		// sanitize the schedule crew id before searching
+		if($scheduleCrewId <= 0) {
+			throw(new \PDOException("schedule crew id is not positive"));
+		}
 
 		// prepare and execute query
 		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate
@@ -292,21 +296,24 @@ class Schedule implements \JsonSerializable {
 		$parameters = array("scheduleCrewId" => $scheduleCrewId);
 		$statement->execute($parameters);
 
-		// build an array of schedules
-		$schedules = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		// bind the schedule crew id to the place holder in the template
+		$parameters = array("scheduleCrewId" => $scheduleCrewId);
+		$statement->execute($parameters);
 
-		while(($row = $statement->fetch()) !== false) {
-			try {
+		// grab the schedule from mySQL
+		try {
+			$schedule = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
 				$schedule = new Schedule($row["scheduleId"], $row["scheduleCrewId"], $row["scheduleStartDate"]);
-				$schedules[$schedules->key()] = $schedule;
-				$schedules->next();
-			} catch(\Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
+		} catch(\Exception $exception) {
+
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return $schedules;
+		return($schedule);
 	}
 
 	/**
