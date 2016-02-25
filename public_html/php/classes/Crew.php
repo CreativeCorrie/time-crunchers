@@ -299,8 +299,8 @@ require_once ("autoloader.php");
 	  *
 	  * @param \PDO $pdo PDO connection object
 	  * @param string $crewLocation location to search for
-	  * @return Crew|null Crew found or null if not found
 	  * @throws \PDOException when mySQL related errors occur
+	  * @return Crew|null Crew found or null if not found
 	  * @throws \TypeError when variable are not the correct data type
 	  **/
 	 public static function getCrewByCrewLocation(\PDO $pdo, string $crewLocation) {

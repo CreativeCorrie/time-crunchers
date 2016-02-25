@@ -1,13 +1,9 @@
 <?php
 
-namespace Edu\Cnm\Timecrunchers;
-
-use MongoDB\Driver\Exception\RuntimeException;
-
-require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
-require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
-require_once("/etc/apache/capstone-mysql/encrypted-config.php");
-require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/vendor/autoload.php");
+require_once(dirname(dirname(__DIR__)) . "/classes/autoloader.php");
+require_once(dirname(dirname(__DIR__)) . "/lib/xsrf.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+use Edu\Cnm\Timecrunchers\Crew;
 
 /**
  * controller/api for the shift class
@@ -27,7 +23,7 @@ $reply->data = null;
 
 try {
 	//grab the mySQL connection
-	$pdo = connectToEncrytedMySQL("#");
+	$pdo = connectToEncrytedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
 
 	//if the shift session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["shift"]) === true) {
@@ -45,17 +41,17 @@ try {
 		throw(new InvalidArgumentException("id cannot be empty or negative, 405"));
 	}
 	//sanitize and trim the other fields
-	$ShiftUserId = filter_input(INPUT_GET, "shiftUserId", FILTER_SANITIZE_NUMBER_INT);
-	$shiftCrewId = filter_input(INPUT_GET, "shiftCrewId", FILTER_SANITIZE_NUMBER_INT);
-	$ShiftRequestId = filter_input(INPUT_GET, "shiftRequestId", FILTER_SANITIZE_NUMBER_INT);
+	$shiftId = filter_input(INPUT_GET, "shiftId", FILTER_VALIDATE_INT);
+	$ShiftUserId = filter_input(INPUT_GET, "shiftUserId", FILTER_VALIDATE_INT);
+	$shiftCrewId = filter_input(INPUT_GET, "shiftCrewId", FILTER_VALIDATE_INT);
+	$ShiftRequestId = filter_input(INPUT_GET, "shiftRequestId", FILTER_VALIDATE_INT);
 	$shiftStartTime = filter_input(INPUT_GET, "shiftStartTime", FILTER_SANITIZE_STRING);
 	$shiftDuration = filter_input(INPUT_GET, "shiftDuration", FILTER_SANITIZE_STRING);
 	$shiftDate = filter_input(INPUT_GET, "shiftDate", FILTER_SANITIZE_STRING);
 	$shiftDelete = filter_input(INPUT_GET, "shiftDelete", FILTER_SANITIZE_STRING);
 
 	//handle REST calls , while only allowing administrators access to database-modifying methods
-	//should already have checked if it's a shift, so another check here would be redundant
-	if($method --- "GET") {
+	if($method === "GET") {
 		//set XSRF cookie
 		setXsrfCookie("/");
 
@@ -72,17 +68,6 @@ try {
 		} else if(empty($shiftRequestId) === false) {
 			$reply->data = Crew::getShiftByShiftRequestId($id)->toArray();
 
-		} else if(empty($shiftStartTime) === false); {
-			$reply->data = Crew::getShiftByShiftStartTime($pdo, $shiftStartTime)->toArray();
-
-		} else if(empty($shiftDuration) === false); {
-			$reply->data = Crew::getShiftByShiftDuration($pdo, $shiftDuration)->toArray();
-
-		} else if(empty($shiftDate) === false); {
-			$reply->data = Crew::getShiftByShiftDate($pdo, $shiftDate)->toArray();
-
-		} else if(empty($shiftDelete) === false); {
-			$reply->data = Crew::getShiftByShiftDelete($pdo, $shiftDelete)->toArray();
 
 		} else {
 			$reply->data = Shift::getAllShifts($pdo)->toArray();

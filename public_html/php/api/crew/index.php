@@ -53,14 +53,14 @@ try {
 		//get the crew based on the given field
 		if(empty($id) === false) {
 			$crew = Crew::getCrewByCrewId($pdo, $id);
-			if($crew !== null && $crew->getCrewId() === $_SESSION["volunteer"]->getCrewId()) {
+			if($crew !== null && $crew->getCrewId() === $_SESSION["crew"]->getCrewId()) {
 				$reply->data = $crew;
 			}
 		} else if(empty($crewCompanyId) === false) {
 			$crew = Crew::getCrewByCrewCompanyId($pdo, $id);
 		}
 		if(empty($crewCompanyId) === false) {
-			$crew = Crew::getCrewByCrewComanyId($pdo, $id);
+			$crew = Crew::getCrewByCrewCompanyId($pdo, $id);
 			{
 				$reply->data = $crew;
 			}
