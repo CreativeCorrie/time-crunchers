@@ -481,7 +481,7 @@ class Shift implements \JsonSerializable {
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$shift = new Shift($row["shiftId"], $row["shiftUserId"], $row["shiftCrewId"], $row["shiftRequestId"],
-					$row["shiftStartTime"], $row["shiftDuration"], $row["shiftDate"], $row["shiftDelete"]);
+										 $row["shiftStartTime"], $row["shiftDuration"], $row["shiftDate"], $row["shiftDelete"]);
 				$shifts[$shifts->key()] = $shift;
 				$shifts->next();
 			} catch(\Exception $exception) {
@@ -496,7 +496,7 @@ class Shift implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO is a connection object
 	 * @param int $shiftRequestId - shiftRequestId for shifts to be viewed
-	 * @return SplFixedArray SplFixedArray with all shifts found
+	 * @return Shift with a shift request found
 	 * @throw  PDOException with mysql related errors
 	 **/
 	public static function getShiftByShiftRequestId(\PDO $pdo, int $shiftRequestId) {
@@ -508,22 +508,20 @@ class Shift implements \JsonSerializable {
 		$parameters = array("shiftRequestId" => $shiftRequestId);
 		$statement->execute($parameters);
 
-		// build an array of shifts
-		$shifts = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 
-		while(($row = $statement->fetch()) !== false) {
 			try {
-				$shift = new Shift($row["shiftId"], $row["shiftUserId"], $row["shiftCrewId"], $row["shiftRequestId"],
-					$row["shiftStartTime"], $row["shiftDuration"], $row["shiftDate"], $row["shiftDelete"]);
-				$shifts[$shifts->key()] = $shift;
-				$shifts->next();
+				$shift = NULL;
+				$row = $statement->fetch();
+				if($row !== false) {
+					$shift = new Shift($row["shiftId"], $row["shiftUserId"], $row["shiftCrewId"], $row["shiftRequestId"],
+											 $row["shiftStartTime"], $row["shiftDuration"], $row["shiftDate"], $row["shiftDelete"]);
+				}
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		}
-		return $shifts;
+		return $shift;
 	}
 	/**
 	 * getShiftByDateRange get all the shifts for each day of the submitted range

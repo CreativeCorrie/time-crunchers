@@ -62,9 +62,10 @@ require_once ("autoloader.php");
 	}
 
 
-	/**accessor method for crew id
+	/**
+	 *accessor method for crew id
 	 *
-	 * @return int|null value of crew id
+	 *@return int value of crew id
 	 **/
 
 	public function getCrewId() {
