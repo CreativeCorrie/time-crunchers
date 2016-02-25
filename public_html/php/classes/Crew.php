@@ -98,6 +98,29 @@ require_once ("autoloader.php");
 		 //convert and store the crew id
 		 $this->crewId = intval($newCrewId);
 	 }
+	 /**
+	  * accessor method for crewCompanyId
+	  *
+	  * @return int value of crewCompanyId
+	  **/
+	 public function getCrewCompanyId() {
+		 return ($this->crewCompanyId);
+	 }
+	 /**
+	  * mutator method for crew company i
+	  *
+	  * @param int $newCrewCompanyId new value of crew company id
+	  * @throws \UnexpectedValueException if $newCrewCompanyId is not an integer.
+	  **/
+	 public function setCrewCompanyId($newCrewCompanyId) {
+		 //verify the profile id is valid
+		 $newCrewCompanyId = filter_var($newCrewCompanyId, FILTER_VALIDATE_INT);
+		 if($newCrewCompanyId === false) {
+			 throw(new \UnexpectedValueException("crew company id is not a valid integer"));
+		 }
+		 //convert and store the profile id
+		 $this->crewCompanyId = intval($newCrewCompanyId);
+	 }
 
 	/**
 	 * accessor method for location
@@ -128,29 +151,6 @@ require_once ("autoloader.php");
 		}
 		//convert and store the location
 		$this->crewLocation = $newCrewLocation;
-	}
-	/**
-	 * accessor method for crewCompanyId
-	 *
-	 * @return int value of crewCompanyId
-	 **/
-	public function getCrewCompanyId() {
-		return ($this->crewCompanyId);
-	}
-	/**
-	 * mutator method for crew company i
-	 *
-	 * @param int $newCrewCompanyId new value of crew company id
-	 * @throws \UnexpectedValueException if $newCrewCompanyId is not an integer.
-	 **/
-	public function setCrewCompanyId($newCrewCompanyId) {
-		//verify the profile id is valid
-		$newCrewCompanyId = filter_var($newCrewCompanyId, FILTER_VALIDATE_INT);
-		if($newCrewCompanyId === false) {
-			throw(new \UnexpectedValueException("crew company id is not a valid integer"));
-		}
-		//convert and store the profile id
-		$this->crewCompanyId = intval($newCrewCompanyId);
 	}
 
 	/**
@@ -234,7 +234,7 @@ require_once ("autoloader.php");
 	 **/
 	public static function getCrewByCrewId(\PDO $pdo, int $crewId) {
 		//sanitize the crewId before searching
-		if($crewId <=0) {
+		if($crewId <= 0) {
 			throw(new \PDOException("crew id is not positive"));
 		}
 
@@ -266,19 +266,19 @@ require_once ("autoloader.php");
 	  *
 	  * @param \PDO $pdo PDO is a connection object
 	  * @param int $crewCompanyId - crewCompanyId for crews to be viewed
-	  * @return SplFixedArray SplFixedArray with all crews found
+	  * @return SplFixedArray SplFixedArray with all crews found for the CompanyId
 	  * @throw  PDOException with mysql related errors
 	  **/
 	 public static function getCrewByCrewCompanyId(\PDO $pdo, int $crewCompanyId) {
 
 		 //create query template
-		 $query = "SELECT crewId, crewCompanyId, crewLocation FROM crew WHERE crewId = :crewId";
+		 $query = "SELECT crewId, crewCompanyId, crewLocation FROM crew WHERE crewCompanyId = :crewCompanyId";
 		 $statement = $pdo->prepare($query);
 		 $parameters = array("crewCompanyId" => $crewCompanyId);
 		 $statement->execute($parameters);
 
 		 // build an array of crews
-		 $crew = new \SplFixedArray($statement->rowCount());
+		 $crews = new \SplFixedArray($statement->rowCount());
 		 $statement->setFetchMode(\PDO::FETCH_ASSOC);
 
 		 while(($row = $statement->fetch()) !== false) {

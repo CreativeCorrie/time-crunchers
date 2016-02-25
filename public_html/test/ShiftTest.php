@@ -221,7 +221,7 @@ class ShiftTest extends TimeCrunchersTest {
 
 		//grab the data from mySQL and enforce the Shift does not exist
 		$pdoShift = Shift::getShiftByShiftId($this->getPDO(), $shift->getShiftId());
-		$this->assertTrue($pdoShift->getShiftDelete());
+		$this->assertTrue(!($pdoShift->getShiftDelete()));
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("shift"));
 	}
 
