@@ -79,7 +79,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	/**
 	 * test inserting a Schedule that already exists
 	 *
-	 * @expectedException PDOException
+	 * @expectedException /PDOException
 	 **/
 	public function testInsertInvalidSchedule() {
 		// create a Schedule with a non null schedule id and watch it fail
@@ -112,7 +112,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	/**
 	 * test updating a Schedule that already exists
 	 *
-	 * @expectedException PDOException
+	 * @expectedException /PDOException
 	 **/
 	public function testUpdateInvalidSchedule() {
 		// create a Schedule with a non null schedule id and watch it fail
@@ -144,7 +144,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	/**
 	 * test deleting a Schedule that does not exist
 	 *
-	 * @expectedException PDOException
+	 * @expectedException /PDOException
 	 **/
 	public function testDeleteInvalidSchedule() {
 		// create a Schedule and try to delete it without actually inserting it
