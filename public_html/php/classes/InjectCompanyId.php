@@ -1,7 +1,10 @@
 <?php
 namespace Edu\Cnm\Timecrunchers;
-
-trait injCompanyId {
+/**
+ * Class InjectCompanyId this the trait to be used to gain access to the company Id
+ * @package Edu\Cnm\Timecrunchers
+ */
+trait InjectCompanyId {
 
 	private $injectedId = null;
 

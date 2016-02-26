@@ -585,7 +585,8 @@ class Shift implements \JsonSerializable {
 	 **/
 	public static function getAllShifts(\PDO $pdo) {
 		// create query template
-		$query = "SELECT shiftId, shiftUserId, shiftCrewId, shiftRequestId, shiftStartTime, shiftDuration, shiftDate, shiftDelete FROM shift";
+		$query = "SELECT shiftId, shiftUserId, shiftCrewId, shiftRequestId, shiftStartTime, shiftDuration, shiftDate, shiftDelete FROM shift
+			WHERE ";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
