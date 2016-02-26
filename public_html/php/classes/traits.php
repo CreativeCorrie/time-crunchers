@@ -1,11 +1,12 @@
 <?php
 namespace Edu\Cnm\Timecrunchers;
 
-$this->injectedId = null;
-
 trait injCompanyId {
 
+	private $injectedId = null;
+
 	public function injectCompanyId() {
+
 		if(session_status() !== PHP_SESSION_ACTIVE) {
 			session_start();
 		}

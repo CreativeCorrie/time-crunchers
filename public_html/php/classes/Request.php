@@ -14,6 +14,7 @@ require_once("autoloader.php");
  **/
 class Request implements \JsonSerializable {
 	use ValidateDate;
+	use injCompanyId;
 	/**
 	 * id for a Request, primary key
 	 * @var int $requestId
@@ -373,7 +374,9 @@ class Request implements \JsonSerializable {
 			throw(new \PDOException("requestId isn not a positive number"));
 		}
 		// create query template
-		$query = "SELECT requestId, requestRequestorId, requestAdminId, requestTimeStamp, requestActionTimeStamp, requestApprove ,requestRequestorText ,requestAdminText from request WHERE requestId = :requestId";
+		$query = "SELECT requestId, requestRequestorId, requestAdminId, requestTimeStamp, requestActionTimeStamp, requestApprove ,requestRequestorText ,requestAdminText
+			FROM request INNER JOIN user ON
+			WHERE requestId = :requestId";
 		$statement = $pdo->prepare($query);
 
 		// bind the request id to the place holder in template
