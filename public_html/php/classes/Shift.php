@@ -428,7 +428,7 @@ class Shift implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO is a connection object
 	 * @param int $shiftUserId - shiftUserId for shifts to be viewed
-	 * @return SplFixedArray SplFixedArray with all shifts found
+	 * @return \SplFixedArray SplFixedArray with all shifts found
 	 * @throw  PDOException with mysql related errors
 	 **/
 	public static function getShiftByShiftUserId(\PDO $pdo, int $shiftUserId) {
@@ -462,7 +462,7 @@ class Shift implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO is a connection object
 	 * @param int $shiftCrewId - shiftCrewId for shifts to be viewed
-	 * @return SplFixedArray SplFixedArray with all shifts found
+	 * @return \SplFixedArray SplFixedArray with all shifts found
 	 * @throw  PDOException with mysql related errors
 	 **/
 	public static function getShiftByShiftCrewId(\PDO $pdo, int $shiftCrewId) {

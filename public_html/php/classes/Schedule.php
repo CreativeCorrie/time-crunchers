@@ -2,7 +2,7 @@
 namespace Edu\Cnm\Timecrunchers;
 
 require_once ("autoloader.php");
-
+require_once ("Crew.php");
 /**
  * Schedule, a collection of work shifts
  *
