@@ -48,6 +48,7 @@ class ScheduleTest extends TimeCrunchersTest {
 		// create and insert a Company to test Schedule
 		$this->company = new Company(null, "Kitty Scratchers", "1600 Pennsylvania Ave NW", "Senator's Palace", "Senator Arlo", "WA", "Felis Felix", "20500", "+12125551212", "kitty@aol.com", "www.kitty.com");
 		$this->company->insert($this->getPDO());
+		$_SESSION["company"] = $this->company;
 
 		// create and insert a Crew to own the test Schedule
 		$this->crew = new Crew(null, $this->company->getCompanyId(), "Taco Bell");

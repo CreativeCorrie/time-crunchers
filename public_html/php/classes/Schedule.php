@@ -16,7 +16,7 @@ require_once ("autoloader.php");
  **/
 
 class Schedule implements \JsonSerializable {
-	use ValidateDate;
+	use InjectCompanyId, ValidateDate;
 	/**
 	 * id for this Schedule; this is the primary key
 	 * @var int $scheduleId
@@ -366,9 +366,10 @@ class Schedule implements \JsonSerializable {
 	 **/
 	public static function getAllSchedules(\PDO $pdo) {
 		// create query template
-		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule";
+		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule WHERE schedule.scheduleCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = companyId)";
 		$statement = $pdo->prepare($query);
-		$statement->execute();
+		$parameters = ["companyId" => self::injectCompanyId()];
+		$statement->execute($parameters);
 
 		// build an array of access
 		$schedules = new \SplFixedArray($statement->rowCount());
