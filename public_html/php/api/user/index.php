@@ -64,24 +64,67 @@ try {
 		//get the user based on the given
 		if(empty($id) === false) {
 			$user = User::getUserByUserId($pdo, $id);
-			if(user !== null && $user->getAccessId() === $_SESSION["access"]->getAccessId()) {
+			if(user !== null && $user->getUserId() === $_SESSION["user"]->getUserId()) {
 				$reply->data = $user;
 			}
-		} else if(empty )
+		} else if(empty($userCompanyId) === false) {
+			$user = User::getUserByUserCompanyId($pdo, $userCompanyId);
+			if($user !== null && $user->getUserCompanyId() === $_SESSION["user"]->getUserCompanyId()) {
+				$reply->data = $user;
+			}
+		} else if(empty($userCrewId) === false) {
+			$user = User::getUserByUserCrewId($pdo, $userCrewId);
+			if($user !== null && $user->getUserCrewId() === $_SESSION["user"]->getUserCrewId()) {
+				$reply->data = $user;
+			}
+		} else if(empty($userAccessId) === false) {
+			$user = User::getUserByUserAccessId($pdo, $userAccessId);
+			if($user !== null && $user->getUserAccessId() === $_SESSION["user"]->getUserAccessId()) {
+				$reply->data = $user;
+			}
+		} else if(empty($userPhone) === false) {
+			$user = User::getUserByUserPhone($pdo, $userPhone);
+			if($user !== null && $user->getUserPhone() === $_SESSION["user"]->getUserPhone()) {
+				$reply->data = $user;
+			}
+		} else if(empty($userFirstName) === false) {
+			$user = User::getUserByUserFirstName($pdo, $userFirstName);
+			if($user !== null && $user->getUserFirstName() === $_SESSION["user"]->getUserFirstName()) {
+				$reply->data = $user;
+			}
+		} else if(empty($userLastName) === false) {
+			$user = User::getUserByUserLastName($pdo, $userCompanyId);
+			if($user !== null && $user->getUserLastname() === $_SESSION["user"]->getUserLastName()) {
+				$reply->data = $user;
+			}
+		} else if(empty($userEmail) === false) {
+			$user = User::getUserByUserEmail($pdo, $userEmail);
+			if($user !== null && $user->getUserEmail() === $_SESSION["user"]->getUserEmail()) {
+				$reply->data = $user;
+			}
+		} else if(empty($userActivation) === false) {
+			$user = User::getUserByUserActivation($pdo, $userActivation);
+			if($user !== null && $user->getUserActivation() === $_SESSION["user"]->getUserActivation()) {
+				$reply->data = $user;
+			}
+		} else if(empty($userHash) === false) {
+			$user = User::getUserByUserHash($pdo, $userHash);
+			if($user !== null && $user->getUserHash() === $_SESSION["user"]->getUserHash()) {
+				$reply->data = $user;
+			}
+		} else if(empty($userSalt) === false) {
+			$user = User::getUserByUserSalt($pdo, $userSalt);
+			if($user !== null && $user->getUserSalt() === $_SESSION["user"]->getUserSalt()) {
+				$reply->data = $user;
+			}
+		} else {
+			$reply->data = User::getUserByUserId($pdo, $_SESSION["user"]->getUserId())->toArray();
+		}
+	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+	//if the session belongs to an admin, allow post, put, and delete methods
+	if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserIsAdmin() === true) {
 
 				if($method === "POST" || $method === "POST") {
 					verifyXsrf();
