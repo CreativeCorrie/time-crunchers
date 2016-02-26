@@ -6,9 +6,8 @@ namespace Edu\Cnm\Timecrunchers;
  */
 trait InjectCompanyId {
 
-	private $injectedId = null;
 
-	public function injectCompanyId() {
+	public static function injectCompanyId() {
 
 		if(session_status() !== PHP_SESSION_ACTIVE) {
 			session_start();
@@ -18,7 +17,7 @@ trait InjectCompanyId {
 			throw(new \RuntimeException("This session is closed"));
 		}
 
-	$this->injectedId = $_SESSION["company"]->getCompanyId();
+		return($_SESSION["company"]->getCompanyId());
 	}
 }
 

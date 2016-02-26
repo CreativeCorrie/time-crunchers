@@ -8,6 +8,11 @@ use Edu\Cnm\Timecrunchers\Company;
 use Edu\Cnm\Timecrunchers\Crew;
 use Edu\Cnm\Timecrunchers\Access;
 
+// start the session before even loading the class
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
+
 // grab the project test parameters
 require_once("TimecrunchersTest.php");
 
@@ -106,6 +111,7 @@ class ShiftTest extends TimeCrunchersTest {
 		// creates and inserts Company to sql for User foreign key relations
 		$this->company = new Company(null, "Taco B.", "404 Taco St.", "suite:666", "Attention!!", "NM", "Burque", "87106", "5055551111", "tb@hotmail.com", "www.tocobell.com");
 		$this->company->insert($this->getPDO());
+		$_SESSION["company"] = $this->company;
 
 		// creates and inserts Access to sql for User foreign key relations
 		$this->access = new Access(null, "requestor or admin");

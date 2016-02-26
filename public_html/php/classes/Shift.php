@@ -15,7 +15,7 @@ require_once ("autoloader.php");
  **/
 
 class Shift implements \JsonSerializable {
-	use ValidateDate;
+	use InjectCompanyId, ValidateDate;
 	/**
 	 * id for shift this is the primary key
 	 * @var int $shiftId
@@ -586,9 +586,10 @@ class Shift implements \JsonSerializable {
 	public static function getAllShifts(\PDO $pdo) {
 		// create query template
 		$query = "SELECT shiftId, shiftUserId, shiftCrewId, shiftRequestId, shiftStartTime, shiftDuration, shiftDate, shiftDelete FROM shift
-			WHERE ";
+					WHERE shift.shiftCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
-		$statement->execute();
+		$parameters = ["companyId" => self::injectCompanyId()];
+		$statement->execute($parameters);
 
 		// build an array of shifts
 		$shifts = new \SplFixedArray($statement->rowCount());

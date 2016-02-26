@@ -13,8 +13,7 @@ require_once("autoloader.php");
  * @author Samuel Van Chandler <samuelvanchandler@gmail.com>
  **/
 class Request implements \JsonSerializable {
-	use ValidateDate;
-	use injCompanyId;
+	use InjectCompanyId, ValidateDate;
 	/**
 	 * id for a Request, primary key
 	 * @var int $requestId
