@@ -68,62 +68,55 @@ try {
 		//	block non-admin users from doing admin-only tasks
 		if($method === "PUT") {
 			if(Access::isAdminLoggedIn() === true) {
-				// adminy thingz herez
+				if($method === "PUT" || $method === "POST") {
+
+					verifyXsrf();
+					$requestContent = file_get_contents("php://input");
+					$requestObject = json_decode($requestContent);
+
+					//make sure all fields are present, in order to prevent database issues
+					if(empty($requestObject->scheduleCrewId) === true) {
+						throw(new InvalidArgumentException ("crew ID for this schedule cannot be empty", 405));
+					}
+					if(empty($requestObject->scheduleStartDate) === true) {
+						throw(new InvalidArgumentException ("please input schedule start date", 405));
+					}
+
+					//perform the actual put or post
+					if($method === "PUT") {
+						$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
+						if($schedule === null) {
+							throw(new RuntimeException("Schedule does not exist", 404));
+						}
+
+						$schedule = new Schedule($id, $requestObject->scheduleCrewId, $requestObject->scheduleStartDate);
+						$schedule->update($pdo);
+
+						$reply->message = "Schedule updated OK";
+
+					} else if($method === "POST") {
+						$schedule = new Schedule(null, $requestObject->scheduleCrewId, $requestObject->scheduleStartDate);
+						$schedule->insert($pdo);
+
+						$reply->message = "Schedule created OK";
+					}
+				}
+			} else if($method === "DELETE") {
+				verifyXsrf();
+
+				$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
+				if($schedule === null) {
+					throw(new RuntimeException("Schedule does not exist", 404));
+				}
+
+				$schedule->delete($pdo);
+				$deletedObject = new stdClass();
+				$deletedObject->scheduleId = $id;
+
+				$reply->message = "Schedule deleted OK";
 			} else {
 				throw(new RuntimeException("Must be an Administrator to access."));
 			}
-		}
-
-		//if the session belongs to an admin, allow post, put, and delete methods
-		if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserIsAdmin() === true) {
-
-			if($method === "PUT" || $method === "POST") {
-
-				verifyXsrf();
-				$requestContent = file_get_contents("php://input");
-				$requestObject = json_decode($requestContent);
-
-				//make sure all fields are present, in order to prevent database issues
-				if(empty($requestObject->scheduleCrewId) === true) {
-					throw(new InvalidArgumentException ("crew ID for this schedule cannot be empty", 405));
-				}
-				if(empty($requestObject->scheduleStartDate) === true) {
-					throw(new InvalidArgumentException ("please input schedule start date", 405));
-				}
-
-				//perform the actual put or post
-				if($method === "PUT") {
-					$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
-					if($schedule === null) {
-						throw(new RuntimeException("Schedule does not exist", 404));
-					}
-
-					$schedule = new Schedule($id, $requestObject->scheduleCrewId, $requestObject->scheduleStartDate);
-					$schedule->update($pdo);
-
-					$reply->message = "Schedule updated OK";
-
-				} else if($method === "POST") {
-					$schedule = new Schedule(null, $requestObject->scheduleCrewId, $requestObject->scheduleStartDate);
-					$schedule->insert($pdo);
-
-					$reply->message = "Schedule created OK";
-				}
-			}
-
-		} else if($method === "DELETE") {
-			verifyXsrf();
-
-			$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
-			if($schedule === null) {
-				throw(new RuntimeException("Schedule does not exist", 404));
-			}
-
-			$schedule->delete($pdo);
-			$deletedObject = new stdClass();
-			$deletedObject->scheduleId = $id;
-
-			$reply->message = "Schedule deleted OK";
 		}
 	} else {
 		//if not an admin, and attempting a method other than get, throw an exception
