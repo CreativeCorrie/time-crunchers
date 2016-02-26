@@ -1,1 +1,17 @@
+.panel {
+	border: double #968468 3px;
+	width: 750px;
+	height: 600px;
+}
 
+#today {
+	padding: 15px;
+
+}
+.nav {
+	padding-right: 15px;
+	padding-bottom: 10px;
+}
+.jumbotron h1 {
+	padding-left: 15px;
+}

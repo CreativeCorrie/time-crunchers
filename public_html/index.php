@@ -46,7 +46,7 @@
 			<nav class="navbar navbar-default navbar-fixed-top" id="hello"> <!--use navbar-default for lighter bg-->
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
-<!--					<h3>Schedule</h3>-->
+					<!--					<h3>Schedule</h3>-->
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
 							  data-target="#top-nav" aria-expanded="false">
 						<span class="sr-only">Toggle navigation</span>
@@ -67,14 +67,43 @@
 			</nav>
 		</header>
 
+<!--		Jumbotron-->
 		<div class="jumbotron">
 			<h1>Time Crunch</h1>
-			<p class="pull-right">today's date</p>
+			<div class="pull-right">
+				<p id="today">today's date</p>
+			</div>
 		</div>
 
-		<div class="panel panel-default">
-			<div class="panel-heading">Schedule/div>
-			<div class="panel-body">this is where the calendar will be</div>
+<!--		aside for future use-->
+		<div id="wrapper">
+			<div id="sidebar-wrapper">
+				<ul class="sidebar-nav">
+					<li class="sidebar-brand"><a href="#">Home</a></li>
+					<li><a href="#">Another link</a></li>
+					<li><a href="#">Next link</a></li>
+					<li><a href="#">Last link</a></li>
+				</ul>
+			</div>
+			<div id="page-content-wrapper">
+				<div class="page-content">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+
+<!--		main box-->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<div class="panel panel-default pull-right">
+						<div class="panel-heading">this is where the calendar will be</div>
+						<div class="panel-body"></div>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
 		</div>
 	</body>
 </html>
@@ -83,8 +112,7 @@
 <!--		this is my test area-->
 
 <div class="container-fluid">
-	<p>This is some text.</p>
-	<p>This is another text.</p>
+	<p>This is some text for no reason.</p>
 </div>
 
 <!--		this is my test area-->
