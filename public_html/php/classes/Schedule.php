@@ -2,7 +2,7 @@
 namespace Edu\Cnm\Timecrunchers;
 
 require_once ("autoloader.php");
-require_once ("Crew.php");
+require_once ("Company.php");
 /**
  * Schedule, a collection of work shifts
  *
@@ -291,7 +291,7 @@ class Schedule implements \JsonSerializable {
 
 		// prepare and execute query
 		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate
-		          FROM schedule WHERE scheduleCrewId = :scheduleCrewId";
+		          FROM schedule WHERE scheduleCrewId = :scheduleCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
 		$parameters = array("scheduleCrewId" => $scheduleCrewId);
 		$statement->execute($parameters);
@@ -366,7 +366,8 @@ class Schedule implements \JsonSerializable {
 	 **/
 	public static function getAllSchedules(\PDO $pdo) {
 		// create query template
-		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule WHERE schedule.scheduleCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = companyId)";
+		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule
+        WHERE schedule.scheduleCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
 		$parameters = ["companyId" => self::injectCompanyId()];
 		$statement->execute($parameters);
