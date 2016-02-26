@@ -3,7 +3,8 @@
 require_once(dirname(dirname(__DIR__)) . "/classes/autoloader.php");
 require_once(dirname(dirname(__DIR__)) . "/lib/xsrf.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-use Edu\Cnm\Timecrunchers\Crew;
+use Edu\Cnm\Timecrunchers\Shift;
+use Edu\Cnm\Timecrunchers\Access;
 
 /**
  * controller/api for the shift class
@@ -121,13 +122,13 @@ try {
 					throw(new RuntimeException("Shift does not exist", 404));
 				}
 
-				$shift = new Shift($id, $requestObject->shiftUserId, $requestObject->shiftCrewId), $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
+				$shift = new Shift($id, $requestObject->shiftUserId, $requestObject->shiftCrewId, $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
 				$shift->update($pdo);
 
 				$reply->message = "Shift updated OK";
 
 			} elseif($method === "POST") {
-				$shift = new Shift($id, $requestObject->shiftUserId, $requestObject->shiftCrewId), $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
+				$shift = new Shift($id, $requestObject->shiftUserId, $requestObject->shiftCrewId, $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
 				$shift->insert($pdo);
 
 				$reply->message = "Shift created OK";
