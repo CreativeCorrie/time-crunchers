@@ -160,6 +160,16 @@ try {
 						throw(new InvalidArgumentException ("userSalt", 405));
 					}
 
+					//perform the actual put or post
+					if($method === "PUT") {
+						$user = User::getUserByUserId($pdo, $id);
+						if($user === null) {
+							throw(new RuntimeException("user does not exist", 404));
+						}
+
+						//check to make sure a non-admin is only attempting to edit themselves
+						//if not, take their temp access and throw an exception
+
 				}
 			}
 		}
