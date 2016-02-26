@@ -529,11 +529,10 @@ class Shift implements \JsonSerializable {
 	 * @param \PDO $pdo is a connection object
 	 * @param \DateTime $startDate
 	 * @param \DateTime $endDate
-	 * @param int $companyId
 	 * @return \PDO grabs the date range
 	 **/
 
-	public static function getShiftsByDateRange(\PDO $pdo, \DateTime $startDate, \DateTime $endDate, int $companyId) {
+	public static function getShiftsByDateRange(\PDO $pdo, \DateTime $startDate, \DateTime $endDate) {
 		  if ($endDate < $startDate) {
 			 throw (new \RangeException("end date cannot be less than start date"));
 		 }
@@ -551,7 +550,7 @@ class Shift implements \JsonSerializable {
 			// prepare the date
 			$parameters = array("startDate" => $sDate,
 										"endDate" => $eDate,
-										"companyId" => $companyId);
+										"companyId" => self::injectCompanyId());
 			$statement->execute($parameters);
 
 			// build an array of shifts

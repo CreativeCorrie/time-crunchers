@@ -374,7 +374,7 @@ class ShiftTest extends TimeCrunchersTest {
 		$endDate = new \DateTime($this->VALID_SHIFTDATE);
 
 		//grab the data from mySQL and enforce the fields match our expectations
-		$pdoShifts = Shift::getShiftsByDateRange($this->getPDO(), $startDate, $endDate, $this->company->getCompanyId());
+		$pdoShifts = Shift::getShiftsByDateRange($this->getPDO(), $startDate, $endDate);
 
 
 		//grab the result from the array and validate it
