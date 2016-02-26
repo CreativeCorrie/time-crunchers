@@ -135,10 +135,10 @@ try {
 					if(empty($requestObject->userCompanyId) === true) {
 						throw(new InvalidArgumentException ("userCompanyId cannot be empty", 405));
 					}
-					if(empty($requestObject->userAccessId) === true) {
+					if(empty($requestObject->userCrewId) === true) {
 						throw(new InvalidArgumentException ("userAccessId cannot be empty", 405));
 					}
-					if(empty($requestObject->userCrewId) === true) {
+					if(empty($requestObject->userAccessId) === true) {
 						throw(new InvalidArgumentException ("userCrewId cannot be empty", 405));
 					}
 					if(empty($requestObject->userPhone) === true) {
@@ -169,10 +169,61 @@ try {
 
 						//check to make sure a non-admin is only attempting to edit themselves
 						//if not, take their temp access and throw an exception
+						$security = User::getUserByUserId($pdo, $id);
+						if(($security->getUserIsAdmin() === false) && ($_SESSION["user"]->getUserId() !== $user->getUserId())) {
+							$_SESSION["user"]->setUserIsAdmin(false);
+							throw(new RuntimeException("only admins can modify entries", 403));
+						}
 
+						$user->setUserCompanyId($requestObject->userCompanyId);
+						$user->setUserCrewId($requestObject->userCrewId);
+						$user->setUserAccessId($requestObject->userAccessId);
+						$user->setUserPhone($requestObject->userPhone);
+						$user->setUserFirstName($requestObject->userFirstName);
+						$user->setUserLastName($requestObject->userLastName);
+						$user->setUserActivation($requestObject->userActivation);
+						$user->setUserHash($requestObject->userHash);
+						$user->setUserSalt($requestObject->userSalt);
+
+						//if there's a password hash it and set it
+						if($requestObject->userPassword !== null) {
+							$hash = hash_pbdf2("hrh609", $requestObject->userPassword, $user->getUserSalt(), 626443, 128));
+							$user->setUserHash($hash);
+						}
+
+						$user->update($pdo);
+						//kill the temporary admin access, if they're not supposed to have it
+						//check to see if the password is not null; this means it's a regular user changing their password and not an admin
+						//prevents admins from being logged out for editing their regular users
+						if(($user->getUserIsAdmin() === false) && ($requestObject->userPassword !== null)) {
+							$_SESSION["user"]->setUserIsAdmin(false);
 				}
-			}
+
+						$reply->message = "user updated ok";
+
+			}	elseif($method === "POST") {
+
+						//if they shouldn't have admin access to this method, kill the temp access and boot them
+						//check by retrieving their original user from the database and checking
+						$security = User::getUserbyUserId($pdo, $_SESSION["user"]->getUserId());
+						if($security->getUserIsAdmin() === false);
+						throw(new RuntimeException("access denied", 403));
+					}
+
+					$password = bin2hex(openssl_random_pseudo_bytes(32));
+					$salt = bin2hex(openssl_random_pseudo_bytes(32));
+					$hash = hash_pbkdf2("sha512", $password, $salt, 262144, 128);
+					$emailActivation = bin2hex(openssl_random_pseudo_bytes(8));
+
+					//create new user
+					$user = new User($id, $_SESSION["user"]->getUserId(), $requestObject->userCompanyId, $requestObject->userCrewId, $requestObject->userAccessId, $requestObject->userPhone, $requestObject->userFirstName, $requestObject->userLastName, $requestObject->userActivation, $requestObject->userHash, $requestObject->userSalt);
+					$user->insert($pdo);
+
+					$reply->message = "user created okay";
+
+					//compose and send the email for confirmation and setting a new password
+					// create Swift message
+					$swiftMessage = $swiftMessage::new Instance();
 		}
 	}
-
 }
