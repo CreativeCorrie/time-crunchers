@@ -57,31 +57,40 @@ try {
 
 		//get the shift based on the given field
 		if(empty($id) === false) {
-			$reply->data = Shift::getShiftByShiftId($pdo, $id);
-
+			$shift = Shift::getShiftByShfitId($pdo, $id);
+			if($shift !== null && $shift->getShfitId() === $_SESSION["shift"]->getShiftId()) {
+				$reply->data = $crew;
+			}
 		} else if(empty($shiftUserId) === false) {
-			$reply->data = Shift::getShiftByShiftUserId($id)->toArray();
-
-		} else if(empty($shiftCrewId) === false) {
-			$reply->data = Crew::getShiftByShiftCrewId($id)->toArray();
-
-		} else if(empty($shiftRequestId) === false) {
-			$reply->data = Crew::getShiftByShiftRequestId($id)->toArray();
-
-
+			$shift = Shift::getShiftybyShiftUserId($pdo, $ShiftUserId);
+			if($shift !== null) {
+				$reply->data = $shift;
+			}
 		} else {
-			$reply->data = Shift::getAllShifts($pdo)->toArray();
+			$shifts = Shift::getAllShifts($pdo);
+			if($shifts !== null) {
+				$reply->data = $shift;
+			}
 		}
-	}
-	//if the session belongs to an admin, allow post, put and delete methods
-	if(empty($_SESSION["shift"]) === false && $_SESSION["shift"]->getShiftIsAdmin() === true) {
+		//	block non-admin users from doing admin-only tasks
+		if($method === "PUT") {
+			if(Access::isAdminLoggedIn() === true) {
+				// adminy thingz herez
+			} else {
+				throw(new RuntimeException("Must be an Administrator to access."));
+			}
+		}
 
-		if($method === "PUT" || $method === "POST") {
-			verifyXsrf();
-			$requestContent = file_get_contents("php://input");
-			$requestObject = json_decode($requestContent);
+		//if the session belongs to an admin, allow post, put and delete methods
+		if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserIsAdmin() === true) {
 
-			//make sure all fields are present, in order to prevent database issues
+			if($method === "PUT" || $method === "POST") {
+
+				verifyXsrf();
+				$requestContent = file_get_contents("php://input");
+				$requestObject = json_decode($requestContent);
+
+				//make sure all fields are present, in order to prevent database issues
 			if(empty($requestObject->shiftUserId) === true) {
 				throw(new \InvalidArgumentException ("Shift user id cannot be empty, 405"));
 			}
@@ -113,11 +122,9 @@ try {
 				}
 
 				$shift = new Shift($id, $requestObject->shiftUserId, $requestObject->shiftCrewId), $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
-
 				$shift->update($pdo);
 
 				$reply->message = "Shift updated OK";
-
 
 			} elseif($method === "POST") {
 				$shift = new Shift($id, $requestObject->shiftUserId, $requestObject->shiftCrewId), $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
@@ -131,21 +138,21 @@ try {
 
 			$shift = Shift::getShiftByShiftId($pdo, $id);
 			if($shift === null) {
-				throw(new \RuntimeException("Shift does not exist, 404"));
+				throw(new RuntimeException("Shift does not exist, 404"));
 			}
 
 			$shift->delete($pdo);
-			$deleteObject = new \stdClass();
-		}
-		$deleteObject->ShiftId = $id;
+			$deleteObject = new \stdClass();}
+			$deleteObject->ShiftId = $id;
 
-		$reply->message = "Shift deleted OK";
+			$reply->message = "Shift deleted OK";
+		}
 	} else {
 		//if not an admin, and attempting a method other than get, throw an exception
 		if((empty($method) === false) && ($method !== "GET")) {
-			throw(new \RuntimeException("Only administrators are allowed to modify entries", 401));
+			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
+			}
 		}
-	}
 
 	//send exception back to the caller
 } catch(Exception $exception) {
