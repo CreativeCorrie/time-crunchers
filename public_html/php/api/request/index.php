@@ -24,7 +24,6 @@ $reply->status = 200;
 $reply->data = null;
 
 try {
-
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/timecrunch.ini");
 
@@ -35,26 +34,9 @@ try {
 	}
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
-
-	//if a put and a user, temporarily give admin access to the user
-	if($method === "PUT") {
-		if(Access::isAdminLoggedIn() === true) {
-			// adminy thingz herez
-		} else {
-			throw(new RuntimeException("Must be an Administrator to access."));
-		}
-	}
 	//sanitize the id
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
-
-	//make sure the id is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
-		throw(new InvalidArgumentException("id not found", 405));
-	}
-
-
 	//sanitize and trim the other fields
-
 	$requestRequestorId = filter_input(INPUT_GET, "requestRequestorId", FILTER_VALIDATE_INT);
 	$requestAdminId = filter_input(INPUT_GET, "requestAdminId", FILTER_VALIDATE_INT);
  //enclose optionals in if block
@@ -64,6 +46,20 @@ try {
 	if(empty($requestTimeStamp) === true){
 
 	}
+	if($method === "PUT") {
+		if(Access::isAdminLoggedIn() === true) {
+			// adminy thingz herez
+		} else {
+			throw(new RuntimeException("Must be an Administrator to access."));
+		}
+	}
+
+
+	//make sure the id is valid for methods that require it
+	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
+		throw(new InvalidArgumentException("id not found", 405));
+	}
+
 	//handle all RESTful calls to request, get some or all requests
 	if($method === "GET") {
 		//set an XSRF cookie on get requests
@@ -72,14 +68,7 @@ try {
 		//get the request based on the given field
 		if(empty($id) === false) {
 			$reply->data = Request::getRequestByRequestId($pdo, $id);
-		} elseif(empty($companyId) === false);
-	//	} else {
 
-			// not sure about this...
-			//$currentAccessId = Company::getCompanyByCompanyId($pdo, $_SESSION["user"]->getCompanyId());
-
-	//	}
-	}
 	//verify admin and verify object not empty
 	//if the session belongs to an admin, allow post, put, and delete methods
 	// TODO userAccess is a string, will need updating
@@ -147,7 +136,7 @@ try {
 			throw(new RangeException("administrator only privilege", 401));
 		}
 	}
-} catch(Exception $exception) {
+		catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 }

@@ -84,7 +84,6 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-
 	public function __construct(int $newUserId = null, int $newUserCompanyId, int $newUserCrewId, int $newUserAccessId, string $newUserPhone, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserActivation, string $newUserHash, string $newUserSalt) {
 		try {
 			$this->setUserId($newUserId);
