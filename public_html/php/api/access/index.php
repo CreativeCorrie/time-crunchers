@@ -123,8 +123,8 @@ try {
 
 			$reply->message = "access created ok";
 
+			}
 		}
 	}
-}
 echo json_encode($reply);
 

@@ -306,11 +306,10 @@ EOF;
 			$reply->message = "user deleted okay";
 		}
 	}  else {
-			//if not an admin, and attempting a method other than get, throw an exception
-			if((empty($method) === false) && ($method !== "GET")) {
-				throw(new RuntimeException ("only admins can change database entries", 401));
-			}
-		}
+	//if not an admin, and attempting a method other than get, throw an exception
+	if((empty($method) === false) && ($method !== "GET")) {
+		throw(new RuntimeException ("only admins can change database entries", 401));
+	}
 
 		//send exception back to the caller
 } catch(Exception $exception) {
