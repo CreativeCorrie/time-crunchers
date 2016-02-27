@@ -206,12 +206,14 @@ class Schedule implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "UPDATE schedule SET scheduleCrewId = :scheduleCrewId, scheduleStartDate = :scheduleStartDate WHERE scheduleId = :scheduleId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
+		$query = "UPDATE schedule SET scheduleCrewId = :scheduleCrewId, scheduleStartDate = :scheduleStartDate
+					 WHERE scheduleId = :scheduleId
+					 AND schedule.scheduleCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
 		$formattedDate = $this->scheduleStartDate->format("Y-m-d H:i:s");
-		$parameters = ["scheduleCrewId" => $this->scheduleCrewId, "scheduleStartDate" => $formattedDate, "scheduleId" => $this->scheduleId];
+		$parameters = ["scheduleCrewId" => $this->scheduleCrewId, "scheduleStartDate" => $formattedDate, "scheduleId" => $this->scheduleId, "companyId" => self::injectCompanyId()];
 		$statement->execute($parameters);
 	}
 
@@ -229,11 +231,13 @@ class Schedule implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "DELETE FROM schedule WHERE scheduleId = :scheduleId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
+		$query = "DELETE FROM schedule
+					 WHERE scheduleId = :scheduleId
+					 AND schedule.scheduleCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holder in the template
-		$parameters = ["scheduleId" => $this->scheduleId];
+		$parameters = ["scheduleId" => $this->scheduleId, "companyId" => self::injectCompanyId()];
 		$statement->execute($parameters);
 	}
 
@@ -252,12 +256,15 @@ class Schedule implements \JsonSerializable {
 			throw(new \PDOException("schedule id must be positive"));
 		}
 
-		//Create query
-		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule WHERE scheduleId = :scheduleId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
+		//Create query template
+		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate
+					 FROM schedule
+					 WHERE scheduleId = :scheduleId
+					 AND scheduleCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
 
 		//Bind the schedule id to the place holder in the template
-		$parameters = array("scheduleId" => $scheduleId);
+		$parameters = array("scheduleId" => $scheduleId, "companyId" => self::injectCompanyId());
 		$statement->execute($parameters);
 
 		//grab schedule from MySQL
@@ -291,9 +298,11 @@ class Schedule implements \JsonSerializable {
 
 		// prepare and execute query
 		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate
-		          FROM schedule WHERE scheduleCrewId = :scheduleCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
+		          FROM schedule
+		          WHERE scheduleCrewId = :scheduleCrewId
+		          AND schedule.scheduleCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
-		$parameters = array("scheduleCrewId" => $scheduleCrewId);
+		$parameters = array("scheduleCrewId" => $scheduleCrewId, "companyId" => self::injectCompanyId());
 		$statement->execute($parameters);
 
 		// bind the schedule crew id to the place holder in the template
@@ -338,7 +347,7 @@ class Schedule implements \JsonSerializable {
 
 		// bind the schedule start date to the place holder in the template
 		$date=$scheduleStartDate->format("Y:m:d");
-		$parameters = array("scheduleStartDate" => $date);
+		$parameters = array("scheduleStartDate" => $date, "companyId" => self::injectCompanyId());
 		$statement->execute($parameters);
 
 		// build an array of schedules
