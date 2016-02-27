@@ -36,9 +36,9 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize inputs
-	$id = filter_input(INPUT_GET, "shiftId", FILTER_VALIDATE_INT);
+	$shiftid = filter_input(INPUT_GET, "shiftId", FILTER_VALIDATE_INT);
 	//make sure the id is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
+	if(($method === "DELETE" || $method === "PUT") && (empty($shiftid) === true || $shiftid < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative, 405"));
 	}
 	//sanitize and trim the other fields
@@ -57,8 +57,8 @@ try {
 		setXsrfCookie("/");
 
 		//get the shift based on the given field
-		if(empty($id) === false) {
-			$shift = Shift::getShiftByShfitId($pdo, $id);
+		if(empty($shiftid) === false) {
+			$shift = Shift::getShiftByShfitId($pdo, $shiftid);
 			if($shift !== null && $shift->getShfitId() === $_SESSION["shift"]->getShiftId()) {
 				$reply->data = $crew;
 			}
@@ -117,18 +117,18 @@ try {
 
 			//perform the actual put or post
 			if($method === "PUT") {
-				$shift = Shift::getShiftByShiftId($pdo, $id);
+				$shift = Shift::getShiftByShiftId($pdo, $shiftid);
 				if($shift === null) {
 					throw(new RuntimeException("Shift does not exist", 404));
 				}
 
-				$shift = new Shift($id, $requestObject->shiftUserId, $requestObject->shiftCrewId, $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
+				$shift = new Shift($shiftid, $requestObject->shiftUserId, $requestObject->shiftCrewId, $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
 				$shift->update($pdo);
 
 				$reply->message = "Shift updated OK";
 
 			} elseif($method === "POST") {
-				$shift = new Shift($id, $requestObject->shiftUserId, $requestObject->shiftCrewId, $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
+				$shift = new Shift($shiftid, $requestObject->shiftUserId, $requestObject->shiftCrewId, $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
 				$shift->insert($pdo);
 
 				$reply->message = "Shift created OK";
@@ -137,14 +137,14 @@ try {
 		} else if($method === "DELETE") {
 			verifyXsrf();
 
-			$shift = Shift::getShiftByShiftId($pdo, $id);
+			$shift = Shift::getShiftByShiftId($pdo, $shiftid);
 			if($shift === null) {
 				throw(new RuntimeException("Shift does not exist, 404"));
 			}
 
 			$shift->delete($pdo);
 			$deleteObject = new \stdClass();}
-			$deleteObject->ShiftId = $id;
+			$deleteObject->ShiftId = $shiftid;
 
 			$reply->message = "Shift deleted OK";
 		}
