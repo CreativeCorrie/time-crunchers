@@ -374,14 +374,11 @@ class Request implements \JsonSerializable {
 		}
 		// create query template
 		$query = "SELECT requestId, requestRequestorId, requestAdminId, requestTimeStamp, requestActionTimeStamp, requestApprove ,requestRequestorText ,requestAdminText
-			FROM request INNER JOIN user ON
-			WHERE requestId = :requestId";
+			FROM request WHERE request.requestRequestorId IN(SELECT userId FROM user WHERE userCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
-
 		// bind the request id to the place holder in template
 		$parameters = ["requestId" => $requestId];
 		$statement->execute($parameters);
-
 		// grabs the request from mysql
 		try {
 			$request = null;
@@ -407,9 +404,11 @@ class Request implements \JsonSerializable {
 	 **/
 	public static function getAllRequests(\PDO $pdo) {
 		// create query template
-		$query = "SELECT requestId, requestRequestorId, requestAdminId, requestTimeStamp, requestActionTimeStamp, requestApprove , requestRequestorText ,requestAdminText FROM request";
+		$query = "SELECT requestId, requestRequestorId, requestAdminId, requestTimeStamp, requestActionTimeStamp, requestApprove ,requestRequestorText ,requestAdminText
+			FROM request WHERE request.requestRequestorId IN(SELECT userId FROM user WHERE userCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
-		$statement->execute();
+		$parameters = ["companyId" => self::injectCompanyId()];
+		$statement->execute($parameters);
 		//build an array of requests
 		$requests = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);

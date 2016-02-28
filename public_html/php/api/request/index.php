@@ -138,7 +138,7 @@ try {
 		if((empty($method) === false) && ($method !== "GET")) {
 			throw(new RangeException("administrator only privilege", 401));
 		}
-	}
+	}}}}
 		catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
