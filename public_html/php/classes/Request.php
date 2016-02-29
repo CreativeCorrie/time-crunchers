@@ -1,12 +1,7 @@
 <?php
 namespace Edu\Cnm\Timecrunchers;
 
-require_once("autoloader.php");
-
-//start the session and create a XSRF token
-if(session_status() !== PHP_SESSION_ACTIVE) {
-	session_start();
-}
+require_once ("autoloader.php");
 /**
  * Request Class for TimeCrunchers
  *
@@ -317,14 +312,44 @@ class Request implements \JsonSerializable {
 		if($this->requestId !== null) {
 			throw(new \PDOException("not a new request"));
 		}
-		// create query temaplate
-		$query = "INSERT INTO request(requestRequestorId, requestAdminId, requestTimeStamp, requestActionTimeStamp, requestApprove, requestRequestorText, requestAdminText) VALUES(:requestRequestorId, :requestAdminId, :requestTimeStamp, :requestActionTimeStamp, :requestApprove, :requestRequestorText, :requestAdminText)";		$statement = $pdo->prepare($query);
+
+		// create query template
+		$query = "INSERT INTO request(requestRequestorId, requestAdminId, requestTimeStamp, requestActionTimeStamp, requestApprove, requestRequestorText, requestAdminText)
+						VALUES(:requestRequestorId, :requestAdminId, :requestTimeStamp, :requestActionTimeStamp, :requestApprove, :requestRequestorText, :requestAdminText)";
+		$statement = $pdo->prepare($query);
+
 		//bind the member variable to the place holders
 		$formattedDate = $this->requestTimeStamp->format("Y-m-d H:i:s");
 		$formattedDate2 = $this->requestTimeStamp->format("Y-m-d H:i:s");
-		$parameters = ["requestRequestorId" => $this->requestRequestorId, "requestAdminId" => $this->requestAdminId,"requestTimeStamp" => $formattedDate, "requestActionTimeStamp" => $formattedDate2, "requestApprove" => $this->requestApprove, "requestRequestorText" => $this->requestRequestorText, "requestAdminText" => $this->requestAdminText];
+		$parameters = ["requestRequestorId" => $this->requestRequestorId,
+							"requestAdminId" => $this->requestAdminId,
+							"requestTimeStamp" => $formattedDate,
+							"requestActionTimeStamp" => $formattedDate2,
+							"requestApprove" => $this->requestApprove,
+							"requestRequestorText" => $this->requestRequestorText,
+							"requestAdminText" => $this->requestAdminText];
 		$statement->execute($parameters);
 		$this->requestId = intval($pdo->lastInsertId());
+	}
+	/**
+	 * updates this Request in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo) {
+		if($this->requestId === null){
+			throw(new \PDOException("can't update, request doesn't exist"));
+		}
+		$query = "UPDATE request SET requestRequestorId = :requestRequestorId, requestRequestorText = :requestRequestorText, requestTimeStamp = :requestTimeStamp
+						WHERE requestId = :requestId";
+		$statement = $pdo->prepare($query);
+
+		//binding member variables to the place holders in the template
+		$formattedDate = $this->requestTimeStamp->format("Y-m-d H:i:s");
+		$parameters = ["requestRequestorId" => $this->requestRequestorId,"requestRequestorText" => $this->requestRequestorText, "requestTimeStamp" => $formattedDate, "requestId" => $this->requestId];
+		$statement->execute($parameters);
 	}
 	/**
 	 * deletes this Request from mySQL
@@ -343,29 +368,10 @@ class Request implements \JsonSerializable {
 		$statement->execute($parameters);
 	}
 	/**
-	 * updates this Request in mySQL
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
-	 **/
-	public function update(\PDO $pdo) {
-		if($this->requestId === null){
-			throw(new \PDOException("can't update, request doesn't exist"));
-		}
-		$query = "UPDATE request SET requestRequestorId = :requestRequestorId, requestRequestorText = :requestRequestorText, requestTimeStamp = :requestTimeStamp WHERE requestId = :requestId";
-		$statement = $pdo->prepare($query);
-
-		//binding member variables to the place holders in the template
-		$formattedDate = $this->requestTimeStamp->format("Y-m-d H:i:s");
-		$parameters = ["requestRequestorId" => $this->requestRequestorId,"requestRequestorText" => $this->requestRequestorText, "requestTimeStamp" => $formattedDate, "requestId" => $this->requestId];
-		$statement->execute($parameters);
-	}
-	/**
 	 * gets the Request by requestId
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param int $requestId request id to search for
+	 * @param int $requestId request id to search
 	 * @return Request|null Request found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
@@ -377,10 +383,13 @@ class Request implements \JsonSerializable {
 		}
 		// create query template
 		$query = "SELECT requestId, requestRequestorId, requestAdminId, requestTimeStamp, requestActionTimeStamp, requestApprove ,requestRequestorText ,requestAdminText
-			FROM request WHERE request.requestRequestorId IN(SELECT userId FROM user WHERE userCompanyId = :companyId)";
+					FROM request
+					WHERE requestId = :requestId
+					AND requestRequestorId IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
+
 		// bind the request id to the place holder in template
-		$parameters = ["requestId" => $requestId];
+		$parameters = ["requestId" => $requestId, "companyId" => self::injectCompanyId()];
 		$statement->execute($parameters);
 		// grabs the request from mysql
 		try {
@@ -408,7 +417,9 @@ class Request implements \JsonSerializable {
 	public static function getAllRequests(\PDO $pdo) {
 		// create query template
 		$query = "SELECT requestId, requestRequestorId, requestAdminId, requestTimeStamp, requestActionTimeStamp, requestApprove ,requestRequestorText ,requestAdminText
-			FROM request WHERE request.requestRequestorId IN(SELECT userId FROM user WHERE userCompanyId = :companyId)";
+						FROM request
+						WHERE request.requestRequestorId
+						IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
 		$parameters = ["companyId" => self::injectCompanyId()];
 		$statement->execute($parameters);

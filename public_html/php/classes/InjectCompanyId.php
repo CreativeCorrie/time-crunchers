@@ -8,7 +8,6 @@ trait InjectCompanyId {
 
 
 	public static function injectCompanyId() {
-
 		if(session_status() !== PHP_SESSION_ACTIVE) {
 			session_start();
 		}

@@ -97,7 +97,7 @@ class RequestTest extends TimecrunchersTest {
 		// creates and inserts Company to sql for User foreign key relations
 		$this->company = new Company(null,"Taco B.","404 Taco St.","suite:666","Attention!!","NM","Burque","87106","5055551111","tb@hotmail.com","www.tocobell.com");
 		$this->company->insert($this->getPDO());
-//		$_SESSION["company"] = $this->company;
+		$_SESSION["company"] = $this->company;
 
 		// creates and inserts Crew to sql for User foreign key relations
 		$this->crew = new Crew(null, $this->company->getCompanyId(), "the moon");
@@ -132,6 +132,7 @@ class RequestTest extends TimecrunchersTest {
 		$request = new Request(null, $this->requestor->getUserId(), $this->admin->getUserId(),  $this->VALID_REQUESTTIMESTAMP, $this->VALID_REQUESTACTIONTIMESTAMP, $this->requestApprove, $this->VALID_REQUESTREQUESTORTEXT, $this->VALID_REQUESTADMINTEXT);
 		$request->insert($this->getPDO());
 		// grab the data from mySQL and enforce the fields match our expectations
+
 		$pdoRequest = Request::getRequestByRequestId($this->getPDO(), $request->getRequestId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("request"));
 		$this->assertEquals($pdoRequest->getRequestRequestorId(), $this->requestor->getUserId());
@@ -146,7 +147,7 @@ class RequestTest extends TimecrunchersTest {
 	/**
 	 * test inserting a Request that already exists
 	 *
-	 * @expectedException PDOException
+	 * @expectedException \PDOException
 	 **/
 	public function testInsertInvalidRequest() {
 		// create a Request with a non null request id and watch it fail
@@ -185,7 +186,7 @@ class RequestTest extends TimecrunchersTest {
 	/**
 	 * test updating a Request that already exists
 	 *
-	 * @expectedException PDOException
+	 * @expectedException \PDOException
 	 **/
 	public function testUpdateInvalidRequest() {
 		// create a Request with a non null request id and watch it fail
