@@ -39,7 +39,7 @@ try {
 	$shiftid = filter_input(INPUT_GET, "Id", FILTER_VALIDATE_INT);
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($shiftid) === true || $shiftid < 0)) {
-		throw(new InvalidArgumentException("id cannot be empty or negative, 405"));
+		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 	//sanitize and trim the other fields
 
@@ -93,7 +93,7 @@ try {
 
 				//make sure all fields are present, in order to prevent database issues
 			if(empty($requestObject->shiftUserId) === true) {
-				throw(new \InvalidArgumentException ("Shift user id cannot be empty, 405"));
+				throw(new \InvalidArgumentException ("Shift user id cannot be empty", 405));
 			}
 			if(empty($requestObject->shiftCrewId) === true) {
 				throw(new \InvalidArgumentException ("Shift crew cannot be empty", 405));

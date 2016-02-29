@@ -48,13 +48,13 @@ try {
 		setXsrfCookie("/");
 
 		//Get Schedule based on given field
-		if(empty($scheduleId) === false) {
-			$schedule = Schedule::getScheduleByScheduleId($pdo, $scheduleId);
+		if(empty($id) === false) {
+			$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
 			if($schedule !== null) {
 				$reply->data = $schedule;
 			}
 		} else if(empty($scheduleAddress1) === false) {
-			$schedule = Schedule::getScheduleByScheduleCrewId($pdo, $scheduleCrewId);
+			$schedule = Schedule::getScheduleByScheduleCrewId($pdo, $id);
 			if($schedule !== null) {
 				$reply->data = $schedule;
 			}
@@ -84,12 +84,12 @@ try {
 
 					//perform the actual put or post
 					if($method === "PUT") {
-						$schedule = Schedule::getScheduleByScheduleId($pdo, $scheduleId);
+						$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
 						if($schedule === null) {
 							throw(new RuntimeException("Schedule does not exist", 404));
 						}
 
-						$schedule = new Schedule($scheduleId, $requestObject->scheduleCrewId, $requestObject->scheduleStartDate);
+						$schedule = new Schedule($id, $requestObject->scheduleCrewId, $requestObject->scheduleStartDate);
 						$schedule->update($pdo);
 
 						$reply->message = "Schedule updated OK";
@@ -104,14 +104,14 @@ try {
 			} else if($method === "DELETE") {
 				verifyXsrf();
 
-				$schedule = Schedule::getScheduleByScheduleId($pdo, $scheduleId);
+				$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
 				if($schedule === null) {
 					throw(new RuntimeException("Schedule does not exist", 404));
 				}
 
 				$schedule->delete($pdo);
 				$deletedObject = new stdClass();
-				$deletedObject->scheduleId = $scheduleId;
+				$deletedObject->scheduleId = $id;
 
 				$reply->message = "Schedule deleted OK";
 			} else {
