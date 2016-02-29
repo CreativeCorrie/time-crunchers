@@ -42,39 +42,107 @@
 	<title>Time Crunch Schedule View</title>
 	<body>
 		<header>
-<!--			this is the new test nav bar w tabs and drop down log in log out-->
-			<div class="container">
-				<h1>Banner of Greatness</h1>
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#">Schedule View</a></li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Log In/Out <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Log In</a></li>
-							<li><a href="#">Log Out</a></li>
-							<li><a href="#">Receive CupCake Consistent with Rank</a></li>
-						</ul>
-					</li>
-					<li><a href="#">Request</a></li>
-					<li><a href="#">Profile</a></li>
-					<li><a href="#">Admin</a></li>
-				</ul>
-			</div>
-			<!--this is the end of the new test nav bar-->
-		</header>
 
-<!--		main box-->
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="panel panel-default">
-						<div class="panel-heading">this is where the calendar will be</div>
-						<div class="panel-body"></div>
+			<!--beginning of nav bar-->
+			<body>
+
+				<!-- Wrap all page content here -->
+				<div id="wrap">
+
+					<nav class="navbar navbar-default" role="navigation">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse"
+									  data-target="#bs-example-navbar-collapse-1">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="#">Brand</a>
+						</div>
+
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav">
+								<li class="active"><a href="#">Link</a></li>
+								<li><a href="#">Link</a></li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										<li><a href="#">Action</a></li>
+										<li><a href="#">Another action</a></li>
+										<li><a href="#">Something else here</a></li>
+										<li class="divider"></li>
+										<li><a href="#">Separated link</a></li>
+										<li class="divider"></li>
+										<li><a href="#">One more separated link</a></li>
+									</ul>
+								</li>
+							</ul>
+
+							<!--this is where the sign in and activate buttons are -->
+							<form class="navbar-form navbar-left" role="search">
+								<!--<div class="form-group">-->
+								<!--<input type="text" class="form-control" placeholder="Search">-->
+								<!--</div>-->
+								<div class="button-container">
+									<button type="button" class="btn btn-info btn-lg" id="signIn" data-toggle="modal"
+											  data-target="#modal-lg"><a href="html_images.asp">Sign In</a>
+
+									</button>
+									<button type="button" class="btn btn-info btn-lg" id="activate" data-toggle="modal"
+											  data-target="#modal-lg">Activate Account
+									</button>
+								</div>
+							</form>
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="#">Link</a></li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										<li><a href="#">Action</a></li>
+										<li><a href="#">Another action</a></li>
+										<li><a href="#">Something else here</a></li>
+										<li class="divider"></li>
+										<li><a href="#">Separated link</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div><!-- /.navbar-collapse -->
+					</nav>
+
+					<!-- Begin page content -->
+					<!--		main box-->
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="panel panel-default">
+									<div class="panel-heading">this is where the calendar will be</div>
+									<div class="panel-body"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="container">
+						<div class="page-header">
+							<h1>Sticky footer</h1>
+						</div>
+						<p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this
+							custom HTML and CSS.</p>
+						<p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.
+						</p>
 					</div>
 				</div>
-			</div>
-		</div>
-	</body>
+
+				<div id="footer">
+					<div class="container">
+						<p class="text-muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a
+								href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
+					</div>
+				</div>
+			</body>
 </html>
 
 

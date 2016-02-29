@@ -44,9 +44,9 @@
 		<header>
 			<!--			this is the new test nav bar w tabs and drop down log in log out-->
 			<div class="container">
-				<h1>Banner of Greatness</h1>
+				<h3>just another banner</h3>
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="">Schedule View</a></li>
+					<li class="active"><a href="">poof</a></li>
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Log In/Out <span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -63,17 +63,13 @@
 			<!--this is the end of the new test nav bar-->
 		</header>
 
-		<!--		main box-->
-<!--		<div class="container">-->
-<!--			<div class="row">-->
-<!--				<div class="col-md-12">-->
-<!--					<div class="panel panel-default">-->
-<!--						<div class="panel-heading">this is where the calendar will be</div>-->
-<!--						<div class="panel-body"></div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
+
+
+		<!--main box-->
+
+
+		<!--end of main box?-->
+
 	</body>
 </html>
 
