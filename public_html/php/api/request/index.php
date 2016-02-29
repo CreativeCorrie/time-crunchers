@@ -13,7 +13,7 @@ require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\Timecrunchers\Request;
-use Edu\Cnm\Timecrunchers\Access;
+
 
 
 //start the session and create a XSRF token
@@ -71,7 +71,8 @@ try {
 		//get the request based on the given field
 		if(empty($id) === false) {
 			$reply->data = Request::getRequestByRequestId($pdo, $id);
-
+		}
+	}
 	//verify admin and verify object not empty
 	//if the session belongs to an admin, allow post, put, and delete methods
 	// TODO userAccess is a string, will need updating
@@ -138,7 +139,8 @@ try {
 		if((empty($method) === false) && ($method !== "GET")) {
 			throw(new RangeException("administrator only privilege", 401));
 		}
-	}}}}
+	}
+}
 		catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();

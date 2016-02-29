@@ -3,7 +3,10 @@ namespace Edu\Cnm\Timecrunchers;
 
 require_once("autoloader.php");
 
-
+//start the session and create a XSRF token
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
 /**
  * Request Class for TimeCrunchers
  *
