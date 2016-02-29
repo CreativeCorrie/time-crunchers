@@ -36,7 +36,7 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize inputs
-	$shiftid = filter_input(INPUT_GET, "shiftId", FILTER_VALIDATE_INT);
+	$shiftid = filter_input(INPUT_GET, "Id", FILTER_VALIDATE_INT);
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($shiftid) === true || $shiftid < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative, 405"));
@@ -57,13 +57,13 @@ try {
 		setXsrfCookie("/");
 
 		//get the shift based on the given field
-		if(empty($shiftid) === false) {
-			$shift = Shift::getShiftByShfitId($pdo, $shiftid);
+		if(empty($id) === false) {
+			$shift = Shift::getShiftByShfitId($pdo, $id);
 			if($shift !== null && $shift->getShfitId() === $_SESSION["shift"]->getShiftId()) {
 				$reply->data = $crew;
 			}
 		} else if(empty($shiftUserId) === false) {
-			$shift = Shift::getShiftybyShiftUserId($pdo, $ShiftUserId);
+			$shift = Shift::getShiftybyShiftUserId($pdo, $id);
 			if($shift !== null) {
 				$reply->data = $shift;
 			}
@@ -117,12 +117,12 @@ try {
 
 			//perform the actual put or post
 			if($method === "PUT") {
-				$shift = Shift::getShiftByShiftId($pdo, $shiftid);
+				$shift = Shift::getShiftByShiftId($pdo, $id);
 				if($shift === null) {
 					throw(new RuntimeException("Shift does not exist", 404));
 				}
 
-				$shift = new Shift($shiftid, $requestObject->shiftUserId, $requestObject->shiftCrewId, $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
+				$shift = new Shift($id, $requestObject->shiftUserId, $requestObject->shiftCrewId, $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
 				$shift->update($pdo);
 
 				$reply->message = "Shift updated OK";
@@ -137,14 +137,14 @@ try {
 		} else if($method === "DELETE") {
 			verifyXsrf();
 
-			$shift = Shift::getShiftByShiftId($pdo, $shiftid);
+			$shift = Shift::getShiftByShiftId($pdo, $id);
 			if($shift === null) {
 				throw(new RuntimeException("Shift does not exist, 404"));
 			}
 
 			$shift->delete($pdo);
 			$deleteObject = new \stdClass();}
-			$deleteObject->ShiftId = $shiftid;
+			$deleteObject->ShiftId = $id;
 
 			$reply->message = "Shift deleted OK";
 		}

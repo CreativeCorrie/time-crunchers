@@ -26,7 +26,7 @@ try {
 	$pdo = connectToEncrytedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
 
 	//if the crew session is empty, the user is not logged in, throw an exception
-	if(empty($_SESSION["crew"]) === true) {
+	if(empty($_SESSION["user"]) === true) {
 		setXsrfCookie("/");
 		throw(new RuntimeException("Please log-in or sign up", 401));
 	}
@@ -98,7 +98,6 @@ try {
 
 					$crew = new Crew($id, $requestObject->CrewCompanyId, $requestObject->CrewLocation);
 					$crew->update($pdo);
-
 					$reply->message = "Crew updated OK";
 				}
 
@@ -113,7 +112,7 @@ try {
 
 				$crew->delete($pdo);
 				$deletedObject = new stdClass();
-				$deletedObject->ccrewId = $id;
+				$deletedObject->crewId = $id;
 
 				$reply->message = "Crew deleted OK";
 			}
