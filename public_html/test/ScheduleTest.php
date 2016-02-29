@@ -6,6 +6,11 @@ use Edu\Cnm\Timecrunchers\Schedule;
 use Edu\Cnm\Timecrunchers\Company;
 use Edu\Cnm\Timecrunchers\Crew;
 
+// start the session before even loading the class
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
+
 // grab the project test parameters
 require_once("TimecrunchersTest.php");
 
@@ -79,7 +84,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	/**
 	 * test inserting a Schedule that already exists
 	 *
-	 * @expectedException /PDOException
+	 * @expectedException \PDOException
 	 **/
 	public function testInsertInvalidSchedule() {
 		// create a Schedule with a non null schedule id and watch it fail
@@ -112,7 +117,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	/**
 	 * test updating a Schedule that already exists
 	 *
-	 * @expectedException /PDOException
+	 * @expectedException \PDOException
 	 **/
 	public function testUpdateInvalidSchedule() {
 		// create a Schedule with a non null schedule id and watch it fail
@@ -144,7 +149,7 @@ class ScheduleTest extends TimeCrunchersTest {
 	/**
 	 * test deleting a Schedule that does not exist
 	 *
-	 * @expectedException /PDOException
+	 * @expectedException \PDOException
 	 **/
 	public function testDeleteInvalidSchedule() {
 		// create a Schedule and try to delete it without actually inserting it

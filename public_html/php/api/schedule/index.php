@@ -31,10 +31,10 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//Sanitize inputs
-	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+	$scheduleId = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
 	//Make sure ID is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
+	if(($method === "DELETE" || $method === "PUT") && (empty($scheduleId) === true || $scheduleId < 0)) {
 		throw(new InvalidArgumentException("ID cannot be empty or negative", 405));
 	}
 
@@ -48,8 +48,8 @@ try {
 		setXsrfCookie("/");
 
 		//Get Schedule based on given field
-		if(empty($id) === false) {
-			$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
+		if(empty($scheduleId) === false) {
+			$schedule = Schedule::getScheduleByScheduleId($pdo, $scheduleId);
 			if($schedule !== null) {
 				$reply->data = $schedule;
 			}
@@ -84,12 +84,12 @@ try {
 
 					//perform the actual put or post
 					if($method === "PUT") {
-						$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
+						$schedule = Schedule::getScheduleByScheduleId($pdo, $scheduleId);
 						if($schedule === null) {
 							throw(new RuntimeException("Schedule does not exist", 404));
 						}
 
-						$schedule = new Schedule($id, $requestObject->scheduleCrewId, $requestObject->scheduleStartDate);
+						$schedule = new Schedule($scheduleId, $requestObject->scheduleCrewId, $requestObject->scheduleStartDate);
 						$schedule->update($pdo);
 
 						$reply->message = "Schedule updated OK";
@@ -104,14 +104,14 @@ try {
 			} else if($method === "DELETE") {
 				verifyXsrf();
 
-				$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
+				$schedule = Schedule::getScheduleByScheduleId($pdo, $scheduleId);
 				if($schedule === null) {
 					throw(new RuntimeException("Schedule does not exist", 404));
 				}
 
 				$schedule->delete($pdo);
 				$deletedObject = new stdClass();
-				$deletedObject->scheduleId = $id;
+				$deletedObject->scheduleId = $scheduleId;
 
 				$reply->message = "Schedule deleted OK";
 			} else {

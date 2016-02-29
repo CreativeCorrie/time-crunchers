@@ -37,10 +37,10 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//Sanitize inputs
-	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+	$companyId = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
 	//Make sure ID is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
+	if(($method === "DELETE" || $method === "PUT") && (empty($companyId) === true || $companyId < 0)) {
 		throw(new InvalidArgumentException("ID cannot be empty or negative", 405));
 	}
 
@@ -62,8 +62,8 @@ try {
 		setXsrfCookie("/");
 
 		//Get Company based on given field
-		if(empty($id) === false) {
-			$company = Company::getCompanyByCompanyId($pdo, $id);
+		if(empty($companyId) === false) {
+			$company = Company::getCompanyByCompanyId($pdo, $companyId);
 			if($company !== null) {
 				$reply->data = $company;
 			}
@@ -123,12 +123,12 @@ try {
 
 					//perform the actual put or post
 					if($method === "PUT") {
-						$company = Company::getCompanyByCompanyId($pdo, $id);
+						$company = Company::getCompanyByCompanyId($pdo, $companyId);
 						if($company === null) {
 							throw(new RuntimeException("Company does not exist", 404));
 						}
 
-						$company = new Company($id, $requestObject->companyName, $requestObject->companyAddress1, $requestObject->companyAddress2, $requestObject->companyAttn, $requestObject->companyState, $requestObject->companyCity, $requestObject->companyZip, $requestObject->companyPhone, $requestObject->companyEmail,
+						$company = new Company($companyId, $requestObject->companyName, $requestObject->companyAddress1, $requestObject->companyAddress2, $requestObject->companyAttn, $requestObject->companyState, $requestObject->companyCity, $requestObject->companyZip, $requestObject->companyPhone, $requestObject->companyEmail,
 							$requestObject->companyUrl);
 						$company->update($pdo);
 
@@ -146,14 +146,14 @@ try {
 			} else if($method === "DELETE") {
 				verifyXsrf();
 
-				$company = Company::getCompanyByCompanyId($pdo, $id);
+				$company = Company::getCompanyByCompanyId($pdo, $companyId);
 				if($company === null) {
 					throw(new RuntimeException("Company does not exist", 404));
 				}
 
 				$company->delete($pdo);
 				$deletedObject = new stdClass();
-				$deletedObject->companyId = $id;
+				$deletedObject->companyId = $companyId;
 
 				$reply->message = "Company deleted OK";
 			} else {

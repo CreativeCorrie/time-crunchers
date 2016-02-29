@@ -2,7 +2,6 @@
 namespace Edu\Cnm\Timecrunchers;
 
 require_once ("autoloader.php");
-require_once ("Company.php");
 /**
  * Schedule, a collection of work shifts
  *
@@ -305,10 +304,6 @@ class Schedule implements \JsonSerializable {
 		$parameters = array("scheduleCrewId" => $scheduleCrewId, "companyId" => self::injectCompanyId());
 		$statement->execute($parameters);
 
-		// bind the schedule crew id to the place holder in the template
-		$parameters = array("scheduleCrewId" => $scheduleCrewId);
-		$statement->execute($parameters);
-
 		// grab the schedule from mySQL
 		try {
 			$schedule = null;
@@ -342,11 +337,13 @@ class Schedule implements \JsonSerializable {
 
 		// create query template
 		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate
-				    FROM schedule WHERE scheduleStartDate = :scheduleStartDate IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
+				    FROM schedule
+				    WHERE schedule.scheduleStartDate = :scheduleStartDate
+				    AND schedule.scheduleCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
 
 		// bind the schedule start date to the place holder in the template
-		$date=$scheduleStartDate->format("Y:m:d");
+		$date=$scheduleStartDate->format("Y-m-d");
 		$parameters = array("scheduleStartDate" => $date, "companyId" => self::injectCompanyId());
 		$statement->execute($parameters);
 
@@ -376,8 +373,10 @@ class Schedule implements \JsonSerializable {
 	 **/
 	public static function getAllSchedules(\PDO $pdo) {
 		// create query template
-		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate FROM schedule
-        WHERE schedule.scheduleCrewId IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
+		$query = "SELECT scheduleId, scheduleCrewId, scheduleStartDate
+					 FROM schedule
+					 WHERE schedule.scheduleCrewId
+					 IN (SELECT crewId FROM crew WHERE crewCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
 		$parameters = ["companyId" => self::injectCompanyId()];
 		$statement->execute($parameters);
