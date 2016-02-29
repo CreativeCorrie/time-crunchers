@@ -24,13 +24,13 @@ $reply->data = null;
 
 try {
 	//grab the mySQL connection
-	$pdo = connectToEncrytedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
 
 	//if the shift session is empty, the user is not logged in, throw an exception
-	if(empty($_SESSION["shift"]) === true) {
-		setXsrfCookie("/");
-		throw(new RuntimeException("Please log-in or sign up", 401));
-	}
+//	if(empty($_SESSION["company"]) === true) {
+//		setXsrfCookie("/");
+//		throw(new RuntimeException("Please log-in or sign up", 401));
+//	}
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
@@ -159,6 +159,10 @@ try {
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
+	$reply->trace = $exception->getTraceAsString();
+} catch(TypeError $typeError) {
+	$reply->status = $typeError->getCode();
+	$reply->message = $typeError->getMessage();
 }
 header("Content-type: application/json");
 if($reply->data === null) {

@@ -25,7 +25,7 @@ $reply->data = null;
 
 try {
 	//Grab MySQL connection
-	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/time-cruncher.ini");
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
 
 	//Determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
