@@ -14,9 +14,9 @@ use Edu\Cnm\Timecrunchers\Access;
  **/
 
 //Verify XSRF Challenge
-if(session_status() !== PHP_SESSION_ACTIVE) {
-	session_start();
-}
+//if(session_status() !== PHP_SESSION_ACTIVE) {
+//	session_start();
+//}
 
 //Prepare an empty reply
 $reply = new stdClass();
@@ -129,6 +129,9 @@ try {
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
+} catch(TypeError $typeError) {
+	$reply->status = $typeError->getCode();
+	$reply->message = $typeError->getMessage();
 }
 //this is the end of the try block
 

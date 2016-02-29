@@ -39,31 +39,13 @@
 				  crossorigin="anonymous"></script>
 	</head>
 
-	<title>Time Crunch Schedule View</title>
+	<title>Contact</title>
 	<body>
 		<header>
-			<!--			this is the new test nav bar w tabs and drop down log in log out-->
-			<div class="container">
-				<h3>just another banner</h3>
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#">Schedule View</a></li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Log In/Out <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Log In</a></li>
-							<li><a href="#">Log Out</a></li>
-							<li><a href="#">Receive CupCake Consistent with Rank</a></li>
-						</ul>
-					</li>
-					<li><a href="#">Request</a></li>
-					<li><a href="#">Profile</a></li>
-					<li><a href="#">Admin</a></li>
-				</ul>
-			</div>
-			<!--this is the end of the new test nav bar-->
+			<!--this is will be autoloaded from a template-->
 		</header>
 
-		<!--		main box-->
+		<!--this is the form-->
 		<!-- The div class="form-wrap" is the black box containing the form. It's set to a column width of 12 for small screens, and a column width of 6 for medium screens on up -->
 		<div class="col-xs-12 col-md-7 form-wrap">
 			<!-- Form is centered within it's container, and is set to 10 be columns wide RELATIVE TO IT'S CONTAINER, and offset to the right by one column. See classes: col-xs-offset-1 & col-xs-10 -->
@@ -79,7 +61,7 @@
 							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 						</div>
 						<!-- text field input. pay attention to the id, placeholder text, type, and placeholder attributes -->
-						<input type="text" class="form-control" id="textName1" placeholder="Your name here." maxlength="150" />
+						<input type="text" class="form-control" id="textName1" placeholder="Your name here." maxlength="150"/>
 					</div>
 				</div>
 
@@ -89,7 +71,8 @@
 						<div class="input-group-addon">
 							<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 						</div>
-						<input type="email" id="email1" class="form-control" maxlength="150" placeholder="your.email@something.com"/>
+						<input type="email" id="email1" class="form-control" maxlength="150"
+								 placeholder="your.email@something.com"/>
 					</div>
 				</div>
 
@@ -117,22 +100,23 @@
 								<!-- each radio button and it's label is further contained within it's own <label> tag. pay attention to this -->
 								<label>
 									<!-- name attribute is required for full functionality -->
-									<input type="radio" name="rdoGender" id="radioGenderMale" value="Male" />Male
+									<input type="radio" name="rdoGender" id="radioGenderMale" value="Male"/>Male
 								</label>
 							</div>
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="rdoGender" id="radioGenderFemale" value="Female" />Female
+									<input type="radio" name="rdoGender" id="radioGenderFemale" value="Female"/>Female
 								</label>
 							</div>
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="rdoGender" id="radioGenderOther" value="Other" />Other
+									<input type="radio" name="rdoGender" id="radioGenderOther" value="Other"/>Other
 								</label>
 							</div>
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="rdoGender" id="radioGenderDecline" value="Prefer not to state." />I prefer not to state.
+									<input type="radio" name="rdoGender" id="radioGenderDecline" value="Prefer not to state."/>I
+									prefer not to state.
 								</label>
 							</div>
 						</div>
@@ -146,26 +130,27 @@
 					<div class="checkbox">
 						<label class="checkbox">
 							<!-- name value contains square brackets which makes it easy to create an array on the back end in php -->
-							<input id="chkFavoritesKittens" name="chkFavorites[]" type="checkbox" value="Kittens" />Kittens
+							<input id="chkFavoritesKittens" name="chkFavorites[]" type="checkbox" value="Kittens"/>Kittens
 						</label>
 						<label class="checkbox">
-							<input id="chkFavoritesPuppies" name="chkFavorites[]" type="checkbox" value="Puppies" />Puppies
+							<input id="chkFavoritesPuppies" name="chkFavorites[]" type="checkbox" value="Puppies"/>Puppies
 						</label>
 						<label class="checkbox">
-							<input id="chkFavoritesRainbows" name="chkFavorites[]" type="checkbox" value="Rainbows" />Rainbows
+							<input id="chkFavoritesRainbows" name="chkFavorites[]" type="checkbox" value="Rainbows"/>Rainbows
 						</label>
 						<label class="checkbox">
-							<input id="chkFavoritesUnicorns" name="chkFavorites[]" type="checkbox" value="Unicorns" />Unicorns
+							<input id="chkFavoritesUnicorns" name="chkFavorites[]" type="checkbox" value="Unicorns"/>Unicorns
 						</label>
 						<label class="checkbox">
-							<input id="chkFavoritesCthulhu" name="chkFavorites[]" type="checkbox" value="Cthulhu" />Cthulhu
+							<input id="chkFavoritesCthulhu" name="chkFavorites[]" type="checkbox" value="Cthulhu"/>Cthulhu
 						</label>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label class="control-label" for="txtareaComments">Tell Us More About Yourself:</label>
-					<textarea class="form-control" rows="5" id="txtareaComments" maxlength="500" placeholder="500 characters max."></textarea>
+					<textarea class="form-control" rows="5" id="txtareaComments" maxlength="500"
+								 placeholder="500 characters max."></textarea>
 				</div>
 
 				<div class="form-group">
@@ -174,7 +159,8 @@
 					<button type="submit" class="btn">Submit</button>
 				</div>
 			</form>
-		</div> <!-- CLOSE FORM WRAP -->
+		</div>
+		<!-- end of form wrap -->
 
 	</body>
 </html>

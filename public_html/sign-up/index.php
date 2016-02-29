@@ -42,25 +42,7 @@
 	<title>Sign Up</title>
 	<body>
 		<header>
-			<!--			this is the new test nav bar w tabs and drop down log in log out-->
-			<div class="container">
-				<h3>just another banner</h3>
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="">poof</a></li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Log In/Out <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Log In</a></li>
-							<li><a href="#">Log Out</a></li>
-							<li><a href="#">Receive CupCake Consistent with Rank</a></li>
-						</ul>
-					</li>
-					<li><a href="#">Request</a></li>
-					<li><a href="#">Profile</a></li>
-					<li><a href="#">Admin</a></li>
-				</ul>
-			</div>
-			<!--this is the end of the new test nav bar-->
+
 		</header>
 
 

@@ -59,7 +59,7 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							</button>
-							<a class="navbar-brand" href="#">Brand</a>
+							<a class="navbar-brand" href="#">Test Nav bar 1</a>
 						</div>
 
 						<!-- Collect the nav links, forms, and other content for toggling -->
@@ -112,37 +112,57 @@
 						</div><!-- /.navbar-collapse -->
 					</nav>
 
-					<!-- Begin page content -->
-					<!--		main box-->
+					<!--this is another nav bar I am trying out-->
+					<!--			this is the new test nav bar w tabs and drop down log in log out-->
 					<div class="container">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="panel panel-default">
-									<div class="panel-heading">this is where the calendar will be</div>
-									<div class="panel-body"></div>
-								</div>
-							</div>
-						</div>
+						<h3>test nav bar 2</h3>
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#">Schedule View</a></li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#">Log In/Out <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Log In</a></li>
+									<li><a href="#">Log Out</a></li>
+									<li><a href="#">Receive CupCake Consistent with Rank</a></li>
+								</ul>
+							</li>
+							<li><a href="#">Request</a></li>
+							<li><a href="#">Profile</a></li>
+							<li><a href="#">Admin</a></li>
+						</ul>
 					</div>
 
-					<div class="container">
-						<div class="page-header">
-							<h1>Sticky footer</h1>
-						</div>
-						<p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this
-							custom HTML and CSS.</p>
-						<p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.
-						</p>
+		</header>
+		<!-- Begin page content -->
+		<!--		main box-->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">this is where the calendar will be</div>
+						<div class="panel-body"></div>
 					</div>
 				</div>
+			</div>
+		</div>
 
-				<div id="footer">
-					<div class="container">
-						<p class="text-muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a
-								href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
-					</div>
-				</div>
-			</body>
+		<div class="container">
+			<div class="page-header">
+				<h1>Sticky footer</h1>
+			</div>
+			<p class="lead">These are just a bunch of place holder words.</p>
+			<p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.
+			</p>
+		</div>
+		</div>
+
+		<div id="footer">
+			<div class="container">
+				<p class="text-muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a
+						href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
+			</div>
+		</div>
+	</body>
 </html>
 
 
