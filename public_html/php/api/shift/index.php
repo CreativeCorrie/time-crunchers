@@ -47,9 +47,9 @@ try {
 	$shiftCrewId = filter_input(INPUT_GET, "shiftCrewId", FILTER_VALIDATE_INT);
 	$ShiftRequestId = filter_input(INPUT_GET, "shiftRequestId", FILTER_VALIDATE_INT);
 	$shiftStartTime = filter_input(INPUT_GET, "shiftStartTime", FILTER_SANITIZE_STRING);
-	$shiftDuration = filter_input(INPUT_GET, "shiftDuration", FILTER_SANITIZE_STRING);
+	$shiftDuration = filter_input(INPUT_GET, "shiftDuration", FILTER_VALIDATE_INT);
 	$shiftDate = filter_input(INPUT_GET, "shiftDate", FILTER_SANITIZE_STRING);
-	$shiftDelete = filter_input(INPUT_GET, "shiftDelete", FILTER_SANITIZE_STRING);
+	$shiftDelete = filter_input(INPUT_GET, "shiftDelete", FILTER_VALIDATE_INT);
 
 	//handle REST calls , while only allowing administrators access to database-modifying methods
 	if($method === "GET") {
@@ -99,13 +99,13 @@ try {
 				throw(new \InvalidArgumentException ("Shift crew cannot be empty", 405));
 			}
 			if(empty($requestObject->shiftRequestId) === true) {
-				throw(new \InvalidArgumentException ("Shift request id cannot be empty, 405"));
+				throw(new \InvalidArgumentException ("Shift request id cannot be empty", 405));
 			}
 			if(empty($requestObject->shiftStartTime) === true) {
 				throw(new \InvalidArgumentException ("Shift start time cannot be empty", 405));
 			}
 			if(empty($requestObject->shiftDuration) === true) {
-				throw(new \InvalidArgumentException ("Shift duration cannot be empty, 405"));
+				throw(new \InvalidArgumentException ("Shift duration cannot be empty", 405));
 			}
 			if(empty($requestObject->shiftDate) === true) {
 				throw(new \InvalidArgumentException ("Shift date cannot be empty", 405));
@@ -128,7 +128,7 @@ try {
 				$reply->message = "Shift updated OK";
 
 			} elseif($method === "POST") {
-				$shift = new Shift($shiftid, $requestObject->shiftUserId, $requestObject->shiftCrewId, $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
+				$shift = new Shift($shiftId, $requestObject->shiftUserId, $requestObject->shiftCrewId, $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
 				$shift->insert($pdo);
 
 				$reply->message = "Shift created OK";
@@ -139,7 +139,7 @@ try {
 
 			$shift = Shift::getShiftByShiftId($pdo, $id);
 			if($shift === null) {
-				throw(new RuntimeException("Shift does not exist, 404"));
+				throw(new RuntimeException("Shift does not exist", 404));
 			}
 
 			$shift->delete($pdo);
