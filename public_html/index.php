@@ -39,70 +39,39 @@
 				  crossorigin="anonymous"></script>
 	</head>
 
-	<title>Time Crunch</title>
+	<title>Time Crunch Schedule View</title>
 	<body>
 		<header>
-			<!-- A simplified navbar -->
-			<nav class="navbar navbar-default navbar-fixed-top" id="hello"> <!--use navbar-default for lighter bg-->
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<!--					<h3>Schedule</h3>-->
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-							  data-target="#top-nav" aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="top-nav">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#schedule">Schedule<span class="sr-only">(current)</span></a></li>
-						<li><a href="#request">Request</a></li>
-						<li><a href="#profile">Profile</a></li>
-						<li><a href="#admin">Admin</a></li>
-					</ul>
-				</div>
-			</nav>
-		</header>
-
-<!--		Jumbotron-->
-		<div class="jumbotron">
-			<h1>Time Crunch</h1>
-			<div class="pull-right">
-				<p id="today">today's date</p>
-			</div>
-		</div>
-
-<!--		aside for future use-->
-		<div id="wrapper">
-			<div id="sidebar-wrapper">
-				<ul class="sidebar-nav">
-					<li class="sidebar-brand"><a href="#">Home</a></li>
-					<li><a href="#">Another link</a></li>
-					<li><a href="#">Next link</a></li>
-					<li><a href="#">Last link</a></li>
+<!--			this is the new test nav bar w tabs and drop down log in log out-->
+			<div class="container">
+				<h1>Banner of Greatness</h1>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#">Schedule View</a></li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Log In/Out <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Log In</a></li>
+							<li><a href="#">Log Out</a></li>
+							<li><a href="#">Receive CupCake Consistent with Rank</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Request</a></li>
+					<li><a href="#">Profile</a></li>
+					<li><a href="#">Admin</a></li>
 				</ul>
 			</div>
-			<div id="page-content-wrapper">
-				<div class="page-content">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-12">
+			<!--this is the end of the new test nav bar-->
+		</header>
 
 <!--		main box-->
 		<div class="container">
 			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-2"></div>
-				<div class="col-md-8">
-					<div class="panel panel-default pull-right">
+				<div class="col-md-12">
+					<div class="panel panel-default">
 						<div class="panel-heading">this is where the calendar will be</div>
 						<div class="panel-body"></div>
 					</div>
 				</div>
-				<div class="col-md-1"></div>
 			</div>
 		</div>
 	</body>
@@ -111,8 +80,5 @@
 
 <!--		this is my test area-->
 
-<div class="container-fluid">
-	<p>This is some text for no reason.</p>
-</div>
 
 <!--		this is my test area-->
