@@ -39,7 +39,7 @@ try {
 	//sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 	//make sure the id is valid for methods that require it
-	if (($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
+	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 	//sanitize and trim other fields
@@ -52,7 +52,7 @@ try {
 		setXsrfCookie();
 
 		//get the access based on the given field
-		if(empty($id) ===false) {
+		if(empty($id) === false) {
 			$access = Access::getAccessByAccessId($pdo, $id);
 			// this is for restricting by company - remember is access is wide open
 			// however keep this stuff for other APIs :D
@@ -64,7 +64,7 @@ try {
 			if($access !== null && $access->getOrgId() === $_SESSION["access"]->getOrgId()) {
 				$reply->data = $reply;
 			}
-		}else {
+		} else {
 			$reply->data = Access::getAccessByOrgId($pdo, $_SESSION["access"]->getOrgId())->toArray();
 		}
 	}
@@ -82,7 +82,7 @@ try {
 				throw(new InvalidArgumentException ("accessName cannot be null", 405));
 			}
 			//perform put or post
-			if($method ==="PUT") {
+			if($method === "PUT") {
 				$access = Access::getAccessByAccessId($pdo, $id);
 				if($access === null) {
 					throw(new RuntimeException("access does not exist", 404));
@@ -99,32 +99,41 @@ try {
 					}
 				}
 
-			$access->setAccessName($requestObject->accessName);
+				$access->setAccessName($requestObject->accessName);
 
-			$access->update($pdo);
-			//kill the temporary admin access, if they're not supposed to have it
-			//check to see if the password is not null; this means it's a regular access changing their password and not an admin
-			//prevents admins from being logged out for editing their regular accesses
-			if(($access->getAccessIsAdmin() === false) && ($requestObject->accessPassword !== null)) {
-				$_SESSION["access"]->setAccessIsAdmin(false);
-			}
-			$reply->message = "access updated ok";
-	} elseif($method === "POST") {
+				$access->update($pdo);
+				//kill the temporary admin access, if they're not supposed to have it
+				//check to see if the password is not null; this means it's a regular access changing their password and not an admin
+				//prevents admins from being logged out for editing their regular accesses
+				if(($access->getAccessIsAdmin() === false) && ($requestObject->accessPassword !== null)) {
+					$_SESSION["access"]->setAccessIsAdmin(false);
+				}
+				$reply->message = "access updated ok";
+			} elseif($method === "POST") {
 
-			//if they shouldn't have admin access to this method, kill the temp access and boot them
-			//check by retrieving their original access from the DB and checking
-			$security = Access::getAccessId($pdo, $_SESSION["access"]->getAccessId());
-			if($security->getAccessIsAdmin() === false) {
-			throw(new RuntimeException("Access Denied", 403));
-		}
-			//create new access
-			$access = new Access($id, $_SESSION["access"]->getAccessId(), $requestObject->accessName);
-			$access->insert($pdo);
+				//if they shouldn't have admin access to this method, kill the temp access and boot them
+				//check by retrieving their original access from the DB and checking
+				$security = Access::getAccessId($pdo, $_SESSION["access"]->getAccessId());
+				if($security->getAccessIsAdmin() === false) {
+					throw(new RuntimeException("Access Denied", 403));
+				}
+				//create new access
+				$access = new Access($id, $_SESSION["access"]->getAccessId(), $requestObject->accessName);
+				$access->insert($pdo);
 
-			$reply->message = "access created ok";
+				$reply->message = "access created ok";
 
 			}
 		}
 	}
+}catch(\Exception $exception) {
+		$reply->status = $exception->getCode();
+		$reply->message = $exception->getMessage();
+	} catch (\TypeError $typeError) {
+		$reply->status = $exception->getCode();
+		$reply->message = $exception->getMessage();
+	}
 echo json_encode($reply);
+
+
 

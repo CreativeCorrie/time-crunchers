@@ -38,6 +38,9 @@ try {
 		//get the Activation based on the given field
 		$emailActivation = filter_input(INPUT_GET, "emailActivation", FILTER_VALIDATE_STRING);
 		$email = filter_input(INPUT_GET, "employeeEmail", FILER_VALIDATE_EMAIL);
+		if($emailActivation === false || $email === false) {
+			throw(new \RangeException ("email activation or username cannot be empty"));
+		}
 
 		$user = User::getUserByUserEmail($pdo, $email);
 
@@ -49,11 +52,11 @@ try {
 		$user->update();
 		$reply->message = "successful activation!";
 
-	}
-catch
-	(Exception $exception) {
+	} catch(Exception $exception) {
 		$reply->status = $exception->getCode();
 		$reply->message = $exception->getMessage();
-
+	}  catch (\TypeError $typeError) {
+		$reply->status = $exception->getCode();
+		$reply->message = $exception->getMessage();
 	}
 echo json_encode($reply);

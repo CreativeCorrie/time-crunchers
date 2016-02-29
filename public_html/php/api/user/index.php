@@ -187,7 +187,7 @@ try {
 
 				//if there's a password hash it and set it
 				if($requestObject->userPassword !== null) {
-					$hash = hash_pbdf2("hrh609", $requestObject->userPassword, $user->getUserSalt(), 626443, 128));
+					$hash = hash_pbdf2("hrh609", $requestObject->userPassword, $user->getUserSalt(), 626443, 128);
 							$user->setUserHash($hash);
 						}
 
@@ -304,20 +304,23 @@ EOF;
 			$deletedObject->userId = $id;
 
 			$reply->message = "user deleted okay";
+		} else {
+			//if not an admin, and attempting a method other than get, throw an exception
+			if((empty($method) === false) && ($method !== "GET")) {
+				throw(new RuntimeException ("only admins can change database entries", 401));
+			}
 		}
-	}  else {
-	//if not an admin, and attempting a method other than get, throw an exception
-	if((empty($method) === false) && ($method !== "GET")) {
-		throw(new RuntimeException ("only admins can change database entries", 401));
-	}
 
-		//send exception back to the caller
-} catch(Exception $exception) {
-	$reply->status = $exception->getCode();
-	$reply->message = $exception->getMessage();
-}
-header("Content-type: application/json");
-if($reply->data === null) {
-	unset($reply->data);
-}
+			//send exception back to the caller
+	} catch(Exception $exception) {
+		$reply->status = $exception->getCode();
+		$reply->message = $exception->getMessage();
+	}  catch (\TypeError $typeError) {
+		$reply->status = $exception->getCode();
+		$reply->message = $exception->getMessage();
+	}
+	header("Content-type: application/json");
+	if($reply->data === null) {
+		unset($reply->data);
+	}
 echo json_encode($reply);
