@@ -55,16 +55,16 @@ try {
 			$access = Access::getAccessByAccessId($pdo, $id);
 			// this is for restricting by company - remember is access is wide open
 			// however keep this stuff for other APIs :D
-			if($access !== null && $access->getOrgId() === $_SESSION["access"]->getOrgId()) {
+			if($access !== null && $access->getAccessId() === $_SESSION["access"]->getAccessId()) {
 				$reply->data = $access;
 			}
 		} else if(empty($accessName) === false) {
 			$access = Access::getAccessByAccessId($pdo, $accessName);
-			if($access !== null && $access->getOrgId() === $_SESSION["access"]->getOrgId()) {
+			if($access !== null && $access->getAccessId() === $_SESSION["access"]->getAccessId()) {
 				$reply->data = $reply;
 			}
 		} else {
-			$reply->data = Access::getAccessByOrgId($pdo, $_SESSION["access"]->getOrgId())->toArray();
+			$reply->data = Access::getAccessByAccessId($pdo, $_SESSION["access"]->getAccessId())->toArray();
 		}
 	}
 
