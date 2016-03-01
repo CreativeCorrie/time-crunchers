@@ -70,22 +70,58 @@ try {
 				$reply->data = $request;
 			}
 		}
+	}
 		//make sure the id is valid for methods that require it
 		if(($method === "POST") && (empty($id) === true || $id < 0)) {
 			throw(new InvalidArgumentException("id not found", 405));
 		}
-			if ($method === "POST"){
-				//create new request
-				$request = new Request(null, $requestObject->requestRequestorId, $requestRequestorId,
-					$requestObject->requestTimestamp, $requestObject->requestActionTimeStamp, $requestObject->requestActionTimeStamp,
-					$requestObject->requestApprove, $requestObject->requestRequestorText, $requestObject->requestRequestorAdminText);
-				$request->insert($pdo);
-				$reply->message = "Request submitted successfully";
+		if($method === "POST") {
+			//create new request
+			$request = new Request(null, $requestObject->requestRequestorId, $requestRequestorId,
+				$requestObject->requestTimestamp, $requestObject->requestActionTimeStamp, $requestObject->requestActionTimeStamp,
+				$requestObject->requestApprove, $requestObject->requestRequestorText, $requestObject->requestRequestorAdminText);
+			$request->insert($pdo);
+			$reply->message = "Request submitted successfully";
+		}
+	if($method === "PUT" || $method = "DELETE") {
+		if(Access::isAdminLoggedIn() === true) {
+			if($method === "PUT" || $method === "DELETE") {
+
+				verifyXsrf();
+				$requestContent = file_get_contents("php://input");
+				$requestObject = json_decode($requestContent);
+
+				//make sure all fields are present, in order to prevent database issues
+				if(empty($requestObject->requestApprove) === true) {
+					throw(new InvalidArgumentException ("Must Approve/Deny this request", 405));
+				}
+				//perform the actual put or post
+				if($method === "PUT") {
+					$request = Request::getRequestByRequestId($pdo, $id);
+					if($request === null) {
+						throw(new RuntimeException("Request does not exist", 404));
+					}
+					$request = Request::getRequestByRequestId($pdo, $id);
+					$request->setRequestTimeStamp($requestObject->requestTimeStamp);
+					$request->setRequestActionTimeStamp($requestObject->requestActionTimeStamp);
+					$request->setRequestApprove($requestObject->requestApprove);
+					$request->setRequestRequestorText($requestObject->requestRequestorText);
+					$request->setRequestAdminText($requestObject->requetAdminText);
+					$request->update($pdo);
+					$reply->message = "Request updated successfully";
+				} elseif ($method === "DELETE") {
+					$request = Request::getRequestByRequestId($pdo, $id);
+					if($request === null) {
+						throw(new RuntimeException("Request does not exist", 404));
+					}
+					$request->delete($pdo);
+					$deletedObject = new stdClass();
+					$deletedObject->requestId = $id;
+					$reply->message = "Request deleted successfully";
+				}
 			}
+		}
 	}
-
-
-	//send exception back to the caller
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
