@@ -26,11 +26,11 @@ try {
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
 
-	//if the shift session is empty, the user is not logged in, throw an exception
-//	if(empty($_SESSION["company"]) === true) {
-//		setXsrfCookie("/");
-//		throw(new RuntimeException("Please log-in or sign up", 401));
-//	}
+//	if the shift session is empty, the user is not logged in, throw an exception
+	if(empty($_SESSION["company"]) === true) {
+		setXsrfCookie("/");
+		throw(new RuntimeException("Please log-in or sign up", 401));
+	}
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
@@ -61,7 +61,7 @@ try {
 		if(empty($id) === false) {
 			$shift = Shift::getShiftByShiftId($pdo, $id);
 			if($shift !== null && $shift->getShiftId() === $_SESSION["shift"]->getShiftId()) {
-				$reply->data = $crew;  //TODO:not sure why this is $crew instead of $shift
+				$reply->data = $shift;  //TODO: I changed the word after ->data = xxx from $crew to $shift - elaine
 			}
 		} else if(empty($shiftUserId) === false) {
 			$shift = Shift::getShiftByShiftUserId($pdo, $id);
