@@ -1,9 +1,8 @@
 <?php
 
 require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
-require_once dirname(dirname(__DIR__)) . "lib/xsrf.php";
-require_once("/etc/apache2/Timecrunchers-mysql/encryption-config.php");
-require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "vendor/autolader.php");
+require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\Timecrunchers\Access;
 
 
@@ -34,7 +33,7 @@ try {
 	}
 
 	//determine which HTTP method was used
-	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER[HTTP_X_HTTP_METHOD] : $_server["REQUEST_METHOD"];
+	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
