@@ -36,7 +36,7 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize inputs
-	$shiftId = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($shiftId) === true || $shiftId < 0)) {

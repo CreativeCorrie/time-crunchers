@@ -14,9 +14,9 @@ use Edu\Cnm\Timecrunchers\Access;
  **/
 
 //Verify XSRF Challenge
-//if(session_status() !== PHP_SESSION_ACTIVE) {
-//	session_start();
-//}
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
 
 //Prepare an empty reply
 $reply = new stdClass();
@@ -27,14 +27,20 @@ try {
 	//Grab MySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
 
+	//if the session is empty, the user is not logged in, throw an exception
+	if(empty($_SESSION["schedule"]) === true) {
+		setXsrfCookie("/");
+		throw(new RunTimeException("Please log-in or sign up", 401));
+	}
+
 	//Determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//Sanitize inputs
-	$scheduleId = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
 	//Make sure ID is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($scheduleId) === true || $scheduleId < 0)) {
+	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("ID cannot be empty or negative", 405));
 	}
 
