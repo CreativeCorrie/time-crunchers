@@ -43,9 +43,9 @@ try {
 	}
 	//sanitize and trim the other fields
 
-	$ShiftUserId = filter_input(INPUT_GET, "shiftUserId", FILTER_VALIDATE_INT);
+	$shiftUserId = filter_input(INPUT_GET, "shiftUserId", FILTER_VALIDATE_INT);
 	$shiftCrewId = filter_input(INPUT_GET, "shiftCrewId", FILTER_VALIDATE_INT);
-	$ShiftRequestId = filter_input(INPUT_GET, "shiftRequestId", FILTER_VALIDATE_INT);
+	$shiftRequestDate = filter_input(INPUT_GET, "shiftRequestId", FILTER_VALIDATE_INT);
 	$shiftStartTime = filter_input(INPUT_GET, "shiftStartTime", FILTER_SANITIZE_STRING);
 	$shiftDuration = filter_input(INPUT_GET, "shiftDuration", FILTER_VALIDATE_INT);
 	$shiftDate = filter_input(INPUT_GET, "shiftDate", FILTER_SANITIZE_STRING);
@@ -58,12 +58,12 @@ try {
 
 		//get the shift based on the given field
 		if(empty($id) === false) {
-			$shift = Shift::getShiftByShfitId($pdo, $id);
-			if($shift !== null && $shift->getShfitId() === $_SESSION["shift"]->getShiftId()) {
+			$shift = Shift::getShiftByShiftId($pdo, $id);
+			if($shift !== null && $shift->getShiftId() === $_SESSION["shift"]->getShiftId()) {
 				$reply->data = $crew;
 			}
 		} else if(empty($shiftUserId) === false) {
-			$shift = Shift::getShiftybyShiftUserId($pdo, $id);
+			$shift = Shift::getShiftByShiftUserId($pdo, $id);
 			if($shift !== null) {
 				$reply->data = $shift;
 			}
