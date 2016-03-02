@@ -101,6 +101,7 @@ try {
 						$request->update($pdo);
 						$reply->message = "Request updated successfully";
 					} elseif ($method === "DELETE") {
+						verifyXsrf();
 						$request = Request::getRequestByRequestId($pdo, $id);
 						if($request === null) {
 							throw(new RuntimeException("Request does not exist", 404));

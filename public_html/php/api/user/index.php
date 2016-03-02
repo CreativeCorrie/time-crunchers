@@ -35,7 +35,7 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize inputs
-	$id = filter_input(INPUT_GET, "ID", FILTER_VALIDATE_INT);
+	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be negative or empty", 405));
@@ -58,63 +58,72 @@ try {
 		//get the user based on the given
 		if(empty($id) === false) {
 			$user = User::getUserByUserId($pdo, $id);
-			if(user !== null && $user->getUserId() === $_SESSION["user"]->getUserId()) {
+			if($user !== null) { //&& $user->getUserId() === $_SESSION["user"]->getUserId()) {
 				$reply->data = $user;
-			}
-		} else if(empty($userCompanyId) === false) {
-			$user = User::getUserByUserCompanyId($pdo, $userCompanyId);
-			if($user !== null && $user->getUserCompanyId() === $_SESSION["user"]->getUserCompanyId()) {
-				$reply->data = $user;
-			}
-		} else if(empty($userCrewId) === false) {
-			$user = User::getUserByUserCrewId($pdo, $userCrewId);
-			if($user !== null && $user->getUserCrewId() === $_SESSION["user"]->getUserCrewId()) {
-				$reply->data = $user;
-			}
-		} else if(empty($userAccessId) === false) {
-			$user = User::getUserByUserAccessId($pdo, $userAccessId);
-			if($user !== null && $user->getUserAccessId() === $_SESSION["user"]->getUserAccessId()) {
-				$reply->data = $user;
-			}
-		} else if(empty($userPhone) === false) {
-			$user = User::getUserByUserPhone($pdo, $userPhone);
-			if($user !== null && $user->getUserPhone() === $_SESSION["user"]->getUserPhone()) {
-				$reply->data = $user;
-			}
-		} else if(empty($userFirstName) === false) {
-			$user = User::getUserByUserFirstName($pdo, $userFirstName);
-			if($user !== null && $user->getUserFirstName() === $_SESSION["user"]->getUserFirstName()) {
-				$reply->data = $user;
-			}
-		} else if(empty($userLastName) === false) {
-			$user = User::getUserByUserLastName($pdo, $userCompanyId);
-			if($user !== null && $user->getUserLastname() === $_SESSION["user"]->getUserLastName()) {
-				$reply->data = $user;
-			}
-		} else if(empty($userEmail) === false) {
-			$user = User::getUserByUserEmail($pdo, $userEmail);
-			if($user !== null && $user->getUserEmail() === $_SESSION["user"]->getUserEmail()) {
-				$reply->data = $user;
-			}
-		} else if(empty($userActivation) === false) {
-			$user = User::getUserByUserActivation($pdo, $userActivation);
-			if($user !== null && $user->getUserActivation() === $_SESSION["user"]->getUserActivation()) {
-				$reply->data = $user;
-			}
-		} else if(empty($userHash) === false) {
-			$user = User::getUserByUserHash($pdo, $userHash);
-			if($user !== null && $user->getUserHash() === $_SESSION["user"]->getUserHash()) {
-				$reply->data = $user;
-			}
-		} else if(empty($userSalt) === false) {
-			$user = User::getUserByUserSalt($pdo, $userSalt);
-			if($user !== null && $user->getUserSalt() === $_SESSION["user"]->getUserSalt()) {
+		} else if (empty($id) === false) {
+			$user = User::getUserByUserEmail($pdo, $id);
+			if($user !== null) {
 				$reply->data = $user;
 			}
 		} else {
-			$reply->data = User::getUserByUserId($pdo, $_SESSION["user"]->getUserId())->toArray();
+				$user = User::getAllUsers($pdo);
+				$reply->data = $user;
+			}
 		}
-	}
+//		} else if(empty($userCompanyId) === false) {
+//			$user = User::getUserByUserCompanyId($pdo, $userCompanyId);
+//			if($user !== null && $user->getUserCompanyId() === $_SESSION["user"]->getUserCompanyId()) {
+//				$reply->data = $user;
+//			}
+//		} else if(empty($userCrewId) === false) {
+//			$user = User::getUserByUserCrewId($pdo, $userCrewId);
+//			if($user !== null && $user->getUserCrewId() === $_SESSION["user"]->getUserCrewId()) {
+//				$reply->data = $user;
+//			}
+//		} else if(empty($userAccessId) === false) {
+//			$user = User::getUserByUserAccessId($pdo, $userAccessId);
+//			if($user !== null && $user->getUserAccessId() === $_SESSION["user"]->getUserAccessId()) {
+//				$reply->data = $user;
+//			}
+//		} else if(empty($userPhone) === false) {
+//			$user = User::getUserByUserPhone($pdo, $userPhone);
+//			if($user !== null && $user->getUserPhone() === $_SESSION["user"]->getUserPhone()) {
+//				$reply->data = $user;
+//			}
+//		} else if(empty($userFirstName) === false) {
+//			$user = User::getUserByUserFirstName($pdo, $userFirstName);
+//			if($user !== null && $user->getUserFirstName() === $_SESSION["user"]->getUserFirstName()) {
+//				$reply->data = $user;
+//			}
+//		} else if(empty($userLastName) === false) {
+//			$user = User::getUserByUserLastName($pdo, $userCompanyId);
+//			if($user !== null && $user->getUserLastname() === $_SESSION["user"]->getUserLastName()) {
+//				$reply->data = $user;
+//			}
+//		} else if(empty($userEmail) === false) {
+//			$user = User::getUserByUserEmail($pdo, $userEmail);
+//			if($user !== null && $user->getUserEmail() === $_SESSION["user"]->getUserEmail()) {
+//				$reply->data = $user;
+//			}
+//		} else if(empty($userActivation) === false) {
+//			$user = User::getUserByUserActivation($pdo, $userActivation);
+//			if($user !== null && $user->getUserActivation() === $_SESSION["user"]->getUserActivation()) {
+//				$reply->data = $user;
+//			}
+//		} else if(empty($userHash) === false) {
+//			$user = User::getUserByUserHash($pdo, $userHash);
+//			if($user !== null && $user->getUserHash() === $_SESSION["user"]->getUserHash()) {
+//				$reply->data = $user;
+//			}
+//		} else if(empty($userSalt) === false) {
+//			$user = User::getUserByUserSalt($pdo, $userSalt);
+//			if($user !== null && $user->getUserSalt() === $_SESSION["user"]->getUserSalt()) {
+//				$reply->data = $user;
+//			}
+//		} else {
+//			$reply->data = User::getUserByUserId($pdo, $_SESSION["user"]->getUserId())->toArray();
+//		}
+//	}
 
 
 	//if the session belongs to an admin, allow post, put, and delete methods
