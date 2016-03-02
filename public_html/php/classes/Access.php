@@ -200,7 +200,7 @@ class Access implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param int $accessId access id to search for
-	 * @return int|null access found or null if not found
+	 * @return Access found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
@@ -259,7 +259,7 @@ class Access implements \JsonSerializable {
 		$parameters = array("accessName" => $accessName);
 		$statement->execute($parameters);
 
-		//build an array of access
+		//build an array of accessors
 		$accessors = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
@@ -289,7 +289,7 @@ class Access implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
-		//build an array of access
+		//build an array of accessors
 		$accessors = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {

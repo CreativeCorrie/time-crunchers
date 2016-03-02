@@ -381,7 +381,7 @@ class Schedule implements \JsonSerializable {
 		$parameters = ["companyId" => self::injectCompanyId()];
 		$statement->execute($parameters);
 
-		// build an array of access
+		// build an array of schedules
 		$schedules = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
