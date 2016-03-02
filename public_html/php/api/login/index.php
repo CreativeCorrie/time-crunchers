@@ -81,4 +81,5 @@ try {
 			$reply->message = $exception->getMessage();
 	}
 
+
 echo json_encode($reply);
