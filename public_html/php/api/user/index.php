@@ -61,16 +61,22 @@ try {
 			$user = User::getUserByUserId($pdo, $id);
 			if($user !== null) { //&& $user->getUserId() === $_SESSION["user"]->getUserId()) {
 				$reply->data = $user;
-		} else if (empty($id) === false) {
+			}
+		} else if(empty($id) === false) {
 			$user = User::getUserByUserEmail($pdo, $id);
 			if($user !== null) {
 				$reply->data = $user;
 			}
-		} else {
-				$user = User::getAllUsers($pdo);
+		} else if(empty($id) === false) {
+			$user = User::getUserByUserActivation($pdo, $id);
+			if($user !== null) {
 				$reply->data = $user;
 			}
+		} else {
+			$user = User::getAllUsers($pdo);
+			$reply->data = $user;
 		}
+	}
 //		} else if(empty($userCompanyId) === false) {
 //			$user = User::getUserByUserCompanyId($pdo, $userCompanyId);
 //			if($user !== null && $user->getUserCompanyId() === $_SESSION["user"]->getUserCompanyId()) {
