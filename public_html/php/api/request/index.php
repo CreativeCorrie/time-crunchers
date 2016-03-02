@@ -1,11 +1,7 @@
 <?php
 /**
- * This is a first draft, created using BreadBasket's listing api
- * @see https://github.com/brbrown59/bread-basket/blob/master/public_html/php/api/listing/index.php
- *
- * REQUEST API for request class
+ ** REQUEST API for request class
  * @author Sam Chandler <samuelvanchandler@gmail.com>
- *
  */
 
 //grab the class under scrutiny
@@ -53,10 +49,8 @@ try {
 
 	//Handle REST calls
 	if($method === "GET") {
-
 		//Set XSRF cookie
 		setXsrfCookie("/");
-
 		//Get Request based on given field
 		if(empty($id) === false) {
 			$request = Request::getRequestByRequestId($pdo, $id);
@@ -69,7 +63,10 @@ try {
 				$reply->data = $request;
 			}
 		}
-	}
+		// Unpack Objects
+		verifyXsrf();
+		$requestContent = file_get_contents("php://input");
+		$requestObject = json_decode($requestContent);
 		//make sure the id is valid for methods that require it
 		if(($method === "POST") && (empty($id) === true || $id < 0)) {
 			throw(new InvalidArgumentException("id not found", 405));
@@ -82,41 +79,39 @@ try {
 			$request->insert($pdo);
 			$reply->message = "Request submitted successfully";
 		}
-	if($method === "PUT" || $method = "DELETE") {
-		if(Access::isAdminLoggedIn() === true) {
-			if($method === "PUT" || $method === "DELETE") {
-
-				verifyXsrf();
-				$requestContent = file_get_contents("php://input");
-				$requestObject = json_decode($requestContent);
-
-				//make sure all fields are present, in order to prevent database issues
-				if(empty($requestObject->requestApprove) === true) {
-					throw(new InvalidArgumentException ("Must Approve/Deny this request", 405));
-				}
-				//perform the actual put or post
+		if($method === "PUT") {
+			if(Access::isAdminLoggedIn() === true) {
 				if($method === "PUT") {
-					$request = Request::getRequestByRequestId($pdo, $id);
-					if($request === null) {
-						throw(new RuntimeException("Request does not exist", 404));
+					//make sure all fields are present, in order to prevent database issues
+					if(empty($requestObject->requestApprove) === true) {
+						throw(new InvalidArgumentException ("Must Approve/Deny this request", 405));
 					}
-					$request = Request::getRequestByRequestId($pdo, $id);
-					$request->setRequestTimeStamp($requestObject->requestTimeStamp);
-					$request->setRequestActionTimeStamp($requestObject->requestActionTimeStamp);
-					$request->setRequestApprove($requestObject->requestApprove);
-					$request->setRequestRequestorText($requestObject->requestRequestorText);
-					$request->setRequestAdminText($requestObject->requetAdminText);
-					$request->update($pdo);
-					$reply->message = "Request updated successfully";
-				} elseif ($method === "DELETE") {
-					$request = Request::getRequestByRequestId($pdo, $id);
-					if($request === null) {
-						throw(new RuntimeException("Request does not exist", 404));
+					//perform the actual put or post
+					if($method === "PUT") {
+						$request = Request::getRequestByRequestId($pdo, $id);
+						if($request === null) {
+							throw(new RuntimeException("Request does not exist", 404));
+						}
+						$request = Request::getRequestByRequestId($pdo, $id);
+						$request->setRequestTimeStamp($requestObject->requestTimeStamp);
+						$request->setRequestActionTimeStamp($requestObject->requestActionTimeStamp);
+						$request->setRequestApprove($requestObject->requestApprove);
+						$request->setRequestRequestorText($requestObject->requestRequestorText);
+						$request->setRequestAdminText($requestObject->requetAdminText);
+						$request->update($pdo);
+						$reply->message = "Request updated successfully";
+					} elseif ($method === "DELETE") {
+						$request = Request::getRequestByRequestId($pdo, $id);
+						if($request === null) {
+							throw(new RuntimeException("Request does not exist", 404));
+						}
+						$request->delete($pdo);
+						$deletedObject = new stdClass();
+						$deletedObject->requestId = $id;
+						$reply->message = "Request deleted successfully";
+					} else {
+						throw(new RuntimeException("Must be an Administrator"));
 					}
-					$request->delete($pdo);
-					$deletedObject = new stdClass();
-					$deletedObject->requestId = $id;
-					$reply->message = "Request deleted successfully";
 				}
 			}
 		}
@@ -128,7 +123,6 @@ try {
 	$reply->status = $typeError->getCode();
 	$reply->message = $typeError->getMessage();
 }
-//this is the end of the try block
 header("Content-type: application/json");
 if($reply->data === null) {
 	unset($reply->data);
