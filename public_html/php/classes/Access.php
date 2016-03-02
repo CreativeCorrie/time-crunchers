@@ -198,7 +198,7 @@ class Access implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
-	public function getAccessByAccessName(\PDO $pdo, string $accessName) {
+	public static function getAccessByAccessName(\PDO $pdo, string $accessName) {
 		//sanitize the description before searching
 		$accessName = trim($accessName);
 		$accessName = filter_var($accessName, FILTER_SANITIZE_STRING);
@@ -240,7 +240,7 @@ class Access implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
-	public function getAccessByAccessId(\PDO $pdo, int $accessId) {
+	public static function getAccessByAccessId(\PDO $pdo, int $accessId) {
 		//sanitize the accessId before searching
 		if($accessId <= 0) {
 			throw(new \PDOException("accessId is not positive"));
@@ -277,7 +277,7 @@ class Access implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */
-	public function getAllAccess(\PDO $pdo) {
+	public static function getAllAccess(\PDO $pdo) {
 		//create query template
 		$query = "SELECT accessId, accessName FROM access";
 		$statement = $pdo->prepare($query);
@@ -304,7 +304,7 @@ class Access implements \JsonSerializable {
 	 *
 	 * @return array resulting state variables to serialize
 	 **/
-	public function jsonSerialize() {
+	public static function jsonSerialize() {
 		$fields = get_object_vars($this);
 		return($fields);
 	}

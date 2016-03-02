@@ -7,12 +7,12 @@ use Edu\Cnm\Timecrunchers\Access;
 
 
 /**
- * controller/api for the access class
+ * Controller/API for the Access class
  *
  * @author Denzyl Fontaine
  **/
 
-//verify the xsrf challenge
+//verify the XSRF challenge
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
@@ -24,10 +24,10 @@ $reply->data = null;
 
 try {
 	//grab the mySQL
-	$pdo = connectToEncryptedMySQL("#");
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
 
 	//if the access session is empty, the user is not logged in, throw an exception
-	if(empty($_SESSION["access"]) === true) {
+	if(empty($_SESSION["user"]) === true) {
 		setXsrfCookie("/");
 		throw(new RunTimeException("Please log-in or sign up", 401));
 	}
@@ -37,10 +37,12 @@ try {
 
 	//sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
+
 	//sanitize and trim other fields
 	// this is an optional field - wrap it in an if
 	$accessName = filter_input(INPUT_GET, "accessName", FILTER_SANITIZE_STRING);
@@ -48,91 +50,130 @@ try {
 	//handle REST calls, while only allowing administrators to access database-modifying methods
 	if($method === "GET") {
 		//set XSRF cookie
-		setXsrfCookie();
+		setXsrfCookie("/");
 
-		//get the access based on the given field
+		//get the Access based on the given field
 		if(empty($id) === false) {
 			$access = Access::getAccessByAccessId($pdo, $id);
 			// this is for restricting by company - remember is access is wide open
 			// however keep this stuff for other APIs :D
-			if($access !== null && $access->getAccessId() === $_SESSION["access"]->getAccessId()) {
+			if($access !== null) {  //TODO: I removed this from after null:  && $access->getAccessId() === $_SESSION["access"]->getAccessId()
 				$reply->data = $access;
 			}
-		} else if(empty($accessName) === false) {
-			$access = Access::getAccessByAccessId($pdo, $accessName);
-			if($access !== null && $access->getAccessId() === $_SESSION["access"]->getAccessId()) {
+		} else if(empty($id) === false) {
+			$access = Access::getAccessByAccessName($pdo, $id);
+			if($access !== null) {  //TODO: I removed this from after null:  && $access->getAccessId() === $_SESSION["access"]->getAccessId()
 				$reply->data = $reply;
 			}
 		} else {
-			$reply->data = Access::getAccessByAccessId($pdo, $_SESSION["access"]->getAccessId())->toArray();
-		}
-	}
-
-	//if the session belongs to an admin, allow post, put and delete methods
-	if(empty($_SESSION["access"]) === false && $_SESSION["access"]->getAccessIsAccess() === true) {
-
-		if($method === "PUT" || $method === "POST") {
-			verifyXsrf();
-			$requestContent = file_get_contents("php://input");
-			$requestObject = json_decode($requestContent);
-
-			//make sure all fields are present, in order to fix database issues
-			if(empty($requestObject->accessName) === true) {
-				throw(new InvalidArgumentException ("accessName cannot be null", 405));
+			$access = Access::getAllAccess($pdo);
+			if($accessors !== null) {
+				$reply->data = $accessors;
+				//TODO: this was the line after the above if $reply->data = Access::getAccessByAccessId($pdo, $_SESSION["access"]->getAccessId())->toArray();
 			}
-			//perform put or post
-			if($method === "PUT") {
-				$access = Access::getAccessByAccessId($pdo, $id);
-				if($access === null) {
-					throw(new RuntimeException("access does not exist", 404));
+		}
+
+		//if the session belongs to an admin, allow post, put and delete methods
+		if(Access::isAdminLoggedIn() === true) {
+			if($method === "PUT" || $method === "POST") {
+
+				verifyXsrf();
+				$requestContent = file_get_contents("php://input");
+				$requestObject = json_decode($requestContent);
+
+				//make sure all fields are present, in order to fix database issues
+				if(empty($requestObject->accessName) === true) {
+					throw(new InvalidArgumentException ("accessName cannot be null", 405));
 				}
-				//check to make sure a non-admin is only attempting to edit themselves
-				//if not, take their temp access and throw an exception
-				$security = Access::getAccessByAccessId($pdo, $_SESSION["access"]->getAccessId());
-				// use the example from Slack to determine admins
+
+				//perform put or post
 				if($method === "PUT") {
-					if(Access::isAdminLoggedIn() === true) {
-						// adminy thingz here
-					} else {
-						throw(new RuntimeException("Must be an Administrator to access."));
+					$access = Access::getAccessByAccessId($pdo, $id);
+					if($access === null) {
+						throw(new RuntimeException("access does not exist", 404));
 					}
-				}
 
-				$access->setAccessName($requestObject->accessName);
+					$access = new Access($id, $requestObject->accessName);
+					$access->update($pdo);
 
-				$access->update($pdo);
-				//kill the temporary admin access, if they're not supposed to have it
-				//check to see if the password is not null; this means it's a regular access changing their password and not an admin
-				//prevents admins from being logged out for editing their regular accesses
-				if(($access->getAccessIsAdmin() === false) && ($requestObject->accessPassword !== null)) {
-					$_SESSION["access"]->setAccessIsAdmin(false);
-				}
-				$reply->message = "access updated ok";
-			} elseif($method === "POST") {
+					$reply->message = "Access updated ok";
 
-				//if they shouldn't have admin access to this method, kill the temp access and boot them
-				//check by retrieving their original access from the DB and checking
-				$security = Access::getAccessId($pdo, $_SESSION["access"]->getAccessId());
-				if($security->getAccessIsAdmin() === false) {
-					throw(new RuntimeException("Access Denied", 403));
-				}
-				//create new access
-				$access = new Access($id, $_SESSION["access"]->getAccessId(), $requestObject->accessName);
-				$access->insert($pdo);
+					//check to make sure a non-admin is only attempting to edit themselves
+					//if not, take their temp access and throw an exception
+					//TODO: not sure if we need this line here: $security = Access::getAccessByAccessId($pdo, $_SESSION["access"]->getAccessId());
+					// use the example from Slack to determine admins
 
-				$reply->message = "access created ok";
+				} else if($method === "POST") {
+					//TODO: I'm pretty sure this has already been done above: if(Access::isAdminLoggedIn() === true) {
+					// adminy thingz here
+//					} else {
+//						throw(new RuntimeException("Must be an Administrator to access."));
+//					}
+//				}
+					$access = new Access(null, $requestObject->accessName);
+					$access->insert($pdo);
 
+					$reply->message = "Access created OK";
+					}
 			}
+		} else if($method === "DELETE") {
+			verifyXsrf();
+
+			$access = Access::getAccessByAccessId($pdo, $id);
+			if($access === null) {
+				throw (new RuntimeException("This Access instance does not exist", 404));
+			}
+			//kill the temporary admin access, if they're not supposed to have it
+			//check to see if the password is not null; this means it's a regular access changing their password and not an admin
+			//prevents admins from being logged out for editing their regular accesses
+//			if(($access->getAccessIsAdmin() === false) && ($requestObject->accessPassword !== null)) {
+//				$_SESSION["access"]->setAccessIsAdmin(false);
+//			}
+//			$reply->message = "access updated ok";
+
+			$access->delete($pdo);
+			$deletedObject = new stdClass();
+			$deletedObject->accessId = $id;
+
+			$reply->message = "Access deleted OK";
+		} else {
+			throw (new RuntimeException("Must be an administrator to gain access."));
+		}
+	} else {
+		//if not an admin, and attempting a method other than get, throw an exception
+		if((empty($method) === false) && ($method !== "GET")) {
+			throw (new RuntimeException ("Only administrators are allowed to modify entries", 401));
 		}
 	}
-}catch(\Exception $exception) {
-		$reply->status = $exception->getCode();
-		$reply->message = $exception->getMessage();
-	} catch (\TypeError $typeError) {
-		$reply->status = $exception->getCode();
-		$reply->message = $exception->getMessage();
-	}
+
+			//if they shouldn't have admin access to this method, kill the temp access and boot them
+			//check by retrieving their original access from the DB and checking
+			//TODO: I think has already been done up above: $security = Access::getAccessId($pdo, $_SESSION["access"]->getAccessId());
+//			if($security->getAccessIsAdmin() === false) {
+//				throw(new RuntimeException("Access Denied", 403));
+//			}
+//			//create new access
+//			$access = new Access($id, $_SESSION["access"]->getAccessId(), $requestObject->accessName);
+//			$access->insert($pdo);
+//
+//			$reply->message = "access created ok";
+//
+//		}
+//	}
+//}
+	//send exception back to the caller
+} catch(Exception $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
+} catch(TypeError $typeError) {
+	$reply->status = $typeError->getCode();
+	$reply->message = $typeError->getMessage();
+}
+//this is the end of the try block
+
+header("Content-type: application/json");
+if($reply->data === null) {
+	unset($reply->data);
+}
 echo json_encode($reply);
-
-
 
