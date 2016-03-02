@@ -33,7 +33,7 @@ try {
 	if($method === "POST") {
 
 		$password = filter_input(INPUT_POST, "password", FILTER_VALIDATE_STRING);
-		$email = filter_input(INPUT_POST, "employeeEmail", FILER_VALIDATE_EMAIL);
+		$email = filter_input(INPUT_POST, "employeeEmail", FILTER_VALIDATE_EMAIL);
 		if($password === false || $email === false) {
 			throw(new \RangeException ("password or username cannot be empty"));
 		}

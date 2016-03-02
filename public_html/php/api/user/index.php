@@ -23,7 +23,7 @@ $reply->data = null;
 
 try {
 	//grab the sql connection
-	$pdo = connectToEncrytedMySQL();
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
 
 	//if the user session is empty, user is not logged in, throw an exception
 	if(empty($_session["user"]) === true) {
@@ -48,12 +48,10 @@ try {
 	$userFirstName = filter_input(INPUT_GET, "userFirstName", FILTER_SANITIZE_STRING);
 	$userLastName = filter_input(INPUT_GET, "userLastName", FILTER_SANITIZE_STRING);
 	$userEmail = filter_input(INPUT_GET, "userEmail", FILTER_SANITIZE_STRING);
-	$userActivation = filter_input(INPUT_GET, "userActivation", FILTER_SANITIZE_STRING);
-	$userHash = filter_input(INPUT_GET, "userActivation", FILTER_SANITIZE_STRING);
-	$userSalt = filter_input(INPUT_GET, "userSalt", FILTER_SANITIZE_STRING);
+
 
 	//handle rest calls, while only allowing admins to access database-modifying methods
-	if($method === GET) {
+	if($method === "GET") {
 		//set xsrf-cookie
 		setXsrfCookie("/");
 
@@ -122,10 +120,11 @@ try {
 	//if the session belongs to an admin, allow post, put, and delete methods
 	if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserIsAdmin() === true) {
 
-		if($method === "POST" || $method === "POST") {
+		if($method === "PUT" || $method === "POST") {
 			verifyXsrf();
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
+
 
 			//make sure all fields are present, in order to prevent database issues
 			if(empty($requestObject->userCompanyId) === true) {
@@ -146,14 +145,11 @@ try {
 			if(empty($requestObject->userLastName) === true) {
 				throw(new InvalidArgumentException ("userLastName cannot be empty", 405));
 			}
-			if(empty($requestObject->userActivation) === true) {
-				throw(new InvalidArgumentException ("userActivation cannot be empty", 405));
+			if(empty($requestObject->userPassword) === true) {
+				throw(new InvalidArgumentException ("user password cannot be empty", 405));
 			}
-			if(empty($requestObject->userHash) === true) {
-				throw(new InvalidArgumentException ("userHash cannot be empty", 405));
-			}
-			if(empty($requestObject->userSalt) === true) {
-				throw(new InvalidArgumentException ("userSalt", 405));
+			if(empty($requestObject->userConfirmPassword) === true) {
+				throw(new InvalidArgumentException ("user confirm password cannot be empty", 405));
 			}
 
 			//perform the actual put or post

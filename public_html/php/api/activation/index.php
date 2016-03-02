@@ -30,14 +30,14 @@ try {
 
 
 	//handle REST calls, while allowing administrators to access database modifying methods
-	if($method === "GET") {
+	if($method === "POST") {
 		//set Xsrf cookie
 		setXsrfcookie("/");
 	}
 
 		//get the Activation based on the given field
-		$emailActivation = filter_input(INPUT_GET, "emailActivation", FILTER_VALIDATE_STRING);
-		$email = filter_input(INPUT_GET, "employeeEmail", FILER_VALIDATE_EMAIL);
+		$emailActivation = filter_input(INPUT_GET, "emailActivation", FILTER_SANITIZE_STRING);
+		$email = filter_input(INPUT_GET, "employeeEmail", FILTER_VALIDATE_EMAIL);
 		if($emailActivation === false || $email === false) {
 			throw(new \RangeException ("email activation or username cannot be empty"));
 		}

@@ -39,7 +39,7 @@ try {
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
 	//make sure the id is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($shiftId) === true || $shiftId < 0)) {
+	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 
@@ -121,8 +121,8 @@ try {
 
 						$reply->message = "Shift updated OK";
 
-					} elseif($method === "POST") {
-						$shift = new Shift($shiftId, $requestObject->shiftUserId, $requestObject->shiftCrewId, $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
+					} else if($method === "POST") {
+						$shift = new Shift(null, $requestObject->shiftUserId, $requestObject->shiftCrewId, $requestObject->shiftRequestId, $requestObject->shiftStartTime, $requestObject->shiftDuration, $requestObject->shiftDate, $requestObject->shiftDelete);
 						$shift->insert($pdo);
 
 						$reply->message = "Shift created OK";
