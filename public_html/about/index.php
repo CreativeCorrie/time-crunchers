@@ -58,8 +58,9 @@
 							management for both a base user and an admin user with elevated privileges. A base user (employee)
 							can view their schedule and crew anytime and make requests that will be sent to the schedule admin
 							(manager). The admin (manager) will be able to create, view, update and delete users, crews and
-							schedules.
+							schedules. <br>
 						</p>
+						<p>Wow, ok take me <a href="../index.php">back to the main page</a></p>
 					</div>
 				</div>
 			</div>
