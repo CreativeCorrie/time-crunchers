@@ -10,6 +10,7 @@ require_once("autoloader.php");
  * @author Denzyl Fontaine
  */
 class User implements \JsonSerializable {
+	use InjectCompanyId;
 	/**
 	 * id for the user is userId, this is the primary key
 	 *
@@ -623,9 +624,55 @@ class User implements \JsonSerializable {
 		}
 		return ($user);
 	}
-
-
 	/**
+	 * gets the User by userActivation
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param  string $userActivation user Activation content to search for
+	 * @return \SplFixedArray SplFixedArray of users found
+	 * @return User|null User found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getUserByUserActivation(\PDO $pdo, string $userActivation) {
+		// sanitize the description before searching
+		$userActivation = trim($userActivation);
+		$userActivation = filter_var($userActivation, FILTER_SANITIZE_STRING);
+		if(empty($userActivation) === true) {
+			throw(new \PDOException("user activation content is invalid"));
+		}
+
+		// create query template
+		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt
+						FROM user
+						WHERE userActivation LIKE :userActivation
+						AND userActivation IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
+//		WHERE requestId = :requestId
+//		AND requestRequestorId IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
+		$statement = $pdo->prepare($query);
+
+		// bind the company name content to the place holder in the template
+		$userActivation = "%$userActivation%";
+		$parameters = ["userActivation" => $userActivation, "companyId" => self::injectCompanyId()];
+		//$parameters = ["requestId" => $requestId, "companyId" => self::injectCompanyId()];
+		$statement->execute($parameters);
+
+		// build an array of userActivations
+		$users = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$user = new User($row["userId"], $row["userCompanyId"], $row["userCrewId"], $row["userAccessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
+				$users[$users->key()] = $user;
+				$users->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($users);
+	}
+		/**
 	 * gets all users
 	 *
 	 * @param \PDO $pdo PDO connection object
