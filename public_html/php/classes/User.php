@@ -554,7 +554,7 @@ class User implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param string $userEmail access content to search for
-	 * @return \SplFixedArray SplFixedArray of users found
+	 * @return \User user obbject
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */

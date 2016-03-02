@@ -3,16 +3,17 @@
 require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-use Edu\Cnm\Timecrunchers\Login;
 use Edu\Cnm\Timecrunchers\User;
+use EDU\Cnm\Timecrunchers\Company;
+
 
 /**
- * controller/api for the index class
+ * controller/api for login
  *
  * @author Denzyl Fontaine
  **/
 
-//verify the xsrf challenge
+//start session
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
@@ -32,31 +33,52 @@ try {
 	// perform the actual put or post
 	if($method === "POST") {
 
-		$password = filter_input(INPUT_POST, "password", FILTER_VALIDATE_STRING);
-		$email = filter_input(INPUT_POST, "employeeEmail", FILTER_VALIDATE_EMAIL);
-		if($password === false || $email === false) {
-			throw(new \RangeException ("password or username cannot be empty"));
+		verifyXsrf();
+
+		$requestContent = file_get_contents("php://input");
+		$requestObject = json_decode($requestContent);
+
+		// check that the necessary fields have been sent and filter
+		if(empty($requestObject->userPassword) === true) {
+			throw(new InvalidArgumentException ("must enter a password", 405));
+		} else {
+			$password = filter_var($requestObject->userPassword, FILTER_SANITIZE_STRING);
 		}
 
-		$user = User::getUserByUserEmail($pdo, $email);
-		$company = Company::getCompanyByCompanyId($pdo, $user->getUserCompanyId);
+		if(empty($requestObject->userEmail) === true) {
+			throw(new InvalidArgumentException ("first name cannot be empty", 405));
+		} else {
+			$email = filter_var($requestObject->userEmail, FILTER_SANITIZE_EMAIL);
+		}
 
+		// create user
+		$user = User::getUserByUserEmail($pdo, $email);
+
+		// hash for $password
 		$hash =  hash_pbkdf2("sha512", $password, $user->getUserSalt, 262144);
 
+		// verify hash is correct
 		if($hash !== $user->getUserHash) {
-			throw(new \InvalidArgumentException("password or usernameis incorrect"));
+			throw(new \InvalidArgumentException("password or username is incorrect"));
 		}
 
-		start_session();
+		// create company and put company and user in the session
+		$company = Company::getCompanyByCompanyId($pdo, $user->getUserCompanyId);
 		$_SESSION["company"] = $company;
+		$_SESSION["user"] = $user;
 
 		$reply->message = "login was successful";
+
+
+	} else {
+		throw(new \Exception("Invalid HTTP method"));
 	}
-} catch(\Exception $exception) {
-	$reply->status = $exception->getCode();
-	$reply->message = $exception->getMessage();
-} catch (\TypeError $typeError) {
-		$reply->status = $exception->getCode();
-		$reply->message = $exception->getMessage();
-}
+	} catch(\Exception $exception) {
+			$reply->status = $exception->getCode();
+			$reply->message = $exception->getMessage();
+	} catch (\TypeError $typeError) {
+			$reply->status = $exception->getCode();
+			$reply->message = $exception->getMessage();
+	}
+
 echo json_encode($reply);
