@@ -61,7 +61,7 @@ try {
 				$reply->data = $access;
 			}
 		} else if(empty($id) === false) {
-			$access = Access::getAccessByAccessName($pdo, $id);
+			$access = Access::getAccessByAccessName($pdo, $accessName);
 			if($access !== null) {  //TODO: I removed this from after null:  && $access->getAccessId() === $_SESSION["access"]->getAccessId()
 				$reply->data = $reply;
 			}
