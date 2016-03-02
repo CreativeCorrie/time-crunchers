@@ -63,14 +63,14 @@ try {
 				$reply->data = $request;
 			}
 		}
-		// Unpack Objects
-		verifyXsrf();
-		$requestContent = file_get_contents("php://input");
-		$requestObject = json_decode($requestContent);
 		//make sure the id is valid for methods that require it
 		if(($method === "POST") && (empty($id) === true || $id < 0)) {
 			throw(new InvalidArgumentException("id not found", 405));
 		}
+		// Unpack Objects
+		verifyXsrf();
+		$requestContent = file_get_contents("php://input");
+		$requestObject = json_decode($requestContent);
 		if($method === "POST") {
 			//create new request
 			$request = new Request(null, $requestObject->requestRequestorId, $requestRequestorId,

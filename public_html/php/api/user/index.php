@@ -4,6 +4,7 @@ require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\Timecrunchers\User;
+use Edu\Cnm\Timecrunchers\Access;
 
 /**
  * controller/api for user class
@@ -124,17 +125,14 @@ try {
 //			$reply->data = User::getUserByUserId($pdo, $_SESSION["user"]->getUserId())->toArray();
 //		}
 //	}
-
-
 	//if the session belongs to an admin, allow post, put, and delete methods
-	if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserIsAdmin() === true) {
-
+//	if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserIsAdmin() === true) {
 		if($method === "PUT" || $method === "POST") {
+			if(Access::isAdminLoggedIn() === true) {
+				if($method === "PUT" || $method === "POST") {
 			verifyXsrf();
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
-
-
 			//make sure all fields are present, in order to prevent database issues
 			if(empty($requestObject->userCompanyId) === true) {
 				throw(new InvalidArgumentException ("userCompanyId cannot be empty", 405));
