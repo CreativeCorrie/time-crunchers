@@ -603,11 +603,14 @@ class User implements \JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM user WHERE userId = :userId";
+		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt
+						FROM user
+						WHERE userActivation LIKE :userActivation
+						AND userActivation IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
 
 		//bind the userId to place a holder in template
-		$parameters = array("userId" => $userId);
+		$parameters = ["userId" => $userId,  "companyId" => self::injectCompanyId()];
 		$statement->execute($parameters);
 
 		//grab the user from mySQL
@@ -641,22 +644,16 @@ class User implements \JsonSerializable {
 		if(empty($userActivation) === true) {
 			throw(new \PDOException("user activation content is invalid"));
 		}
-
 		// create query template
 		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt
 						FROM user
 						WHERE userActivation LIKE :userActivation
 						AND userActivation IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
-//		WHERE requestId = :requestId
-//		AND requestRequestorId IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
-
 		// bind the company name content to the place holder in the template
 		$userActivation = "%$userActivation%";
 		$parameters = ["userActivation" => $userActivation, "companyId" => self::injectCompanyId()];
-		//$parameters = ["requestId" => $requestId, "companyId" => self::injectCompanyId()];
 		$statement->execute($parameters);
-
 		// build an array of userActivations
 		$users = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
@@ -683,9 +680,13 @@ class User implements \JsonSerializable {
 
 	public static function getAllUsers(\PDO $pdo) {
 		//create query update
-		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt FROM user";
+		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt
+						FROM user
+						WHERE user.userId
+						IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
-		$statement->execute();
+		$parameters = ["companyId" => self::injectCompanyId()];
+		$statement->execute($parameters);
 
 		//build an array of user
 		$users = new \SPLFixedArray($statement->rowCount());
