@@ -651,7 +651,7 @@ class User implements \JsonSerializable {
 						AND userActivation IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
 		// bind the company name content to the place holder in the template
-		$userActivation = "%$userActivation%";
+		$userActivation = "$userActivation";
 		$parameters = ["userActivation" => $userActivation, "companyId" => self::injectCompanyId()];
 		$statement->execute($parameters);
 		// build an array of userActivations
