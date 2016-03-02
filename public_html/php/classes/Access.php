@@ -65,7 +65,7 @@ class Access implements \JsonSerializable {
 	/**
 	 * mutator method for access id
 	 *
-	 * @param int|null $newAccessId new value for access id
+	 * @param int $newAccessId new value for access id
 	 * @throws \RangeException if $newAccessId is not positive
 	 * @throws \TypeError if $newAccessId is not an integer
 	 */
@@ -76,15 +76,21 @@ class Access implements \JsonSerializable {
 			return;
 		}
 
+		//verify schedule id is a valid integer
+		$newAccessId = filter_var($newAccessId, FILTER_VALIDATE_INT);
+
+		if($newAccessId === false) {
+			throw(new \InvalidArgumentException("Access id is not an integer"));
+		}
+
 		// verify the access id is positive
 		if($newAccessId <= 0) {
 			throw(new \RangeException("access id is not positive"));
 		}
 
 		//convert and store the access id
-		$this->accessId = $newAccessId;
+		$this->accessId = intval($newAccessId);
 	}
-
 
 	/**
 	 * accessor method for accessName
@@ -190,6 +196,44 @@ class Access implements \JsonSerializable {
 	}
 
 	/**
+	 * gets access by accessId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $accessId access id to search for
+	 * @return int|null access found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 */
+	public static function getAccessByAccessId(\PDO $pdo, int $accessId) {
+		//sanitize the accessId before searching
+		if($accessId <= 0) {
+			throw(new \PDOException("accessId is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT accessId, accessName FROM access WHERE accessId = :accessId";
+		$statement = $pdo->prepare($query);
+
+		//bind the accessId to the place holder template
+		$parameters = array("accessId" => $accessId);
+		$statement->execute($parameters);
+
+		//grab the access from mySQL
+		try {
+			$access = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$access = new ACCESS($row["accessId"], $row["accessName"]);
+			}
+		} catch(\Exception $exception) {
+			//if row couldn't be converted, then rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($access);
+	}
+
+	/**
 	 * gets the access by accessName
 	 *
 	 * @param \PDO $pdo PDO connection object
@@ -232,44 +276,6 @@ class Access implements \JsonSerializable {
 	}
 
 	/**
-	 * gets access by accessId
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @param int $accessId access id to search for
-	 * @return int|null access found or null if not found
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when variables are not the correct data type
-	 */
-	public static function getAccessByAccessId(\PDO $pdo, int $accessId) {
-		//sanitize the accessId before searching
-		if($accessId <= 0) {
-			throw(new \PDOException("accessId is not positive"));
-		}
-
-		//create query template
-		$query = "SELECT accessId, accessName FROM access WHERE accessId = :accessId";
-		$statement = $pdo->prepare($query);
-
-		//bind the accessId to the place holder template
-		$parameters = array("accessId" => $accessId);
-		$statement->execute($parameters);
-
-		//grab the access from mySQL
-		try {
-			$access = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$access = new ACCESS($row["accessId"], $row["accessName"]);
-			}
-		} catch(\Exception $exception) {
-			//if row couldn't be converted, then rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		return ($access);
-	}
-
-	/**
 	 * gets all accessors
 	 *
 	 * @param \PDO $pdo PDO connection object
@@ -304,7 +310,7 @@ class Access implements \JsonSerializable {
 	 *
 	 * @return array resulting state variables to serialize
 	 **/
-	public static function jsonSerialize() {
+	public function jsonSerialize() {
 		$fields = get_object_vars($this);
 		return($fields);
 	}
