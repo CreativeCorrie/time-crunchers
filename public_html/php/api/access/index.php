@@ -114,54 +114,12 @@ try {
 					$access->insert($pdo);
 
 					$reply->message = "Access created OK";
-					}
+				}
 			}
-		} else if($method === "DELETE") {
-			verifyXsrf();
-
-			$access = Access::getAccessByAccessId($pdo, $id);
-			if($access === null) {
-				throw (new RuntimeException("This Access instance does not exist", 404));
-			}
-			//kill the temporary admin access, if they're not supposed to have it
-			//check to see if the password is not null; this means it's a regular access changing their password and not an admin
-			//prevents admins from being logged out for editing their regular accesses
-//			if(($access->getAccessIsAdmin() === false) && ($requestObject->accessPassword !== null)) {
-//				$_SESSION["access"]->setAccessIsAdmin(false);
-//			}
-//			$reply->message = "access updated ok";
-
-			$access->delete($pdo);
-			$deletedObject = new stdClass();
-			$deletedObject->accessId = $id;
-
-			$reply->message = "Access deleted OK";
 		} else {
 			throw (new RuntimeException("Must be an administrator to gain access."));
 		}
-	} else {
-		//if not an admin, and attempting a method other than get, throw an exception
-		if((empty($method) === false) && ($method !== "GET")) {
-			throw (new RuntimeException ("Only administrators are allowed to modify entries", 401));
-		}
 	}
-
-			//if they shouldn't have admin access to this method, kill the temp access and boot them
-			//check by retrieving their original access from the DB and checking
-			//TODO: I think has already been done up above: $security = Access::getAccessId($pdo, $_SESSION["access"]->getAccessId());
-//			if($security->getAccessIsAdmin() === false) {
-//				throw(new RuntimeException("Access Denied", 403));
-//			}
-//			//create new access
-//			$access = new Access($id, $_SESSION["access"]->getAccessId(), $requestObject->accessName);
-//			$access->insert($pdo);
-//
-//			$reply->message = "access created ok";
-//
-//		}
-//	}
-//}
-	//send exception back to the caller
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
@@ -176,4 +134,3 @@ if($reply->data === null) {
 	unset($reply->data);
 }
 echo json_encode($reply);
-
