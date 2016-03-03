@@ -78,7 +78,7 @@ try {
 		}
 	}
 	//if the session belongs to an admin, allow post, put, and delete methods
-	if(empty($_SESSION["user"]) === false && $_SESSION["user"]->getUserIsAdmin() === true) {
+	if(empty($_SESSION["user"]) === false) {
 		if($method === "PUT" || $method === "POST") {
 			//set xsrf-cookie
 			setXsrfCookie("/");
