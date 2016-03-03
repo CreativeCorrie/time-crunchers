@@ -10,7 +10,7 @@ use Edu\Cnm\Timecrunchers\Access;
 /**
  * Controller/API for Company Class
  *
- * @author Elaine Thomas <el41net@gmail.com>
+ * @author Elaine Thomas <el41net@el41net.com>
  **/
 
 //Verify XSRF Challenge

@@ -10,8 +10,7 @@ require_once ("autoloader.php");
  * A Company refers to a business customer using the Timecrunchers application
  * A Company is an entity with many crews and employees
  *
- * @author Dylan McDonald<dmcdonald21@cnm.edu>
- * @author Elaine Thomas<enajera2@cnm.edu>
+ * @author Elaine Thomas <el41net@el41net.com>
  * @version 0.0.x
  **/
 class Company implements \JsonSerializable {

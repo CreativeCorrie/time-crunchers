@@ -8,8 +8,7 @@ require_once ("autoloader.php");
  *A Schedule refers to a 14 day collection of shifts
  *A Schedule is an entity assigned to a crew
  *
- * @author Dylan McDonald<dmcdonald21@cnm.edu>
- * @author Elaine Thomas<enajera2@cnm.edu>
+ * @author Elaine Thomas <el41net@el41net.com>
  * @version 0.0.x
  *
  **/
