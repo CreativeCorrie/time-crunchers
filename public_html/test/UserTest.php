@@ -6,6 +6,10 @@ use Edu\Cnm\Timecrunchers\Company;
 use Edu\Cnm\Timecrunchers\Crew;
 use Edu\Cnm\Timecrunchers\Access;
 
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
+
 //grab test parameters
 require_once("TimecrunchersTest.php");
 
@@ -86,6 +90,7 @@ class UserTest extends TimeCrunchersTest {
 		//create and insert a new company to own the crew the user belongs to
 		$this->company = new Company(null, "Taco B.", "404 Taco St.", "suite:666", "Attention!!", "NM", "Burque", "87106", "5055551111", "tb@hotmail.com", "www.tocobell.com");
 		$this->company->insert($this->getPDO());
+		$_SESSION["company"] = $this->company;
 
 		// create and insert a crew to own the test Schedule
 		$this->crew = new Crew(null, $this->company->getCompanyId(), "Taco Bell");

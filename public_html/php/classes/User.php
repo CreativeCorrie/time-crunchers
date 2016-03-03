@@ -651,25 +651,20 @@ class User implements \JsonSerializable {
 						AND userActivation IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
 		// bind the company name content to the place holder in the template
-		$userActivation = "$userActivation";
 		$parameters = ["userActivation" => $userActivation, "companyId" => self::injectCompanyId()];
 		$statement->execute($parameters);
 		// build an array of userActivations
-		$users = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$user = new User($row["userId"], $row["userCompanyId"], $row["userCrewId"], $row["userAccessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
-				$users[$users->key()] = $user;
-				$users->next();
-			} catch(\Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
+		$row = $statement->fetch();
+		try {
+			$user = new User($row["userId"], $row["userCompanyId"], $row["userCrewId"], $row["userAccessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($users);
+		return($user);
 	}
-		/**
+	/**
 	 * gets all users
 	 *
 	 * @param \PDO $pdo PDO connection object

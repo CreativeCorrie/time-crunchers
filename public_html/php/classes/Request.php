@@ -439,8 +439,6 @@ class Request implements \JsonSerializable {
 		}
 		return ($requests);
 		}
-
-
 	/**
 	 * formats the state variables for JSON serialization
 	 *

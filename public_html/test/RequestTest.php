@@ -219,7 +219,7 @@ class RequestTest extends TimecrunchersTest {
 	/**
 	 * test deleting a Request that does not exist
 	 *
-	 * @expectedException PDOException
+	 * @expectedException \PDOException
 	 **/
 	public function testDeleteInvalidRequest() {
 		// create a Request and try to delete it without actually inserting it
