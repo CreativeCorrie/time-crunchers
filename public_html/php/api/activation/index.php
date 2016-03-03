@@ -32,7 +32,7 @@ try {
 		setXsrfcookie("/");
 
 
-		//get the Activation based on the given field
+		//get the Sign Up based on the given field
 		$emailActivation = filter_input(INPUT_GET, "emailActivation", FILTER_SANITIZE_STRING);
 
 		if(empty($emailActivation)) {

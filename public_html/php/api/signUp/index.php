@@ -3,14 +3,19 @@
 require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-use Edu\Cnm\Timecrunchers\Login;
+require_once dirname(dirname(__DIR__)) . "/lib/sendEmail.php";
+
 use Edu\Cnm\Timecrunchers\User;
+use Edu\Cnm\Timecrunchers\Company;
+use Edu\Cnm\Timecrunchers\Crew;
+
 
 /**
- * Controller/API for Company Class
+ * Controller/API to handle sign up for TimeCrunch
  *
  * @author Elaine Thomas <el41net@el41net.com>
  **/
+
 //verify the xsrf challenge
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
@@ -31,30 +36,159 @@ try {
 	// perform the actual put or post
 	if($method === "POST") {
 
-		$password = filter_input(INPUT_POST, "password", FILTER_VALIDATE_STRING);
-		$email = filter_input(INPUT_POST, "employeeEmail", FILTER_VALIDATE_EMAIL);
-		if($password === false || $email === false) {
-			throw(new \RangeException ("password or username cannot be empty"));
+		$requestContent = file_get_contents("php://input");
+		$requestObject = json_decode($requestContent);
+
+		//check that the user fields that are required have been sent
+		if(empty($requestObject->firstName) === true) {
+			throw(new InvalidArgumentException ("Must fill in first name."));
+		} else {
+			$firstName = filter_var($requestObject->firstName, FILTER_SANITIZE_STRING);
 		}
 
-		$user = User::getUserByUserEmail($pdo, $email);
-		$company = Company::getCompanyByCompanyId($pdo, $user->getUserCompanyId);
-
-		$hash =  hash_pbkdf2("sha512", $password, $user->getUserSalt, 262144);
-
-		if($hash !== $user->getUserHash) {
-			throw(new \InvalidArgumentException("password or usernameis incorrect"));
+		if(empty($requestObject->lastName) === true) {
+			throw(new InvalidArgumentException ("Must fill in last name."));
+		} else {
+			$lastName = filter_var($requestObject->lastName, FILTER_SANITIZE_STRING);
 		}
 
-		start_session();
-		$_SESSION["company"] = $company;
+		if(empty($requestObject->email) === true) {
+			throw(new InvalidArgumentException ("Must fill in email address."));
+		} else {
+			$email = filter_var($requestObject->email, FILTER_SANITIZE_EMAIL);
+		}
 
-		$reply->message = "login was successful";
+		if(empty($requestObject->password) === true) {
+			throw(new InvalidArgumentException ("Must fill in password."));
+		} else {
+			$password = filter_var($requestObject->password, FILTER_SANITIZE_STRING);
+		}
+
+		if(empty($requestObject->verifyPassword) === true) {
+			throw(new InvalidArgumentException ("Please verify password."));
+		} else {
+			$verifyPassword = filter_var($requestObject->verifyPassword, FILTER_SANITIZE_STRING);
+		}
+
+		if(empty($requestObject->phone) === true) {
+			throw(new InvalidArgumentException ("Must fill in phone number."));
+		} else {
+			$phone = filter_var($requestObject->phone, FILTER_SANITIZE_STRING);
+		}
+
+		//company
+		if(empty($requestObject->companyName) === true) {
+			throw(new InvalidArgumentException ("Must fill in company name."));
+		} else {
+			$companyName = filter_var($requestObject->companyName, FILTER_SANITIZE_STRING);
+		}
+
+		if(empty($requestObject->companyAddress1) === true) {
+			throw(new InvalidArgumentException ("Must fill in company address line 1."));
+		} else {
+			$companyAddress1 = filter_var($requestObject->companyAddress1, FILTER_SANITIZE_STRING);
+		}
+
+		if(empty($requestObject->companyState) === true) {
+			throw(new InvalidArgumentException ("Must fill in state."));
+		} else {
+			$companyState = filter_var($requestObject->companyState, FILTER_SANITIZE_STRING);
+		}
+
+		if(empty($requestObject->companyCity) === true) {
+			throw(new InvalidArgumentException ("Must fill in city."));
+		} else {
+			$companyCity = filter_var($requestObject->companyCity, FILTER_SANITIZE_STRING);
+		}
+
+		if(empty($requestObject->companyZip) === true) {
+			throw(new InvalidArgumentException ("Must fill in zip code."));
+		} else {
+			$companyZip = filter_var($requestObject->companyZip, FILTER_SANITIZE_STRING);
+		}
+
+		if(empty($requestObject->companyPhone) === true) {
+			throw(new InvalidArgumentException ("Must fill in phone number."));
+		} else {
+			$companyPhone = filter_var($requestObject->companyPhone, FILTER_SANITIZE_STRING);
+		}
+
+		if(empty($requestObject->companyEmail) === true) {
+			throw(new InvalidArgumentException ("Must fill in company email address."));
+		} else {
+			$companyEmail = filter_var($requestObject->companyEmail, FILTER_SANITIZE_EMAIL);
+		}
+
+		//these fields are not required so the fields are empty so be it
+		if(empty($requestObject->companyAddress2) !== true) {
+			$companyAddress2 = filter_var($requestObject->companyAddress1, FILTER_SANITIZE_STRING);
+		} else {
+			$companyAddress2 = null;
+		}
+
+		if(empty($requestObject->companyAttn) !== true) {
+			$companyAttn = filter_var($requestObject->companyAttn, FILTER_SANITIZE_STRING);
+		} else {
+			$companyAttn = null;
+		}
+
+		if(empty($requestObject->companyUrl) !== true) {
+			$companyUrl = filter_var($requestObject->companyUrl, FILTER_SANITIZE_STRING);
+		} else {
+			$companyUrl = null;
+		}
+
+		if($password !== $verifyPassword) {
+			throw(new InvalidArgumentException ("Password and verify password must match."));
+		}
+		//pull company if it already exists or create a new company for the user
+		$company = Company::getCompanyByCompanyName($pdo, $companyName);
+		if(empty($company) === true) {
+			$company = new Company(null, $companyAttn, $companyName, $companyAddress1, $companyAddress2, $companyCity, $companyState, $companyZip, $companyPhone, $companyEmail, $companyUrl);
+			$company->insert($pdo);
+		}
+
+		//pull crew if it already exists or create a new crew for the user
+		$crew = Crew::getCrewByCrewCompanyId($pdo, $company->getCompanyId());
+		if(empty($crew) === true) {
+			$crew = new Crew(null, $company->getCompanyId(), "");
+			$crew->insert($pdo);
+		}
+
+		//create new user
+		//create password salt, hash and activation code
+		$activation = bin2hex(random_bytes(16));
+		$salt = bin2hex(random_bytes(32));
+		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
+
+		$user = new User (null, $company->getCompanyId(), $crew->getCrewId(), 1, $phone, $firstName, $lastName, $email, $activation, $hash, $salt);
+		$user->insert($pdo);
+
+		$messageSubject = "Time Crunch Account Activation";
+
+		//TODO: change basePath and confirm link if necessary when we set up swift mailer
+		//building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
+		$basePath = dirname($_SERVER["SCRIPT NAME"], 2);
+		$urlglue = $basePath . "/activation/?emailActivation=" . $activation;
+		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
+		$message = <<< EOF
+<h1>This is an important message about your account activation.</h1>
+<p>Visit the following URL to set a new password and complete the registration process: </p>
+<p><a href="$confirmLink">$confirmLink</a></p>
+EOF;
+
+		$response = sendEmail($email, $firstName, $lastName, $messageSubject, $message);
+		if($response === "Email sent.") {
+			$reply->message = "sign up was successful, please check your email for activation message.";
+		}
+	} else {
+		throw(new InvalidArgumentException("Invalid http method."));
 	}
+
 } catch(\Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
-} catch (\TypeError $typeError) {
+} catch(\TypeError $typeError) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 }

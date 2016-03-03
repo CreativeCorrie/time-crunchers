@@ -90,7 +90,7 @@ class Company implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception is thrown
 	 **/
-	public function __construct(int $newCompanyId = null, string $newCompanyAttn, string $newCompanyName, string $newCompanyAddress1, string $newCompanyAddress2, string $newCompanyCity, string $newCompanyState, string $newCompanyZip, string $newCompanyPhone, string $newCompanyEmail, string $newCompanyUrl) {
+	public function __construct(int $newCompanyId = null, string $newCompanyAttn = null, string $newCompanyName, string $newCompanyAddress1, string $newCompanyAddress2 = null, string $newCompanyCity, string $newCompanyState, string $newCompanyZip, string $newCompanyPhone, string $newCompanyEmail, string $newCompanyUrl = null) {
 		try {
 			$this->setCompanyId($newCompanyId);
 			$this->setCompanyName($newCompanyName);
@@ -241,6 +241,11 @@ class Company implements \JsonSerializable {
 	 * @throws \TypeError if $newCompanyAddress2 is not a string
 	 **/
 	public function setCompanyAddress2(string $newCompanyAddress2) {
+		//this field is not required
+		if($newCompanyAddress2 === null) {
+			$this->companyAddress2 = null;
+		}
+
 		// verify the company address line 2 content is secure
 		$newCompanyAddress2 = trim($newCompanyAddress2);
 		$newCompanyAddress2 = filter_var($newCompanyAddress2, FILTER_SANITIZE_STRING);
@@ -271,9 +276,11 @@ class Company implements \JsonSerializable {
 	 * @throws \TypeError if $newCompanyAttn is not a string
 	 **/
 	public function setCompanyAttn(string $newCompanyAttn) {
+		//this field is not required
 		if($newCompanyAttn === null) {
 			$this->companyAttn = null;
 		}
+
 		// verify the company attn content is secure
 		$newCompanyAttn = trim($newCompanyAttn);
 		$newCompanyAttn = filter_var($newCompanyAttn, FILTER_SANITIZE_STRING);
@@ -472,6 +479,11 @@ class Company implements \JsonSerializable {
 	 * @throws \TypeError if $newCompanyUrl is not a string
 	 **/
 	public function setCompanyUrl(string $newCompanyUrl) {
+		//this field is not required
+		if($newCompanyUrl === null) {
+			$this->companyUrl = null;
+		}
+
 		// verify the company URL address content is secure
 		$newCompanyUrl = trim($newCompanyUrl);
 		$newCompanyUrl = filter_var($newCompanyUrl, FILTER_SANITIZE_URL);
