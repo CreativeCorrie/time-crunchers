@@ -8,6 +8,7 @@ require_once dirname(dirname(__DIR__)) . "/lib/sendEmail.php";
 use Edu\Cnm\Timecrunchers\User;
 use Edu\Cnm\Timecrunchers\Company;
 use Edu\Cnm\Timecrunchers\Crew;
+use Edu\Cnm\Timecrunchers\Access;
 
 
 /**
@@ -133,7 +134,7 @@ try {
 		}
 
 		if(empty($requestObject->companyUrl) !== true) {
-			$companyUrl = filter_var($requestObject->companyUrl, FILTER_SANITIZE_STRING);
+			$companyUrl = filter_var($requestObject->companyUrl, FILTER_SANITIZE_URL);
 		} else {
 			$companyUrl = null;
 		}
@@ -161,7 +162,7 @@ try {
 		$salt = bin2hex(random_bytes(32));
 		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
 
-		$user = new User (null, $company->getCompanyId(), $crew->getCrewId(), 1, $phone, $firstName, $lastName, $email, $activation, $hash, $salt);
+		$user = new User (null, $company->getCompanyId(), $crew->getCrewId(), Access::ADMIN, $phone, $firstName, $lastName, $email, $activation, $hash, $salt);
 		$user->insert($pdo);
 
 		$messageSubject = "Time Crunch Account Activation";
@@ -192,4 +193,5 @@ EOF;
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 }
+header("Content-type: application/json");
 echo json_encode($reply);

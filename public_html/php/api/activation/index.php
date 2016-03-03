@@ -31,7 +31,6 @@ try {
 		//set Xsrf cookie
 		setXsrfcookie("/");
 
-
 		//get the Sign Up based on the given field
 		$emailActivation = filter_input(INPUT_GET, "emailActivation", FILTER_SANITIZE_STRING);
 
@@ -46,9 +45,9 @@ try {
 		}
 
 		$user->setEmailActivation(NULL);
-		$user->update();
+		$user->update($pdo);
 
-		// ToDo:  send user to login page
+		header("Location: ../../../");
 
 	} else {
 		throw(new \Exception("Invalid HTTP method"));

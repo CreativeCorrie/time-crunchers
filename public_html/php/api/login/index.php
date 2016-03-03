@@ -46,7 +46,7 @@ try {
 		}
 
 		if(empty($requestObject->userEmail) === true) {
-			throw(new InvalidArgumentException ("first name cannot be empty", 405));
+			throw(new InvalidArgumentException ("email cannot be empty", 405));
 		} else {
 			$email = filter_var($requestObject->userEmail, FILTER_SANITIZE_EMAIL);
 		}
@@ -59,15 +59,15 @@ try {
 		}
 
 		// hash for $password
-		$hash =  hash_pbkdf2("sha512", $password, $user->getUserSalt, 262144);
+		$hash =  hash_pbkdf2("sha512", $password, $user->getUserSalt(), 262144);
 
 		// verify hash is correct
-		if($hash !== $user->getUserHash) {
+		if($hash !== $user->getUserHash()) {
 			throw(new \InvalidArgumentException("password or username is incorrect"));
 		}
 
-		// create company and put company and user in the session
-		$company = Company::getCompanyByCompanyId($pdo, $user->getUserCompanyId);
+		// grabbing company from database and put company and user in the session
+		$company = Company::getCompanyByCompanyId($pdo, $user->getUserCompanyId());
 		$_SESSION["company"] = $company;
 		$_SESSION["user"] = $user;
 
@@ -85,4 +85,5 @@ try {
 			$reply->message = $exception->getMessage();
 	}
 
+header("Content-type: application/json");
 echo json_encode($reply);
