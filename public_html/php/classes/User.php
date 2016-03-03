@@ -605,14 +605,12 @@ class User implements \JsonSerializable {
 		//create query template
 		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt
 						FROM user
-						WHERE userActivation LIKE :userActivation
-						AND userActivation IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
+						WHERE userId LIKE :userId
+						AND userId IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
 		$statement = $pdo->prepare($query);
-
 		//bind the userId to place a holder in template
 		$parameters = ["userId" => $userId,  "companyId" => self::injectCompanyId()];
 		$statement->execute($parameters);
-
 		//grab the user from mySQL
 		try {
 			$user = null;
