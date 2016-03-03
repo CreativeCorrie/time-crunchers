@@ -3,6 +3,7 @@
 require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+require_once dirname(dirname(__DIR__)) . "/lib/sendEmail.php";
 use Edu\Cnm\Timecrunchers\User;
 use Edu\Cnm\Timecrunchers\Access;
 
@@ -146,64 +147,25 @@ try {
 						$user = new User(null, $_SESSION["company"]->getCompanyId(), $requestObject->userCrewId, $requestObject->userAccessId, $requestObject->userPhone, $requestObject->userFirstName, $requestObject->userLastName, $emailActivation, $hash, $salt);
 						$user->insert($pdo);
 
-						$reply->message = "user created okay";
-
-						//compose and send the email for confirmation and setting a new password
-						// create Swift message
-						$swiftMessage = $swiftMessage::newInstance();
-
-						// attach the sender to the message
-						// this takes the form of an associative array where the Email is the key for the real name
-						$swiftMessage->setFrom(["timecruncher@gmail.com" => "TimeCrunchers"]);
-
-						/**
-						 * attach the recipients to the message
-						 * notice this an array that can include or omit the the recipient's real name
-						 * use the recipients' real name where possible; this reduces the probability of the Email being marked as spam
-						 */
-						$recipients = [$requestObject->firstName . " " . $requestObject->lastName => $requestObject->userEmail];
-						$swiftMessage->setTo($recipients);
-
-						//attach the subject line to the message
-						$swiftMessage->setSubject("Please confirm your Timecrunchers account");
-
-						/**
-						 * attach the actual message to the message
-						 * here, we set two versions of the message: the HTML formatted message and a special filter_var()ed
-						 * version of the message that generates a plain text version of the HTML content
-						 * notice one tactic used is to display the entire $confirmLink to plain text; this lets users
-						 * who aren't viewing HTML content in Emails still access your links
-						 */
-
 						//building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
 						$basePath = dirname($_SERVER["SCRIPT NAME"], 2);
 						$urlglue = $basePath . "/activation/?emailActivation=" . $user->getUserActivation();
 						$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
+						$messageSubject = "This is an important message about your account activation.";
 						$message = <<< EOF
 <h1>You've been registered for the Timecrunchers Scheduling!</h1>
 <p>Visit the following URL to set a new password and complete the registration process: </p>
 <p><a href="$confirmLink">$confirmLink</a></p>
 EOF;
-						$swiftMessage->setBody($message, "text/html");
-						$swiftMessage->addPart(html_entity_decode(filter_var($message, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES)), "text/plain");
+						$response = sendEmail($userEmail, $userFirstName, $userLastName, $messageSubject, $message);
+						if($response === "Email sent.") {
+							$reply->message = "sign up was successful, please check your email for activation message.";
+						}
 
-						/**
-						 * send the Email via SMTP; the SMTP server here is configured to relay everything upstream via CNM
-						 * this default may or may not be available on all web hosts; consult their documentation/support for details
-						 * SwiftMailer supports many different transport methods; SMTP was chosen because it's the most compatible and has the best error handling
-						 * @see http://swiftmailer.org/docs/sending.html Sending Messages - Documentation - SwitftMailer
-						 **/
-						$smtp = Swift_SmtpTransport::newInstance("localhost", 25);
-						$mailer = Swift_Mailer::newInstance($smtp);
-						$numSent = $mailer->send($swiftMessage, $failedRecipients);
 						/**
 						 * the send method returns the number of recipients that accepted the Email
 						 * so, if the number attempted is not the number accepted, this is an Exception
 						 **/
-						if($numSent !== count($recipients)) {
-							//the $failedRecipients parameter passed in the send() method now contains contains an array of the Emails that failed
-							throw(new RuntimeException("unable to send email", 404));
-						}
 					} else {
 						//if not an admin, and attempting a method other than get, throw an exception
 						if((empty($method) === false) && ($method !== "GET")) {
@@ -214,10 +176,10 @@ EOF;
 			}
 		}
 	}
-}catch(Exception $exception) {
+} catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
-}  catch (\TypeError $typeError) {
+} catch(\TypeError $typeError) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 }
