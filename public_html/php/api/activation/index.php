@@ -3,6 +3,7 @@
 require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+use Edu\Cnm\Timecrunchers\Activation;
 use Edu\Cnm\Timecrunchers\User;
 
 /**
@@ -11,15 +12,11 @@ use Edu\Cnm\Timecrunchers\User;
  * @author Denzyl Fontaine
  */
 
-//verify the XSRF challenge
+//verify the xsrf challenge
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
 
-//prepare an empty reply
-$reply = new stdClass();
-$reply->status = 200;
-$reply->data = null;
 
 try {
 	//Grab MySQL connection
@@ -30,28 +27,32 @@ try {
 
 
 	//handle REST calls, while allowing administrators to access database modifying methods
-	if($method === "POST") {
+	if($method === "GET") {
 		//set Xsrf cookie
 		setXsrfcookie("/");
-	}
+
 
 		//get the Activation based on the given field
 		$emailActivation = filter_input(INPUT_GET, "emailActivation", FILTER_SANITIZE_STRING);
-		$email = filter_input(INPUT_GET, "employeeEmail", FILTER_VALIDATE_EMAIL);
-		if($emailActivation === false || $email === false) {
-			throw(new \RangeException ("email activation or username cannot be empty"));
+
+		if(empty($emailActivation)) {
+			throw(new \RangeException ("No Activation Code"));
 		}
 
-		$user = User::getUserByUserEmail($pdo, $email);
+		$user = User::getUserByUserActivation($pdo, $emailActivation);
 
-		if($emailActivation !== $user->getUserActivation) {
-			throw(new \InvalidArgumentException ("activation code does not match"));
+		if(empty($user)) {
+			throw(new \InvalidArgumentException ("no user for activation code"));
 		}
 
 		$user->setEmailActivation(NULL);
 		$user->update();
-		$reply->message = "successful activation!";
 
+		// ToDo:  send user to login page
+
+	} else {
+		throw(new \Exception("Invalid HTTP method"));
+	}
 	} catch(Exception $exception) {
 		$reply->status = $exception->getCode();
 		$reply->message = $exception->getMessage();
@@ -59,4 +60,4 @@ try {
 		$reply->status = $exception->getCode();
 		$reply->message = $exception->getMessage();
 	}
-echo json_encode($reply);
+

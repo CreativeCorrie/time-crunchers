@@ -54,6 +54,10 @@ try {
 		// create user
 		$user = User::getUserByUserEmail($pdo, $email);
 
+		if(empty($user)) {
+			throw (new InvalidArgumentException("invalid email address"));
+		}
+
 		// hash for $password
 		$hash =  hash_pbkdf2("sha512", $password, $user->getUserSalt, 262144);
 
@@ -80,6 +84,5 @@ try {
 			$reply->status = $exception->getCode();
 			$reply->message = $exception->getMessage();
 	}
-
 
 echo json_encode($reply);
