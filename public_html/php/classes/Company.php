@@ -271,6 +271,9 @@ class Company implements \JsonSerializable {
 	 * @throws \TypeError if $newCompanyAttn is not a string
 	 **/
 	public function setCompanyAttn(string $newCompanyAttn) {
+		if($newCompanyAttn === null) {
+			$this->companyAttn = null;
+		}
 		// verify the company attn content is secure
 		$newCompanyAttn = trim($newCompanyAttn);
 		$newCompanyAttn = filter_var($newCompanyAttn, FILTER_SANITIZE_STRING);
