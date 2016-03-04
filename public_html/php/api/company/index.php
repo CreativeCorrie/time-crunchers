@@ -44,46 +44,12 @@ try {
 		throw(new InvalidArgumentException("ID cannot be empty or negative", 405));
 	}
 
-	//Sanitize and trim other fields
-	$companyName = filter_input(INPUT_GET, "companyName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$companyAddress1 = filter_input(INPUT_GET, "companyAddress1", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$companyAddress2 = filter_input(INPUT_GET, "companyAddress2", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$companyAttn = filter_input(INPUT_GET, "companyAttn", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$companyState = filter_input(INPUT_GET, "companyState", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$companyCity = filter_input(INPUT_GET, "companyCity", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$companyZip = filter_input(INPUT_GET, "companyZip", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$companyPhone = filter_input(INPUT_GET, "companyPhone", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$companyEmail = filter_input(INPUT_GET, "companyEmail", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$companyUrl = filter_input(INPUT_GET, "companyUrl", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-
 	//Handle REST calls
 	if($method === "GET") {
 		//Set XSRF cookie
 		setXsrfCookie("/");
-
-		//Get Company based on given field
-		if(empty($companyId) === false) {
-			$company = Company::getCompanyByCompanyId($pdo, $companyId);
-			if($company !== null) {
-				$reply->data = $company;
-			}
-		} else if(empty($companyName) === false) {
-			echo $companyName . "<br>";
-			$company = Company::getCompanyByCompanyName($pdo, $companyName)->toArray();
-			var_dump($company);
-			if($company !== null) {
-				$reply->data = $company;
-			}
-		}
-
-
-//		else {
-//			$companies = Company::getAllCompanies($pdo);
-//			if($companies !== null) {
-//				$reply->data = $companies;
-//			}
-//		}
-
+		throw(new RuntimeException("Companies cannot be browsed.", 403));
+	}
 		//if the session belongs to an admin, allow post, put, and delete methods
 		if($method === "PUT") {
 			if(Access::isAdminLoggedIn() === true) {
@@ -165,7 +131,6 @@ try {
 				throw(new \RuntimeException("Must be an administrator to access."));
 			}
 		}
-	}
 
 	//send exception back to the caller
 } catch
