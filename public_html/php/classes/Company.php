@@ -240,7 +240,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyAddress2 is > 128 characters
 	 * @throws \TypeError if $newCompanyAddress2 is not a string
 	 **/
-	public function setCompanyAddress2(string $newCompanyAddress2) {
+	public function setCompanyAddress2(string $newCompanyAddress2 = null) {
 		//this field is not required
 		if($newCompanyAddress2 === null) {
 			$this->companyAddress2 = null;
@@ -275,7 +275,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyAttn is > 128 characters
 	 * @throws \TypeError if $newCompanyAttn is not a string
 	 **/
-	public function setCompanyAttn(string $newCompanyAttn) {
+	public function setCompanyAttn(string $newCompanyAttn = null) {
 		//this field is not required
 		if($newCompanyAttn === null) {
 			$this->companyAttn = null;
@@ -478,7 +478,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyUrl is > 128 characters
 	 * @throws \TypeError if $newCompanyUrl is not a string
 	 **/
-	public function setCompanyUrl(string $newCompanyUrl) {
+	public function setCompanyUrl(string $newCompanyUrl = null) {
 		//this field is not required
 		if($newCompanyUrl === null) {
 			$this->companyUrl = null;

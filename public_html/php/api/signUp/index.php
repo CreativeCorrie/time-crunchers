@@ -29,7 +29,7 @@ $reply->data = null;
 
 try {
 	//grab the mysql statement
-	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/time-crunchers.ini");
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
@@ -142,19 +142,15 @@ try {
 		if($password !== $verifyPassword) {
 			throw(new InvalidArgumentException ("Password and verify password must match."));
 		}
-		//pull company if it already exists or create a new company for the user
-		$company = Company::getCompanyByCompanyName($pdo, $companyName);
-		if(empty($company) === true) {
-			$company = new Company(null, $companyAttn, $companyName, $companyAddress1, $companyAddress2, $companyCity, $companyState, $companyZip, $companyPhone, $companyEmail, $companyUrl);
-			$company->insert($pdo);
-		}
+		//create a new company for the user
+		$company = new Company(null, $companyAttn, $companyName, $companyAddress1, $companyAddress2, $companyCity, $companyState, $companyZip, $companyPhone, $companyEmail, $companyUrl);
+		$company->insert($pdo);
 
-		//pull crew if it already exists or create a new crew for the user
-		$crew = Crew::getCrewByCrewCompanyId($pdo, $company->getCompanyId());
-		if(empty($crew) === true) {
-			$crew = new Crew(null, $company->getCompanyId(), "");
-			$crew->insert($pdo);
-		}
+
+		//create a new crew for the user
+		$crew = new Crew(null, $company->getCompanyId(), "");
+		$crew->insert($pdo);
+
 
 		//create new user
 		//create password salt, hash and activation code
@@ -169,7 +165,7 @@ try {
 
 		//TODO: change basePath and confirm link if necessary when we set up swift mailer
 		//building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
-		$basePath = dirname($_SERVER["SCRIPT NAME"], 2);
+		$basePath = dirname($_SERVER["SCRIPT_NAME"], 2);
 		$urlglue = $basePath . "/activation/?emailActivation=" . $activation;
 		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 		$message = <<< EOF
@@ -190,8 +186,8 @@ EOF;
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 } catch(\TypeError $typeError) {
-	$reply->status = $exception->getCode();
-	$reply->message = $exception->getMessage();
+	$reply->status = $typeError->getCode();
+	$reply->message = $typeError->getMessage();
 }
 header("Content-type: application/json");
 echo json_encode($reply);
