@@ -74,6 +74,7 @@ try {
 			}
 		}
 
+
 //		else {
 //			$companies = Company::getAllCompanies($pdo);
 //			if($companies !== null) {
