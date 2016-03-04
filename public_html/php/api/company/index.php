@@ -25,7 +25,7 @@ $reply->data = null;
 
 try {
 	//Grab MySQL connection
-	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/time-crunchers.ini");
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
 
 	//if the company session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["user"]) === true) {
