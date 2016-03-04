@@ -141,7 +141,7 @@ require_once ("autoloader.php");
 	public function setCrewLocation(string $newCrewLocation) {
 		//verify the location is secure
 		$newCrewLocation = trim($newCrewLocation);
-		$newCrewLocation = filter_var($newCrewLocation, FILTER_SANITIZE_STRING);
+		$newCrewLocation = filter_var($newCrewLocation, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		//Exception if only non-sanitized values
 		if($newCrewLocation === false) {
 			throw(new \InvalidArgumentException("location is not secure"));

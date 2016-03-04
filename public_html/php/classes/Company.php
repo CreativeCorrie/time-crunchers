@@ -177,7 +177,7 @@ class Company implements \JsonSerializable {
 	public function setCompanyName(string $newCompanyName) {
 		// verify the company name content is secure
 		$newCompanyName = trim($newCompanyName);
-		$newCompanyName = filter_var($newCompanyName, FILTER_SANITIZE_STRING);
+		$newCompanyName = filter_var($newCompanyName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newCompanyName) === true) {
 			throw(new \InvalidArgumentException("company name content is empty or insecure"));
 		}
@@ -210,7 +210,7 @@ class Company implements \JsonSerializable {
 	public function setCompanyAddress1(string $newCompanyAddress1) {
 		// verify the company address line 1 content is secure
 		$newCompanyAddress1 = trim($newCompanyAddress1);
-		$newCompanyAddress1 = filter_var($newCompanyAddress1, FILTER_SANITIZE_STRING);
+		$newCompanyAddress1 = filter_var($newCompanyAddress1, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newCompanyAddress1) === true) {
 			throw(new \InvalidArgumentException("company address line 1 content is empty or insecure"));
 		}
@@ -248,7 +248,7 @@ class Company implements \JsonSerializable {
 
 		// verify the company address line 2 content is secure
 		$newCompanyAddress2 = trim($newCompanyAddress2);
-		$newCompanyAddress2 = filter_var($newCompanyAddress2, FILTER_SANITIZE_STRING);
+		$newCompanyAddress2 = filter_var($newCompanyAddress2, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 		// verify the company address line 2 will fit in the database
 		if(strlen($newCompanyAddress2) > 128) {
@@ -283,7 +283,7 @@ class Company implements \JsonSerializable {
 
 		// verify the company attn content is secure
 		$newCompanyAttn = trim($newCompanyAttn);
-		$newCompanyAttn = filter_var($newCompanyAttn, FILTER_SANITIZE_STRING);
+		$newCompanyAttn = filter_var($newCompanyAttn, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 		// verify the company attn will fit in the database
 		if(strlen($newCompanyAttn) > 128) {
@@ -316,7 +316,7 @@ class Company implements \JsonSerializable {
 	public function setCompanyState(string $newCompanyState) {
 		// verify the company state content is secure
 		$newCompanyState = trim($newCompanyState);
-		$newCompanyState = filter_var($newCompanyState, FILTER_SANITIZE_STRING);
+		$newCompanyState = filter_var($newCompanyState, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newCompanyState) === true) {
 			throw(new \InvalidArgumentException("company state content is empty or insecure"));
 		}
@@ -349,7 +349,7 @@ class Company implements \JsonSerializable {
 	public function setCompanyCity(string $newCompanyCity) {
 		// verify the company city content is secure
 		$newCompanyCity = trim($newCompanyCity);
-		$newCompanyCity = filter_var($newCompanyCity, FILTER_SANITIZE_STRING);
+		$newCompanyCity = filter_var($newCompanyCity, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newCompanyCity) === true) {
 			throw(new \InvalidArgumentException("company city content is empty or insecure"));
 		}
@@ -382,7 +382,7 @@ class Company implements \JsonSerializable {
 	public function setCompanyZip(string $newCompanyZip) {
 		// verify the company zip content is secure
 		$newCompanyZip = trim($newCompanyZip);
-		$newCompanyZip = filter_var($newCompanyZip, FILTER_SANITIZE_STRING);
+		$newCompanyZip = filter_var($newCompanyZip, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newCompanyZip) === true) {
 			throw(new \InvalidArgumentException("company zip code content is empty or insecure"));
 		}
@@ -415,7 +415,7 @@ class Company implements \JsonSerializable {
 	public function setCompanyPhone(string $newCompanyPhone) {
 		// verify the company phone content is secure
 		$newCompanyPhone = trim($newCompanyPhone);
-		$newCompanyPhone = filter_var($newCompanyPhone, FILTER_SANITIZE_STRING);
+		$newCompanyPhone = filter_var($newCompanyPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newCompanyPhone) === true) {
 			throw(new \InvalidArgumentException("company phone content is empty or insecure"));
 		}
@@ -582,7 +582,7 @@ class Company implements \JsonSerializable {
 	public static function getCompanyByCompanyName(\PDO $pdo, string $companyName) {
 		// sanitize the description before searching
 		$companyName = trim($companyName);
-		$companyName = filter_var($companyName, FILTER_SANITIZE_STRING);
+		$companyName = filter_var($companyName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($companyName) === true) {
 			throw(new \PDOException("company name content is invalid"));
 		}
@@ -592,7 +592,6 @@ class Company implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the company name content to the place holder in the template
-		$companyName = "%$companyName%";
 		$parameters = array("companyName" => $companyName);
 		$statement->execute($parameters);
 
@@ -602,6 +601,7 @@ class Company implements \JsonSerializable {
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$company = new Company($row["companyId"], $row["companyAttn"], $row["companyName"], $row["companyAddress1"], $row["companyAddress2"], $row["companyCity"], $row["companyState"], $row["companyZip"], $row["companyPhone"], $row["companyEmail"], $row["companyUrl"]);
+				var_dump($company);
 				$companies[$companies->key()] = $company;
 				$companies->next();
 			} catch(\Exception $exception) {

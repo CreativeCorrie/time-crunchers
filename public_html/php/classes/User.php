@@ -260,7 +260,7 @@ class User implements \JsonSerializable {
 	public function setUserPhone(string $newUserPhone) {
 		//verify userPhone is secure
 		$newUserPhone = trim($newUserPhone);
-		$newUserPhone = Filter_var($newUserPhone, FILTER_SANITIZE_STRING);
+		$newUserPhone = Filter_var($newUserPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newUserPhone) === true) {
 			throw(new \InvalidArgumentException("user phone is empty or not secure"));
 		}
@@ -294,7 +294,7 @@ class User implements \JsonSerializable {
 	public function setUserFirstName(string $newUserFirstName) {
 		//verify userFirstName is secure
 		$newUserFirstName = trim($newUserFirstName);
-		$newUserFirstName = Filter_var($newUserFirstName, FILTER_SANITIZE_STRING);
+		$newUserFirstName = Filter_var($newUserFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newUserFirstName) === true) {
 			throw(new \InvalidArgumentException("user first name is empty or not secure"));
 		}
@@ -328,7 +328,7 @@ class User implements \JsonSerializable {
 	public function setUserLastName(string $newUserLastName) {
 		//verify userFirstName is secure
 		$newUserLastName = trim($newUserLastName);
-		$newUserLastName = Filter_var($newUserLastName, FILTER_SANITIZE_STRING);
+		$newUserLastName = Filter_var($newUserLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newUserLastName) === true) {
 			throw(new \InvalidArgumentException("user first name is empty or not secure"));
 		}
@@ -363,7 +363,7 @@ class User implements \JsonSerializable {
 	public function setUserEmail(string $newUserEmail) {
 		//verify the User email is secure
 		$newUserEmail = trim($newUserEmail);
-		$newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_STRING);
+		$newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newUserEmail) === true) {
 			throw(new \InvalidArgumentException("user email is not secure"));
 		}
@@ -644,7 +644,7 @@ class User implements \JsonSerializable {
 	public static function getUserByUserActivation(\PDO $pdo, string $userActivation) {
 		// sanitize the description before searching
 		$userActivation = trim($userActivation);
-		$userActivation = filter_var($userActivation, FILTER_SANITIZE_STRING);
+		$userActivation = filter_var($userActivation, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($userActivation) === true) {
 			throw(new \PDOException("user activation content is invalid"));
 		}

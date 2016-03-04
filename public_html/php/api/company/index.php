@@ -45,16 +45,16 @@ try {
 	}
 
 	//Sanitize and trim other fields
-	$companyName = filter_input(INPUT_GET, "companyName", FILTER_SANITIZE_STRING);
-	$companyAddress1 = filter_input(INPUT_GET, "companyAddress1", FILTER_SANITIZE_STRING);
-	$companyAddress2 = filter_input(INPUT_GET, "companyAddress2", FILTER_SANITIZE_STRING);
-	$companyAttn = filter_input(INPUT_GET, "companyAttn", FILTER_SANITIZE_STRING);
-	$companyState = filter_input(INPUT_GET, "companyState", FILTER_SANITIZE_STRING);
-	$companyCity = filter_input(INPUT_GET, "companyCity", FILTER_SANITIZE_STRING);
-	$companyZip = filter_input(INPUT_GET, "companyZip", FILTER_SANITIZE_STRING);
-	$companyPhone = filter_input(INPUT_GET, "companyPhone", FILTER_SANITIZE_STRING);
-	$companyEmail = filter_input(INPUT_GET, "companyEmail", FILTER_SANITIZE_STRING);
-	$companyUrl = filter_input(INPUT_GET, "companyUrl", FILTER_SANITIZE_STRING);
+	$companyName = filter_input(INPUT_GET, "companyName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$companyAddress1 = filter_input(INPUT_GET, "companyAddress1", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$companyAddress2 = filter_input(INPUT_GET, "companyAddress2", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$companyAttn = filter_input(INPUT_GET, "companyAttn", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$companyState = filter_input(INPUT_GET, "companyState", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$companyCity = filter_input(INPUT_GET, "companyCity", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$companyZip = filter_input(INPUT_GET, "companyZip", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$companyPhone = filter_input(INPUT_GET, "companyPhone", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$companyEmail = filter_input(INPUT_GET, "companyEmail", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$companyUrl = filter_input(INPUT_GET, "companyUrl", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//Handle REST calls
 	if($method === "GET") {
@@ -67,8 +67,10 @@ try {
 			if($company !== null) {
 				$reply->data = $company;
 			}
-		} else if(empty($companyAddress1) === false) {
-			$company = Company::getCompanyByCompanyName($pdo, $companyAddress1);
+		} else if(empty($companyName) === false) {
+			echo $companyName . "<br>";
+			$company = Company::getCompanyByCompanyName($pdo, $companyName)->toArray();
+			var_dump($company);
 			if($company !== null) {
 				$reply->data = $company;
 			}

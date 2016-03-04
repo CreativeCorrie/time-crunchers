@@ -47,9 +47,9 @@ try {
 	$shiftUserId = filter_input(INPUT_GET, "shiftUserId", FILTER_VALIDATE_INT);
 	$shiftCrewId = filter_input(INPUT_GET, "shiftCrewId", FILTER_VALIDATE_INT);
 	$shiftRequestDate = filter_input(INPUT_GET, "shiftRequestId", FILTER_VALIDATE_INT);
-	$shiftStartTime = filter_input(INPUT_GET, "shiftStartTime", FILTER_SANITIZE_STRING);
+	$shiftStartTime = filter_input(INPUT_GET, "shiftStartTime", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$shiftDuration = filter_input(INPUT_GET, "shiftDuration", FILTER_VALIDATE_INT);
-	$shiftDate = filter_input(INPUT_GET, "shiftDate", FILTER_SANITIZE_STRING);
+	$shiftDate = filter_input(INPUT_GET, "shiftDate", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$shiftDelete = filter_input(INPUT_GET, "shiftDelete", FILTER_VALIDATE_INT);
 
 	//handle REST calls , while only allowing administrators access to database-modifying methods

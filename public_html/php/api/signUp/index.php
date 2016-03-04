@@ -44,13 +44,13 @@ try {
 		if(empty($requestObject->firstName) === true) {
 			throw(new InvalidArgumentException ("Must fill in first name."));
 		} else {
-			$firstName = filter_var($requestObject->firstName, FILTER_SANITIZE_STRING);
+			$firstName = filter_var($requestObject->firstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		if(empty($requestObject->lastName) === true) {
 			throw(new InvalidArgumentException ("Must fill in last name."));
 		} else {
-			$lastName = filter_var($requestObject->lastName, FILTER_SANITIZE_STRING);
+			$lastName = filter_var($requestObject->lastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		if(empty($requestObject->email) === true) {
@@ -62,56 +62,56 @@ try {
 		if(empty($requestObject->password) === true) {
 			throw(new InvalidArgumentException ("Must fill in password."));
 		} else {
-			$password = filter_var($requestObject->password, FILTER_SANITIZE_STRING);
+			$password = filter_var($requestObject->password, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		if(empty($requestObject->verifyPassword) === true) {
 			throw(new InvalidArgumentException ("Please verify password."));
 		} else {
-			$verifyPassword = filter_var($requestObject->verifyPassword, FILTER_SANITIZE_STRING);
+			$verifyPassword = filter_var($requestObject->verifyPassword, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		if(empty($requestObject->phone) === true) {
 			throw(new InvalidArgumentException ("Must fill in phone number."));
 		} else {
-			$phone = filter_var($requestObject->phone, FILTER_SANITIZE_STRING);
+			$phone = filter_var($requestObject->phone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		//company
 		if(empty($requestObject->companyName) === true) {
 			throw(new InvalidArgumentException ("Must fill in company name."));
 		} else {
-			$companyName = filter_var($requestObject->companyName, FILTER_SANITIZE_STRING);
+			$companyName = filter_var($requestObject->companyName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		if(empty($requestObject->companyAddress1) === true) {
 			throw(new InvalidArgumentException ("Must fill in company address line 1."));
 		} else {
-			$companyAddress1 = filter_var($requestObject->companyAddress1, FILTER_SANITIZE_STRING);
+			$companyAddress1 = filter_var($requestObject->companyAddress1, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		if(empty($requestObject->companyState) === true) {
 			throw(new InvalidArgumentException ("Must fill in state."));
 		} else {
-			$companyState = filter_var($requestObject->companyState, FILTER_SANITIZE_STRING);
+			$companyState = filter_var($requestObject->companyState, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		if(empty($requestObject->companyCity) === true) {
 			throw(new InvalidArgumentException ("Must fill in city."));
 		} else {
-			$companyCity = filter_var($requestObject->companyCity, FILTER_SANITIZE_STRING);
+			$companyCity = filter_var($requestObject->companyCity, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		if(empty($requestObject->companyZip) === true) {
 			throw(new InvalidArgumentException ("Must fill in zip code."));
 		} else {
-			$companyZip = filter_var($requestObject->companyZip, FILTER_SANITIZE_STRING);
+			$companyZip = filter_var($requestObject->companyZip, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		if(empty($requestObject->companyPhone) === true) {
 			throw(new InvalidArgumentException ("Must fill in phone number."));
 		} else {
-			$companyPhone = filter_var($requestObject->companyPhone, FILTER_SANITIZE_STRING);
+			$companyPhone = filter_var($requestObject->companyPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		if(empty($requestObject->companyEmail) === true) {
@@ -122,13 +122,13 @@ try {
 
 		//these fields are not required so the fields are empty so be it
 		if(empty($requestObject->companyAddress2) !== true) {
-			$companyAddress2 = filter_var($requestObject->companyAddress1, FILTER_SANITIZE_STRING);
+			$companyAddress2 = filter_var($requestObject->companyAddress1, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		} else {
 			$companyAddress2 = null;
 		}
 
 		if(empty($requestObject->companyAttn) !== true) {
-			$companyAttn = filter_var($requestObject->companyAttn, FILTER_SANITIZE_STRING);
+			$companyAttn = filter_var($requestObject->companyAttn, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		} else {
 			$companyAttn = null;
 		}

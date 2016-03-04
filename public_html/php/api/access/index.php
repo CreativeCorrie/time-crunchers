@@ -45,7 +45,7 @@ try {
 
 	//sanitize and trim other fields
 	// this is an optional field - wrap it in an if
-	$accessName = filter_input(INPUT_GET, "accessName", FILTER_SANITIZE_STRING);
+	$accessName = filter_input(INPUT_GET, "accessName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//handle REST calls, while only allowing administrators to access database-modifying methods
 	if($method === "GET") {

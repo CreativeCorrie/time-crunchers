@@ -46,10 +46,10 @@ try {
 	$userCompanyId = filter_input(INPUT_GET, "userCompanyId", FILTER_VALIDATE_INT);
 	$userCrewId = filter_input(INPUT_GET, "userCrewId", FILTER_VALIDATE_INT);
 	$userAccessId = filter_input(INPUT_GET, "userAccessId", FILTER_VALIDATE_INT);
-	$userPhone = filter_input(INPUT_GET, "userPhone", FILTER_SANITIZE_STRING);
-	$userFirstName = filter_input(INPUT_GET, "userFirstName", FILTER_SANITIZE_STRING);
-	$userLastName = filter_input(INPUT_GET, "userLastName", FILTER_SANITIZE_STRING);
-	$userEmail = filter_input(INPUT_GET, "userEmail", FILTER_SANITIZE_STRING);
+	$userPhone = filter_input(INPUT_GET, "userPhone", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$userFirstName = filter_input(INPUT_GET, "userFirstName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$userLastName = filter_input(INPUT_GET, "userLastName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$userEmail = filter_input(INPUT_GET, "userEmail", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 
 	//handle rest calls, while only allowing admins to access database-modifying methods

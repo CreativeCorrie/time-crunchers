@@ -41,11 +41,11 @@ try {
 	//sanitize and trim the other fields
 	$requestRequestorId = filter_input(INPUT_GET, "requestRequestorId", FILTER_VALIDATE_INT);
 	$requestAdminId = filter_input(INPUT_GET, "requestAdminId", FILTER_VALIDATE_INT);
-	$requestTimeStamp = filter_input(INPUT_GET, "requestTimeStamp", FILTER_SANITIZE_STRING);
-	$requestActionTimeStamp = filter_input(INPUT_GET, "requestActionTimeStamp", FILTER_SANITIZE_STRING);
+	$requestTimeStamp = filter_input(INPUT_GET, "requestTimeStamp", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$requestActionTimeStamp = filter_input(INPUT_GET, "requestActionTimeStamp", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$requestApprove = filter_input(INPUT_GET, "requestApprove", FILTER_VALIDATE_BOOLEAN);
-	$requestRequestorText = filter_input(INPUT_GET, "requestRequestorText", FILTER_SANITIZE_STRING);
-	$requestAdminText = filter_input(INPUT_GET, "requestAdminText", FILTER_SANITIZE_STRING);
+	$requestRequestorText = filter_input(INPUT_GET, "requestRequestorText", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$requestAdminText = filter_input(INPUT_GET, "requestAdminText", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//Handle REST calls
 	if($method === "GET") {

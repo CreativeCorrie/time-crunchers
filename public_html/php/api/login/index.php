@@ -42,7 +42,7 @@ try {
 		if(empty($requestObject->userPassword) === true) {
 			throw(new InvalidArgumentException ("must enter a password", 405));
 		} else {
-			$password = filter_var($requestObject->userPassword, FILTER_SANITIZE_STRING);
+			$password = filter_var($requestObject->userPassword, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		if(empty($requestObject->userEmail) === true) {

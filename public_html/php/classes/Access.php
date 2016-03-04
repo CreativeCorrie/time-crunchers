@@ -112,7 +112,7 @@ class Access implements \JsonSerializable {
 	public function setAccessName(string $newAccessName) {
 		//verify the access name is secure
 		$newAccessName = trim($newAccessName);
-		$newAccessName = filter_var($newAccessName, FILTER_SANITIZE_STRING);
+		$newAccessName = filter_var($newAccessName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newAccessName) === true) {
 			throw(new \InvalidArgumentException("access name is empty or not secure"));
 		}
@@ -245,7 +245,7 @@ class Access implements \JsonSerializable {
 	public static function getAccessByAccessName(\PDO $pdo, string $accessName) {
 		//sanitize the description before searching
 		$accessName = trim($accessName);
-		$accessName = filter_var($accessName, FILTER_SANITIZE_STRING);
+		$accessName = filter_var($accessName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($accessName) === true) {
 			throw(new \PDOException("accessName is invalid"));
 		}

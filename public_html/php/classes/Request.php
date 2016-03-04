@@ -271,7 +271,7 @@ class Request implements \JsonSerializable {
 	public function setRequestRequestorText(string $newRequestRequestorText) {
 		// trims and sanitizes text, throws exception if it exceeds 255 characters
 		$newRequestRequestorText = trim($newRequestRequestorText);
-		$newRequestRequestorText = filter_var($newRequestRequestorText, FILTER_SANITIZE_STRING);
+		$newRequestRequestorText = filter_var($newRequestRequestorText, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(strlen($newRequestRequestorText) > 255) {
 			throw(new \RangeException("comment too large, 255 characters or less please"));
 		}
@@ -294,7 +294,7 @@ class Request implements \JsonSerializable {
 	public function setRequestAdminText(string $newRequestAdminText) {
 		// trims and sanitizes text, throws exception if it exceeds 255 characters
 		$newRequestAdminText = trim($newRequestAdminText);
-		$newRequestAdminText = filter_var($newRequestAdminText, FILTER_SANITIZE_STRING);
+		$newRequestAdminText = filter_var($newRequestAdminText, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(strlen($newRequestAdminText) > 255) {
 			throw(new \RangeException("comment too large, 255 character or less pleas"));
 		}

@@ -43,7 +43,7 @@ try {
 	//sanitize and trim the other fields
 	$crewId = filter_input(INPUT_GET, "crewId", FILTER_VALIDATE_INT);
 	$crewCompanyId = filter_input(INPUT_GET, "crewCompanyId", FILTER_VALIDATE_INT);
-	$crewLocation = filter_input(INPUT_GET, "crewLocation", FILTER_SANITIZE_STRING);
+	$crewLocation = filter_input(INPUT_GET, "crewLocation", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//handle REST calls , while only allowing administrators access to database-modifying methods
 	if($method === "GET") {

@@ -36,7 +36,7 @@ try {
 		setXsrfcookie("/");
 
 		//get the Sign Up based on the given field
-		$emailActivation = filter_input(INPUT_GET, "emailActivation", FILTER_SANITIZE_STRING);
+		$emailActivation = filter_input(INPUT_GET, "emailActivation", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 		if(empty($emailActivation)) {
 			throw(new \RangeException ("No Activation Code"));

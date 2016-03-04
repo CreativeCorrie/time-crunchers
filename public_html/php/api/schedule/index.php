@@ -46,7 +46,7 @@ try {
 
 	//Sanitize and trim other fields
 	$scheduleCrewId = filter_input(INPUT_GET, "scheduleCrewId", FILTER_VALIDATE_INT);
-	$scheduleStartDate = filter_input(INPUT_GET, "scheduleStartDate", FILTER_SANITIZE_STRING);
+	$scheduleStartDate = filter_input(INPUT_GET, "scheduleStartDate", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//Handle REST calls
 	if($method === "GET") {
