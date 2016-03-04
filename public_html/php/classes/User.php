@@ -85,7 +85,7 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 **/
-	public function __construct(int $newUserId = null, int $newUserCompanyId, int $newUserCrewId, int $newUserAccessId, string $newUserPhone, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserActivation, string $newUserHash, string $newUserSalt) {
+	public function __construct(int $newUserId = null, int $newUserCompanyId, int $newUserCrewId, int $newUserAccessId, string $newUserPhone, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserActivation = null, string $newUserHash, string $newUserSalt) {
 		try {
 			$this->setUserId($newUserId);
 			$this->setUserCompanyId($newUserCompanyId);
@@ -393,7 +393,13 @@ class User implements \JsonSerializable {
 	 * @param \RangeException if $newRangeException is not = 32
 	 * @param \TypeError if $newUserActivation is not a string
 	 */
-	public function setUserActivation(string $newUserActivation) {
+	public function setUserActivation(string $newUserActivation = null) {
+		//base case: if the activation is null, this is an active account
+		if($newUserActivation === null) {
+			$this->userActivation = null;
+			return;
+		}
+
 		//verify $userActivation is secure
 		$newUserActivation = strtolower(trim($newUserActivation));
 
@@ -645,17 +651,19 @@ class User implements \JsonSerializable {
 		// create query template
 		$query = "SELECT userId, userCompanyId, userCrewId, userAccessId, userPhone, userFirstName, userLastName, userEmail, userActivation, userHash, userSalt
 						FROM user
-						WHERE userActivation LIKE :userActivation
-						AND userActivation IN (SELECT userId FROM user WHERE userCompanyId = :companyId)";
+						WHERE userActivation = :userActivation";
 		$statement = $pdo->prepare($query);
 		// bind the company name content to the place holder in the template
-		$parameters = ["userActivation" => $userActivation, "companyId" => self::injectCompanyId()];
+		$parameters = ["userActivation" => $userActivation];
 		$statement->execute($parameters);
 		// build an array of userActivations
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		$row = $statement->fetch();
+		$user = null;
 		try {
-			$user = new User($row["userId"], $row["userCompanyId"], $row["userCrewId"], $row["userAccessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
+			if($row !== false) {
+				$user = new User($row["userId"], $row["userCompanyId"], $row["userCrewId"], $row["userAccessId"], $row["userPhone"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userActivation"], $row["userHash"], $row["userSalt"]);
+			}
 		} catch(\Exception $exception) {
 			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
