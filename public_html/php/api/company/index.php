@@ -72,12 +72,14 @@ try {
 			if($company !== null) {
 				$reply->data = $company;
 			}
-		} else {
-			$companies = Company::getAllCompanies($pdo);
-			if($companies !== null) {
-				$reply->data = $companies;
-			}
 		}
+
+//		else {
+//			$companies = Company::getAllCompanies($pdo);
+//			if($companies !== null) {
+//				$reply->data = $companies;
+//			}
+//		}
 
 		//if the session belongs to an admin, allow post, put, and delete methods
 		if($method === "PUT") {
