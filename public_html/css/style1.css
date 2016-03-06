@@ -10,16 +10,6 @@
 }
 
 
-#signIn {
-
-
-}
-
-#activate {
-
-
-}
-
 /*styling for forms*/
 
 /********************************************
@@ -161,5 +151,15 @@ body {
 	margin: 20px 0;
 }
 
-
 /*end of styling for sticky footer and nav bar*/
+
+/*Styling for landing page*/
+
+body{
+	padding:10px;
+}
+
+.show-on-hover:hover > ul.dropdown-menu {
+	display: block;
+}
+/*End of styling for landing page*/

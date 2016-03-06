@@ -317,7 +317,7 @@ class Access implements \JsonSerializable {
 
 	/**
 	 * DRY method of detecting whether an Admin is logged in
-	 *
+	 * @param $accessors
 	 * @return bool true if Admin false if not
 	 * @throws  \RuntimeException when the user is not logged in
 	 **/

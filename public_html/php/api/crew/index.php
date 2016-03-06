@@ -5,6 +5,7 @@ require_once(dirname(dirname(__DIR__)) . "/classes/autoloader.php");
 require_once(dirname(dirname(__DIR__)) . "/lib/xsrf.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\Timecrunchers\Crew;
+
 /**
  * controller/api for the crew class
  *
@@ -124,12 +125,11 @@ try {
 		}
 		//send exception back to the caller
 	}
-}
-catch
-	(Exception $exception) {
-		$reply->status = $exception->getCode();
-		$reply->message = $exception->getMessage();
-	} catch(TypeError $typeError) {
+} catch
+(Exception $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
+} catch(TypeError $typeError) {
 	$reply->status = $typeError->getCode();
 	$reply->message = $typeError->getMessage();
 }

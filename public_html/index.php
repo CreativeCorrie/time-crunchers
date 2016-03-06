@@ -20,6 +20,7 @@
 		<!--Font Awesome CSS-->
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"
 				integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
 		<!-- LOAD OUR CUSTOM STYLESHEET HERE!!! -->
 		<link href="css/style1.css" type="text/css" rel="stylesheet"/>
 
@@ -41,12 +42,80 @@
 
 	<title>Welcome to Time Crunch</title>
 	<body>
-		<header>
-			<h1>Welcome to Time Crunch</h1>
-			<h4>Holy smokes, it worked</h4>
-		</header>
-		<div>
-
+		<header></header>
+		<div class="container">
 		</div>
+		<!-- form-->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Welcome to Time Crunch</h1>
+					<h2>Let's get started</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-5">
+					<h4>Already Have An Account?</h4>
+					<br>
+					<!-- Our Special dropdown has class show-on-hover -->
+					<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							I want to: <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Log In</a></li>
+							<li><a href="#">Reset My Password</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Get a Cupcake</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-5">
+					<h4>New User?</h4>
+					<br>
+					<!-- Single button -->
+					<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							Select: <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">I have my activation email</a></li>
+							<li><a href="#"></a></li>
+							<li><a href="#"></a></li>
+							<li class="divider"></li>
+							<li><a href="#">I need to sign up my company/group for Time Crunch</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--form-->
+		<div class="dropdown">
+			<button type="button" class="btn btn-lg btn-warning dropdown-toggle" data-toggle="dropdown">By industries <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#activate" data-toggle="modal">I have my activation email</a></li>
+				<li><a href="#"></a></li>
+				<li><a href="#"></a></li>
+				<li><a href="#"></a></li>
+				<li class="divider"></li>
+				<li><a href="#">I need to sign up my company/group for Time Crunch</a></li>
+			</ul>
+		</div>
+		<div class="modal fade" id="activate" data-target="#activate">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header orange">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+						</button>
+						<!--this is the modal-->
+						<h4 class="modal-title"><strong></strong>Consumer goods</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</body>
 </html>
