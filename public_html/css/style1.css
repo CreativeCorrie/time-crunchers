@@ -14,13 +14,12 @@
 }
 
 #landingHeader {
-	padding:10px;
-	border-radius:30%;
+	padding:20px;
+	border-radius:5%;
 	border-color: #4b4b4e;
 	border-style: solid;
 	border-width: 3px;
-	fill-opacity: 10;
-	fill: #c6f5f2;
+	background-color: #c6f5f2;
 	margin: 8px;
 	/*color: #ca5c11;*/
 }

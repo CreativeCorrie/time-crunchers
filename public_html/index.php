@@ -45,7 +45,7 @@
 		<header id="landingHeader">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-12">
 						<h1>Welcome to Time Crunch</h1>
 					</div>
 				</div>
@@ -55,7 +55,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h2>Let's get started :D</h2>
+					<h2>Let's get started</h2>
 				</div>
 			</div>
 			<div class="row">
@@ -63,8 +63,9 @@
 
 					<!-- Account Holder controls-->
 					<h4>Already Have an Account?</h4>
-					<br>
+
 					<!-- modal trigger button -->
+					<br>
 					<div class="button-container">
 						<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-lg">Log In
 						</button>
@@ -157,52 +158,9 @@
 
 			</div>
 		</div>
+		<br>
 		<!-- forgot password -->
-		<div class="container">
-			<div class="row">
-				<div class="col=md-12">
-					<a href="#" data-target="#pwdModal" data-toggle="modal">Forgot my password</a>
-				</div>
 
-				<!--forgot password modal-->
-				<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								<h1 class="text-center">What's My Password?</h1>
-							</div>
-							<div class="modal-body">
-								<div class="col-md-12">
-									<div class="panel panel-default">
-										<div class="panel-body">
-											<div class="text-center">
-												<p>here.</p>
-												<div class="panel-body">
-													<fieldset>
-														<div class="form-group">
-															<input class="form-control input-lg" placeholder="E-mail Address"
-																	 name="email" type="email">
-														</div>
-														<input class="btn btn-lg btn-primary btn-block" value="Send My Password"
-																 type="submit">
-													</fieldset>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<div class="col-md-12">
-									<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<!--end of forgot password modal-->
 
 	</body>
