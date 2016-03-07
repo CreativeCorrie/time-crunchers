@@ -86,7 +86,7 @@
 									<h3 class="modal-title">Take me to Time Crunch!</h3>
 								</div>
 								<div class="modal-body">
-									<!--									<p>Come to Time Crunch</p>-->
+									<!--									<p>Come to Time Crunch LOL</p>-->
 									<label for="modalLoginForm" class="control-label">Enter your email address and password
 										here</label>
 									<form class="form-inline" id="modalLoginForm">
@@ -112,9 +112,9 @@
 									</form>
 								</div>
 							</div>
-
 						</div>
-					</div>
+					</div> <!-- End of Log in modal-->
+
 				</div>
 				<!--end of Account Holder content-->
 

@@ -20,12 +20,12 @@ require_once ("autoloader.php");
 	private $crewId;
 
 	 /**id for the companyId
-	  * @var string crewCompanyId
+	  * @var int crewCompanyId
 	  **/
 	 private $crewCompanyId;
 
 	/**id for the location or store
-	 * @var int crewLocation
+	 * @var string crewLocation
 	 **/
 	private $crewLocation;
 

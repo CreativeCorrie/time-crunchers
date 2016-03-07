@@ -26,11 +26,11 @@ try {
 	//grab the mySQL connection
 	$pdo = connectToEncrytedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
 
-	//if the crew session is empty, the user is not logged in, throw an exception
-	//if(empty($_SESSION["user"]) === true) {
-	//	setXsrfCookie("/");
-	//	throw(new RuntimeException("Please log-in or sign up", 401));
-	//}
+//	if the crew session is empty, the user is not logged in, throw an exception
+	if(empty($_SESSION["user"]) === true) {
+		setXsrfCookie("/");
+		throw(new RuntimeException("Please log-in or sign up", 401));
+	}
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
@@ -65,7 +65,7 @@ try {
 			{
 				$reply->data = $crew;
 			}
-		} else if(empty($crewLocation) === false) ;
+		} else if(empty($crewLocation) === false);
 		{
 			$crew = Crew::getCrewByCrewLocation($pdo, $crewLocation);
 			if($crew !== null && $crew->getCrewId() === $_SESSION["crew"]->getCrewId) {
