@@ -55,31 +55,28 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h2>Let's get started</h2>
+					<h2>Let's get started :D</h2>
 				</div>
 			</div>
 			<div class="row">
-
-				<!-- Account Holder drop-down with modals -->
 				<div class="col-md-5">
-					<h4>Already Have an Account</h4>
+
+					<!-- Account Holder controls-->
+					<h4>Already Have an Account?</h4>
 					<br>
-					<!-- modal trigger buttons contained here -->
+					<!-- modal trigger button -->
 					<div class="button-container">
 						<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-lg">Log In
 						</button>
 					</div>
-					<!-- ========================== -->
-					<!--  Large Modal               -->
-					<!-- ========================== -->
+
+					<!--Log In Modal -->
 					<div class="modal fade" id="modal-lg" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
 						  aria-hidden="true" data-keyboard="true">
 						<!-- Modals have two optional sizes, available via class="modal-lg" or class="modal-sm" -->
 						<div class="modal-dialog modal-lg">
-
 							<!-- Begin modal content here -->
 							<div class="modal-content">
-
 								<div class="modal-header">
 									<!-- close button -->
 									<button type="button" class="close" data-dismiss="modal" aria-label="close">
@@ -87,13 +84,11 @@
 									</button>
 									<h3 class="modal-title">Take me to Time Crunch!</h3>
 								</div>
-
 								<div class="modal-body">
 									<!--									<p>Come to Time Crunch</p>-->
 									<label for="modalLoginForm" class="control-label">Enter your email address and password
 										here</label>
 									<form class="form-inline" id="modalLoginForm">
-
 										<div class="form-group">
 											<label for="emailLoginEmail" class="sr-only">Email: </label>
 											<div class="input-group">
@@ -103,7 +98,6 @@
 														 placeholder="enter email address"/>
 											</div>
 										</div>
-
 										<div class="form-group">
 											<label for="password" class="sr-only">Password: </label>
 											<div class="input-group">
@@ -117,10 +111,11 @@
 									</form>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
-				<!--end of Account Holder drop-downs & modals-->
+				<!--end of Account Holder content-->
 
 				<!-- empty div to separate buttons-->
 				<div class="col-md-2"></div>
@@ -162,14 +157,14 @@
 
 			</div>
 		</div>
-
+		<!-- forgot password -->
 		<div class="container">
 			<div class="row">
 				<div class="col=md-12">
 					<a href="#" data-target="#pwdModal" data-toggle="modal">Forgot my password</a>
 				</div>
 
-				<!--modal-->
+				<!--forgot password modal-->
 				<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -208,9 +203,7 @@
 				</div>
 			</div>
 		</div>
-
-
-		<!--end of drop down button with modals-->
+		<!--end of forgot password modal-->
 
 	</body>
 </html>
