@@ -122,39 +122,7 @@
 				<div class="col-md-2"></div>
 
 				<!-- New User drop-down button with modal -->
-				<div class="col-md-5">
-					<h4>New User?</h4>
-					<br>
-					<div class="dropdown">
-						<button type="button" class="btn btn-lg btn-warning dropdown-toggle" data-toggle="dropdown">Select:
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#activate" data-toggle="modal">I have my activation email</a></li>
-							<!--placeholders -->
-							<li><a href="#"></a></li>
-							<li><a href="#"></a></li>
-							<li><a href="#"></a></li>
 
-							<li class="divider"></li>
-							<li><a href="#">I need to sign up my company/group for Time Crunch</a></li>
-						</ul>
-					</div>
-
-					<!--this is the Activate modal-->
-					<div class="modal fade" id="activate" data-target="#activate">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header orange">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-											aria-hidden="true">&times;</span>
-									</button>
-									<h4 class="modal-title"><strong></strong>Activation modal.</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 
 			</div>
 		</div>

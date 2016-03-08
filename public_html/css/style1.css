@@ -1,16 +1,6 @@
-.panel {
-	border: double #968468 3px;
-	width: 750px;
-	height: 550px;
-}
-
 .nav {
 	padding-right: 15px;
 	padding-bottom: 10px;
-}
-
-#landingHeader {
-
 }
 
 #landingHeader {
@@ -169,7 +159,7 @@ body {
 
 /*Styling for landing page*/
 
-body{
+#landingPage {
 	padding:10px;
 }
 

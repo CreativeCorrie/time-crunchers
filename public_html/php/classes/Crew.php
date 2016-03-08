@@ -328,6 +328,7 @@ require_once ("autoloader.php");
 				 $crew = new Crew($row["crewId"], $row["crewCompanyId"], $row["crewLocation"]);
 				 return($crew);
 			 }
+			 return(null);
 		 } catch(\Exception $exception) {
 			 //if the row couldn't be converted, rethrow it
 			 throw(new \PDOException($exception->getMessage(), 0, $exception));
