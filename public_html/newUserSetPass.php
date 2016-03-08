@@ -43,6 +43,17 @@
 	<title></title>
 	<body>
 
+			<!-- Inject the activation token into the form -->
+		<?php
+		$activation = filter_input(INPUT_GET, "emailActivation", FILTER_SANITIZE_STRING);
+		if(ctype_xdigit($activation) === false) {
+			throw(new InvalidArgumentException("invalid activation token", 405));
+		}
+		?>
+		<input type="hidden" name="emailActivation" id="emailActivation" ng-model="passwordReset.emailActivation" value="<?php echo $activation; ?>"/>
+		<!-- end of injection -->
+
+
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">

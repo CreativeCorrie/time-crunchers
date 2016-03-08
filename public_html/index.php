@@ -121,15 +121,22 @@
 				<!-- empty div to separate buttons-->
 				<div class="col-md-2"></div>
 
-				<!-- New User drop-down button with modal -->
+				<!-- New User sign up -->
+				<div class="row">
+					<div class="col-md-5">
+						<form action="initialSignUp.php">
+							<input type="submit" value="Go to Google">
+						</form>
+
+						<!-- End of new user sign up -->
 
 
-			</div>
-		</div>
-		<br>
-		<!-- forgot password -->
+					</div>
+				</div>
+				<br>
+				<!-- forgot password -->
 
-		<!--end of forgot password modal-->
+				<!--end of forgot password modal-->
 
 	</body>
 </html>
