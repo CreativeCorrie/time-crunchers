@@ -44,7 +44,6 @@ try {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 	//sanitize and trim the other fields
-	$crewId = filter_input(INPUT_GET, "crewId", FILTER_VALIDATE_INT);
 	$crewCompanyId = filter_input(INPUT_GET, "crewCompanyId", FILTER_VALIDATE_INT);
 	$crewLocation = filter_input(INPUT_GET, "crewLocation", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
@@ -60,11 +59,11 @@ try {
 				$reply->data = $crew;
 			}
 		} else if(empty($crewCompanyId) === false) {
-			$crew = Crew::getCrewByCrewCompanyId($pdo, $id);
+			$crew = Crew::getCrewByCrewCompanyId($pdo,$_SESSION["user"]->getUserCompanyId());
 		} else if(empty($crewLocation) === false);
 		{
 			$crew = Crew::getCrewByCrewLocation($pdo, $crewLocation);
-			if($crew !== null && $crew->getCrewId() === $_SESSION["user"]->getCrewId) {
+			if($crew !== null && $crew->getCrewId() === $_SESSION["user"]->getUserCrewId()) {
 				$reply->data = $crew;
 			}
 		}
