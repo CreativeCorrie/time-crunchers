@@ -47,17 +47,12 @@
 	<title></title>
 	<body>
 
-
-			<!-- Inject the activation token into the form -->
 		<?php
 		$activation = filter_input(INPUT_GET, "emailActivation", FILTER_SANITIZE_STRING);
 		if(ctype_xdigit($activation) === false) {
 			throw(new InvalidArgumentException("invalid activation token", 405));
 		}
 		?>
-		<input type="hidden" name="emailActivation" id="emailActivation" ng-model="passwordReset.emailActivation" value="<?php echo $activation; ?>"/>
-		<!-- end of injection -->
-
 
 		<div class="container">
 			<div class="row">
@@ -70,6 +65,7 @@
 					<p class="text-center">Use the form below to set your password. Your password cannot be the same as your
 						username.</p>
 					<form method="post" id="passwordForm">
+						<input type="hidden" name="emailActivation" id="emailActivation" ng-model="passwordReset.emailActivation" value="<?php echo $activation; ?>"/>
 						<input type="password" class="input-lg form-control" name="password1" id="password1"
 								 placeholder="New Password" autocomplete="off">
 						<div class="row">
