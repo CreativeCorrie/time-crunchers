@@ -165,8 +165,8 @@ try {
 
 		//TODO: change basePath and confirm link if necessary when we set up swift mailer
 		//building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
-		$basePath = dirname($_SERVER["SCRIPT_NAME"], 2);
-		$urlglue = $basePath . "/activation/?emailActivation=" . $activation;
+		$basePath = dirname($_SERVER["SCRIPT_NAME"], 4);
+		$urlglue = $basePath . "/newUserSetPass.php?emailActivation=" . $activation;
 		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 		$message = <<< EOF
 <h1>This is an important message about your account activation.</h1>

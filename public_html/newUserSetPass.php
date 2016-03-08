@@ -1,5 +1,15 @@
+<?php
+require_once("php/lib/xsrf.php");
+
+//if session is not active start session
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
+setXsrfCookie();
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="TimeCrunchers">
 	<head>
 		<meta charset="utf-8"/>
 
@@ -10,6 +20,14 @@
 		<!-- Font Awesome -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
+		<!-- Angular Core-->
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+		<script type="text/javascript"
+				  src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-messages.min.js"></script>
+
+		<!--		Custom Angular-->
+		<script type="text/javascript" src="angularjs/time-crunchers.js"></script>
+		<script type="text/javascript" src="angularjs/services/activation-service.js"></script>
 
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -26,7 +44,6 @@
 				integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 		<!-- LOAD OUR CUSTOM STYLESHEET HERE!!! -->
 		<link href="css/style1.css" type="text/css" rel="stylesheet"/>
-		<script src="angularjs/services/changePassForm.js"></script>
 
 		<!-- HTML5 shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,7 +61,7 @@
 				  crossorigin="anonymous"></script>
 	</head>
 
-	<title></title>
+	<title>Choose Your Password</title>
 	<body>
 
 		<?php
@@ -56,7 +73,7 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-sm-12">
 					<h1>Choose a Password</h1>
 				</div>
 			</div>
@@ -65,7 +82,8 @@
 					<p class="text-center">Use the form below to set your password. Your password cannot be the same as your
 						username.</p>
 					<form method="post" id="passwordForm">
-						<input type="hidden" name="emailActivation" id="emailActivation" ng-model="passwordReset.emailActivation" value="<?php echo $activation; ?>"/>
+						<input type="hidden" name="emailActivation" id="emailActivation"
+								 ng-model="passwordReset.emailActivation" value="<?php echo $activation; ?>"/>
 						<input type="password" class="input-lg form-control" name="password1" id="password1"
 								 placeholder="New Password" autocomplete="off">
 						<div class="row">
