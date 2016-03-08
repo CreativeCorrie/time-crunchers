@@ -492,7 +492,7 @@ class Shift implements \JsonSerializable {
 		return $shifts;
 	}
 	/**
-	 *function to retrieve shifts by shiftRequestId
+	 *function to retrieve shifts by shiftRequestId.
 	 *
 	 * @param \PDO $pdo PDO is a connection object
 	 * @param int $shiftRequestId - shiftRequestId for shifts to be viewed

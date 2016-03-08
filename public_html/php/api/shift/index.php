@@ -61,7 +61,7 @@ try {
 		if(empty($id) === false) {
 			$shift = Shift::getShiftByShiftId($pdo, $id);
 			if($shift !== null && $shift->getShiftId() === $_SESSION["shift"]->getShiftId()) {
-				$reply->data = $shift;  //TODO: I changed the word after ->data = xxx from $crew to $shift - elaine
+				$reply->data = $shift;
 			}
 		} else if(empty($shiftUserId) === false) {
 			$shift = Shift::getShiftByShiftUserId($pdo, $id);

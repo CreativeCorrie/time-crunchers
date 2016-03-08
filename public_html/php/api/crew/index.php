@@ -5,6 +5,7 @@ require_once(dirname(dirname(__DIR__)) . "/classes/autoloader.php");
 require_once(dirname(dirname(__DIR__)) . "/lib/xsrf.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\Timecrunchers\Crew;
+use Edu\Cnm\Timecrunchers\Access;
 
 /**
  * controller/api for the crew class
@@ -55,7 +56,7 @@ try {
 		//get the crew based on the given field
 		if(empty($id) === false) {
 			$crew = Crew::getCrewByCrewId($pdo, $id);
-			if($crew !== null && $crew->getCrewId() === $_SESSION["crew"]->getCrewId()) {
+			if($crew !== null && $crew->getCrewId() === $_SESSION["user"]->getUserCrewId()) {
 				$reply->data = $crew;
 			}
 		} else if(empty($crewCompanyId) === false) {
@@ -69,15 +70,15 @@ try {
 		} else if(empty($crewLocation) === false);
 		{
 			$crew = Crew::getCrewByCrewLocation($pdo, $crewLocation);
-			if($crew !== null && $crew->getCrewId() === $_SESSION["crew"]->getCrewId) {
+			if($crew !== null && $crew->getCrewId() === $_SESSION["user"]->getCrewId) {
 				$reply->data = $crew;
 			}
 		}
 
-		//if the session belongs to an admin, allow post, put, and delete methods
-		if(empty($_SESSION["user"]) === false && $_SESSION["accessLevel"]->getUserIsAdmin() === true) {
-
-			if($method === "PUT" || $method === "POST") {
+		//	block non-admin users from doing admin-only tasks
+		if($method === "PUT") {
+			if(Access::isAdminLoggedIn() === true) {
+				if($method === "PUT" || $method === "POST") {
 
 				verifyXsrf();
 				$requestContent = file_get_contents("php://input");
@@ -103,7 +104,13 @@ try {
 					$reply->message = "Crew updated OK";
 				}
 
-			} else if($method === "DELETE") {
+				} else if($method === "POST") {
+					$crew = new Crew(null, $requestObject->UserCrewId, $requestObject->crewLocation);
+					$crew->insert($pdo);
+					$reply->message = "Crew created OK";
+				}
+
+				} else if($method === "DELETE") {
 				verifyXsrf();
 
 				$crew = Crew::getCrewByCrewId($pdo, $id);
