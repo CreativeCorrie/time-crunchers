@@ -61,12 +61,6 @@ try {
 			}
 		} else if(empty($crewCompanyId) === false) {
 			$crew = Crew::getCrewByCrewCompanyId($pdo, $id);
-		}
-		if(empty($crewCompanyId) === false) {
-			$crew = Crew::getCrewByCrewCompanyId($pdo, $id);
-			{
-				$reply->data = $crew;
-			}
 		} else if(empty($crewLocation) === false);
 		{
 			$crew = Crew::getCrewByCrewLocation($pdo, $crewLocation);
