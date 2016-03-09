@@ -74,7 +74,7 @@ try {
 
 		//	block non-admin users from doing admin-only tasks
 
-		if(true === true) {
+		if(Access::isAdminLoggedIn() === true) {
 
 			if($method === "PUT" || $method === "POST") {
 
