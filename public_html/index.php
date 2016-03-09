@@ -122,6 +122,7 @@
 				<div class="col-md-2"></div>
 
 				<!-- New User sign up -->
+<!--				TODO: make this button match the Account Holder button but make it say Sign Up, change the form action to SignUpForm.php-->
 				<div class="row">
 					<div class="col-md-5">
 						<form action="initialSignUp.php">
