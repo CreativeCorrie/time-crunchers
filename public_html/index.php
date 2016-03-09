@@ -72,7 +72,7 @@
 					</div>
 
 					<!--Log In Modal -->
-<!--					TODO: this modal needs to hook up with the login API-->
+					<!--					TODO: this modal needs to hook up with the login API-->
 					<div class="modal fade" id="modal-lg" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
 						  aria-hidden="true" data-keyboard="true">
 						<!-- Modals have two optional sizes, available via class="modal-lg" or class="modal-sm" -->
@@ -115,29 +115,19 @@
 							</div>
 						</div>
 					</div> <!-- End of Log in modal-->
-
-				</div>
-				<!--end of Account Holder content-->
-
-				<!-- empty div to separate buttons-->
-				<div class="col-md-2"></div>
-
-				<!-- New User sign up -->
-<!--				TODO: make this button match the Account Holder button but make it say Sign Up, change the form action to SignUpForm.php-->
-				<div class="row">
-					<div class="col-md-5">
-						<form action="initialSignUp.php">
-							<input type="submit" value="Go to Google">
-						</form>
-
-						<!-- End of new user sign up -->
-
+					<div class="col-md-12"></div>
+					<div class="row">
+						<!-- sign up -->
+						<div class="container">
+							<a id="buttonSpacer" href="userSignUpForm.php">Sign Up</a>
+							<!-- forgot password-->
+							<a href="newUserSetPass.php">Forgot my password</a>
+						</div>
 					</div>
 				</div>
-				<br>
-				<!-- forgot password -->
-
-				<!--end of forgot password modal-->
-
+				<!--end of Account Holder content-->
+			</div>
+		</div>
+		<br>
 	</body>
 </html>
