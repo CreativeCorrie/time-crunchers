@@ -71,7 +71,7 @@ try {
 				$reply->data = $crew;
 			}
 		}
-	}elseif($method === "PUT" || $method === "POST" || $method === "DELETE") {
+	} else if($method === "PUT" || $method === "POST" || $method === "DELETE") {
 
 		//	block non-admin users from doing admin-only tasks
 
@@ -80,7 +80,7 @@ try {
 			if($method === "PUT" || $method === "POST") {
 
 
-			//	verifyXsrf();
+				verifyXsrf();
 				$requestContent = file_get_contents("php://input");
 				$requestObject = json_decode($requestContent);
 
@@ -98,13 +98,13 @@ try {
 						throw(new RuntimeException("Crew does not exist", 404));
 					}
 
-					$crew = new Crew($id, $requestObject->CrewCompanyId, $requestObject->CrewLocation);
+					$crew = new Crew($id, $requestObject->crewCompanyId, $requestObject->crewLocation);
 					$crew->update($pdo);
 					$reply->message = "Crew updated OK";
 				}
 
 			} else if($method === "POST") {
-				$crew = new Crew(null, $requestObject->UserCrewId, $requestObject->crewLocation);
+				$crew = new Crew(null, $requestObject->crewCompanyId, $requestObject->crewLocation);
 				$crew->insert($pdo);
 				$reply->message = "Crew created OK";
 			}
