@@ -35,19 +35,18 @@ try {
 	}
 
 	//determine which HTTP method was used
-   $method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
-   $reply->method = $method;
+	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
+	$reply->method = $method;
 	//sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
 	//make sure the id is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT" || $method === "GET") && (empty($id) === true || $id < 0)) {
+	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 	//sanitize and trim the other fields
 	$crewCompanyId = filter_input(INPUT_GET, "crewCompanyId", FILTER_VALIDATE_INT);
 	$crewLocation = filter_input(INPUT_GET, "crewLocation", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-
 
 	//handle REST calls , while only allowing administrators access to database-modifying methods
 	if($method === "GET") {
@@ -80,7 +79,7 @@ try {
 			if($method === "PUT" || $method === "POST") {
 
 
-				verifyXsrf();
+					verifyXsrf();
 				$requestContent = file_get_contents("php://input");
 				$requestObject = json_decode($requestContent);
 
@@ -97,35 +96,30 @@ try {
 					if($crew === null) {
 						throw(new RuntimeException("Crew does not exist", 404));
 					}
-
-					$crew = new Crew($id, $requestObject->crewCompanyId, $requestObject->crewLocation);
+					$crew->setCrewLocation($requestObject->crewLocation);
 					$crew->update($pdo);
 					$reply->message = "Crew updated OK";
+				} else if($method === "POST") {
+					$crew = new Crew(null, $requestObject->crewCompanyId, $requestObject->crewLocation);
+					$crew->insert($pdo);
+					$reply->message = "Crew created OK";
 				}
 
-			} else if($method === "POST") {
-				$crew = new Crew(null, $requestObject->crewCompanyId, $requestObject->crewLocation);
-				$crew->insert($pdo);
-				$reply->message = "Crew created OK";
+			} else if($method === "DELETE") {
+				verifyXsrf();
+
+				$crew = Crew::getCrewByCrewId($pdo, $id);
+				if($crew === null) {
+					throw(new RuntimeException("Crew does not exist", 404));
+				}
+
+				$crew->delete($pdo);
+				$deletedObject = new stdClass();
+				$deletedObject->crewId = $id;
+
+				$reply->message = "Crew deleted OK";
 			}
-
-		} else if($method === "DELETE") {
-			verifyXsrf();
-
-			$crew = Crew::getCrewByCrewId($pdo, $id);
-			if($crew === null) {
-				throw(new RuntimeException("Crew does not exist", 404));
-			}
-
-
-			$crew->delete($pdo);
-			$deletedObject = new stdClass();
-			$deletedObject->crewId = $id;
-
-			$reply->message = "Crew deleted OK";
-		}
-	}
-		 else {
+		} else {
 			//if not an admin, and attempting a method other than get, throw an exception
 			if((empty($method) === false) && ($method !== "GET")) {
 				throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
@@ -133,7 +127,7 @@ try {
 		}
 		//send exception back to the caller
 	}
- catch
+} catch
 (Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
