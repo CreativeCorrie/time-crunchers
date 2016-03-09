@@ -8,3 +8,4 @@ app.service("ActivationService", function($http, ACTIVATION_ENDPOINT) {
 		return($http.post(getUrl(), activation));
 	};
 });
+

@@ -60,7 +60,7 @@
 							(manager). The admin (manager) will be able to create, view, update and delete users, crews and
 							schedules. <br>
 						</p>
-						<p>Wow, ok take me <a href="../index.php">back to the main page</a></p>
+						<p>Wow.  Ok, take me <a href="../index.php">back to the main page</a></p>
 					</div>
 				</div>
 			</div>
