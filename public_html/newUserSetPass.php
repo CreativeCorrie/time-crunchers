@@ -60,7 +60,7 @@ setXsrfCookie();
 		}
 		?>
 
-		<!--		TODO: add Angualar.js here to connect to User API-->
+		<!--		TODO: add Angualar.js here to connect to User API, make redirect to Schedule View p page-->
 
 		<div class="container">
 			<div class="row" ng-controller="ActivationController">
