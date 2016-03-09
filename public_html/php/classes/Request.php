@@ -165,7 +165,7 @@ class Request implements \JsonSerializable {
 	 */
 	public function setRequestAdminId($newRequestAdminId) {
 		// verify variable is positive
-		if($newRequestAdminId <= 0) {
+		if($newRequestAdminId <= 0 && $newRequestAdminId !== null) {
 			throw(new \RangeException("administrator id is not positive"));
 		}
 		// converts and stores
