@@ -20,7 +20,7 @@ function sendEmail ($receiverEmail, $firstName, $lastName, $subject, $message) {
 
 		// attach the sender to the message
 		// this takes the form of an associative array where the Email is the key for the real name
-		$swiftMessage->setFrom(["el41net@el41net.com" => "Deep Dive Capstone"]);
+		$swiftMessage->setFrom(["el41net@el41net.com" => "Time Crunch"]);
 
 		/**
 		 * attach the recipients to the message

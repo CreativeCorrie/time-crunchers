@@ -72,6 +72,7 @@
 					</div>
 
 					<!--Log In Modal -->
+<!--					TODO: this modal needs to hook up with the login API-->
 					<div class="modal fade" id="modal-lg" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
 						  aria-hidden="true" data-keyboard="true">
 						<!-- Modals have two optional sizes, available via class="modal-lg" or class="modal-sm" -->
@@ -130,7 +131,6 @@
 						</form>
 
 						<!-- End of new user sign up -->
-
 
 					</div>
 				</div>

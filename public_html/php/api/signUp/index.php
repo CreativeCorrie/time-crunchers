@@ -163,23 +163,22 @@ try {
 
 		$messageSubject = "Time Crunch Account Activation";
 
-		//TODO: change basePath and confirm link if necessary when we set up swift mailer
 		//building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
 		$basePath = dirname($_SERVER["SCRIPT_NAME"], 4);
 		$urlglue = $basePath . "/newUserSetPass.php?emailActivation=" . $activation;
 		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 		$message = <<< EOF
-<h1>This is an important message about your account activation.</h1>
+<h2>Welcome to the Time Crunch schedule management application.</h2>
 <p>Visit the following URL to set a new password and complete the registration process: </p>
 <p><a href="$confirmLink">$confirmLink</a></p>
 EOF;
 
 		$response = sendEmail($email, $firstName, $lastName, $messageSubject, $message);
 		if($response === "Email sent.") {
-			$reply->message = "sign up was successful, please check your email for activation message.";
+			$reply->message = "Sign up was successful, please check your email for activation message.";
 		}
 	} else {
-		throw(new InvalidArgumentException("Invalid http method."));
+		throw(new InvalidArgumentException("Error sending email."));
 	}
 
 } catch(\Exception $exception) {
