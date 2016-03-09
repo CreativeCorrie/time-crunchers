@@ -46,174 +46,89 @@
 			<!--beginning of nav bar-->
 
 
-				<!-- Wrap all page content here -->
-				<div id="wrap">
-					<nav class="navbar navbar-default" role="navigation">
-						<!-- Brand and toggle get grouped for better mobile display -->
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse"
-									  data-target="#bs-example-navbar-collapse-1">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-							<a class="navbar-brand" href="#">Test Nav bar 1</a>
-						</div>
+			<!-- Wrap all page content here -->
+			<div id="wrap">
+				<nav class="navbar navbar-default" role="navigation">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse"
+								  data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">Test Nav bar 1</a>
+					</div>
 
-						<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav">
-								<li class="active"><a href="#">Link</a></li>
-								<li><a href="#">Link</a></li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-									<ul class="dropdown-menu">
-										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
-										<li class="divider"></li>
-										<li><a href="#">Separated link</a></li>
-										<li class="divider"></li>
-										<li><a href="#">One more separated link</a></li>
-									</ul>
-								</li>
-							</ul>
-
-							<!--this is where the sign in and activate buttons are -->
-							<form class="navbar-form navbar-left" role="search">
-								<!--<div class="form-group">-->
-								<!--<input type="text" class="form-control" placeholder="Search">-->
-								<!--</div>-->
-								<div class="button-container">
-
-									<!--Collapsible buttons-->
-									<ul class="nav navbar-nav navbar-right">
-										<li>
-											<button type="button" class="btn btn-warning navbar-btn" id="activate"
-													  data-toggle="modal"
-													  data-target="#modal-lg"><span
-													class="glyphicon glyphicon-check"></span> Log In
-											</button>
-										</li>
-										<li>
-											<button type="button" class="btn btn-danger navbar-btn"><span
-													class="glyphicon glyphicon-remove"></span> Log Out
-											</button>
-										</li>
-										<li>
-											<button type="button" class="btn btn-success navbar-btn id=" signIn
-											" data-toggle="modal"
-											data-target="#modal-lg""><span
-												class="glyphicon glyphicon-ok"></span> Activate
-											</button>
-										</li>
-									</ul>
-								</div>
-							</form>
-							<ul class="nav navbar-nav navbar-right">
-								<li><a href="#">Link</a></li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-									<ul class="dropdown-menu">
-										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
-										<li class="divider"></li>
-										<li><a href="#">Separated link</a></li>
-									</ul>
-								</li>
-							</ul>
-						</div><!-- /.navbar-collapse -->
-
-
-						<!--test area for modal buttons-->
-						<!-- ========================== -->
-						<!--  Large Modal               -->
-						<!-- ========================== -->
-						<div class="modal fade" id="modal-lg" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
-							  aria-hidden="true" data-keyboard="true">
-							<!-- Modals have two optional sizes, available via class="modal-lg" or class="modal-sm" -->
-							<div class="modal-dialog modal-lg">
-
-								<!-- Begin modal content here -->
-								<div class="modal-content">
-
-									<div class="modal-header">
-										<!-- close button -->
-										<button type="button" class="close" data-dismiss="modal" aria-label="close">
-											<span aria-hidden="true">×</span>
-										</button>
-										<h3 class="modal-title">This is a Large Modal Window!</h3>
-									</div>
-
-									<div class="modal-body">
-										<p>This modal window has lots of stuff in it. Above, you can see an optional modal-header,
-											followed by a modal-body section, and an optional modal-footer. I've even put a form in
-											this modal window (inside the modal-body div) - very cool. See the small modal window
-											for a simpler example, and don't forget to view the source code for this page. :D</p>
-										<label for="modalLoginForm" class="control-label">Log In Here!</label>
-										<form class="form-inline" id="modalLoginForm">
-											<div class="form-group">
-												<label for="txtLoginUsername" class="sr-only">Username: </label>
-												<div class="input-group">
-													<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span>
-													</div>
-													<input type="text" class="form-control" id="txtLoginUsername"
-															 placeholder="enter username"/>
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="emailLoginEmail" class="sr-only">Email: </label>
-												<div class="input-group">
-													<div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
-													</div>
-													<input type="email" class="form-control" id="emailLoginEmail"
-															 placeholder="enter email address"/>
-												</div>
-											</div>
-											<button type="submit" class="btn btn-info">Log In</button>
-										</form>
-									</div>
-
-									<div class="modal-footer">
-										<div class="row">
-											<div class="col-md-10 modal-footer-text">
-												<p>This is the modal footer. This has been laid out using the Bootstrap grid. Thank
-													you for clicking on this modal window. View the source code for more info.</p>
-											</div>
-											<div class="col-md-2">
-												<button type="button" class="btn btn-info" data-dismiss="modal">Close Me</button>
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-
-					</nav>
-
-
-					<!--			this is the new test nav bar w tabs and drop down log in log out-->
-					<div class="container">
-						<h3>test nav bar 2</h3>
-						<ul class="nav nav-tabs">
-							<li class="active"><a href="#">Schedule View</a></li>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="#">Link</a></li>
+							<li><a href="#">Link</a></li>
 							<li class="dropdown">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#">Log In/Out <span
-										class="caret"></span></a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li><a href="#">Log In</a></li>
-									<li><a href="#">Log Out</a></li>
-									<li><a href="#">Receive CupCake Consistent with Rank</a></li>
+									<li><a href="#">Action</a></li>
+									<li><a href="#">Another action</a></li>
+									<li><a href="#">Something else here</a></li>
+									<li class="divider"></li>
+									<li><a href="#">Separated link</a></li>
+									<li class="divider"></li>
+									<li><a href="#">One more separated link</a></li>
 								</ul>
 							</li>
-							<li><a href="#">Request</a></li>
-							<li><a href="#">Profile</a></li>
-							<li><a href="#">Admin</a></li>
 						</ul>
-					</div>
+
+						<!--this is where the sign in and activate buttons are -->
+						<form class="navbar-form navbar-left" role="search">
+							<!--<div class="form-group">-->
+							<!--<input type="text" class="form-control" placeholder="Search">-->
+							<!--</div>-->
+							<div class="button-container">
+
+								<!--Collapsible buttons-->
+								<ul class="nav navbar-nav navbar-right">
+
+									<li>
+										<button type="button" class="btn btn-warning navbar-btn" id="activate"
+												  data-toggle="modal"
+												  data-target="#modal-lg"><span
+												class="glyphicon glyphicon-check"></span> Admin
+										</button>
+									</li>
+									<!--TODO: Need angular here to end session and log user out-->
+									<li>
+										<button type="button" class="btn btn-danger navbar-btn"><span
+												class="glyphicon glyphicon-remove"></span> Log Out
+										</button>
+									</li>
+									<li>
+										<button type="button" class="btn btn-success navbar-btn id=" signIn
+										" data-toggle="modal"
+										data-target="#modal-lg""><span
+											class="glyphicon glyphicon-ok"></span> Activate
+										</button>
+									</li>
+								</ul>
+							</div>
+						</form>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="#">Link</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Action</a></li>
+									<li><a href="#">Another action</a></li>
+									<li><a href="#">Something else here</a></li>
+									<li class="divider"></li>
+									<li><a href="#">Separated link</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div><!-- /.navbar-collapse -->
+
+				</nav>
 
 		</header>
 		<!-- Begin page content -->
@@ -221,9 +136,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
+					<h2>This is where the schedule will be..</h2>
 					<p>
 						We shall say 'Ni' again to you, if you do not appease us.
-
 						How do you know she is a witch? …Are you suggesting that coconuts migrate? Well, we did do the nose.
 						Listen. Strange women lying in ponds distributing swords is no basis for a system of government.
 						Supreme executive power derives from a mandate from the masses, not from some farcical aquatic
@@ -282,18 +197,18 @@
 					</p>
 				</div>
 			</div>
-		</div>
+		</div> <!-- /container-->
 
 		<div class="container">
 			<div class="page-header">
-				<h1>Sticky footer</h1>
+				<h1>Moar words on your screen!</h1>
 			</div>
 			<p class="lead">These are just a bunch of place holder words.</p>
 		</div>
 
 		<div id="footer">
 			<div class="container">
-					<a href="mailto:timecrunch@timecrunch.com">Contact the authors of Time Crunch</a></p>
+				<a href="mailto:timecrunch@timecrunch.com">Contact the authors of Time Crunch</a>
 			</div>
 		</div>
 	</body>

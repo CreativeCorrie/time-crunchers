@@ -9,11 +9,6 @@
 		</fieldset>
 
 		<fieldset class="form-group">
-			<label for="formGroupExampleInput2">First Name</label>
-			<input type="text" class="form-control" id="userFirstName" placeholder="Talia">
-		</fieldset>
-
-		<fieldset class="form-group">
 			<label for="formGroupExampleInput2">Last Name</label>
 			<input type="text" class="form-control" id="userLastName" placeholder="Smith">
 		</fieldset>

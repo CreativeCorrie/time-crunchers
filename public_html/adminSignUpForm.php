@@ -61,7 +61,7 @@
 	<br>
 	<hr>
 	<!-- Crew creation-->
-	<!--		TODO: add Angualar.js here to connect to Crew API-->
+	<!--		TODO: add Angular.js here to connect to Crew API-->
 	<h2>Next, create your first crew.</h2>
 	<p class="text-danger">
 		This will be <em>your</em> crew and the crew for any additional administrators.
@@ -127,7 +127,7 @@
 	<br>
 
 	<!-- Submit Form or Reset Form -->
-	<!--		TODO: add Angualar.js here to connect to User API-->
+	<!--		TODO: add Angular.js here to connect to User API-->
 	<p>Great! When you submit this form you will receive an email from "Deep Dive Capstone" with an activation link to
 		reset your password.</p>
 	<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
