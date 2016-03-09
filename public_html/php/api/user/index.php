@@ -68,11 +68,11 @@ try {
 			if($user !== null) {
 				$reply->data = $user;
 			}
-//		} else if(empty($id) === false) {
-//			$user = User::getUserByUserActivation($pdo, $id);
-//			if($user !== null) {
-//				$reply->data = $user;
-//			}
+		} else if(empty($userActivation) === false) {
+			$user = User::getUserByUserActivation($pdo, $id);
+			if($user !== null) {
+				$reply->data = $user;
+			}
 		} else {
 			$users = User::getAllUsers($pdo);
 			$reply->data = $users;
@@ -80,14 +80,14 @@ try {
 	}
 	//if the session belongs to an admin, allow post, put, and delete methods
 	if(empty($_SESSION["user"]) === false) {
-		if($method === "PUT" || $method === "POST") {
-			//set xsrf-cookie
-			setXsrfCookie("/");
+
 			if(Access::isAdminLoggedIn() === true) {
+
 				if($method === "PUT" || $method === "POST") {
 					verifyXsrf();
 					$requestContent = file_get_contents("php://input");
 					$requestObject = json_decode($requestContent);
+
 					//make sure all fields are present, in order to prevent database issues
 					if(empty($requestObject->userCompanyId) === true) {
 						throw(new InvalidArgumentException ("userCompanyId cannot be empty", 405));
@@ -119,11 +119,6 @@ try {
 						$user = User::getUserByUserId($pdo, $id);
 						if($user === null) {
 							throw(new RuntimeException("user does not exist", 404));
-						}
-						//check to make sure a non-admin is only attempting to edit themselves
-						//if not, take their temp access and throw an exception
-						if((Access::isAdminLoggedIn() === false) || ($_SESSION["user"]->getUserId() !== $user->getUserId())) {
-							throw(new RuntimeException("only admins can modify entries", 403));
 						}
 						$user->setUserEmail($requestObject->userEmail);
 						$user->setUserPhone($requestObject->userPhone);
@@ -166,7 +161,20 @@ EOF;
 						 * the send method returns the number of recipients that accepted the Email
 						 * so, if the number attempted is not the number accepted, this is an Exception
 						 **/
-					} else {
+					} else if ($method === "DELETE") {
+						$user = User::getUserByUserId($pdo, $id);
+						if($user === null) {
+							throw(new RuntimeException("User does not exist", 404));
+						}
+
+						$user->delete($pdo);
+						$deletedObject = new stdClass();
+						$deletedObject->crewId = $id;
+
+						$reply->message = "Crew deleted OK";
+					}
+
+					else {
 						//if not an admin, and attempting a method other than get, throw an exception
 						if((empty($method) === false) && ($method !== "GET")) {
 							throw(new RuntimeException ("only admins can change database entries", 401));
@@ -174,7 +182,6 @@ EOF;
 					}
 				}
 			}
-		}
 	}
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
