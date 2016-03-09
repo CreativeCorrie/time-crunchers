@@ -61,13 +61,9 @@ setXsrfCookie();
 		?>
 
 		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<h1>Choose a Password</h1>
-				</div>
-			</div>
 			<div class="row" ng-controller="ActivationController">
 				<div class="col-sm-6 col-sm-offset-3">
+					<h2>Choose a Password</h2>
 					<p class="text-center">Use the form below to set your password. Your password cannot be the same as your
 						username.</p>
 					<form name="activationForm" id="activationForm" ng-submit="sendActivation(activationData, activationForm.$valid);" novalidate>
@@ -77,22 +73,22 @@ setXsrfCookie();
 								 placeholder="New Password" autocomplete="off" ng-model="activationData.password" ng-minlength="8" ng-required="true">
 						<div class="row">
 							<div class="col-sm-6">
-								<span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> 8 Characters
+								<span id="8char" class="glyphicon glyphicon-remove setPass"></span> 8 Characters
 								Long<br>
-								<span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Uppercase
+								<span id="ucase" class="glyphicon glyphicon-remove setPass"></span> One Uppercase
 								Letter
 							</div>
 							<div class="col-sm-6">
-								<span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Lowercase
+								<span id="lcase" class="glyphicon glyphicon-remove setPass"></span> One Lowercase
 								Letter<br>
-								<span id="num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Number
+								<span id="num" class="glyphicon glyphicon-remove setPass"></span> One Number
 							</div>
 						</div>
 						<input type="password" class="input-lg form-control" name="confirmPassword" id="confirmPassword"
 								 placeholder="Repeat Password" autocomplete="off" ng-model="activationData.confirmPassword" ng-minlength="8" ng-required="true">
 						<div class="row">
 							<div class="col-sm-12">
-								<span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> Passwords
+								<span id="pwmatch" class="glyphicon glyphicon-remove setPass"></span> Passwords
 								Match
 							</div>
 						</div>

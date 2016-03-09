@@ -106,7 +106,7 @@
 			<p class="text-danger">This is the email address your activation code will be sent to.</p>
 		</fieldset>
 
-		<!--is user admin? -->
+		<!--is user admin? code from http://www.bootply.com/0WvI1g4DEq-->
 		<h3>Will this user be an administrator?</h3>
 		<div class="input-group">
 			<div class="btn-group" data-toggle="buttons">
@@ -120,9 +120,11 @@
 		</div>
 		<br>
 		<hr>
+		<br>
 
 		<!-- Submit Form or Reset Form -->
-		<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i> Send</button>
-		<button class="btn btn-warning" type="reset"><i class="fa fa-ban"></i> Reset</button>
+		<p>Great!  When you submit this form you will receive an email from "Deep Dive Capstone" with an activation link to reset your password.</p>
+		<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
+		<button class="btn btn-warning" type="reset"><i class="fa fa-ban"></i> Reset Form</button>
 
 	</form>

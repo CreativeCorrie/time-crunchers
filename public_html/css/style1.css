@@ -14,6 +14,16 @@
 	/*color: #ca5c11;*/
 }
 
+/*is user admin button style*/
+[data-toggle="buttons"] > .btn > input[type="radio"]
+ {clip: rect(1px 10px 1px 1px);}
+
+/*end of is user admin*/
+
+span.setPass{
+	color:#FF0004;
+}
+
 /*styling for forms*/
 
 /********************************************
