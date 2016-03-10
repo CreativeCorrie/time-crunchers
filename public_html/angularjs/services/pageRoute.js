@@ -10,10 +10,10 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 
 		// route for the about page
-		//.when('/about', {
-		//	controller  : 'aboutController',
-		//	templateUrl : 'angular/pages/about.php'
-		//})
+		.when('/about', {
+			controller  : 'aboutController',
+			templateUrl : 'angular/pages/about.php'
+		})
 
 		.otherwise({
 			redirectTo: "/"
