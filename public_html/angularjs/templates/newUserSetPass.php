@@ -27,9 +27,9 @@ setXsrfCookie();
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.1/ui-bootstrap-tpls.min.js"></script>
 
 		<!--		Custom Angular - these script tags must be in order: services, directives, controllers-->
-		<script type="text/javascript" src="angularjs/time-crunchers.js"></script>
-		<script type="text/javascript" src="angularjs/services/activation-service.js"></script>
-		<script type="text/javascript" src="angularjs/controllers/activation-controller.js"></script>
+		<script type="text/javascript" src="../time-crunchers.js"></script>
+		<script type="text/javascript" src="../services/activation-service.js"></script>
+		<script type="text/javascript" src="../controllers/activation-controller.js"></script>
 
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -46,7 +46,7 @@ setXsrfCookie();
 				integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
 		<!-- LOAD OUR CUSTOM STYLESHEET HERE!!! -->
-		<link href="css/style1.css" type="text/css" rel="stylesheet"/>
+		<link href="../../css/style1.css" type="text/css" rel="stylesheet"/>
 
 	</head>
 

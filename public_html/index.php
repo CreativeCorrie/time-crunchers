@@ -77,9 +77,9 @@ require_once("php/templates/head-utils.php");
 					<div class="row">
 						<!-- sign up -->
 						<div class="container">
-							<a id="buttonSpacer" href="userSignUpForm.php">Sign Up</a>
+							<a id="buttonSpacer" href="angularjs/templates/userSignUpForm.php">Sign Up</a>
 							<!-- forgot password-->
-							<a href="newUserSetPass.php">Forgot my password</a>
+							<a href="angularjs/templates/newUserSetPass.php">Forgot my password</a>
 						</div>
 					</div>
 				</div>

@@ -21,7 +21,7 @@
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"
 				integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 		<!-- LOAD OUR CUSTOM STYLESHEET HERE!!! -->
-		<link href="css/style1.css" type="text/css" rel="stylesheet"/>
+		<link href="../../css/style1.css" type="text/css" rel="stylesheet"/>
 
 		<!-- HTML5 shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
