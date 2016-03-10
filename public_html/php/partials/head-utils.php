@@ -42,10 +42,13 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<link href="css/style1.css" type="text/css" rel="stylesheet"/>
 
 		<!--Angular JS-->
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular.min.js"></script>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
+		<?$ANGULAR_VERSION = "1.5.0";?>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/<?php echo $ANGULAR_VERSION;?>/angular.min.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-route.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-messages.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/<?php echo $ANGULAR_VERSION;?>/ui-bootstrap-tpls.min.js"></script>
 
-		<!--Angular application files-->
+		<!--Angular application files must be app, then ervices, then directives, then controllers-->
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angular/app.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angular/controllers/main-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angular/controllers/about-controller.js"></script>
