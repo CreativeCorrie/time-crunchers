@@ -5,6 +5,7 @@ require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\Timecrunchers\Shift;
 use Edu\Cnm\Timecrunchers\Access;
+use Edu\Cnm\Timecrunchers\User;
 
 
 /**
@@ -35,7 +36,7 @@ try {
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
-
+	$reply->method = $method;
 	//sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
@@ -61,26 +62,26 @@ try {
 		//get the shift based on the given field
 		if(empty($id) === false) {
 			$shift = Shift::getShiftByShiftId($pdo, $id);
-			if($shift !== null && $shift->getShiftId() === $_SESSION["company"]) { //TODO verify the company is where this goes
+			if($shift !== null) {
 				$reply->data = $shift;
 			}
 		} else if(empty($shiftUserId) === false) {
-			$shift = Shift::getShiftByShiftUserId($pdo, $id);
-			if($shift !== null && $shift->getShiftUserId() === $_SESSION["company"]) {
+			$shift = Shift::getShiftByShiftUserId($pdo, $shiftUserId);
+			if($shift !== null) {
 				$reply->data = $shift;
 			}
 		} else {
 			$shifts = Shift::getAllShifts($pdo);
-			if($shifts !== null && $shift->getShiftId() === $_SESSION["company"]) {
-				$reply->data = $shift;
+			if($shifts !== null) {
+				$reply->data = $shifts;
 			}
 		}
+		$reply->db="in and out of get";
 	}
 
 		//	block non-admin users from doing admin-only tasks
-		if($method === "PUT") {
 			//TODO put Access::isAdminLoggedIn() for the first true on line 82
-			if(true === true) {
+			if(Access::isAdminLoggedIn() === true) {
 				if($method === "PUT" || $method === "POST") {
 
 					// this is where we injected admin only abilities
@@ -141,12 +142,13 @@ try {
 
 					$shift->delete($pdo);
 					$deleteObject = new \stdClass();
-				}
-				$deleteObject->shiftId = $id;
+					$deleteObject->shiftId = $id;
 
-				$reply->message = "Shift deleted OK";
+					$reply->message = "Shift deleted OK";
+				}
+
 			}
-		} else {
+		 else {
 			//if not an admin, and attempting a method other than get, throw an exception
 			if((empty($method) === false) && ($method !== "GET")) {
 				throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
