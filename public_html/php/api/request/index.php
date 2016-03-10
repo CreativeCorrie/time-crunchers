@@ -86,6 +86,9 @@ try {
 				if(empty($requestObject->requestApprove) === true) {
 					throw(new InvalidArgumentException ("Must Approve/Deny this request", 405));
 				}
+				if(empty($requestObject->requestAdminId) === true) {
+					throw(new InvalidArgumentException ("No Administrator Id", 405));
+				}
 				//perform the actual put or post
 				if($method === "PUT") {
 					$request = Request::getRequestByRequestId($pdo, $id);

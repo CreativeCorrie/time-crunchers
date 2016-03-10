@@ -159,7 +159,7 @@ class Request implements \JsonSerializable {
 	/**
 	 * mutator method for admin id
 	 *
-	 * @param int $newRequestAdminId new value of admin id
+	 * @param int|null $newRequestAdminId new value of admin id
 	 * throws \RangeException if $newRequestAdminId is not positive
 	 * throws\TypeError if $newRequestAdminId is not an integer
 	 */

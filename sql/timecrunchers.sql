@@ -71,10 +71,10 @@ CREATE TABLE schedule (
 CREATE TABLE request (
 	requestId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	requestRequestorId INT UNSIGNED NOT NULL,
-	requestAdminId INT UNSIGNED NOT NULL ,
+	requestAdminId INT UNSIGNED,
 	requestTimeStamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	requestActionTimeStamp DATETIME,
-	requestApprove BOOLEAN NOT NULL,
+	requestApprove BOOLEAN,
 	requestRequestorText VARCHAR(255),
 	requestAdminText VARCHAR(255),
 	INDEX(requestRequestorId),
