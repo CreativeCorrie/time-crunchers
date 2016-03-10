@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', []);
+var adminBtn = angular.module('myApp', []);
 function Main($scope, $http){
 
 }

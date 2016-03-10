@@ -3,7 +3,7 @@
 $CURRENT_DIR = __DIR__;
 
 /*set page title here*/
-$PAGE_TITLE = "Angular Template";
+$PAGE_TITLE = "Welcome to Time Crunch";
 
 /*load head-utils.php - edit path as needed*/
 require_once("php/templates/head-utils.php");
@@ -79,7 +79,7 @@ require_once("php/templates/head-utils.php");
 						<div class="container">
 							<a id="buttonSpacer" href="angularjs/templates/userSignUpForm.php">Sign Up</a>
 							<!-- forgot password-->
-							<a href="angularjs/templates/newUserSetPass.php">Forgot my password</a>
+							<a href="angularjs/templates/setPassForm.php">Forgot my password</a>
 						</div>
 					</div>
 				</div>

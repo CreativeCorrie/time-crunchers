@@ -179,3 +179,84 @@ body {
 	display: block;
 }
 /*End of styling for landing page*/
+
+/********************************************
+* CSS Styles for Angular Template
+* https://bootcamp-coders.cnm.edu/~rlewis37/angular-template
+*
+* @author rlewis37@cnm.edu
+********************************************/
+
+/********************************************
+* Utility Styles
+*
+* These are intended to be re-used
+* for styling purposes
+********************************************/
+
+/***
+* Flexbox Sticky Footer
+* http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+***/
+
+/*corrects IE min-height bug*/
+html { display: flex;}
+body { width: 100%;}
+
+.sfooter {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.sfooter-content {
+	flex: 1 0 auto;
+}
+
+/* reusable padding utilities */
+.p-y-2 {
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+.p-y-4 {
+	padding-top: 4rem;
+	padding-bottom: 4rem;
+}
+
+.m-b-2 {
+	margin-bottom: 2rem;
+}
+
+/* styles for md and lg breakpoints here */
+@media only screen and (min-width: 992px) {
+	.text-right-md-up {
+		text-align: right;
+	}
+}
+/********************************************
+* Layout Styles
+********************************************/
+
+/* custom header & navbar styles */
+header {
+	background-color: #000;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+.navbar {
+	margin-bottom: 0;
+}
+
+.navbar-inverse {
+	background: none;
+	border: none;
+	box-shadow: none;
+}
+
+/* footer styles */
+footer {
+	background-color: #333;
+	color: #fff;
+}
