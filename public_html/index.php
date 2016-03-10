@@ -9,8 +9,7 @@ $PAGE_TITLE = "Welcome to Time Crunch";
 require_once("php/templates/head-utils.php");
 ?>
 
-<body>
-	<div class="mainView" ng-controller="mainController">
+<body class="mainView" ng-controller="mainController">
 		<div class="mainViewContent">
 
 			<!--header & nav -->
@@ -25,7 +24,10 @@ require_once("php/templates/head-utils.php");
 					<!-- /main content -->
 				</div>
 			</main>
-		</div>
-	</div>
+		</div>  <!-- /mainView -->
+
+	<!-- footer -->
+	<?php require_once("php/templates/footer.php");?>
+
 </body>
 </html>

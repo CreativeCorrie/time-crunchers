@@ -5,7 +5,7 @@
 				branding here
 			</div>
 			<div class="col-md-6 m-b-2 text-right-md-up">
-				links here
+				<a href=""
 			</div>
 		</div>
 	</div>
