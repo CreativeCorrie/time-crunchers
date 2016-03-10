@@ -6,14 +6,14 @@ $CURRENT_DIR = __DIR__;
 $PAGE_TITLE = "Welcome to Time Crunch";
 
 /*load head-utils.php - edit path as needed*/
-require_once("php/templates/head-utils.php");
+require_once("php/partials/head-utils.php");
 ?>
 
 <body class="mainView" ng-controller="mainController">
 		<div class="mainViewContent">
 
 			<!--header & nav -->
-			<?php require_once("php/templates/header.php");?>
+			<?php require_once("php/partials/header.php");?>
 
 			<main class="p-y-4">
 				<div class="container">
@@ -27,7 +27,7 @@ require_once("php/templates/head-utils.php");
 		</div>  <!-- /mainView -->
 
 	<!-- footer -->
-	<?php require_once("php/templates/footer.php");?>
+	<?php require_once("php/partials/footer.php");?>
 
 </body>
 </html>
