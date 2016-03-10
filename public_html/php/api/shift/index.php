@@ -61,7 +61,7 @@ try {
 		//get the shift based on the given field
 		if(empty($id) === false) {
 			$shift = Shift::getShiftByShiftId($pdo, $id);
-			if($shift !== null && $shift->getShiftId() === $_SESSION["company"]->getCompanyId()) { //TODO verify the company is where this goes
+			if($shift !== null && $shift->getShiftId() === $_SESSION["company"]->getUserCompanyId->getCompanyId()) { //TODO verify the company is where this goes
 				$reply->data = $shift;
 			}
 		} else if(empty($shiftUserId) === false) {
