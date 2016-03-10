@@ -1,10 +1,11 @@
 <?php
 
-require_once(dirname(dirname(__DIR__)) . "/classes/autoloader.php");
-require_once(dirname(dirname(__DIR__)) . "/lib/xsrf.php");
+require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
+require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-use Edu\Cnm\Timecrunchers\Shift;
+use Edu\Cnm\Timecrunchers\Schedule;
 use Edu\Cnm\Timecrunchers\Access;
+
 
 /**
  * controller/api for the shift class
@@ -29,7 +30,7 @@ try {
 //	if the shift session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["company"]) === true) {
 		setXsrfCookie("/");
-		throw(new RuntimeException("Please log-in or sign up", 401));
+		throw(new RunTimeException("Please log-in or sign up", 401));
 	}
 
 	//determine which HTTP method was used

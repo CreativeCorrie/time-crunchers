@@ -70,8 +70,10 @@ try {
 				$reply->data = $schedules;
 			}
 		}
+	}
 
 		//	block non-admin users from doing admin-only tasks
+		//put Access::isAdminLoggedIn() bak in line 78
 		if($method === "PUT") {
 			if(Access::isAdminLoggedIn() === true) {
 				if($method === "PUT" || $method === "POST") {
@@ -123,8 +125,7 @@ try {
 			} else {
 				throw(new RuntimeException("Must be an Administrator to access."));
 			}
-		}
-	} else {
+		} else {
 		//if not an admin, and attempting a method other than get, throw an exception
 		if((empty($method) === false) && ($method !== "GET")) {
 			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
