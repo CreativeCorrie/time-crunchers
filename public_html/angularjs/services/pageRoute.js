@@ -1,7 +1,6 @@
 //TODO: I have not altered this yet!!
 
 
-
 //var app = angular.module("NgTemplate", ["ngRoute"]);
 //
 //// configure our routes
