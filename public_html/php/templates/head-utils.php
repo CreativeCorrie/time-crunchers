@@ -39,6 +39,15 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<!-- LOAD OUR CUSTOM STYLESHEET HERE!!! -->
 		<link href="css/style1.css" type="text/css" rel="stylesheet"/>
 
+		<!--Angular JS-->
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular.min.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
+
+		<!--Angular application files-->
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angular/app.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angular/controllers/main-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angular/controllers/about-controller.js"></script>
+
 		<!-- HTML5 shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>

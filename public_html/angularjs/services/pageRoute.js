@@ -1,5 +1,3 @@
-var app = angular.module("NgTemplate", ["ngRoute"]);
-
 // configure our routes
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider
