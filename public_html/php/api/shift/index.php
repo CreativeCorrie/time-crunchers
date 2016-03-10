@@ -3,7 +3,7 @@
 require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-use Edu\Cnm\Timecrunchers\Schedule;
+use Edu\Cnm\Timecrunchers\Shift;
 use Edu\Cnm\Timecrunchers\Access;
 
 
@@ -61,7 +61,7 @@ try {
 		//get the shift based on the given field
 		if(empty($id) === false) {
 			$shift = Shift::getShiftByShiftId($pdo, $id);
-			if($shift !== null && $shift->getShiftId() === $_SESSION["shift"]->getShiftId()) {
+			if($shift !== null && $shift->getShiftId() === $_SESSION["company"]->getCompanyId()) { //TODO verify the company is where this goes
 				$reply->data = $shift;
 			}
 		} else if(empty($shiftUserId) === false) {
