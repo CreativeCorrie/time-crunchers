@@ -61,24 +61,26 @@ try {
 		//get the shift based on the given field
 		if(empty($id) === false) {
 			$shift = Shift::getShiftByShiftId($pdo, $id);
-			if($shift !== null && $shift->getShiftId() === $_SESSION["company"]->getUserCompanyId->getCompanyId()) { //TODO verify the company is where this goes
+			if($shift !== null && $shift->getShiftId() === $_SESSION["company"]) { //TODO verify the company is where this goes
 				$reply->data = $shift;
 			}
 		} else if(empty($shiftUserId) === false) {
 			$shift = Shift::getShiftByShiftUserId($pdo, $id);
-			if($shift !== null) {
+			if($shift !== null && $shift->getShiftUserId() === $_SESSION["company"]) {
 				$reply->data = $shift;
 			}
 		} else {
 			$shifts = Shift::getAllShifts($pdo);
-			if($shifts !== null) {
+			if($shifts !== null && $shift->getShiftId() === $_SESSION["company"]) {
 				$reply->data = $shift;
 			}
 		}
+	}
 
 		//	block non-admin users from doing admin-only tasks
 		if($method === "PUT") {
-			if(Access::isAdminLoggedIn() === true) {
+			//TODO put Access::isAdminLoggedIn() for the first true on line 82
+			if(true === true) {
 				if($method === "PUT" || $method === "POST") {
 
 					// this is where we injected admin only abilities
@@ -144,7 +146,6 @@ try {
 
 				$reply->message = "Shift deleted OK";
 			}
-		}
 		} else {
 			//if not an admin, and attempting a method other than get, throw an exception
 			if((empty($method) === false) && ($method !== "GET")) {
