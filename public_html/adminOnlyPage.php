@@ -1,4 +1,4 @@
-//this page will contain Admin functions including
+<!--this page will contain Admin functions including
 
 0 - create, get and update
 a - companies this user is an admin of (get an array of companies)
@@ -10,23 +10,23 @@ c - employee invites this user has sent (get an array of employees)
 2 - create, get and update user profiles this user is an admin of
 
 3 - return to schedule view (link to scheduleView)
-
-//
+-->
 <!-- this space is for the header -->
 
 <!-- /header-->
 
 <!-- View all the things-->
+<h1>Administrator's View</h1>
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">
 			<h3>Some Title Here</h3>
 			<ul class="">
-				<li><a href="#">ViewAll of your Companies/Groups</a></li>
+				<li><a href="#">View All of your Companies/Groups</a></li>
 				<li><a href="#">View All of your Crews</a></li>
 				<li><a href="#">View All of your Employees</a></li>
 			</ul>
-		</div> <!-- /of all the thiings (oh noes!) -->
+		</div> <!-- /of all the things (oh noes!) -->
 
 		<!-- requests -->
 		<div class="col-md-6">
