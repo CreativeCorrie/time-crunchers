@@ -1,4 +1,4 @@
-app.controller("ActivationController", ["$scope", "ActivationService", function($scope, ActivationService) {
+app.controller("activationController", ["$scope", "activationService", function($scope, activationService) {
 	$scope.alerts = [];
 	$scope.activationData = {};
 
@@ -11,7 +11,7 @@ app.controller("ActivationController", ["$scope", "ActivationService", function(
 
 	$scope.sendActivation = function(activationData, validated) {
 		if(validated === true) {
-			ActivationService.create(activationData)
+			activationService.sendActivation(activationData)
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
