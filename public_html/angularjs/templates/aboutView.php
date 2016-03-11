@@ -6,11 +6,11 @@
 					{{ message }}
 				</p>
 				<br>
-				<p>Wow. Ok, take me <a href="landingPage.php">back to the main page</a></p>
+				<p>Wow. Ok, take me <a href="/public_html/angularjs/pages/landingPage.php">back to the main page</a></p>
 			</div>
 		</div>
 	</div>
 </main>
 
 
-<!--this did not effin work-->
+<!--Y THIS NO WORK!?!-->
