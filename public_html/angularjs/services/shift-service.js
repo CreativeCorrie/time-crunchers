@@ -1,8 +1,8 @@
-app.constant("ACTIVATION_ENDPOINT", "php/api/shift/");
-app.service("shiftService", function($http, ACTIVATION_ENDPOINT) {
+app.constant("SHIFT_ENDPOINT", "php/api/shift/");
+app.service("shiftService", function($http, SHIFT_ENDPOINT) {
 
 	function getUrl() {
-		return(ACTIVATION_ENDPOINT);
+		return(SHIFT_ENDPOINT);
 	}
 
 	function getUrlForId(shiftId) {

@@ -1,8 +1,8 @@
-app.constant("ACTIVATION_ENDPOINT", "php/api/schedule/");
-app.service("scheduleService", function($http, ACTIVATION_ENDPOINT) {
+app.constant("SCHEDULE_ENDPOINT", "php/api/schedule/");
+app.service("scheduleService", function($http, SCHEDULE_ENDPOINT) {
 
 	function getUrl() {
-		return(ACTIVATION_ENDPOINT);
+		return(SCHEDULE_ENDPOINT);
 	}
 
 	function getUrlForId(scheduleId) {

@@ -1,8 +1,8 @@
-app.constant("ACTIVATION_ENDPOINT", "php/api/crew/");
-app.service("crewService", function($http, ACTIVATION_ENDPOINT) {
+app.constant("CREW_ENDPOINT", "php/api/crew/");
+app.service("crewService", function($http, CREW_ENDPOINT) {
 
 	function getUrl() {
-		return(ACTIVATION_ENDPOINT);
+		return(CREW_ENDPOINT);
 	}
 
 	function getUrlForId(crewId) {

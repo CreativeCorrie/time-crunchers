@@ -1,8 +1,8 @@
-app.constant("ACTIVATION_ENDPOINT", "php/api/company/");
-app.service("companyService", function($http, ACTIVATION_ENDPOINT) {
+app.constant("COMPANY_ENDPOINT", "php/api/company/");
+app.service("companyService", function($http, COMPANY_ENDPOINT) {
 
 	function getUrl() {
-		return(ACTIVATION_ENDPOINT);
+		return(COMPANY_ENDPOINT);
 	}
 
 	function getUrlForId(companyId) {
