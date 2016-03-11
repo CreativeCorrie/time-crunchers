@@ -547,11 +547,16 @@ class User implements \JsonSerializable {
 		}
 
 		//create query template
-		$query = "UPDATE user SET userId = :userId, userCompanyId = :userCompanyId, userCrewId = :userCrewId, userAccessId = :userAccessId, userPhone = :userPhone, userFirstName = :userFirstName, userLastName = :userLastName, userEmail = :userEmail, userActivation = :userActivation, userHash = :userHash, userSalt = :userSalt";
+		$query = "UPDATE user SET userCompanyId = :userCompanyId, userCrewId = :userCrewId, userAccessId = :userAccessId, userPhone = :userPhone,
+                userFirstName = :userFirstName, userLastName = :userLastName, userEmail = :userEmail, userActivation = :userActivation, userHash = :userHash, userSalt = :userSalt
+                WHERE userId = :userId";
+
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = ["userId" => $this->userId, "userCompanyId" => $this->userCompanyId, "userCrewId" => $this->userCrewId, "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName, "userLastName" => $this->userLastName, "userEmail" => $this->userEmail, "userActivation" => $this->userActivation, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
+		$parameters = ["userId" => $this->userId,"userCompanyId" => $this->userCompanyId, "userCrewId" => $this->userCrewId,
+			            "userAccessId" => $this->userAccessId, "userPhone" => $this->userPhone, "userFirstName" => $this->userFirstName,
+			            "userLastName" => $this->userLastName, "userEmail" => $this->userEmail, "userActivation" => $this->userActivation, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
 		$statement->execute($parameters);
 	}
 
@@ -560,7 +565,7 @@ class User implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param string $userEmail access content to search for
-	 * @return User user obbject
+	 * @return User user object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 */

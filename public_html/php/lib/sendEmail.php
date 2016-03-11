@@ -28,10 +28,10 @@ function sendEmail ($receiverEmail, $firstName, $lastName, $subject, $message) {
 		 * use the recipients' real name where possible; this reduces the probability of the Email being marked as spam
 		 **/
 		$recipients = [$receiverEmail => $firstName . " " . $lastName,
-			"el41net@el41net.com" => "Elaine Thomas",
-			"creativecorrie@gmail.com" => "Corrie Hooker",
-			"ddenzfong@gmail.com" => "Denzyl Fontaine",
-			"samuelvanchandler@gmail.com" => "Sam Chandler"];
+			           "creativecorrie@gmail.com" => "Corrie Hooker",
+			           "ddenzfong@gmail.com" => "Denzyl Fontaine",
+			           "samuelvanchandler@gmail.com" => "Sam Chandler"];
+
 
 		$swiftMessage->setTo($recipients);
 
