@@ -1,8 +1,4 @@
 <?php
-/**
- ** REQUEST API for request class
- * @author Sam Chandler <samuelvanchandler@gmail.com>
- */
 
 //grab the class under scrutiny
 require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
@@ -11,13 +7,17 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\Timecrunchers\Request;
 use Edu\Cnm\Timecrunchers\Access;
 
+/**
+ ** Controller/API for Request Class
+ * @author Sam Chandler <samuelvanchandler@gmail.com>
+ */
 
-//start the session and create a XSRF token
+//Verify XSRF Challenge
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
 
-//prepare an empty reply
+//Prepare an empty reply
 $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
@@ -31,11 +31,17 @@ try {
 		setXsrfCookie("/");
 		throw(new RuntimeException("Please log-in or sign up", 401));
 	}
+
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
-	//sanitize the id
+	//sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+
+	//make sure the id is valid for methods that require it
+	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
+		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
+	}
 
 	//sanitize and trim the other fields
 	$requestRequestorId = filter_input(INPUT_GET, "requestRequestorId", FILTER_VALIDATE_INT);
@@ -50,6 +56,7 @@ try {
 	if($method === "GET") {
 		//Set XSRF cookie
 		setXsrfCookie("/");
+
 		//Get Request based on given field
 		if(empty($id) === false) {
 			$request = Request::getRequestByRequestId($pdo, $id);
@@ -59,7 +66,7 @@ try {
 		} else {
 			$request = Request::getAllRequests($pdo);
 			if($request !== null) {
-				$reply->data = $request;
+				$reply->data = $requests;
 			}
 		}
 	}
@@ -68,7 +75,7 @@ try {
 		throw(new InvalidArgumentException("id not found", 405));
 	}
 	// Unpack Objects
-	verifyXsrf();
+	//verifyXsrf();
 	$requestContent = file_get_contents("php://input");
 	$requestObject = json_decode($requestContent);
 	if($method === "POST") {
@@ -80,7 +87,8 @@ try {
 		$reply->message = "Request submitted successfully";
 	}
 	if($method === "PUT") {
-		if(Access::isAdminLoggedIn() === true) {
+		//TODO: Put Access::isAdminLoggedIn() back in for first "true of true === true
+		if(true === true) {
 			if($method === "PUT") {
 				//make sure all fields are present, in order to prevent database issues
 				if(empty($requestObject->requestApprove) === true) {
@@ -104,7 +112,7 @@ try {
 					$request->update($pdo);
 					$reply->message = "Request updated successfully";
 				} elseif($method === "DELETE") {
-					verifyXsrf();
+					//verifyXsrf();
 					$request = Request::getRequestByRequestId($pdo, $id);
 					if($request === null) {
 						throw(new RuntimeException("Request does not exist", 404));

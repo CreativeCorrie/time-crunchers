@@ -76,7 +76,6 @@ try {
 				$reply->data = $shifts;
 			}
 		}
-		$reply->db="in and out of get";
 	}
 
 		//	block non-admin users from doing admin-only tasks
