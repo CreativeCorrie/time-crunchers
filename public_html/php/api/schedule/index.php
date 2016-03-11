@@ -28,14 +28,14 @@ try {
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/timecrunch.ini");
 
 	//if the session is empty, the user is not logged in, throw an exception
-	if(empty($_SESSION["schedule"]) === true) {
+	if(empty($_SESSION["user"]) === true) {
 		setXsrfCookie("/");
 		throw(new RunTimeException("Please log-in or sign up", 401));
 	}
 
 	//Determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
-
+	$reply->method = $method;
 	//Sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
@@ -73,8 +73,6 @@ try {
 	}
 
 		//	block non-admin users from doing admin-only tasks
-		//put Access::isAdminLoggedIn() bak in line 78
-		if($method === "PUT") {
 			if(Access::isAdminLoggedIn() === true) {
 				if($method === "PUT" || $method === "POST") {
 
@@ -109,7 +107,7 @@ try {
 						$reply->message = "Schedule created OK";
 					}
 				}
-			} else if($method === "DELETE") {
+			 else if($method === "DELETE") {
 				verifyXsrf();
 
 				$schedule = Schedule::getScheduleByScheduleId($pdo, $id);
@@ -122,15 +120,13 @@ try {
 				$deletedObject->scheduleId = $id;
 
 				$reply->message = "Schedule deleted OK";
+			 }
 			} else {
-				throw(new RuntimeException("Must be an Administrator to access."));
+				//if not an admin, and attempting a method other than get, throw an exception
+				if((empty($method) === false) && ($method !== "GET")) {
+					throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
+				}
 			}
-		} else {
-		//if not an admin, and attempting a method other than get, throw an exception
-		if((empty($method) === false) && ($method !== "GET")) {
-			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
-		}
-	}
 
 	//send exception back to the caller
 } catch(Exception $exception) {

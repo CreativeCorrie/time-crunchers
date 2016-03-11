@@ -80,7 +80,7 @@ try {
 	}
 
 		//	block non-admin users from doing admin-only tasks
-			//TODO put Access::isAdminLoggedIn() for the first true on line 82
+
 			if(Access::isAdminLoggedIn() === true) {
 				if($method === "PUT" || $method === "POST") {
 
