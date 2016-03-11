@@ -42,16 +42,17 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<link href="css/style1.css" type="text/css" rel="stylesheet"/>
 
 		<!--Angular JS-->
-		<?$ANGULAR_VERSION = "1.5.0";?>
+		<?php $ANGULAR_VERSION = "1.5.0";?>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/<?php echo $ANGULAR_VERSION;?>/angular.min.js"></script>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-route.js"></script>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-messages.min.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/<?php echo $ANGULAR_VERSION;?>/ui-bootstrap-tpls.min.js"></script>
 
-		<!--Angular application files must be app, then ervices, then directives, then controllers-->
-		<script type="text/javascript" src="<?php echo $PREFIX;?>angular/app.js"></script>
-		<script type="text/javascript" src="<?php echo $PREFIX;?>angular/controllers/main-controller.js"></script>
-		<script type="text/javascript" src="<?php echo $PREFIX;?>angular/controllers/about-controller.js"></script>
+		<!--Angular application files must be mainjs, then services, then directives, then controllers-->
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/time-crunchers.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/main-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/about-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/activation-controller.js"></script>
 
 		<!-- HTML5 shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -69,3 +70,5 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 				  crossorigin="anonymous"></script>
 		<title><?php echo $PAGE_TITLE;?></title>
 	</head>
+	<body class="mainView" ng-controller="MainController">
+		<div class="mainViewContent"
