@@ -83,7 +83,7 @@ try {
 	//if the session belongs to an admin, allow post, put, and delete methods
 	if(empty($_SESSION["user"]) === false) {
 
-			if(true === true) {
+			if(Access::isAdminLoggedIn() === true) {
 
 				if($method === "PUT" || $method === "POST") {
 					verifyXsrf();
