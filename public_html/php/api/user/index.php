@@ -52,6 +52,7 @@ try {
 	$userFirstName = filter_input(INPUT_GET, "userFirstName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$userLastName = filter_input(INPUT_GET, "userLastName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$userEmail = filter_input(INPUT_GET, "userEmail", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$userActivation = filter_input(INPUT_GET, "userActivation", FILTER_VALIDATE_INT);
 
 
 
@@ -71,7 +72,7 @@ try {
 				$reply->data = $user;
 			}
 		} else if(empty($userActivation) === false) {
-			$user = User::getUserByUserActivation($pdo, $id);
+			$user = User::getUserByUserActivation($pdo, $userActivation);
 			if($user !== null) {
 				$reply->data = $user;
 			}

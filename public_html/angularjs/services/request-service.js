@@ -9,21 +9,25 @@ app.service("requestService", function($http, ACTIVATION_ENDPOINT) {
 		return(getUrl() + requestId);
 	}
 
-	this.fetchRequestByRequestId = function(requestId) {
+	this.fetchRequestById = function(requestId) {
 		return($http.get(getUrlForId(requestId)));
-	}
+	};
+	this.fetchRequestById = function(requestId) {
+		return($http.get(getUrlForId(requestId)));
+	};
 
-	this.fetchAllRequests = function() {
+
+	this.fetchRequestsAll = function() {
 		return($http.get(getUrl()));
-	}
+	};
 
 	this.update = function(requestId, request) {
 		return($http.put(getUrlForId(requestId, request)));
-	}
+	};
 
 	this.create = function(request) {
 		return($http.post(getUrl(), request));
-	}
+	};
 
 	this.destroy = function(requestId) {
 		return($http.delete(getUrlForId(requestId)));
