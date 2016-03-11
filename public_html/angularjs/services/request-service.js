@@ -16,7 +16,6 @@ app.service("requestService", function($http, ACTIVATION_ENDPOINT) {
 		return($http.get(getUrlForId(requestId)));
 	};
 
-
 	this.fetchRequestsAll = function() {
 		return($http.get(getUrl()));
 	};

@@ -13,21 +13,20 @@ app.service("userService", function($http, ACTIVATION_ENDPOINT) {
 		return($http.get(getUrlForId(userId)));
 	};
 
-	this.fetchUserByEmail = function(userId) {
-		return($http.get(getUrlForId(userId)));
+	this.fetchUserByEmail = function(userEmail) {
+		return($http.get(getUrl()+ "?userEmail=" + userEmail));
 	};
 
-	this.fetchUserByActivation = function(userId) {
-		return($http.get(getUrlForId(userId)));
+	this.fetchUserByActivation = function(userActivation) {
+		return($http.get(getUrl()+ "?userActivation=" + userActivation));
 	};
 
-
-	this.fetchRequestsAll = function() {
+	this.fetchUserAll = function() {
 		return($http.get(getUrl()));
 	};
 
 	this.update = function(userId, user) {
-		return($http.put(getUrlForId(usertId, user)));
+		return($http.put(getUrlForId(userId, user)));
 	};
 
 	this.create = function(user) {
