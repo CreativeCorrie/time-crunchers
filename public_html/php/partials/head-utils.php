@@ -50,9 +50,38 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 
 		<!--Angular application files must be mainjs, then services, then directives, then controllers-->
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/time-crunchers.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/about-service.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/access-service.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/activation-service.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/company-service.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/crew-service.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/login-service.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/request-service.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/schedule-service.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/request-service.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/shift-service.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/signup-service.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/user-service.js"></script>
+
+
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/main-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/about-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/access-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/activation-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/company-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/crew-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/login-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/request-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/schedule-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/shift-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/signup-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/user-controller.js"></script>
+
+
+
+
+
+
 
 		<!-- HTML5 shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
