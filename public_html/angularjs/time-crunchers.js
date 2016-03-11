@@ -1,2 +1,2 @@
-var app =  angular.module("TimeCrunchers", ["ngMessages", "ui.bootstrap", "ngRoute"]);
+var app =  angular.module("TimeCrunchers", ["ngMessages", "ngMin","ui.bootstrap", "ngRoute"]);
 

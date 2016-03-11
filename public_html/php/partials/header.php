@@ -70,32 +70,6 @@
 			</div>
 		</div>
 
-		<!--beginning of navbar-->
-<!--			<nav class="navbar navbar-default navbar-fixed-top" id="wrap"> <!--use navbar-default instead of inverse for lighter bg-->-->
-<!--				<!-- Brand and toggle get grouped for better mobile display -->-->
-<!--				<div class="navbar-header">-->
-<!--					<!--<h3>there used to be sumpin here</h3>  88 not sure if i want this here right now-->-->
-<!--					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"-->
-<!--							  data-target="#top-nav" aria-expanded="false">-->
-<!--						<span class="sr-only">Toggle navigation</span>-->
-<!--						<span class="icon-bar"></span>-->
-<!--						<span class="icon-bar"></span>-->
-<!--						<span class="icon-bar"></span>-->
-<!--					</button>-->
-<!--				</div>-->
-<!--				<!-- Collect the nav links, forms, and other content for toggling -->-->
-<!--				<div class="collapse navbar-collapse" id="top-nav">-->
-<!--					<ul class="nav navbar-nav navbar-right">-->
-<!--						<li><a href="#">Profile</a></li>-->
-<!--						<li><a href="#portfolio">Admin</a></li>-->
-<!--						<li><a href="#aboutMe">Request</a></li>-->
-<!--						<li><a href="#contact">Log Out</a></li>-->
-<!--					</ul>-->
-<!--				</div>-->
-<!--			</nav>-->
-
-		<!-- /navbar-->
-
 		<div class="container">
 			<nav class="navbar navbar-inverse">
 				<div class="navbar-header">
@@ -105,15 +79,16 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="/~rlewis37/ng-template-example/public_html/">MeowApp</a>
+					<a class="navbar-brand" href="/~rlewis37/ng-template-example/public_html/">Manage Your Schedule</a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/~rlewis37/ng-template-example/public_html/about">Profile</a></li>
-						<li><a href="/public_html/angularjs/templates/requestView">Request</a></li>
+						<li><a href="/public_html/angularjs/templates/userEditProfileView.php">Profile</a></li>
+						<li><a href="/public_html/angularjs/templates/requestView.php">Request</a></li>
 						<li><a href="/public_html/angularjs/templates/adminOnlyView.php">Admin</a></li>
-						<li><a href="/~rlewis37/ng-template-example/public_html/treats">Logout</a></li>
+						<li><a href="/public_html/angularjs/pages/about.php">About</a></li>
+						<li><a href="#GTFO">Logout</a></li>
 						<li><a href="https://senator-arlo.bowtied.io/" target="_blank">Feel the Fuzzy</a></li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
