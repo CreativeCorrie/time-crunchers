@@ -342,13 +342,13 @@ class Request implements \JsonSerializable {
 		if($this->requestId === null){
 			throw(new \PDOException("can't update, request doesn't exist"));
 		}
-		$query = "UPDATE request SET requestRequestorId = :requestRequestorId, requestRequestorText = :requestRequestorText, requestTimeStamp = :requestTimeStamp
+		$query = "UPDATE request SET requestAdminId = :requestAdminId, requestAdminText = :requestAdminText, requestActionTimeStamp = :requestActionTimeStamp, requestApprove = :requestApprove
 						WHERE requestId = :requestId";
 		$statement = $pdo->prepare($query);
 
 		//binding member variables to the place holders in the template
 		$formattedDate = $this->requestTimeStamp->format("Y-m-d H:i:s");
-		$parameters = ["requestRequestorId" => $this->requestRequestorId,"requestRequestorText" => $this->requestRequestorText, "requestTimeStamp" => $formattedDate, "requestId" => $this->requestId];
+		$parameters = ["requestAdminId" => $this->requestAdminId, "requestAdminText" => $this->requestAdminText, "requestActionTimeStamp" => $formattedDate, "requestApprove" =>$this->requestApprove, "requestId" => $this->requestId];
 		$statement->execute($parameters);
 	}
 	/**
