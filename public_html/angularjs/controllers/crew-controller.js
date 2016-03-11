@@ -13,7 +13,7 @@ app.controller('crewController', function($scope) {
 	 */
 
 	$scope.getCrewById = function() {
-		crewService.fetchCrewById()
+		crewService.fetchCrewById(crewId)
 			.then(function(result) {
 				if(result.data.status === 200) {
 					$scope.crewData = result.data.data;  //TODO: is data.data correct.
@@ -24,7 +24,7 @@ app.controller('crewController', function($scope) {
 	};
 
 	$scope.getCrewByCompanyId = function() {
-		crewService.fetchCrewByCompanyId()
+		crewService.fetchCrewByCompanyId(crewCompanyId)
 			.then(function(result) {
 				if(result.data.status === 200) {
 					$scope.crewData = result.data.data;
@@ -33,6 +33,19 @@ app.controller('crewController', function($scope) {
 				}
 			})
 	};
+
+	$scope.getCrewByLocation = function() {
+		crewService.fetchCrewByLocation(crewLocation)
+			.then(function(result) {
+				if(result.data.status === 200) {
+					$scope.crewData = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			})
+	};
+
+
 
 
 
