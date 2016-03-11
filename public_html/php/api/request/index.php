@@ -66,7 +66,7 @@ try {
 		} else {
 			$request = Request::getAllRequests($pdo);
 			if($request !== null) {
-				$reply->data = $requests;
+				$reply->data = $request;
 			}
 		}
 	}
