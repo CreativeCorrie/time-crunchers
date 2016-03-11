@@ -11,25 +11,25 @@ app.service("shiftService", function($http, ACTIVATION_ENDPOINT) {
 
 	this.all = function() {
 		return($http.get(getUrl()));
-	}
+	};
 
 	this.fetchShiftByShiftId = function(shiftId) {
 		return($http.get(getUrlForId() + shiftId));
-	}
+	};
 
 	this.fetchShiftByShiftUserId = function(shiftUserId) {
 		return($http.get(getUrl() + "?shiftUserId=" + shiftUserId));
-	}
+	};
 
 	this.update = function(shiftId, shift) {
 		return($http.put(getUrlForId(shiftId, shift)));
-	}
+	};
 
 	this.create = function(shift) {
 		return($http.post(getUrl(), shift));
-	}
+	};
 
-	this.destroy = function(shfitId) {
+	this.destroy = function(shiftId) {
 		return($http.delete(getUrlForId(shiftId)));
-	}
+	};
 });
