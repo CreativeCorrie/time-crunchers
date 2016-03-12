@@ -21,7 +21,7 @@ app.service("userService", function($http, ACTIVATION_ENDPOINT) {
 		return($http.get(getUrl()+ "?userActivation=" + userActivation));
 	};
 
-	this.fetchUserAll = function() {
+	this.fetchAllUsers = function() {
 		return($http.get(getUrl()));
 	};
 
