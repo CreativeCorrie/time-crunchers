@@ -13,12 +13,16 @@ app.service("accessService", function($http, ACCESS_ENDPOINT) {
 		return($http.get(getUrl()));
 	};
 
-	this.fetchAccessByAccessId = function(accessId) {
+	this.fetchAccessById = function(accessId) {
 		return($http.get(getUrlForId() + accessId));
 	};
 
-	this.fetchAccessByAccessName = function(accessName) {
+	this.fetchAccessByName = function(accessName) {
 		return($http.get(getUrl() + "?accessName=" + accessName));
+	};
+
+	this.fetchAllAccesses = function() {
+		return($http.get(getUrl()));
 	};
 
 	this.update = function(accessId, access) {

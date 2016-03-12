@@ -67,7 +67,7 @@ try {
 				$reply->data = $reply;
 			}
 		} else {
-			$access = Access::getAllAccess($pdo);
+			$accessors = Access::getAllAccess($pdo);
 			if($accessors !== null) {
 				$reply->data = $accessors;
 			}
