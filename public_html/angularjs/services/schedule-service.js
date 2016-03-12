@@ -13,13 +13,18 @@ app.service("scheduleService", function($http, SCHEDULE_ENDPOINT) {
 		return($http.get(getUrl()));
 	};
 
-	this.fetchScheduleByScheduleId = function(scheduleId) {
+	this.fetchScheduleById = function(scheduleId) {
 		return($http.get(getUrlForId() + scheduleId));
 	};
 
-	this.fetchScheduleByScheduleCrewId = function(scheduleCrewId) {
+	this.fetchScheduleByCrewId = function(scheduleCrewId) {
 		return($http.get(getUrl() + "?scheduleCrewId=" + scheduleCrewId));
 	};
+
+	this.fetchAllSchedules = function() {
+		return($http.get(getUrl()));
+	};
+
 
 	this.update = function(scheduleId, schedule) {
 		return($http.put(getUrlForId(scheduleId, schedule)));
