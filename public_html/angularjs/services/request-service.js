@@ -12,11 +12,8 @@ app.service("requestService", function($http, ACTIVATION_ENDPOINT) {
 	this.fetchRequestById = function(requestId) {
 		return($http.get(getUrlForId(requestId)));
 	};
-	this.fetchRequestById = function(requestId) {
-		return($http.get(getUrlForId(requestId)));
-	};
 
-	this.fetchRequestsAll = function() {
+	this.fetchAllRequests = function() {
 		return($http.get(getUrl()));
 	};
 

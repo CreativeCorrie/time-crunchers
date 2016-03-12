@@ -4,45 +4,31 @@ app.controller('requestController', function($scope) {
 	$scope.requestData = [];
 	$scope.editedRequest = {};
 
-
-	//TODO: get data from form
-
-
 	/**
 	 * START METHOD(S): FETCH/GET
 	 *
 	 */
 
-	$scope.getRequestsById = function() {
-		requestService.fetchRequestsById(requestId)
+	$scope.getRequestById = function() {
+		requestService.fetchRequestById(requestId)
 			.then(function(result) {
 				if(result.data.status === 200) {
-					$scope.requestData = result.data.data;  //TODO: is data.data correct.
+					$scope.requestData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
 			})
 	};
 
-	$scope.getCrewByCompanyId = function() {
-		crewService.fetchCrewByCompanyId(crewCompanyId)
+	$scope.getAllRequests = function() {
+		requestService.fetchAllRequests()
 			.then(function(result) {
 				if(result.data.status === 200) {
-					$scope.crewData = result.data.data;
+					$scope.requestData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
 			})
 	};
 
-	$scope.getCrewByLocation = function() {
-		crewService.fetchCrewByLocation(crewLocation)
-			.then(function(result) {
-				if(result.data.status === 200) {
-					$scope.crewData = result.data.data;
-				} else {
-					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-				}
-			})
-	};
 });

@@ -7,7 +7,7 @@ app.controller('accessController', function($scope) {
 		accessService.fetchAccessById(accessId)
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.data = result.data.data;
+					$scope.accessData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
@@ -18,7 +18,7 @@ app.controller('accessController', function($scope) {
 		accessService.fetchAccessByName(accessName)
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.data = result.data.data;
+					$scope.accessData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
@@ -29,7 +29,7 @@ app.controller('accessController', function($scope) {
 		accessService.fetchAllAccesses()
 			.then(function(result) {
 				if(result.status.data === 200) {
-					$scope.data = result.data.data;
+					$scope.accessData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
