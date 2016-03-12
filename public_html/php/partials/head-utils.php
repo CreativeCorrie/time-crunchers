@@ -14,7 +14,7 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="TimeCrunchers">
 	<head>
 		<meta charset="utf-8"/>
 

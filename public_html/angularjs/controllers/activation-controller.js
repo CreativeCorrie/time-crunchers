@@ -1,6 +1,6 @@
-app.controller("activationController", ["$scope", "activationService", function($scope, activationService) {
+app.controller("activationController", ["$routeParams", "$scope", "activationService", function($routeParams, $scope, activationService) {
 	$scope.alerts = [];
-	$scope.activationData = {};
+	$scope.activationData = {emailActivation: $routeParams.emailActivation};
 
 	/**
 	 * Method that uses the activation service to activate an account
@@ -8,7 +8,6 @@ app.controller("activationController", ["$scope", "activationService", function(
 	 * @param activationData will contain activation token and password
 	 * @param validated true if form is valid, false if not
 	 */
-
 	$scope.sendActivation = function(activationData, validated) {
 		if(validated === true) {
 			activationService.sendActivation(activationData)

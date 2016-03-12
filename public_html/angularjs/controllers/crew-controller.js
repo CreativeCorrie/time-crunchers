@@ -17,6 +17,7 @@ app.controller('crewController', function($scope) {
 			.then(function(result) {
 				if(result.data.status === 200) {
 					$scope.crewData = result.data.data;  //TODO: is data.data correct.
+
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}

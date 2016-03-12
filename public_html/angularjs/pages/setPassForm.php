@@ -1,10 +1,3 @@
-<?php
-$activation = filter_input(INPUT_GET, "emailActivation", FILTER_SANITIZE_STRING);
-if(ctype_xdigit($activation) === false) {
-	throw(new InvalidArgumentException("invalid activation token", 405));
-}
-?>
-
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-3">
@@ -14,7 +7,7 @@ if(ctype_xdigit($activation) === false) {
 			<form name="activationForm" id="activationForm"
 					ng-submit="sendActivation(activationData, activationForm.$valid);" novalidate>
 				<input type="hidden" name="emailActivation" id="emailActivation"
-						 ng-model="activationData.emailActivation" value="<?php echo $activation; ?>"/>
+						 ng-model="activationData.emailActivation" />
 				<input type="password" class="input-lg form-control" name="password1" id="password1"
 						 placeholder="New Password" autocomplete="off" ng-model="activationData.password" ng-minlength="8"
 						 ng-required="true">
@@ -42,6 +35,7 @@ if(ctype_xdigit($activation) === false) {
 				<!--						</div>-->
 				<input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg"
 						 data-loading-text="Changing Password..." value="Change Password">
+				<pre>{{ activationData | json }}</pre>
 			</form>
 		</div><!--/col-sm-6-->
 		<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg }}

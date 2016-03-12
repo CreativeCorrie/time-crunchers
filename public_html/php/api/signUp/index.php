@@ -164,8 +164,9 @@ try {
 		$messageSubject = "Time Crunch Account Activation";
 
 		//building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
+		// FIXME: make sure URL is /public_html/activation/$activation
 		$basePath = dirname($_SERVER["SCRIPT_NAME"], 4);
-		$urlglue = $basePath . "/setPassForm.php?emailActivation=" . $activation;
+		$urlglue = $basePath . "/activation/" . $activation;
 		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 		$message = <<< EOF
 <h2>Welcome to the Time Crunch schedule management application.</h2>
