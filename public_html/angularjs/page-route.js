@@ -4,13 +4,19 @@ app.config(function($routeProvider, $locationProvider) {
 	// route for the home page
 		.when('/', {
 			controller  : 'mainController',
-			templateUrl : 'angular/pages/landingPage.php'
+			templateUrl : 'angularjs/pages/landingPage.php'
 		})
 
 		// route for the about page
-		.when('/about', {
-			controller  : 'aboutController',
-			templateUrl : 'angular/pages/aboutView.php'
+		//.when('/about', {
+		//	controller  : 'aboutController',
+		//	templateUrl : 'angularjs/pages/aboutView.php'
+		//})
+
+		// route for the activation page
+		.when('/activation', {
+			controller  : 'activationController',
+			templateUrl : 'angularjs/pages/setPassForm.php'
 		})
 
 		.otherwise({

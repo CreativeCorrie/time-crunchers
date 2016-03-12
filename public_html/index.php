@@ -9,7 +9,7 @@ $PAGE_TITLE = "Welcome to Time Crunch";
 require_once("php/partials/head-utils.php");
 ?>
 
-<body class="mainView" ng-controller="mainController">
+<body class="mainView">
 		<div class="mainViewContent">
 
 			<!--header & nav -->

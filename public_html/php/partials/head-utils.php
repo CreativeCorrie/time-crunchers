@@ -43,13 +43,14 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 
 		<!--Angular JS-->
 		<?php $ANGULAR_VERSION = "1.5.0";?>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/<?php echo $ANGULAR_VERSION;?>/angular.min.js"></script>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-route.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular.min.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-route.min.js"></script>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION;?>/angular-messages.min.js"></script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/<?php echo $ANGULAR_VERSION;?>/ui-bootstrap-tpls.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.min.js"></script>
 
 		<!--Angular application files must be mainjs, then services, then directives, then controllers-->
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/time-crunchers.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/page-route.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/about-service.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/access-service.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/activation-service.js"></script>
@@ -76,28 +77,5 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/shift-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/signup-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/user-controller.js"></script>
-
-
-
-
-
-
-
-		<!-- HTML5 shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-
-		<!-- Latest compiled and minified Bootstrap JavaScript, all compiled plugins included -->
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-				  integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-				  crossorigin="anonymous"></script>
 		<title><?php echo $PAGE_TITLE;?></title>
 	</head>
-	<body class="mainView" ng-controller="MainController">
-		<div class="mainViewContent"

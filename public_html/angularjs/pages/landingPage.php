@@ -67,7 +67,7 @@
 				<div class="container">
 					<a id="buttonSpacer" href="../templates/adminSignUpForm.php">Sign Up</a>
 					<!-- forgot password-->
-					<a href="../templates/setPassForm.php">Forgot my password</a>
+					<a href="setPassForm.php">Forgot my password</a>
 				</div>
 			</div>
 		</div>
