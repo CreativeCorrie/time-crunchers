@@ -1,0 +1,29 @@
+
+{
+  "pages": [
+    {
+      "href": "~/dmcdonald21/angular-nav/",
+      "name": "Home"
+    },
+    {
+      "href": "/",
+      "name": "Bootcamp Coders"
+    },
+    {
+      "href": "/~rlewis37/",
+      "name": "Bad Kitty"
+    },
+    {
+      "href": "https://senator-arlo.bowtied.io/",
+      "name": "Back Paws For Bernie"
+    },
+    {
+      "href": "http://php.net/",
+      "name": "???"
+    },
+    {
+      "href": "https://pbs.twimg.com/profile_banners/2469896742/1398810225",
+      "name": "Profit!"
+    }
+  ]
+}

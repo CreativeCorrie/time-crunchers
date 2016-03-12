@@ -1,6 +1,15 @@
-/********************************************
-* Layout Styles
-********************************************/
+/*corrects IE min-height bug*/
+html {
+	display: flex;
+}
+body {
+	width: 100%;
+	border-color: #1d1b1c;
+	border-style: outset;
+	border-width: 5px;
+	padding-top: 60px;
+}
+
 .nav {
 	padding-right: 15px;
 	padding-bottom: 10px;
@@ -8,6 +17,7 @@
 
 .navbar {
 	margin-bottom: 0;
+	margin-top: 135px;
 }
 
 .navbar-default {
@@ -16,40 +26,49 @@
 	box-shadow: none;
 }
 
+
+img#logo {
+	 width:100px;
+	 height:100px;
+	 float: left;
+ }
+
 #landingPage {
 	padding:10px;
 }
 
 #mainHeader {
-	padding:20px;
-	border-radius:5%;
-	border-color: #4b4b4e;
-	border-style: solid;
-	border-width: 3px;
+	padding: 20px;
+	border-radius: 1%;
+	border-bottom-color: #1d1b1c;
+	border-bottom-style: outset;
+	border-bottom-width: 5px;
+	margin-top: 0px;
+	margin-bottom: 20px;
+}
+
+#mainHeader, footer {
+	color: #1d1b1c;
 	background-color: #e2ff9e;
-	/*margin: 8px;*/
-	color: #6f3711;
-	margin-top: 18px;
+
 }
 
 /* footer styles */
+
 footer {
-	background-color: #e2ff9e;
-	color: #1d1b1c;
+	border-top-color: #1d1b1c;
+	border-top-style: outset;
+	border-top-width: 5px;
 }
 
 span.setPass{
-	color:#FF0004;
+	color: #FF0004;
 }
 
 /***
 * Flexbox Sticky Footer
 * http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
 ***/
-
-/*corrects IE min-height bug*/
-html { display: flex;}
-body { width: 100%;}
 
 .mainView {
 	display: flex;
