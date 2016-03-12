@@ -6,7 +6,7 @@ if(ctype_xdigit($activation) === false) {
 ?>
 
 <div class="container">
-	<div class="row" ng-controller="activationController">
+	<div class="row">
 		<div class="col-sm-8 col-sm-offset-3">
 			<h2>Choose a Password</h2>
 			<p class="text-center">Use the form below to set your password. Your password cannot be the same as your
