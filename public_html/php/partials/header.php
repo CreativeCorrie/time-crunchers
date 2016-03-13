@@ -3,14 +3,18 @@
 		<bootstrap-breakpoint></bootstrap-breakpoint>
 
 		<div id="topButtons" class="pull-right">
-			<a href="" class="btn btn-primary">Profile</a> <!-- this should bring in the user edit profile view-->
-			<a href="" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
-			<a href="/public_html/angularjs/pages/landingPage.php" class="btn btn-danger">Logout</a>
-			<!-- TODO:this should end the session and return you to the landing page -->
+
+			<a href="" class="btn btn-info">Request</a>
+<!--			&nbsp;-->
+			<a href="/angularjs/templates/userEditProfileView.php" class="btn btn-primary">Profile</a> <!-- this should bring in the user edit profile view-->
+<!--			&nbsp;-->
+			<a href="/angularjs/templates/adminOnlyView.php" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
+<!--			&nbsp;-->
+			<a href="/angularjs/pages/landingPage.php" class="btn btn-danger">Logout</a> <!-- TODO:this should end the session and return you to the landing page -->
 		</div>
 
-		<div id="mainHeader">
-			<h1>Welcome to Time Crunch</h1>
+		<div class="container-fluid" id="mainHeader">
+			<h3>Welcome to Time Crunch</h3>
 		</div>
 
 		<!-- Begin navbar-->
@@ -67,11 +71,6 @@
 								<li ng-repeat="page in pages"><a href="{{ page.href }}">{{ page.name }}</a></li>
 							</ul>
 						</li>
-
-						<li><a href="#">
-								Request
-							</a>
-						</li> <!--bring in the request view access level dependant-->
 						<li><a href="#">
 								FAQ
 							</a>

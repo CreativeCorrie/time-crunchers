@@ -49,5 +49,5 @@
 		</div>
 	</form>
 	<br>
-	<a href="scheduleView.php">Return to Schedule View</a>
+	<a href="../pages/calendarView.php">Return to Schedule View</a>
 </div>

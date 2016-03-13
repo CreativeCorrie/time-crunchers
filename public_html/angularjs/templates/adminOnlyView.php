@@ -63,7 +63,7 @@ c - employee invites this user has sent (get an array of employees)
 		</div> <!-- /of all the things (oh noes!) -->
 
 		<br>
-		<a href="scheduleView.php">Return to Schedule View</a>
+		<a href="../pages/calendarView.php">Return to Schedule View</a>
 	</div> <!-- /row -->
 </div> <!-- /container-->
 
