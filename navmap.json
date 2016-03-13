@@ -2,27 +2,27 @@
 {
   "pages": [
     {
-      "href": "~/dmcdonald21/angular-nav/",
-      "name": "Home"
+      "href": "/public_html/angularjs/templates/userSignUpForm.php",
+      "name": "Add Member"
     },
     {
-      "href": "/",
-      "name": "Bootcamp Coders"
+      "href": "/public_html/angularjs/templates/buildCrewForm",
+      "name": "Add Crew"
     },
     {
-      "href": "/~rlewis37/",
-      "name": "Bad Kitty"
+      "href": "/public_html/angularjs/templates/",
+      "name": "nuffin here yet"
     },
     {
-      "href": "https://senator-arlo.bowtied.io/",
-      "name": "Back Paws For Bernie"
+      "href": "",
+      "name": "kitty scratching"
     },
     {
-      "href": "http://php.net/",
+      "href": "",
       "name": "???"
     },
     {
-      "href": "https://pbs.twimg.com/profile_banners/2469896742/1398810225",
+      "href": "",
       "name": "Profit!"
     }
   ]

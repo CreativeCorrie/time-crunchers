@@ -1,15 +1,27 @@
 // configure our routes
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider
-		.when('/', {
+		.when('/logout/', {
 			controller  : 'mainController',
-			templateUrl : '/public_html/angularjs/pages/landingPage.php'
+			templateUrl : 'angularjs/pages/landingPage.php'
 		})
 
 		 //route for the about page
 		.when('/about/', {
 			controller  : 'aboutController',
 			templateUrl : 'angularjs/pages/aboutView.php'
+		})
+
+		// route for the activation page
+		.when('/activation/:emailActivation', {
+			controller  : 'activationController',
+			templateUrl : 'angularjs/pages/setPassForm.php'
+		})
+
+		//route for the request page
+		.when('/about/', {
+			controller  : 'aboutController',
+			templateUrl : 'angularjs/pages/makeRequest.php'
 		})
 
 		// route for the activation page

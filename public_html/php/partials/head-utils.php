@@ -49,6 +49,7 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.min.js"></script>
 
 		<!--Angular application files must be mainjs, then services, then directives, then controllers-->
+		<!-- services -->
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/time-crunchers.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/page-route.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/about-service.js"></script>
@@ -64,7 +65,10 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/signup-service.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/services/user-service.js"></script>
 
+		<!-- directives-->
+		<script type="text/javascript" src="<?php echo $Prefix;?>angularjs/directives/bootstrap-breakpoint.js"></script>
 
+		<!-- controllers -->
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/main-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/about-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/access-controller.js"></script>
@@ -77,5 +81,6 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/shift-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/signup-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/user-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX;?>angularjs/controllers/nav-controller.js"></script>
 		<title><?php echo $PAGE_TITLE;?></title>
 	</head>
