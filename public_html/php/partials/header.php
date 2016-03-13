@@ -1,4 +1,5 @@
-<header>
+<header ng-controller="NavController">
+	<bootstrap-breakpoint></bootstrap-breakpoint>
 	<div id="topButtons" class="pull-right">
 		<a href="" class="btn btn-primary">Profile</a> <!-- this should bring in the user edit profile view-->
 		<a href="" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
@@ -15,7 +16,7 @@
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-						  data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
+						  data-target="#collapse-1" aria-expanded="false"
 						  ng-click="navCollapsed = !navCollapsed">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
@@ -26,7 +27,8 @@
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div id="bs-example-navbar-collapse-1" uib-collapse="navCollapsed">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<div id="collapse-1" uib-collapse="navCollapsed">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown" uib-dropdown>
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -52,8 +54,8 @@
 					<li><a href="#">FAQ</a></li>
 
 				</ul>
-			</div><!-- /.navbar-collapse -->
-		</div><!-- /.container-fluid -->
+			</div><!-- /.collapse-1 -->
+		</div><!-- /.collapse -->
 	</nav>
 
 </header>

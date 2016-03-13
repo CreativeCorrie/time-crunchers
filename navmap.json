@@ -2,15 +2,15 @@
 {
   "pages": [
     {
-      "href": "/public_html/angularjs/templates/userSignUpForm.php",
+      "href": "public_html/angularjs/templates/userSignUpForm.php",
       "name": "Add Member"
     },
     {
-      "href": "/public_html/angularjs/templates/buildCrewForm",
+      "href": "public_html/angularjs/templates/buildCrewForm",
       "name": "Add Crew"
     },
     {
-      "href": "/public_html/angularjs/templates/",
+      "href": "public_html/angularjs/templates/",
       "name": "nuffin here yet"
     },
     {
