@@ -64,6 +64,7 @@ footer {
 	border-top-color: #1d1b1c;
 	border-top-style: outset;
 	border-top-width: 5px;
+	padding-top: 8px;
 }
 
 span.setPass{
