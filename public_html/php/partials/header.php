@@ -1,61 +1,85 @@
-<header ng-controller="NavController">
-	<bootstrap-breakpoint></bootstrap-breakpoint>
-	<div id="topButtons" class="pull-right">
-		<a href="" class="btn btn-primary">Profile</a> <!-- this should bring in the user edit profile view-->
-		<a href="" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
-		<a href="/public_html/angularjs/pages/landingPage.php" class="btn btn-danger">Logout</a> <!-- TODO:this should end the session and return you to the landing page -->
-	</div>
+<body>
+	<header ng-controller="NavController">
+		<bootstrap-breakpoint></bootstrap-breakpoint>
 
-	<div id="mainHeader">
-		<h1>Welcome to Time Crunch</h1>
-	</div>
+		<div id="topButtons" class="pull-right">
+			<a href="" class="btn btn-primary">Profile</a> <!-- this should bring in the user edit profile view-->
+			<a href="" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
+			<a href="/public_html/angularjs/pages/landingPage.php" class="btn btn-danger">Logout</a>
+			<!-- TODO:this should end the session and return you to the landing page -->
+		</div>
 
-	<!-- Begin navbar-->
-	<nav class="navbar navbar-default navbar-fixed-top navbar-inner">
-		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-						  data-target="#collapse-1" aria-expanded="false"
-						  ng-click="navCollapsed = !navCollapsed">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Manage Your Schedule</a>
-			</div>
+		<div id="mainHeader">
+			<h1>Welcome to Time Crunch</h1>
+		</div>
 
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<div id="collapse-1" uib-collapse="navCollapsed">
+		<!-- Begin navbar-->
+		<nav class="navbar navbar-default navbar-fixed-top navbar-inner">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-1"
+							  aria-expanded="false" ng-click="navCollapsed = !navCollapsed">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Manage Your Schedule</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div id="collapse-1" uib-collapse="navCollapsed">
+<!--					<ul class="nav navbar-nav">-->
+<!--						<li class="dropdown" uib-dropdown>-->
+<!--							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>-->
+<!--								Add <span class="caret"></span>-->
+<!--							</a>-->
+<!--							<ul class="dropdown-menu" uib-dropdown-menu>-->
+<!--								<li><a href="#">Action</a></li>-->
+<!--								<li><a href="#">Another action</a></li>-->
+<!--								<li><a href="#">Something else here</a></li>-->
+<!--								<li role="separator" class="divider"></li>-->
+<!--								<li><a href="#">Separated link</a></li>-->
+<!--								<li role="separator" class="divider"></li>-->
+<!--								<li><a href="#">One more separated link</a></li>-->
+<!--							</ul>-->
+<!--						</li>-->
+<!--					</ul>-->
 					<ul class="nav navbar-nav navbar-right">
+
+						<!-- Add -->
 						<li class="dropdown" uib-dropdown>
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false" uib-dropdown-toggle>Add <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+								Add <span class="caret"></span>
+							</a>
 							<ul class="dropdown-menu" uib-dropdown-menu>
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">One more separated link</a></li>
+								<li ng-repeat="page in pages"><a href="{{ page.href }}">{{ page.name }}</a></li>
 							</ul>
 						</li>
-					<li class="dropdown" uib-dropdown>
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false" uib-dropdown-toggle>Edit <span class="caret"></span></a>
-						<ul class="dropdown-menu" uib-dropdown-menu>
-							<li ng-repeat="page in pages"><a href="{{ page.href }}">{{ page.name }}</a></li>
-						</ul>
-					</li>
-					<li><a href="#">Request</a></li> <!--bring in the request view access level dependant-->
-					<li><a href="#">FAQ</a></li>
 
-				</ul>
-			</div><!-- /.collapse-1 -->
-		</div><!-- /.collapse -->
-	</nav>
+						<!--Edit-->
+						<li class="dropdown" uib-dropdown>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+								Edit <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" uib-dropdown-menu>
+								<li ng-repeat="page in pages"><a href="{{ page.href }}">{{ page.name }}</a></li>
+							</ul>
+						</li>
 
-</header>
+						<li><a href="#">
+								Request
+							</a>
+						</li> <!--bring in the request view access level dependant-->
+						<li><a href="#">
+								FAQ
+							</a>
+						</li>
+					</ul>
+				</div><!-- /.collapse-1 -->
+			</div><!-- /.container-fluid -->
+		</nav>
+	</header>
+
+

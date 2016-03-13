@@ -22,24 +22,7 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-		<base href="<?php echo dirname($_SERVER['PHP_SELF']) . "/" ?>"
-
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-				integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
-				crossorigin="anonymous"/>
-
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
-				integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
-				crossorigin="anonymous"/>
-
-		<!--Font Awesome CSS-->
-		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"
-				integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-
-		<!-- LOAD OUR CUSTOM STYLESHEET HERE!!! -->
-		<link href="css/style1.css" type="text/css" rel="stylesheet"/>
+		<base href="<?php echo dirname($_SERVER['PHP_SELF']) . "/" ?>">
 
 		<!--Angular JS-->
 		<?php $ANGULAR_VERSION = "1.5.0"; ?>
@@ -47,6 +30,18 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-route.min.js"></script>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-messages.min.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.min.js"></script>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+				integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+				crossorigin="anonymous"/>
+
+		<!-- LOAD OUR CUSTOM STYLESHEET HERE!!! -->
+		<link href="css/style1.css" type="text/css" rel="stylesheet"/>
+
+		<!--Font Awesome CSS-->
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"
+				integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
 		<!--Angular application files must be mainjs, then services, then directives, then controllers-->
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/time-crunchers.js"></script>
@@ -83,5 +78,6 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/signup-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/user-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/nav-controller.js"></script>
+
 		<title><?php echo $PAGE_TITLE; ?></title>
 	</head>
