@@ -1,4 +1,10 @@
 <header>
+	<div id="topButtons" class="pull-right">
+		<a href="" class="btn btn-primary">Profile</a> <!-- this should bring in the user edit profile view
+		<a href="" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
+		<a href="/public_html/angularjs/pages/landingPage.php" class="btn btn-danger">Logout</a> <!-- TODO:this should end the session and return you to the landing page -->
+	</div>
+
 	<div id="mainHeader">
 		<h1>Welcome to Time Crunch</h1>
 	</div>
@@ -21,9 +27,7 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div id="bs-example-navbar-collapse-1" uib-collapse="navCollapsed">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Link 0<span class="sr-only">(current)</span></a></li>
-					<li><a href="#">Link 1</a></li>
+				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown" uib-dropdown>
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" uib-dropdown-toggle>Dropdown <span class="caret"></span></a>
@@ -38,7 +42,7 @@
 						</ul>
 					</li>
 				</ul>
-				<!-- don't need this here afaik -->
+				<!-- we don't need this searc box here afaik -->
 <!--				<form class="navbar-form navbar-left" role="search">-->
 <!--					<div class="form-group">-->
 <!--						<input type="text" class="form-control" placeholder="Search">-->
@@ -46,7 +50,9 @@
 <!--					<button type="submit" class="btn btn-default">Submit</button>-->
 <!--				</form>-->
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Link 2</a></li>
+					<li class="active"><a href="#">Link 0<span class="sr-only">(current)</span></a></li>
+					<li><a href="#">Link 1</a></li>
+					<li><a href="#">FAQ</a></li>
 					<li class="dropdown" uib-dropdown>
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" uib-dropdown-toggle>Dropdown <span class="caret"></span></a>

@@ -7,7 +7,12 @@ body {
 	border-color: #1d1b1c;
 	border-style: outset;
 	border-width: 5px;
-	padding-top: 60px;
+}
+
+#topButtons {
+	margin-top: 8px;
+	margin-bottom: 10px;
+	margin-right: 8px;
 }
 
 .nav {
@@ -43,8 +48,8 @@ img#logo {
 	border-bottom-color: #1d1b1c;
 	border-bottom-style: outset;
 	border-bottom-width: 5px;
-	margin-top: 0px;
-	margin-bottom: 20px;
+	/*margin-top: 65px;*/
+	/*margin-bottom: 20px;*/
 }
 
 #mainHeader, footer {
