@@ -3,6 +3,7 @@
 		<h2>Let's get started!</h2>
 	</div>
 </div>
+
 <div class="row">
 	<div class="col-md-5">
 

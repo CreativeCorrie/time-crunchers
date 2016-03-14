@@ -2,11 +2,11 @@
 	<bootstrap-breakpoint></bootstrap-breakpoint>
 
 	<div id="topButtons" class="pull-right button-container">
-		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-lg">Request</button>
+		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-lg">Make Request</button> <!--TODO: put the modal here -->
 		&nbsp;
-		<a href="/public_html/angularjs/templates/adminOnlyView.php" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
+		<a href="public_html/angularjs/templates/adminOnlyView.php" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
 		&nbsp;
-		<a href="/public_html/angularjs/pages/landingPage.php" class="btn btn-danger">Logout</a>
+		<a href="public_html/angularjs/pages/landingPage.php" class="btn btn-danger">Logout</a>
 		<!-- TODO:this should end the session and return you to the landing page -->
 	</div>
 
@@ -41,12 +41,12 @@
 							Add <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" uib-dropdown-menu>
-							<li><a href="public_html/angularjs/templates/userSignUpForm.php">Add
-									Member </a></li>
-							<li><a href="public_html/angularjs/templates/buildCrewForm.php">Add
-									Crew </a></li>
-							<li><a href="public_html/angularjs/templates/addScheduleForm.php">Add
-									Schedule</a></li>
+							<li><a href="public_html/angularjs/templates/userSignUpForm.php">
+									Add Member </a></li>
+							<li><a href="public_html/angularjs/templates/buildCrewForm.php">
+									Add Crew </a></li>
+							<li><a href="public_html/angularjs/templates/addScheduleForm.php">
+									Add Schedule</a></li>
 						</ul>
 					</li>
 
@@ -57,14 +57,19 @@
 							Edit <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" uib-dropdown-menu>
-							<li ng-repeat="page in pages"><a href="{{ page.href }}">{{ page.name }}</a></li>
+							<li><a href="public_html/angularjs/templates/userSignUpForm.php">
+									Edit Member </a></li>
+							<li><a href="public_html/angularjs/templates/buildCrewForm.php">
+									Edit Crew </a></li>
+							<li><a href="public_html/angularjs/templates/addScheduleForm.php">
+									Edit Schedule</a></li>
 						</ul>
 					</li>
-					<li><a href="/angularjs/templates/userEditProfileView.php">
+					<li><a href="public_html/angularjs/templates/userEditProfileView.php">
 							Profile
 						</a> <!-- this should bring in the user edit profile view-->
 					</li>
-					<li><a href="/public_html/angularjs/templates/faqView.php">
+					<li><a href="public_html/angularjs/templates/faqView.php">
 							FAQ
 						</a>
 					</li>

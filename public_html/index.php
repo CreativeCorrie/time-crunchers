@@ -18,6 +18,9 @@ require_once("php/partials/head-utils.php");
 			<main class="p-y-4">
 				<div class="container">
 
+					<br><!-- I threw these in here to make the stuff appear below the navbar -->
+					<br>
+
 					<!-- main content and injected views -->
 					<div ng-view></div>
 					<!-- /main content -->

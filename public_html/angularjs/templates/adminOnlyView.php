@@ -46,7 +46,7 @@ c - employee invites this user has sent (get an array of employees)
 		<div class="col-md-6">
 			<h3>Schedule Change Requests</h3>
 			<ul class="">
-				<li><a href="#">See Requests</a></li> <!-- Get all requests -->a table with check boxes?
+				<li><a href="/public_html/angularjs/templates/adminRequestView.php">See Requests</a></li> 
 			</ul>
 		</div> <!-- /requests -->
 
