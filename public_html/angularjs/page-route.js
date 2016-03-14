@@ -13,7 +13,7 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/templates/aboutView.php'
 		})
 
-		// route for the activation page
+		// route for the activation page TODO: pointing to setPassForm,
 		.when('/activation/:emailActivation', {
 			controller  : 'ActivationController',
 			templateUrl : 'angularjs/pages/setPassForm.php'
@@ -27,7 +27,7 @@ app.config(function($routeProvider, $locationProvider) {
 
 		//route page to setPassForm page
 		.when('/setPass', {
-			controller  : 'ActivationController',	//TODO: NO CONTROLLER
+			controller  : 'ActivationController',	//TODO: pointing to setPassForm
 			templateUrl : 'angularjs/pages/setPassForm.php'
 		})
 
@@ -48,13 +48,25 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/templates/faqView.php'
 		})
 
-		// route for the sign up page
+		// route for the requestModal page
 		.when('/request', {
 			controller  : 'RequestController',
 			templateUrl : 'angularjs/templates/requestModal.php'
 		})
 
-		// route for the sign up page
+		// route for the userEditProfileView up page
+		.when('/editProfile', {
+			controller  : 'UserController',
+			templateUrl : 'angularjs/templates/userEditProfileView.php'
+		})
+
+		// route for the faqView up page
+		.when('/faq', {
+			controller  : 'faqController',//TODO: NO CONTROLLER
+			templateUrl : 'angularjs/templates/faqView.php'
+		})
+
+		// route for the adminSignUpForm up page
 		.when('/sign-up', {
 			controller  : 'SignUpController',
 			templateUrl : 'angularjs/templates/adminSignUpForm.php'
