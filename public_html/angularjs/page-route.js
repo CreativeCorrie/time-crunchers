@@ -37,6 +37,12 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/templates/adminRequestView.php'
 		})
 
+		// route for the add schedule form
+		.when('/addScheduleForm/', {
+			controller  : 'ScheduleController',
+			templateUrl : 'angularjs/templates/addScheduleForm.php'
+		})
+
 		.otherwise({
 			redirectTo: "/"
 		});
