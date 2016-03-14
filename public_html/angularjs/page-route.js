@@ -9,7 +9,7 @@ app.config(function($routeProvider, $locationProvider) {
 
 		 //route for the about page
 		.when('/about/', {
-			controller  : 'aboutController',
+			controller  : 'about-controller',
 			templateUrl : 'angularjs/templates/aboutView.php'
 		})
 

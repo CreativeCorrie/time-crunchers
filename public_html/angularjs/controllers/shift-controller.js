@@ -13,7 +13,7 @@ app.controller('CrewController', function($scope) {
 	 */
 
 	$scope.getShiftById = function() {
-		shiftService.fetchShiftById(shiftwId)
+		shiftService.fetchShiftById(shiftId)
 			.then(function(result) {
 				if(result.data.status === 200) {
 					$scope.crewData = result.data.data;  //TODO: is data.data correct.
@@ -24,8 +24,8 @@ app.controller('CrewController', function($scope) {
 			})
 	};
 
-	$scope.getshiftByShiftUserId = function() {
-		shiftService.fetchShiftByShiftUserId(shiftUserId)
+	$scope.getShiftByUserId = function() {
+		shiftService.fetchShiftByUserId(shiftUserId)
 			.then(function(result) {
 				if(result.data.status === 200) {
 					$scope.shiftData = result.data.data;
