@@ -42,17 +42,22 @@ app.config(function($routeProvider, $locationProvider) {
 			controller  : 'AdminViewController',//TODO: NO CONTROLLER
 			templateUrl : 'angularjs/templates/buildCrewForm.php'
 		})
+		// route for the faqView page
+		.when('/faq', {
+			controller  : 'faqController',//TODO: NO CONTROLLER
+			templateUrl : 'angularjs/templates/faqView.php'
+		})
+
+		// route for the sign up page
+		.when('/request', {
+			controller  : 'RequestController',
+			templateUrl : 'angularjs/templates/requestModal.php'
+		})
 
 		// route for the sign up page
 		.when('/sign-up', {
 			controller  : 'SignUpController',
 			templateUrl : 'angularjs/templates/adminSignUpForm.php'
-		})
-
-		// route for the login page
-		.when('/login', {
-			controller  : 'LoginController',
-			templateUrl : 'angularjs/templates/modalLoginForm.php'
 		})
 
 		// route for the login page
