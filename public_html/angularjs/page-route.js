@@ -4,7 +4,7 @@ app.config(function($routeProvider, $locationProvider) {
 	// route for the home page
 		.when('/', {
 			controller  : 'mainController',
-			templateUrl : 'angular/pages/calendarView.php'
+			templateUrl : 'angularjs/pages/calendarView.php'
 		})
 
 		 //route for the about page
@@ -22,13 +22,13 @@ app.config(function($routeProvider, $locationProvider) {
 		// route for the sign up page
 		.when('/sign-up/', {
 			controller  : 'signupController',
-			templateUrl : 'angular/templates/adminSignUpForm.php'
+			templateUrl : 'angularjs/templates/adminSignUpForm.php'
 		})
 
 		// route for the admin view request page
 		.when('/adminRequestView/', {
 			controller  : 'requestController',
-			templateUrl : 'angular/templates/adminRequestView.php'
+			templateUrl : 'angularjs/templates/adminRequestView.php'
 		})
 
 		.otherwise({
