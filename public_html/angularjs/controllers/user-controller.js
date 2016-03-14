@@ -88,5 +88,6 @@ app.controller('UserController', ["$scope", "userService", function($scope, user
 		$scope.getUser();
 	}
 
+
 }]);
 
