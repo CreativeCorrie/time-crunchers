@@ -34,4 +34,18 @@ app.controller('AccessController', function($scope) {
 				}
 			})
 	};
+
+	$scope.createAccess = function(access, validated) {
+		if(validated === true) {
+			accessService.created(access)
+				.then(function(result) {
+					if($result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+						$scope.newaccess = {accessId: null, attribution: "", user: "", submitter: ""};
+						$scope.addAccessForm.$setPristine();
+						$scope.addAccessForm.$setUntouched();
+					}
+				});
+		}
+	};
 });

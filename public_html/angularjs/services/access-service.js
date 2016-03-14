@@ -36,4 +36,5 @@ app.service("accessService", function($http, ACCESS_ENDPOINT) {
 	this.destroy = function(accessId) {
 		return($http.delete(getUrlForId(accessId)));
 	};
+
 });
