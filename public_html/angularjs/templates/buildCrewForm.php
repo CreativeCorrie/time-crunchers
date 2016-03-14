@@ -31,14 +31,15 @@
 	</br>
 
 	<hr>
-	</br>
 
 <!--add angular so that this affects how many of the last section shows up-->
-		<label for="crewMemberInput"></label>
+		<label for="crewMemberInput">
+			<h4>Choose the size of your Crew</h4>
+		</label>
 		<legend>Add employees to this crew</legend>
 		<p>
 			<select id="myList">
-				<option value 0>select the amout you would like to add</option>
+				<option value 0>select the amount you would like to add</option>
 				<option value 1>5 employees</option>
 				<option value 2>10 employees</option>
 				<option value 3>20 employees</option>
