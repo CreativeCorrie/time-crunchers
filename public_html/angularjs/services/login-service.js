@@ -3,7 +3,7 @@ app.service("loginService", function($http, LOGIN_ENDPOINT) {
 	function getUrl() {
 		return(LOGIN_ENDPOINT);
 	}
-	this.create = function(login) {
+	this.login = function(login) {
 		return($http.post(getUrl(), login));
 	};
 });

@@ -8,84 +8,72 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 
 		 //route for the about page
-		.when('/about/', {
+		.when('/aboutView/', {
 			controller  : 'AboutController',
-			templateUrl : 'angularjs/templates/aboutView.php'
+			templateUrl : 'angularjs/pages/aboutView.php'
 		})
 
-		// route for the activation page TODO: pointing to setPassForm,
+		// route for the activation page
 		.when('/activation/:emailActivation', {
 			controller  : 'ActivationController',
 			templateUrl : 'angularjs/pages/setPassForm.php'
 		})
 
 		//route page for calendarView page
-		.when('/calendar', {
+		.when('/calendar/', {
 			controller  : 'CalendarViewController',//TODO: NO CONTROLLER
 			templateUrl : 'angularjs/pages/calendarView.php'
 		})
 
 		//route page to setPassForm page
-		.when('/setPass', {
-			controller  : 'ActivationController',	//TODO: pointing to setPassForm
+		.when('/setPass/', {
+			controller  : 'ActivationController',	//TODO: NO CONTROLLER
 			templateUrl : 'angularjs/pages/setPassForm.php'
 		})
 
 		//route page to adminOnlyView page
-		.when('/adminView', {
+		.when('/adminView/', {
 			controller  : 'AdminViewController',//TODO: NO CONTROLLER
 			templateUrl : 'angularjs/templates/adminOnlyView.php'
 		})
 
 		//route page to buildCrewForm page
-		.when('/buildCrew', {
+		.when('/buildCrew/', {
 			controller  : 'AdminViewController',//TODO: NO CONTROLLER
 			templateUrl : 'angularjs/templates/buildCrewForm.php'
 		})
 		// route for the faqView page
-		.when('/faq', {
+		.when('/faq/', {
 			controller  : 'faqController',//TODO: NO CONTROLLER
 			templateUrl : 'angularjs/templates/faqView.php'
 		})
 
-		// route for the requestModal page
-		.when('/request', {
+		// route for the sign up page
+		.when('/request/', {
 			controller  : 'RequestController',
 			templateUrl : 'angularjs/templates/requestModal.php'
 		})
 
-		// route for the userEditProfileView up page
-		.when('/editProfile', {
-			controller  : 'UserController',
-			templateUrl : 'angularjs/templates/userEditProfileView.php'
-		})
-
-		// route for the faqView up page
-		.when('/faq', {
-			controller  : 'faqController',//TODO: NO CONTROLLER
-			templateUrl : 'angularjs/templates/faqView.php'
-		})
-
-		// route for the adminSignUpForm up page
-		.when('/sign-up', {
-			controller  : 'SignUpController',
+		// route for the sign up page
+		.when('/adminSignUpForm/', {
+			controller  : 'SignupController',
 			templateUrl : 'angularjs/templates/adminSignUpForm.php'
 		})
 
 		// route for the login page
-		.when('/login', {
+		.when('/login/', {
 			controller  : 'LoginController',
 			templateUrl : 'angularjs/templates/modalLoginForm.php'
 		})
 
 		// route for the admin view request page
-		.when('/adminRequestView', {
+		.when('/adminRequestView/', {
 			controller  : 'RequestController',
 			templateUrl : 'angularjs/templates/adminRequestView.php'
 		})
 
 		// route for the add schedule form
-		.when('/addScheduleForm', {
+		.when('/addScheduleForm/', {
 			controller  : 'ScheduleController',
 			templateUrl : 'angularjs/templates/addScheduleForm.php'
 		})
