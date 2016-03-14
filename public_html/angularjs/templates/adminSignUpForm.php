@@ -1,5 +1,4 @@
 <!-- Company Sign Up-->
-<!--		TODO: add Angualar.js here to connect to Company API-->
 <h2>First, sign up your Company or Group</h2>
 
 <form>

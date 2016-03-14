@@ -41,11 +41,11 @@
 							Add <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" uib-dropdown-menu>
-							<li><a href="/public_html/angularjs/templates/userSignUpForm.php">Add
+							<li><a href="public_html/angularjs/templates/userSignUpForm.php">Add
 									Member </a></li>
-							<li><a href="/public_html/angularjs/templates/buildCrewForm.php">Add
+							<li><a href="public_html/angularjs/templates/buildCrewForm.php">Add
 									Crew </a></li>
-							<li><a href="/public_html/angularjs/templates/addScheduleForm.php">Add
+							<li><a href="public_html/angularjs/templates/addScheduleForm.php">Add
 									Schedule</a></li>
 						</ul>
 					</li>

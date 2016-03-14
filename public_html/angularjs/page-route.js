@@ -3,31 +3,31 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider
 	// route for the home page
 		.when('/', {
-			controller  : 'mainController',
-			templateUrl : 'angularjs/pages/calendarView.php'
+			controller  : 'MainController',
+			templateUrl : 'angularjs/pages/landingPage.php'
 		})
 
 		 //route for the about page
 		.when('/about/', {
-			controller  : 'about-controller',
+			controller  : 'AboutController',
 			templateUrl : 'angularjs/templates/aboutView.php'
 		})
 
 		// route for the activation page
 		.when('/activation/:emailActivation', {
-			controller  : 'activationController',
+			controller  : 'ActivationController',
 			templateUrl : 'angularjs/pages/setPassForm.php'
 		})
 
 		// route for the sign up page
 		.when('/sign-up/', {
-			controller  : 'signupController',
+			controller  : 'SignupController',
 			templateUrl : 'angularjs/templates/adminSignUpForm.php'
 		})
 
 		// route for the admin view request page
 		.when('/adminRequestView/', {
-			controller  : 'requestController',
+			controller  : 'RequestController',
 			templateUrl : 'angularjs/templates/adminRequestView.php'
 		})
 

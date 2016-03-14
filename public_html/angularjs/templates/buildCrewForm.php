@@ -1,33 +1,32 @@
-
 <!--this is the form for creating a crew-->
 
 <!-- Crew Sign Up-->
-<!--		TODO: add Angualar.js here to connect to Crew API-->
+
 <h2>Now, create your first Crew for this company.</h2>
 
-<form>
+<form name="buildCrewForm" ng-submit="createCrew(crewData, buildCrewForm.$valid);">
 
 	<fieldset class="form-group">
 		<label for="crewLocationInput">Crew Location</label>
-		<input type="text" class="form-control" id="crewLocation" placeholder="Managers Only">
+		<input type="text" class="form-control" name="crewLocation" id="crewLocation" placeholder="Managers Only" ng-model="crewData.crewLocation" >
 		<small class="text-muted">
 			This name is how you will differentiate your crews.
 		</small>
 	</fieldset>
 
 
-	<fieldset class="form-group">
-		<label for="crewAddress1Input">Crew Address 1</label>
-		<input type="text" class="form-control" id="crewAddress1" placeholder="1920 Grand Plaza NW">
-	</fieldset>
-
-	<fieldset class="form-group">
-		<label for="crewAddress2Input">Crew Address 2</label>
-		<input type="text" class="form-control" id="crewAddress2" placeholder="Section 31">
-		<small class="text-muted">
-			This field is optional.
-		</small>
-	</fieldset>
+<!--	<fieldset class="form-group">-->
+<!--		<label for="crewAddress1Input">Crew Address 1</label>-->
+<!--		<input type="text" class="form-control" id="crewAddress1" placeholder="1920 Grand Plaza NW">-->
+<!--	</fieldset>-->
+<!---->
+<!--	<fieldset class="form-group">-->
+<!--		<label for="crewAddress2Input">Crew Address 2</label>-->
+<!--		<input type="text" class="form-control" id="crewAddress2" placeholder="Section 31">-->
+<!--		<small class="text-muted">-->
+<!--			This field is optional.-->
+<!--		</small>-->
+<!--	</fieldset>-->
 	</br>
 
 	<hr>
