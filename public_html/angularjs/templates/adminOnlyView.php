@@ -21,7 +21,8 @@ c - employee invites this user has sent (get an array of employees)
 			<ul class="">
 				<li><a href="#">Create and Invite a New Member</a></li> <!--need angular to load userSignUpForm-->
 				<li><a href="#">Get Member by First & Last Name</a></li>    <!--must add first & last name-->
-				<li><a href="#">Get Crew by Crew Location</a></li>  <!--TODO: can we make this a wildcard search ?-->
+				<li><a href="#">Get Member by Email Address</a></li>
+				<li><a href="#">Get Crew by Location</a></li>  <!--TODO: can we make this a wildcard search ?-->
 			</ul>
 		</div> <!-- /of users' -->
 

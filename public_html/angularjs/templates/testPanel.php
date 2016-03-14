@@ -1,3 +1,5 @@
+<!--this panel is just for injecting views and forms for testing-->
+
 <!DOCTYPE html>
 <html lang="en" ng-app="TimeCrunchers">
 	<head>
@@ -120,7 +122,8 @@
 						<!--Edit-->
 						<li class="dropdown" uib-dropdown>
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
-								Edit <span class="caret"></span>
+								Edit
+								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" uib-dropdown-menu>
 								<li ng-repeat="page in pages"><a href="{{ page.href }}">{{ page.name }}</a></li>

@@ -2,10 +2,10 @@
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider
 	// route for the home page
-	//	.when('/', {
-	//		controller  : 'mainController',
-	//		templateUrl : 'angular/pages/calendarView.php'
-	//	})
+		.when('/', {
+			controller  : 'mainController',
+			templateUrl : 'angular/pages/calendarView.php'
+		})
 
 		 //route for the about page
 		.when('/about/', {
