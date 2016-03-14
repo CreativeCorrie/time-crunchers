@@ -1,3 +1,4 @@
+
 <!--this is the form for creating a crew-->
 
 <!-- Crew Sign Up-->
@@ -32,8 +33,8 @@
 	<hr>
 	</br>
 
-
-		<label for="crewMemberInput">Select the closest amount of employees</label>
+<!--add angular so that this affects how many of the last section shows up-->
+		<label for="crewMemberInput"></label>
 		<legend>Add employees to this crew</legend>
 		<p>
 			<select id="myList">
@@ -45,6 +46,40 @@
 			</select>
 		</p>
 
+	<hr>
+	</br>
+
+<!--add angular to create multiple of this section for multiple employees-->
+	<fieldset class="form-group">
+		<label for="userFirstNameInput">Employee First Name</label>
+		<input type="text" class="form-control" id="userFirstName" placeholder="Talia">
+
+		<label for="userLastNameInput">Employee Last Name</label>
+		<input type="text" class="form-control" id="userLastName" placeholder="Martinez">
+	</fieldset>
+
+	<fieldset class="form-group">
+		<label for="userPhoneInput">Employee Phone Number</label>
+		<input type="text" class="form-control" id="userPhone" placeholder="999-888-7777">
+		<small class="text-muted">
+			This field is optional.
+		</small>
+	</fieldset>
+
+	<fieldset class="form-group">
+		<label for="userEmailInput">Employee Email Address</label>
+		<input type="text" class="form-control" id="userEmail" placeholder="taliamartinez@tacos.com">
+		<p class="text-danger">This is the email address your activation code will be sent to.</p>
+	</fieldset>
+	<br>
+	<hr>
+
+	<!-- Submit Form or Reset Form -->
+	<!--		TODO: add Angular.js here to connect to User API-->
+	<p>Great! When you submit this form you and your employees will receive an email from "Time Crunch". Your employees will recieve an email with an activation link to
+		reset their password. However, your email is just a comfirmation.</p>
+	<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
+	<button class="btn btn-warning" type="reset"><i class="fa fa-ban"></i> Reset Form</button>
 
 
 
