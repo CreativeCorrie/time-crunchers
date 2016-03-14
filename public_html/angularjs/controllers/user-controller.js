@@ -47,4 +47,21 @@ app.controller('UserController', function($scope) {
 			})
 	};
 
+	$scope.subscribe("user", "update", function(crew) {
+		for(var i=0; i < scope.users.length; i++) {
+			if($scope.users[1].userId === crew.users) {
+				$scope.users[1] = user;
+				break;
+			}
+		}
+	});
+
+	$scope.createUser = function(crew, validated) {
+		if(validated === true) {
+
+		}
+	}
+
+
+
 });
