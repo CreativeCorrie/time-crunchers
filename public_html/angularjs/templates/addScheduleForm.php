@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-6">
 		<form>
-			<div ng-controller="DatepickerDemoCtrl">
+			<div ng-controller="DatepickController">
 				<h4>Popup</h4>
 				<div class="row">
 					<div class="col-md-6">

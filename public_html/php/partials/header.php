@@ -6,9 +6,9 @@
 				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-lg">Request</button>
 <!--			</div>-->
 			&nbsp;
-			<a href="/angularjs/templates/adminOnlyView.php" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
+			<a href="/public_html/angularjs/templates/adminOnlyView.php" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
 			&nbsp;
-			<a href="/angularjs/pages/landingPage.php" class="btn btn-danger">Logout</a> <!-- TODO:this should end the session and return you to the landing page -->
+			<a href="/public_html/angularjs/pages/landingPage.php" class="btn btn-danger">Logout</a> <!-- TODO:this should end the session and return you to the landing page -->
 		</div>
 
 		<div class="container-fluid" id="mainHeader">
