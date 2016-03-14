@@ -13,12 +13,16 @@ app.service("shiftService", function($http, SHIFT_ENDPOINT) {
 		return($http.get(getUrl()));
 	};
 
-	this.fetchShiftByShiftId = function(shiftId) {
+	this.fetchShiftById = function(shiftId) {
 		return($http.get(getUrlForId() + shiftId));
 	};
 
-	this.fetchShiftByShiftUserId = function(shiftUserId) {
+	this.fetchShiftByUserId = function(shiftUserId) {
 		return($http.get(getUrl() + "?shiftUserId=" + shiftUserId));
+	};
+
+	this.fetchAllShifts = function(){
+		return($http.get(getUrl()));
 	};
 
 	this.update = function(shiftId, shift) {
