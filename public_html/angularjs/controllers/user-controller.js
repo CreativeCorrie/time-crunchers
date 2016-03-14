@@ -1,7 +1,6 @@
-app.controller('UserController', function($scope) {
+app.controller('UserController', ["$scope", "userService", function($scope, userService) {
 	$scope.alerts = [];
 	$scope.userData = [];
-	$scope.editedUser = [];
 
 	$scope.getUserById = function() {
 		userService.fetchUserById(userId)
@@ -46,22 +45,48 @@ app.controller('UserController', function($scope) {
 				}
 			})
 	};
-
-	$scope.subscribe("user", "update", function(crew) {
-		for(var i=0; i < scope.users.length; i++) {
-			if($scope.users[1].userId === crew.users) {
-				$scope.users[1] = user;
-				break;
-			}
-		}
-	});
-
-	$scope.createUser = function(crew, validated) {
+	/**
+	 * creates a user and sends it to the user API
+	 *
+	 * @param user the user to send
+	 * @param validated true if Angular validated the form, false if not
+	 **/
+	$scope.createUser = function(user, validated) {
 		if(validated === true) {
-
+			userService.create(user)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+						$scope.newUser = {userId: null, userCompanyId: null, userCrewId: null, userAccessId: null, userPhone: "",userFirstName: "", userLastName: "", userEmail: ""};
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
 		}
+	};
+
+	/**
+	 * updates a user and sends it to the user API
+	 *
+	 * @param user the user to send
+	 * @param validated true if Angular validated the form, false if not
+	 **/
+	$scope.updateUser= function(user, validated) {
+		if(validated === true) {
+			userService.update(user.userId, user)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+		}
+	};
+// really not sure if this belongs
+	if($scope.user === null) {
+		$scope.getUser();
 	}
 
+}]);
 
-
-});
