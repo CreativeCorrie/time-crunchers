@@ -79,6 +79,7 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/signup-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/user-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/nav-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/datepick-controller.js"></script>
 
 		<title><?php echo $PAGE_TITLE; ?></title>
 	</head>

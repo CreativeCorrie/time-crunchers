@@ -1,4 +1,4 @@
-app.controller('DatepickerDemoCtrl', function ($scope) {
+app.controller('DatepickController', function ($scope) {
 	$scope.today = function() {
 		$scope.dt = new Date();
 	};

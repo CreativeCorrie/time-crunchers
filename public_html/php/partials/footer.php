@@ -9,7 +9,7 @@
 <!--				branding here-->
 			</div>
 			<div class="col-md-6 m-b-2 text-right-md-up">
-				&copy herp derp 2016
+				&copy Time Crunchers 2016
 			</div>
 		</div>
 	</div>
