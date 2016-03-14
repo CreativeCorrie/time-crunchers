@@ -1,15 +1,13 @@
-<body>
 	<header ng-controller="NavController">
 		<bootstrap-breakpoint></bootstrap-breakpoint>
 
-		<div id="topButtons" class="pull-right">
-
-			<a href="" class="btn btn-info">Request</a>
-<!--			&nbsp;-->
-			<a href="/angularjs/templates/userEditProfileView.php" class="btn btn-primary">Profile</a> <!-- this should bring in the user edit profile view-->
-<!--			&nbsp;-->
+		<div id="topButtons" class="pull-right button-container">
+<!--			<div class="button-container">-->
+				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-lg">Request</button>
+<!--			</div>-->
+			&nbsp;
 			<a href="/angularjs/templates/adminOnlyView.php" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
-<!--			&nbsp;-->
+			&nbsp;
 			<a href="/angularjs/pages/landingPage.php" class="btn btn-danger">Logout</a> <!-- TODO:this should end the session and return you to the landing page -->
 		</div>
 
@@ -34,22 +32,6 @@
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div id="collapse-1" uib-collapse="navCollapsed">
-<!--					<ul class="nav navbar-nav">-->
-<!--						<li class="dropdown" uib-dropdown>-->
-<!--							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>-->
-<!--								Add <span class="caret"></span>-->
-<!--							</a>-->
-<!--							<ul class="dropdown-menu" uib-dropdown-menu>-->
-<!--								<li><a href="#">Action</a></li>-->
-<!--								<li><a href="#">Another action</a></li>-->
-<!--								<li><a href="#">Something else here</a></li>-->
-<!--								<li role="separator" class="divider"></li>-->
-<!--								<li><a href="#">Separated link</a></li>-->
-<!--								<li role="separator" class="divider"></li>-->
-<!--								<li><a href="#">One more separated link</a></li>-->
-<!--							</ul>-->
-<!--						</li>-->
-<!--					</ul>-->
 					<ul class="nav navbar-nav navbar-right">
 
 						<!-- Add -->
@@ -58,6 +40,8 @@
 								Add <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" uib-dropdown-menu>
+								<li ng-repeat="page in pages"><a href="{{ page."public_html/angularjs/templates/userSignUpForm.php"}}">{{ page."Add Member"}}</a></li>
+								<li ng-repeat="page in pages"><a href="{{ page.public_html/angularjs/templates/buildCrewForm }}">{{ page.Add Crew }}</a></li>
 								<li ng-repeat="page in pages"><a href="{{ page.href }}">{{ page.name }}</a></li>
 							</ul>
 						</li>
@@ -71,7 +55,11 @@
 								<li ng-repeat="page in pages"><a href="{{ page.href }}">{{ page.name }}</a></li>
 							</ul>
 						</li>
-						<li><a href="#">
+						<li><a href="/angularjs/templates/userEditProfileView.php">
+								Profile
+							</a> <!-- this should bring in the user edit profile view-->
+						</li>
+						<li><a href="/public_html/angularjs/templates/faqView.php">
 								FAQ
 							</a>
 						</li>

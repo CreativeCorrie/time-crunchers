@@ -36,7 +36,7 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 				integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
 				crossorigin="anonymous"/>
 
-		<!-- LOAD OUR CUSTOM STYLESHEET HERE!!! -->
+		<!-- Time Crunchers custom style sheet -->
 		<link href="css/style1.css" type="text/css" rel="stylesheet"/>
 
 		<!--Font Awesome CSS-->

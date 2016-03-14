@@ -17,11 +17,11 @@ require_once("php/partials/head-utils.php");
 
 			<main class="p-y-4">
 				<div class="container">
+
 					<!-- main content and injected views -->
-
 					<div ng-view></div>
-
 					<!-- /main content -->
+
 				</div>
 			</main>
 		</div>  <!-- /mainView -->
