@@ -1,7 +1,6 @@
 app.controller('RequestController', function($scope) {
-
 	$scope.alerts = [];
-	$scope.requestData = [];
+	$scope.requestData = {};
 	$scope.editedRequest = {};
 
 	/**

@@ -1,8 +1,8 @@
 app.controller('ScheduleController', function($scope) {
 
 	$scope.alerts = [];
-	$scope.scheduleData = [];
-	$scope.editedSchedule = {};
+	$scope.scheduleData = {};
+
 
 	/**
 	 * START METHOD(S): FETCH/GET

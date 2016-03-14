@@ -1,7 +1,6 @@
 app.controller('AccessController', function($scope) {
 	$scope.alerts = [];
-	$scope.accessData = [];
-	$scope.editedAccess = [];
+	$scope.accessData = {};
 
 	$scope.getAccessById = function() {
 		accessService.fetchAccessById(accessId)
