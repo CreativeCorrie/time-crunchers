@@ -25,6 +25,12 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/templates/adminSignUpForm.php'
 		})
 
+		// route for the login page
+		.when('/login/', {
+			controller  : 'LoginController',
+			templateUrl : 'angularjs/templates/modalLoginForm.php'
+		})
+
 		// route for the admin view request page
 		.when('/adminRequestView/', {
 			controller  : 'RequestController',

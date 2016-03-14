@@ -1,4 +1,4 @@
-app.controller("LoginController", ["$scope", "loginService", function($scope, loginService) {
+app.controller("LoginController", ["$scope", "$window", "loginService", function($scope, $window, loginService) {
 	$scope.alerts = [];
 	$scope.loginData = {};
 
@@ -14,7 +14,9 @@ app.controller("LoginController", ["$scope", "loginService", function($scope, lo
 			loginService.create(loginData)
 				.then(function(result) {
 					if(result.data.status === 200) {
+						console.log ("we got here");
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
+						$window.location.href = '/';
 					} else {
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
