@@ -1,4 +1,4 @@
-app.controller('crewController', function($scope) {
+app.controller('CrewController', function($scope) {
 	$scope.alerts = [];
 	$scope.crewData = [];
 	$scope.editedCrew = {};

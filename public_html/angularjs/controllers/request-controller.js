@@ -1,4 +1,4 @@
-app.controller('requestController', function($scope) {
+app.controller('RequestController', function($scope) {
 
 	$scope.alerts = [];
 	$scope.requestData = [];

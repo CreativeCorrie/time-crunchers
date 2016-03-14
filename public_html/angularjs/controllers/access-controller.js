@@ -1,4 +1,4 @@
-app.controller('accessController', function($scope) {
+app.controller('AccessController', function($scope) {
 	$scope.alerts = [];
 	$scope.accessData = [];
 	$scope.editedAccess = [];

@@ -1,3 +1,3 @@
-app.controller('aboutController', function($scope) {
+app.controller('AboutController', function($scope) {
 
 });

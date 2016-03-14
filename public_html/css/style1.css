@@ -70,6 +70,20 @@ span.setPass{
 	color: #FF0004;
 }
 
+/*Styles for add schedule form */
+.full button span {
+	background-color: limegreen;
+	border-radius: 32px;
+	color: black;
+}
+
+.partially button span {
+	background-color: orange;
+	border-radius: 32px;
+	color: black;
+}
+/*styles for add schedule form */
+
 /***
 * Flexbox Sticky Footer
 * http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/

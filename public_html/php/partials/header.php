@@ -40,9 +40,9 @@
 								Add <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" uib-dropdown-menu>
-								<li ng-repeat="page in pages"><a href="{{ page."public_html/angularjs/templates/userSignUpForm.php"}}">{{ page."Add Member"}}</a></li>
-								<li ng-repeat="page in pages"><a href="{{ page.public_html/angularjs/templates/buildCrewForm }}">{{ page.Add Crew }}</a></li>
-								<li ng-repeat="page in pages"><a href="{{ page.href }}">{{ page.name }}</a></li>
+								<li ng-repeat="page in pages"><a href="/public_html/angularjs/templates/userSignUpForm.php">Add Member </a></li>
+								<li ng-repeat="page in pages"><a href="/public_html/angularjs/templates/buildCrewForm.php">Add Crew </a></li>
+								<li ng-repeat="page in pages"><a href="/public_html/angularjs/templates/addScheduleForm.php">Add Schedule</a></li>
 							</ul>
 						</li>
 

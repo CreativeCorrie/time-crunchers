@@ -1,4 +1,4 @@
-app.controller('userController', function($scope) {
+app.controller('UserController', function($scope) {
 	$scope.alerts = [];
 	$scope.userData = [];
 	$scope.editedUser = [];

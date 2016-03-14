@@ -1,4 +1,4 @@
-app.controller('scheduleController', function($scope) {
+app.controller('ScheduleController', function($scope) {
 
 	$scope.alerts = [];
 	$scope.scheduleData = [];

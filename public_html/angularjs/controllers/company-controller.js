@@ -1,3 +1,3 @@
-app.controller('companyController', function($scope) {
+app.controller('CompanyController', function($scope) {
 
 });

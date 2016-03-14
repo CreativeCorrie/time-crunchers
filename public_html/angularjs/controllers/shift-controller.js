@@ -1,3 +1,3 @@
-app.controller('shiftController', function($scope) {
+app.controller('ShiftController', function($scope) {
 
 });
