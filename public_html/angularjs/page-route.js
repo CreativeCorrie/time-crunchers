@@ -19,26 +19,56 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/pages/setPassForm.php'
 		})
 
+		//route page for calendarView page
+		.when('/calendar', {
+			controller  : 'CalendarViewController',//TODO: NO CONTROLLER
+			templateUrl : 'angularjs/pages/calendarView.php'
+		})
+
+		//route page to setPassForm page
+		.when('/setPass', {
+			controller  : 'ActivationController',	//TODO: NO CONTROLLER
+			templateUrl : 'angularjs/pages/setPassForm.php'
+		})
+
+		//route page to adminOnlyView page
+		.when('/adminView', {
+			controller  : 'AdminViewController',//TODO: NO CONTROLLER
+			templateUrl : 'angularjs/templates/adminOnlyView.php'
+		})
+
+		//route page to buildCrewForm page
+		.when('/buildCrew', {
+			controller  : 'AdminViewController',//TODO: NO CONTROLLER
+			templateUrl : 'angularjs/templates/buildCrewForm.php'
+		})
+
 		// route for the sign up page
-		.when('/sign-up/', {
-			controller  : 'SignupController',
+		.when('/sign-up', {
+			controller  : 'SignUpController',
 			templateUrl : 'angularjs/templates/adminSignUpForm.php'
 		})
 
 		// route for the login page
-		.when('/login/', {
+		.when('/login', {
+			controller  : 'LoginController',
+			templateUrl : 'angularjs/templates/modalLoginForm.php'
+		})
+
+		// route for the login page
+		.when('/login', {
 			controller  : 'LoginController',
 			templateUrl : 'angularjs/templates/modalLoginForm.php'
 		})
 
 		// route for the admin view request page
-		.when('/adminRequestView/', {
+		.when('/adminRequestView', {
 			controller  : 'RequestController',
 			templateUrl : 'angularjs/templates/adminRequestView.php'
 		})
 
 		// route for the add schedule form
-		.when('/addScheduleForm/', {
+		.when('/addScheduleForm', {
 			controller  : 'ScheduleController',
 			templateUrl : 'angularjs/templates/addScheduleForm.php'
 		})
