@@ -44,9 +44,9 @@
 									<input type="email" class="form-control" id="loginEmail" name="loginEmail"
 											 placeholder="enter email address" ng-model="loginData.userEmail" ng-minlength="6" ng-maxlength="64" ng-required="true"/>
 									<div class="alert alert-danger" role="alert" ng-messages="modalLoginForm.loginEmail.$error" ng-if="modalLoginForm.loginEmail.$touched" ng-hide="modalLoginForm.loginEmail.$valid">
-										<p ng-message="minlength">Name is too short.</p>
-										<p ng-message="maxlength">Name is too long.</p>
-										<p ng-message="required">Please enter your name.</p>
+										<p ng-message="minlength">Email is too short.</p>
+										<p ng-message="maxlength">Email is too long.</p>
+										<p ng-message="required">Please enter your email.</p>
 									</div>
 								</div>
 							</div>
@@ -58,9 +58,8 @@
 									<input type="password" class="form-control" id="userPassword" name="userPassword"
 											 placeholder="enter password" ng-model="loginData.userPassword" ng-minlength="8" ng-required="true"/>
 									<div class="alert alert-danger" role="alert" ng-messages="modalLoginForm.userPassword.$error" ng-if="modalLoginForm.userPassword.$touched" ng-hide="modalLoginForm.userPassword.$valid">
-										<p ng-message="minlength">Name is too short.</p>
-										<p ng-message="maxlength">Name is too long.</p>
-										<p ng-message="required">Please enter your name.</p>
+										<p ng-message="minlength">Password is too short.</p>
+										<p ng-message="required">Please enter your password.</p>
 									</div>
 								</div>
 							</div>
