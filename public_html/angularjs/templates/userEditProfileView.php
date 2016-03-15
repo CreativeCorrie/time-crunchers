@@ -6,11 +6,11 @@
 	<h2>Edit Your Profile</h2>
 
 	<p class="text-danger">You can change your Email & Phone Number.  If you need to change your first or last name please contact an admin.</p>
-	<form name="userEditProfileView" ng-submit="????sendActivation(signupData????, userEditProfileView.$valid);">
+	<form name="userEditProfileView" ng-submit="updateUser(userData, userEditProfileView.$valid);">
 		<fieldset class="form-group">
 			<label for="userPhoneInput">Phone Number</label>
 			<input type="text" class="form-control" name="userPhone" id="userPhone"
-					 placeholder="505-555-1212" ng-model="???signupData???.userPhone"
+					 placeholder="505-555-1212" ng-model="userData.userPhone"
 					 ng-minlength="12" ng-maxlength="128" ng-required="false"/>
 			<div class="alert alert-danger" role="alert" ng-messages="userEditProfileView.userPhone.$error"
 				  ng-if="userEditProfileView.userPhone.$touched" ng-hide="userEditProfileView.userPhone.$valid">
@@ -26,7 +26,7 @@
 		<fieldset class="form-group">
 			<label for="userEmailInput">Employee Email Address</label>
 			<input type="text" class="form-control" name="userEmail" id="userEmail"
-					 placeholder="talia@luna.com" ng-model="???signupData???.userEmail"
+					 placeholder="talia@luna.com" ng-model="userData.userEmail"
 					 ng-minlength="12" ng-maxlength="128" ng-required="false"/>
 			<div class="alert alert-danger" role="alert" ng-messages="userEditProfileView.userEmail.$error"
 				  ng-if="userEditProfileView.userEmail.$touched" ng-hide="userEditProfileView.userEmail.$valid">
