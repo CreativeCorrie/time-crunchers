@@ -33,7 +33,7 @@
 		<p>Great! When you submit this form this user will receive an email from "Time Crunch" with an activation link to
 			reset their password.</p>
 		<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
-		<button class="btn btn-warning" type="reset"><i class="fa fa-ban"></i>Reset Form</button>
+		<button class="btn btn-info" type="reset"><i class="fa fa-ban"></i>Reset Form</button>
 
 		<!--is user admin? code from http://www.bootply.com/0WvI1g4DEq-->
 		<h3>Will this user be an administrator?</h3>
@@ -49,5 +49,9 @@
 		</div>
 	</form>
 	<br>
-	<a href="calendarView/">Return to Schedule View</a>
+	<div class="col-md-6">
+		<div class="button-container">
+			<a href="calendarView/" class="btn btn-warning">Return to Schedule View</a>
+		</div>
+	</div>
 </div>

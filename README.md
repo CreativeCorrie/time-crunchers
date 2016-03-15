@@ -36,7 +36,7 @@ things to fix
     </li>
     <li>Need Add Schedule Controller</li>
     <li>Need to Sort out Add Schedule Form</li>
-    <li>stuff</li>
+    <li>Need a way for Existing User to get Activation Token to Reset Password</li>
     <li>stuff</li>
     <li>stuff</li>
     <li>stuff</li>

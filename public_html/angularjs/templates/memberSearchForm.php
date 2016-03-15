@@ -13,17 +13,16 @@
 			<input type="text" class="form-control" id="userLastName" placeholder="Dobbs">
 		</fieldset>
 
-<h3><em>Or</em></h3>
+		<h3><em>Or</em></h3>
 		<fieldset class="form-group">  <!-- get user by email address -->
 			<label for="userEmailInput">Member Email Address</label>
 			<input type="text" class="form-control" id="userLastName" placeholder="bob@cosg.com">
 		</fieldset>
 
 
-
 		<!-- Submit Form or Reset Form -->
 		<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
-		<button class="btn btn-warning" type="reset"><i class="fa fa-ban"></i>Reset Form</button>
+		<button class="btn btn-info" type="reset"><i class="fa fa-ban"></i>Reset Form</button>
 	</form>
 	<br>
 
@@ -31,5 +30,9 @@
 
 
 	<br>
-	<a href="calendarView/">Return to Schedule View</a>
+	<div class="col-md-6">
+		<div class="button-container">
+			<a href="calendarView/" class="btn btn-warning">Return to Schedule View</a>
+		</div>
+	</div>
 </div>
