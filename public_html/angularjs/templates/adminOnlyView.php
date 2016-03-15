@@ -64,7 +64,14 @@ c - employee invites this user has sent (get an array of employees)
 		</div> <!-- /of all the things (oh noes!) -->
 
 		<br>
-		<a href="../pages/calendarView.php">Return to Schedule View</a>
+		<a href="calendarView/">Return to Schedule View</a>
+		<h4>Sign Up Your Company/Group for Time Crunch</h4>
+		<br>
+		<div class="col-md-6">
+			<div class="button-container">
+				<a href="adminSignUpForm/" class="btn btn-lg btn-success">Sign Up</a>
+			</div>
+		</div>
 	</div> <!-- /row -->
 </div> <!-- /container-->
 

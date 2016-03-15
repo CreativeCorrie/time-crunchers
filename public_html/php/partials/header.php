@@ -4,10 +4,9 @@
 	<div id="topButtons" class="pull-right button-container">
 		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-lg">Make Request</button> <!--TODO: put the modal here -->
 		&nbsp;
-		<a href="public_html/angularjs/templates/adminOnlyView.php" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
+		<a href="adminView/" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
 		&nbsp;
-		<a href="public_html/angularjs/pages/landingPage.php" class="btn btn-danger">Logout</a>
-		<!-- TODO:this should end the session and return you to the landing page -->
+		<a href="" class="btn btn-danger">Logout</a>
 	</div>
 
 	<div class="container-fluid" id="mainHeader">
@@ -41,11 +40,11 @@
 							Add <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" uib-dropdown-menu>
-							<li><a href="public_html/angularjs/templates/userSignUpForm.php">
+							<li><a href="userSignUpForm/">
 									Add Member </a></li>
-							<li><a href="public_html/angularjs/templates/buildCrewForm.php">
+							<li><a href="buildCrewForm/">
 									Add Crew </a></li>
-							<li><a href="public_html/angularjs/templates/addScheduleForm.php">
+							<li><a href="addScheduleForm/">
 									Add Schedule</a></li>
 						</ul>
 					</li>
@@ -57,19 +56,19 @@
 							Edit <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" uib-dropdown-menu>
-							<li><a href="public_html/angularjs/templates/userSignUpForm.php">
+							<li><a href="userSignUpForm">
 									Edit Member </a></li>
-							<li><a href="public_html/angularjs/templates/buildCrewForm.php">
+							<li><a href="buildCrewForm/">
 									Edit Crew </a></li>
-							<li><a href="public_html/angularjs/templates/addScheduleForm.php">
+							<li><a href="addScheduleForm/">
 									Edit Schedule</a></li>
 						</ul>
 					</li>
-					<li><a href="public_html/angularjs/templates/userEditProfileView.php">
+					<li><a href="userEditProfileView/">
 							Profile
 						</a> <!-- this should bring in the user edit profile view-->
 					</li>
-					<li><a href="public_html/angularjs/templates/faqView.php">
+					<li><a href="faqView/">
 							FAQ
 						</a>
 					</li>

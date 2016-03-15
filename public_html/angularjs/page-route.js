@@ -48,7 +48,7 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/templates/faqView.php'
 		})
 
-		// route for the sign up page
+		// route for the request modal
 		.when('/request/', {
 			controller  : 'RequestController',
 			templateUrl : 'angularjs/templates/requestModal.php'

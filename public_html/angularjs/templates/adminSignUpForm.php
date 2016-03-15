@@ -82,7 +82,7 @@
 	<hr>
 	<h2>Ok, let's create <em>your</em> user profile</h2>
 	<p class="text-danger">
-		Somehow you will be their leader, you just need a cool name and admin access..
+		You shall be granted admin access.
 	</p>
 
 	<fieldset class="form-group">
