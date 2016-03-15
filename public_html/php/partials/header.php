@@ -4,8 +4,8 @@
 	<div id="topButtons" class="pull-right button-container">
 		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-lg">Make Request</button> <!--TODO: put the modal here -->
 		&nbsp;
-		<a href="adminView/" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
-		&nbsp;
+<!--		<a href="adminView/" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
+<!--		&nbsp; -->
 		<a href="" class="btn btn-danger">Logout</a>
 	</div>
 
@@ -38,36 +38,7 @@
 							Admin <!-- TODO:need to restrict this view to admin only -->
 						</a>
 					</li>
-<!--					<li class="dropdown" uib-dropdown>-->
-<!--						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
-<!--							aria-expanded="false" uib-dropdown-toggle>-->
-<!--							Add <span class="caret"></span>-->
-<!--						</a>-->
-<!--						<ul class="dropdown-menu" uib-dropdown-menu>-->
-<!--							<li><a href="userSignUpForm/">-->
-<!--									Add Member </a></li>-->
-<!--							<li><a href="buildCrewForm/">-->
-<!--									Add Crew </a></li>-->
-<!--							<li><a href="addScheduleForm/">-->
-<!--									Add Schedule</a></li>-->
-<!--						</ul>-->
-<!--					</li>-->
 
-					<!--Edit-->
-					<li class="dropdown" uib-dropdown>
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false" uib-dropdown-toggle>
-							Edit <span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" uib-dropdown-menu>
-							<li><a href="userSignUpForm/">
-									Edit Member </a></li>
-							<li><a href="buildCrewForm/">
-									Edit Crew </a></li>
-							<li><a href="addScheduleForm/">
-									Edit Schedule</a></li>
-						</ul>
-					</li>
 					<li><a href="userEditProfileView/">
 							Profile
 						</a> <!-- this should bring in the user edit profile view-->

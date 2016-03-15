@@ -32,7 +32,7 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 
 		//route page to adminOnlyView page
-		.when('/adminView/', {
+		.when('/adminOnlyView/', {
 			controller  : 'AdminViewController',//TODO: NO CONTROLLER
 			templateUrl : 'angularjs/templates/adminOnlyView.php'
 		})
@@ -77,6 +77,14 @@ app.config(function($routeProvider, $locationProvider) {
 			controller  : 'ScheduleController',
 			templateUrl : 'angularjs/templates/addScheduleForm.php'
 		})
+
+		// route for the add schedule form
+		.when('/userEditProfileView/', {
+			controller  : 'UserController',
+			templateUrl : 'angularjs/templates/userEditProfileView.php'
+		})
+
+
 
 		.otherwise({
 			redirectTo: "/"
