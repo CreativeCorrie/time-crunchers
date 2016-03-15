@@ -99,7 +99,7 @@ app.config(function($routeProvider, $locationProvider) {
 		// route for the user sign up form
 		.when('/Request/', {
 			controller  : 'RequestController',
-			templateUrl : 'angularjs/templates/madalrequestform.php'
+			templateUrl : 'angularjs/templates/requestModal.php'
 		})
 
 		.otherwise({

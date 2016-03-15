@@ -2,11 +2,12 @@
 	<bootstrap-breakpoint></bootstrap-breakpoint>
 
 	<div id="topButtons" class="pull-right button-container">
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">Make Request</button> <!--TODO: put the modal here -->
+		<button type="button" class="btn btn-info" ng-click="openRequest();"">Make Request</button>
+		<!--TODO: put the modal here -->
 		&nbsp;
-		<a href="calendarView/" class="btn btn-warning">Schedule</a> <!-- this should bring in the calendar view-->
-		&nbsp;
-		<a href="landingPage/" class="btn btn-danger">Logout</a>
+<!--		<a href="adminView/" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
+<!--		&nbsp; -->
+		<a href="" class="btn btn-danger">Logout</a>
 	</div>
 
 	<div class="container-fluid" id="mainHeader">
