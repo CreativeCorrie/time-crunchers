@@ -21,7 +21,15 @@ things to fix
         <ul>
         <li>Profile link on index UserEditProfileView</li>
         <li>FaqView</li>
-        </ul>Logout</li>
+        <li>Logout</li>
+        <li>Make the Login modal bigger</li>
+        <li>Inject userId into MemberSearch Form</li>
+        <li>Restrict Crew & Schedule Edits to Admin</li>
+        <li>stuff</li>
+        <li>stuff</li>
+        <li>stuff</li>
+        <li>stuff</li>
+        </ul>
   
-    <li>stuff</li>
+    <li>Added new userEditProfileView, needs controllers</li>
 </ol>

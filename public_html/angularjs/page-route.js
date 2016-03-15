@@ -84,7 +84,11 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/templates/userEditProfileView.php'
 		})
 
-
+		// route for the add schedule form
+		.when('/memberSearchForm/', {
+			controller  : 'UserController',
+			templateUrl : 'angularjs/templates/memberSearchForm.php'
+		})
 
 		.otherwise({
 			redirectTo: "/"

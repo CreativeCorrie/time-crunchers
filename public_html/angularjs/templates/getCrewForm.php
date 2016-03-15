@@ -1,9 +1,9 @@
-<!-- Edit Profile
-	0) get the user by first & last name or email
-	1) restrict edits to email and phone number for non admin
+<!-- Get Crew Form
+	0) get the crew by crew Location
+	1) restrict edits to admin only
 	2) submit to user class and redirect back to main (calendar) -->
 <div>
-	<h2>Edit Your Profile</h2>
+	<h2>Manage your Crews</h2>
 
 	<p class="text-danger">You can change your Email & Phone Number.  If you need to change your first or last name please contact an admin.</p>
 	<form name="userEditProfileView">
