@@ -29,13 +29,13 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="button-container">
-				<a href="adminView/" class="btn btn-info">Return to Admin View</a>
+				<a href="adminOnlyView/" class="btn btn-info">Return to Admin View</a>
 			</div>
 		</div>
 	&nbsp;
 		<div class="col-md-6">
 			<div class="button-container">
-				<a href="calendarView/" class="btn btn-warning">Return to Schedule View</a>
+				<a href="calendarView.php" class="btn btn-warning">Return to Schedule View</a>
 			</div>
 		</div>
 	</div> <!-- /row -->
