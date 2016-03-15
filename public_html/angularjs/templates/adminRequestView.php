@@ -29,15 +29,17 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="button-container">
-				<a href="adminOnlyView/" class="btn btn-info">Return to Admin View</a>
-			</div>
-		</div>
-	&nbsp;
-		<div class="col-md-6">
-			<div class="button-container">
-				<a href="calendarView.php" class="btn btn-warning">Return to Schedule View</a>
+				<a href="adminOnlyView/" class="btn btn-primary">Return to Admin</a>
 			</div>
 		</div>
 	</div> <!-- /row -->
+
+	<br> <!-- TODO: Need this to trigger an email response to the requestor -->
+	<div class="row">
+		<div class="col-md-6">
+			<p>Great! When you submit this form the requesting Member will receive an email from "Time Crunch" notifying them of your decision.</p>
+			<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i>Submit</button>
+			<button class="btn btn-info" type="reset"><i class="fa fa-ban"></i>Reset Form</button>
+		</div>
 
 
