@@ -22,10 +22,9 @@ c - employee invites this user has sent (get an array of employees)
 		<div class="col-md-6">
 			<h3>Manage Members</h3>
 			<ul class="">
-				<li><a href="userSignUpForm/">Create and Invite a New Member</a></li> <!--need angular to load userSignUpForm-->
-				<li><a href="">Find a Member</a></li> <!--TODO: can we make this a wildcard search ?-->
-				<li><a href="#">Get Member by Email Address</a></li>
-				<li><a href="#">Get Crew by Location</a></li>
+				<li><a href="userSignUpForm/">Create and Invite New Member</a></li> <!--need angular to load userSignUpForm-->
+				<li><a href="memberSearchForm/">Find/Edit Member</a></li> <!--TODO: can we make this a wildcard search ?-->
+<!--				<li><a href="#"></a></li>-->
 			</ul>
 		</div> <!-- /of users' -->
 
@@ -36,7 +35,7 @@ c - employee invites this user has sent (get an array of employees)
 			<ul class="">
 				<li><a href="#">Create a Schedule</a></li>  <!-- ??-->
 				<ul>
-					<li><a href="#">Create Shifts for the Schedule</a></li> <!-- ??-->
+					<li><a href="addScheduleForm/">Create Shifts for the Schedule</a></li> <!-- ??-->
 				</ul>
 				<li><a href="#">Assign Members to Shifts</a></li> <!--?? -->
 			</ul>

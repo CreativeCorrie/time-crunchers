@@ -23,10 +23,20 @@ things to fix
         <li>FaqView</li>
         <li>Logout</li>
         </ul>
+    </li>
     <li>Make the Login modal bigger</li>
     <li>Inject userId into MemberSearch Form</li>
     <li>Restrict Crew & Schedule Edits to Admin</li>
     <li>On login redirect to calendarView/</li>
+    <li>Need to be able to get & display user, be able to edit
+        <ul>
+            <li>For User</li>
+            <li>For Admin</li>
+        <ul>
+    </li>
+    <li>Need Add Schedule Controller</li>
+    <li>Need to Sort out Add Schedule Form</li>
+    <li>stuff</li>
     <li>stuff</li>
     <li>stuff</li>
     <li>stuff</li>
