@@ -2,7 +2,7 @@
 	<bootstrap-breakpoint></bootstrap-breakpoint>
 
 	<div id="topButtons" class="pull-right button-container">
-		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-lg">Make Request</button> <!--TODO: put the modal here -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">Make Request</button> <!--TODO: put the modal here -->
 		&nbsp;
 		<a href="calendarView/" class="btn btn-warning">Schedule</a> <!-- this should bring in the calendar view-->
 		&nbsp;

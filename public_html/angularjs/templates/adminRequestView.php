@@ -2,6 +2,7 @@
 	<div class="col-md-6">
 		<h2>Requests</h2>
 		<div id="reqView">
+			<h4>There Should be Requests Here</h4>
 			<!-- TODO:plug in an array of requests here-->
 		</div>
 
@@ -29,7 +30,7 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="button-container">
-				<a href="adminOnlyView/" class="btn btn-primary">Return to Admin</a>
+				<a href="adminOnlyView/" class="btn btn-warning">Return to Admin</a>
 			</div>
 		</div>
 	</div> <!-- /row -->
