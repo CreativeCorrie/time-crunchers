@@ -26,7 +26,7 @@ things to fix
     <li>Make the Login modal bigger</li>
     <li>Inject userId into MemberSearch Form</li>
     <li>Restrict Crew & Schedule Edits to Admin</li>
-    <li>stuff</li>
+    <li>On login redirect to calendarView/</li>
     <li>stuff</li>
     <li>stuff</li>
     <li>stuff</li>

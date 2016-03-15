@@ -56,7 +56,7 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<a href="public_html/angularjs/pages/setPassForm.php">Forgot Password?</a>
+		<a href="setPassForm/">Forgot Password?</a>
 	</div>
 
 

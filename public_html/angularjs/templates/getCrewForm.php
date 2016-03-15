@@ -5,10 +5,10 @@
 <div>
 	<h2>Manage your Crews</h2>
 
-	<p class="text-danger">You can change your Email & Phone Number.  If you need to change your first or last name please contact an admin.</p>
-	<form name="userEditProfileView">
+	<p class="text-danger">Create New Crew</p>
+	<form name="getCrewForm">
 		<fieldset class="form-group">
-			<label for="userPhoneInput">Phone Number</label>
+			<label for="getCrewFormInput">Phone Number</label>
 			<input type="text" class="form-control" id="userPhone" placeholder="505-555-1212">
 			<small class="text-muted">
 				This field is optional.
