@@ -1,6 +1,6 @@
-<form class="form-inline" id="modalRequestForm" name="modalRequestForm" ng-submit="createRequest(requestData, modalRequestForm.$valid);" novalidate>
+<form class="form-group" id="modalRequestForm" name="modalRequestForm" ng-submit="createRequest(requestData, modalRequestForm.$valid);" novalidate>
 	<div class="form-group">
-		<label for="modalRequestForm">Reason for request</label>
+		<label for="modalRequestForm">Reason for Request</label>
 		<div class="input-group">
 			<input type="text" class="form-control" id="userRequest" name="userRequest" ng-model="requestData.requestRequestorText"
 					 placeholder="Make your Request"
@@ -9,4 +9,6 @@
 			<p ng-message="required">Please leave a brief message to explain your request.</p>
 		</div>
 	</div>
+	<button type="submit" class="btn btn-info" ng-disabled="signinForm.$invalid">submit</button>
+	<button type="reset" class="btn btn-warning" ng-click="cancel();">Clear</button>
 </form>
