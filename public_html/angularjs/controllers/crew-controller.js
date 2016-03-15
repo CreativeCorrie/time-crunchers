@@ -1,4 +1,4 @@
-app.controller('CrewController', ["$scope", "crewService", function($scope, crewService) {
+app.controller('CrewController', ["$scope", "$window", "$uibModal", "crewService", function($scope, $window, $uibModal, crewService) {
 	$scope.alerts = [];
 	$scope.crewData = {};
 

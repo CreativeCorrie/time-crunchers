@@ -1,7 +1,6 @@
-app.controller('CompanyController', function($scope) {
-
+app.controller('CompanyController', ["$scope", "$window", "$uibModal", "companyService", function($scope, $window, $uibModal, companyService) {
 	$scope.alerts = [];
-	$scope.companyData = [];
+	$scope.companyData = {};
 	$scope.editedCompany = {};
 
 	/**
@@ -9,65 +8,33 @@ app.controller('CompanyController', function($scope) {
 	 *
 	 */
 
-	$scope.getScheduleById = function() {
-		scheduleService.fetchScheduleById(scheduleId)
+	$scope.getCompanyById = function() {
+		companyService.fetchCompanyById(companyId)
 			.then(function(result) {
 				if(result.data.status === 200) {
-					$scope.scheduleData = result.data.data;
+					$scope.companyData = result.data.data;
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
 			})
 	};
-
-	$scope.getScheduleByScheduleId = function() {
-		scheduleService.fetchScheduleByScheduleId(scheduleScheduleId)
-			.then(function(result) {
-				if(result.data.status === 200) {
-					$scope.scheduleData = result.data.data;
-				} else {
-					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-				}
-			})
-	};
-
-	$scope.getAllSchedules = function() {
-		scheduleService.fetchAllSchedules()
-			.then(function(result) {
-				if(result.data.status === 200) {
-					$scope.scheduleData = result.data.data;
-				} else {
-					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-				}
-			})
-	};
-
-	// subscript to the update channel; this will update the schedules array on demand
-	Pusher.subscribe("schedule", "update", function(schedule) {
-		for(var i = 0; i < $scope.schedules.length; i++) {
-			if($scope.schedules[i].scheduleId === schedule.scheduleId) {
-				$scope.schedules[i] = schedule;
-				break;
-			}
-		}
-	});
 
 
 	/**
-	 * creates a schedule and sends it to the schedule API
+	 * creates a company and sends it to the company API
 	 *
-	 * @param schedule the schedule to send
+	 * @param company the company to send
 	 * @param validated true if Angular validated the form, false if not
 	 **/
-	$scope.createSchedule = function(schedule, validated) {
+	$scope.createCompany = function(company, validated) {
 		if(validated === true) {
-			ScheduleService.create(schedule)
+			CompanyService.create(company)
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
-						$scope.newSchedule = {scheduleId: null, attribution: "", schedule: "", submitter: ""};
-						$scope.addScheduleForm.$setPristine();
-						$scope.addScheduleForm.$setUntouched();
+						$scope.newCompany = {companyId: null, attribution: "", company: "", submitter: ""};
+						$scope.addCompanyForm.$setPristine();
+						$scope.addCompanyForm.$setUntouched();
 					} else {
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
@@ -75,35 +42,7 @@ app.controller('CompanyController', function($scope) {
 		}
 	};
 
-	// subscribe to the delete channel; this will delete from the schedule array on demand
-	Pusher.subscribe("schedule", "delete", function(schedule) {
-		for(var i = 0; i < $scope.schedules.length; i++) {
-			if($scope.schedules[i].scheduleId === schedule.scheduleId) {
-				$scope.schedules.splice(i, 1);
-				break;
-			}
-		}
-	});
-
-	// embedded modal instance controller to create deletion prompt
-	var ModalInstanceCtrl = function($scope, $uibModalInstance) {
-		$scope.yes = function() {
-			$uibModalInstance.close();
-		};
-
-		$scope.no = function() {
-			$uibModalInstance.dismiss('cancel');
-		};
-	};
 
 
 
-
-
-
-
-
-
-
-
-});
+}]);

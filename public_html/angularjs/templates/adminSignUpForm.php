@@ -1,15 +1,15 @@
 <!-- Company Sign Up-->
 <h2>First, sign up your Company or Group</h2>
 
-<form name="adminSignUpForm" ng-submit="sendActivation();">
+<form name="adminSignUpForm" ng-submit="sendActivation(activationData.$valid);">
 	<fieldset class="form-group">
 		<label for="companyNameInput">Company Name</label>
-		<input type="text" class="form-control" id="companyName" placeholder="Findley's Tacos" ng-model="signupData.companyName">
+		<input type="text" class="form-control" name="companyName" id="companyName" placeholder="Findley's Tacos" ng-model="signupData.companyName">
 	</fieldset>
 
 	<fieldset class="form-group">
 		<label for="companyAttnInput">Attention Line</label>
-		<input type="text" class="form-control" id="companyAttn" placeholder="Tacos Findley, CEO">
+		<input type="text" class="form-control" name="companyAttn" id="companyAttn" placeholder="Tacos Findley, CEO" ng-model="signupData.companyAttn">
 		<small class="text-muted">
 			This field is optional.
 		</small>
@@ -17,12 +17,12 @@
 
 	<fieldset class="form-group">
 		<label for="companyAddress1Input">Company Address 1</label>
-		<input type="text" class="form-control" id="companyAddress1" placeholder="1600 Pennsylvania Ave NW">
+		<input type="text" class="form-control" name="companyAddress1" id="companyAddress1" placeholder="1600 Pennsylvania Ave NW" ng-model="signupData.companyAddress1">
 	</fieldset>
 
 	<fieldset class="form-group">
 		<label for="companyAddress2Input">Company Address 2</label>
-		<input type="text" class="form-control" id="companyAddress2" placeholder="Section 31">
+		<input type="text" class="form-control" name="companyAddress2" id="companyAddress2" placeholder="Section 31" ng-model="signupData.companyAddress2">
 		<small class="text-muted">
 			This field is optional.
 		</small>
@@ -30,22 +30,22 @@
 
 	<fieldset class="form-group">
 		<label for="companyCityInput">City</label>
-		<input type="text" class="form-control" id="companyCity" placeholder="Albuquerque">
+		<input type="text" class="form-control" name="companyCity" id="companyCity" placeholder="Albuquerque" ng-model="signupData.companyCity">
 	</fieldset>
 
 	<fieldset class="form-group">
 		<label for="companyStateInput">State abbreviation</label>
-		<input type="text" class="form-control" id="companyState" placeholder="NM">
+		<input type="text" class="form-control" name="companyState" id="companyState" placeholder="NM" ng-model="signupData.companyState">
 	</fieldset>
 
 	<fieldset class="form-group">
 		<label for="companyZipInput">Zip Code</label>
-		<input type="text" class="form-control" id="companyZip" placeholder="87102">
+		<input type="text" class="form-control" name="companyZip" id="companyZip" placeholder="87102" ng-model="signupData.companyZip">
 	</fieldset>
 
 	<fieldset class="form-group">
 		<label for="companyUrlInput">Company URL</label>
-		<input type="text" class="form-control" id="companyUrl" placeholder="www.example.com">
+		<input type="text" class="form-control" name="companyUrl" id="companyUrl" placeholder="www.example.com" ng-model="signupData.companyUrl">
 		<small class="text-muted">
 			This field is optional.
 		</small>
@@ -53,7 +53,7 @@
 
 	<fieldset class="form-group">
 		<label for="companyEmailInput">Company Email address</label>
-		<input type="text" class="form-control" id="companyEmail" placeholder="tacosFindley@wat.com">
+		<input type="text" class="form-control" name="companyEmail" id="companyEmail" placeholder="tacosFindley@wat.com" ng-model="signupData.companyEmail">
 	</fieldset>
 
 
@@ -87,17 +87,17 @@
 
 	<fieldset class="form-group">
 		<label for="userFirstNameInput">Manager First Name</label>
-		<input type="text" class="form-control" id="userFirstName" placeholder="Suzy">
+		<input type="text" class="form-control" name="userFirstName" id="userFirstName" placeholder="Suzy" ng-model="signupData.userFirstName">
 	</fieldset>
 
 	<fieldset class="form-group">
 		<label for="userLastNameInput">Manager Last Name</label>
-		<input type="text" class="form-control" id="userLastName" placeholder="Hughes">
+		<input type="text" class="form-control" name="userLastName" id="userLastName" placeholder="Hughes" ng-model="signupData.userLastName">
 	</fieldset>
 
 	<fieldset class="form-group">
 		<label for="userPhoneInput">Manager Phone Number</label>
-		<input type="text" class="form-control" id="userPhone" placeholder="505-555-1212">
+		<input type="text" class="form-control" name="userPhone" id="userPhone" placeholder="505-555-1212" ng-model="signupData.userPhone">
 		<small class="text-muted">
 			This field is optional.
 		</small>
@@ -105,7 +105,7 @@
 
 	<fieldset class="form-group">
 		<label for="userEmailInput">Manager Email Address</label>
-		<input type="text" class="form-control" id="userEmail" placeholder="suzyHughes@tacos.com">
+		<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="suzyHughes@tacos.com" ng-model="signupData.userEmail">
 		<p class="text-danger">This is the email address your activation code will be sent to.</p>
 	</fieldset>
 	<br>

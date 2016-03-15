@@ -1,6 +1,6 @@
-app.controller('Shift                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Controller', function($scope) {
+app.controller('ScheduleController', ["$scope", "$window", "$uibModal", "scheduleService", function($scope, $window, $uibModal, scheduleServiceService) {
 	$scope.alerts = [];
-	$scope.shiftData = [];
+	$scope.crewData = {};
 
 
 	//TODO: get data from form
@@ -15,7 +15,7 @@ app.controller('Shift                                                           
 		shiftService.fetchShiftById(shiftId)
 			.then(function(result) {
 				if(result.data.status === 200) {
-					$scope.crewData = result.data.data;  //TODO: is data.data correct.
+					$scope.crewData = result.data.data;
 
 				} else {
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
@@ -34,15 +34,6 @@ app.controller('Shift                                                           
 			})
 	};
 
-	// subscript to the update channel; this will update the shifts array on demand
-	Pusher.subscribe("shift", "update", function(shift) {
-		for(var i = 0; i < $scope.shifts.length; i++) {
-			if($scope.shifts[i].shiftId === shift.shiftId) {
-				$scope.shifts[i] = shift;
-				break;
-			}
-		}
-	});
 
 
 	/**
@@ -67,16 +58,6 @@ app.controller('Shift                                                           
 		}
 	};
 
-	// subscribe to the delete channel; this will delete from the shift array on demand
-	Pusher.subscribe("shift", "delete", function(shift) {
-		for(var i = 0; i < $scope.shifts.length; i++) {
-			if($scope.shifts[i].shiftId === shift.shiftId) {
-				$scope.shifts.splice(i, 1);
-				break;
-			}
-		}
-	});
-
 	// embedded modal instance controller to create deletion prompt
 	var ModalInstanceCtrl = function($scope, $uibModalInstance) {
 		$scope.yes = function() {
@@ -87,4 +68,4 @@ app.controller('Shift                                                           
 			$uibModalInstance.dismiss('cancel');
 		};
 	};
-});
+}]);

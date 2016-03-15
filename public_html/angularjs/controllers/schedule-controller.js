@@ -1,5 +1,4 @@
-app.controller('ScheduleController', function($scope) {
-
+app.controller('ScheduleController', ["$scope", "$window", "$uibModal", "scheduleService", function($scope, $window, $uibModal, scheduleService) {
 	$scope.alerts = [];
 	$scope.scheduleData = {};
 
@@ -42,16 +41,6 @@ app.controller('ScheduleController', function($scope) {
 			})
 	};
 
-	// subscript to the update channel; this will update the schedules array on demand
-	Pusher.subscribe("schedule", "update", function(schedule) {
-		for(var i = 0; i < $scope.schedules.length; i++) {
-			if($scope.schedules[i].scheduleId === schedule.scheduleId) {
-				$scope.schedules[i] = schedule;
-				break;
-			}
-		}
-	});
-
 
 	/**
 	 * creates a schedule and sends it to the schedule API
@@ -75,16 +64,6 @@ app.controller('ScheduleController', function($scope) {
 		}
 	};
 
-	// subscribe to the delete channel; this will delete from the schedule array on demand
-	Pusher.subscribe("schedule", "delete", function(schedule) {
-		for(var i = 0; i < $scope.schedules.length; i++) {
-			if($scope.schedules[i].scheduleId === schedule.scheduleId) {
-				$scope.schedules.splice(i, 1);
-				break;
-			}
-		}
-	});
-
 	// embedded modal instance controller to create deletion prompt
 	var ModalInstanceCtrl = function($scope, $uibModalInstance) {
 		$scope.yes = function() {
@@ -106,4 +85,4 @@ app.controller('ScheduleController', function($scope) {
 
 
 
-});
+}]);
