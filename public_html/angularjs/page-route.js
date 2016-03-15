@@ -102,7 +102,6 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/templates/madalrequestform.php'
 		})
 
-
 		.otherwise({
 			redirectTo: "/"
 		});
