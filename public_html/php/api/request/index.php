@@ -60,13 +60,13 @@ try {
 
 	if($method === "PUT" || $method === "POST") {
 		verifyXsrf();
+		if($method === "POST") {
+			//create new request
+			$request = new Request(null, $_SESSION["user"]->getUserId(), null, new DateTime(), null, false, $requestObject->requestRequestorText, "");
+			$request->insert($pdo);
+			$reply->message = "Request submitted successfully";
+		}
 		if(Access::isAdminLoggedIn() === true) {
-			if($method === "POST") {
-				//create new request
-				$request = new Request(null, $_SESSION["user"]->getUserId(), null, new DateTime(), null, false, $requestObject->requestRequestorText, "");
-				$request->insert($pdo);
-				$reply->message = "Request submitted successfully";
-			}
 			if($method === "PUT") {
 				//make sure all fields are present, in order to prevent database issues
 				if(empty($requestObject->requestApprove) === true) {
