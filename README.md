@@ -37,7 +37,7 @@ things to fix
     <li>Need Add Schedule Controller</li>
     <li>Need to Sort out Add Schedule Form</li>
     <li>Need a way for Existing User to get Activation Token to Reset Password</li>
-    <li>stuff</li>
+    <li>Add (or get rid of) Links on AdminOnlyView</li>
     <li>stuff</li>
     <li>stuff</li>
 </ol>
