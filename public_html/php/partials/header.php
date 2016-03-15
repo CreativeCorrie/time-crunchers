@@ -3,7 +3,6 @@
 
 	<div id="topButtons" class="pull-right button-container">
 		<button type="button" class="btn btn-info" ng-click="openRequest();"">Make Request</button>
-		<!--TODO: put the modal here -->
 		&nbsp;
 <!--		<a href="adminView/" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
 <!--		&nbsp; -->
