@@ -43,8 +43,8 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/templates/buildCrewForm.php'
 		})
 		// route for the faqView page
-		.when('/faqView/', {
-			controller  : 'FaqController',//
+		.when('/faq/', {
+			controller  : 'faqController',//TODO: NO CONTROLLER
 			templateUrl : 'angularjs/templates/faqView.php'
 		})
 
@@ -96,11 +96,12 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/templates/userSignUpForm.php'
 		})
 
-		// route for the user set password form
-		.when('/setPassForm', {
-			controller  : 'UserController',
-			templateUrl : 'angularjs/templates/setPassForm.php'
+		// route for the user sign up form
+		.when('/Request/', {
+			controller  : 'RequestController',
+			templateUrl : 'angularjs/templates/madalrequestform.php'
 		})
+
 
 		.otherwise({
 			redirectTo: "/"
