@@ -3,20 +3,44 @@
 	<h2>Now you're ready to invite users to your Time Crunch Schedule</h2>
 
 	<p class="text-danger">Each user will be added to one of the crews you created previously.</p>
-	<form>
+	<form name="userSignUpForm" ng-submit="sendActivation(signupData, userSignUpForm.$valid);">
 		<fieldset class="form-group">
 			<label for="userFirstNameInput">First Name</label>
-			<input type="text" class="form-control" id="userFirstName" placeholder="Talia">
+			<input type="text" class="form-control" name="userFirstName" id="userFirstName"
+					 placeholder="Talia" ng-model="signupData.userFirstName"
+					 ng-minlength="2" ng-maxlength="128" ng-required="true"/>
+			<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userFirstName.$error"
+				  ng-if="userSignUpForm.userFirstName.$touched" ng-hide="userSignUpForm.userFirstName.$valid">
+				<p ng-message="minlength">Name is too short.</p>
+				<p ng-message="maxlength">Name is too long.</p>
+				<p ng-message="required">Please enter your name.</p>
+			</div>
 		</fieldset>
 
 		<fieldset class="form-group">
 			<label for="userLastNameInput">Last Name</label>
-			<input type="text" class="form-control" id="userLastName" placeholder="Smith">
+			<input type="text" class="form-control" name="userLastName" id="userLastName"
+					 placeholder="Smith" ng-model="signupData.userLastName"
+					 ng-minlength="2" ng-maxlength="128" ng-required="true"/>
+			<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userLastName.$error"
+				  ng-if="userSignUpForm.userLastName.$touched" ng-hide="userSignUpForm.userLastName.$valid">
+				<p ng-message="minlength">Name is too short.</p>
+				<p ng-message="maxlength">Name is too long.</p>
+				<p ng-message="required">Please enter your name.</p>
+			</div>
 		</fieldset>
 
 		<fieldset class="form-group">
 			<label for="userPhoneInput">Phone Number</label>
-			<input type="text" class="form-control" id="userPhone" placeholder="505-555-1212">
+			<input type="text" class="form-control" name="userPhone" id="userPhone"
+					 placeholder="505-555-1212" ng-model="signupData.userPhone"
+					 ng-minlength="2" ng-maxlength="128" ng-required="true"/>
+			<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userPhone.$error"
+				  ng-if="userSignUpForm.userPhone.$touched" ng-hide="userSignUpForm.userPhone.$valid">
+				<p ng-message="minlength">Phone number is too short.</p>
+				<p ng-message="maxlength">Phone number is too long.</p>
+				<p ng-message="required">Please enter your phone number.</p>
+			</div>
 			<small class="text-muted">
 				This field is optional.
 			</small>
@@ -24,7 +48,15 @@
 
 		<fieldset class="form-group">
 			<label for="userEmailInput">Employee Email Address</label>
-			<input type="text" class="form-control" id="userEmail" placeholder="talia@luna.com">
+			<input type="text" class="form-control" name="userEmail" id="userEmail"
+					 placeholder="talia@luna.com" ng-model="signupData.userEmail"
+					 ng-minlength="2" ng-maxlength="128" ng-required="true"/>
+			<div class="alert alert-danger" role="alert" ng-messages="userSignUpForm.userEmail.$error"
+				  ng-if="userSignUpForm.userEmail.$touched" ng-hide="userSignUpForm.userEmail.$valid">
+				<p ng-message="minlength">Email number is too short.</p>
+				<p ng-message="maxlength">Email number is too long.</p>
+				<p ng-message="required">Please enter your email address.</p>
+			</div>
 			<p class="text-danger">This is the email address the activation code will be sent to.</p>
 		</fieldset>
 
