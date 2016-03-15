@@ -9,3 +9,14 @@ Contributors are:
     <li>Derek Mauldin</li>
     <li>Elaine Thomas</li>
 </ul>
+
+
+<h3>things to fix<h3>
+<ol>
+    <li>Need a way to show member requests that expire after x days</li>
+    <li>Plug the requestActionTimeStamp into the form on adminRequestView</li>
+    <li>stuff</li>
+    <li>stuff</li>
+    <li>stuff</li>
+    <li>stuff</li>
+</ol>
