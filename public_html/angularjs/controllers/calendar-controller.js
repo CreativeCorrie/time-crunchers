@@ -5,11 +5,9 @@ app.controller('CalendarController', function($scope, moment, alert) {
 	this.calendarView = 'month';
 	this.viewDate = new Date();
 	this.events = [
-		//commented the following out bc we don't need default info'
+		//commented the following out bc we don't need this filler info
 		//{
-0
-+.0
-//	title: 'An event',
+		//	title: 'An event',
 		//	type: 'warning',
 		//	startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
 		//	endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
