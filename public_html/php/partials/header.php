@@ -6,7 +6,7 @@
 		&nbsp;
 		<a href="calendarView/" class="btn btn-warning">Schedule</a> <!-- this should bring in the admin view -->
 		&nbsp;
-		<a href="" class="btn btn-danger">Logout</a>
+		<a href="landingPage/" class="btn btn-danger">Logout</a>
 	</div>
 
 	<div class="container-fluid" id="mainHeader">
