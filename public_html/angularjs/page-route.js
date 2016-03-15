@@ -78,16 +78,22 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/templates/addScheduleForm.php'
 		})
 
-		// route for the add schedule form
+		// route for the user edit profile form
 		.when('/userEditProfileView/', {
 			controller  : 'UserController',
 			templateUrl : 'angularjs/templates/userEditProfileView.php'
 		})
 
-		// route for the add schedule form
+		// route for the member search form
 		.when('/memberSearchForm/', {
 			controller  : 'UserController',
 			templateUrl : 'angularjs/templates/memberSearchForm.php'
+		})
+
+		// route for the user sign up form
+		.when('/userSignUpForm/', {
+			controller  : 'UserController',
+			templateUrl : 'angularjs/templates/userSignUpForm.php'
 		})
 
 		.otherwise({
