@@ -12,7 +12,7 @@ c - employee invites this user has sent (get an array of employees)
 3 - return to schedule view (link to scheduleView)
 -->
 <div class="row">
-	<div class="col-xs-6">
+	<div class="col-xs-12">
 		<h1>Administrator's View</h1>
 	</div>
 </div>
@@ -49,7 +49,7 @@ c - employee invites this user has sent (get an array of employees)
 		<div class="col-md-6">
 			<h3>Schedule Change Requests</h3>
 			<ul class="">
-				<li><a href="angularjs/templates/adminRequestView.php">See Requests</a></li>
+				<li><a href="adminRequestView/">See Requests</a></li>
 			</ul>
 		</div> <!-- /requests -->
 
@@ -67,12 +67,10 @@ c - employee invites this user has sent (get an array of employees)
 		</div> <!-- /of all the things (oh noes!) -->
 
 		<br>
-		<a href="calendarView/">Return to Schedule View</a>
-		<h4>Sign Up Your Company/Group for Time Crunch</h4>
 		<br>
 		<div class="col-md-6">
 			<div class="button-container">
-				<a href="adminSignUpForm/" class="btn btn-lg btn-success">Sign Up</a>
+				<a href="calendarView/" class="btn btn-warning">Return to Schedule View</a>
 			</div>
 		</div>
 	</div> <!-- /row -->
