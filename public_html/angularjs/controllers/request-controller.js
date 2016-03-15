@@ -13,7 +13,7 @@ app.controller('RequestController', ["$scope","requestService", "$uibModal", fun
 	 * START METHOD(S): FETCH/GET
 	 *
 	 */
-	$scope.getRequestById = function() {
+	$scope.getRequestById = function(requestId) {
 		requestService.fetchRequestById(requestId)
 			.then(function(result) {
 				if(result.data.status === 200) {
@@ -47,7 +47,7 @@ app.controller('RequestController', ["$scope","requestService", "$uibModal", fun
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
-						$scope.newRequest = {requestId: null, requestRequestorId: null, requestAdminId: null, requestTimeStamp: "", requestActionTimeStamp: "", requestApprove: 0, requestRequestorText: "", requestAdminText: ""};
+						$scope.newRequest = {requestRequestorText: ""};
 					} else {
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}

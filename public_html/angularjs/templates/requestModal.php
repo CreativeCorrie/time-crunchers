@@ -66,25 +66,9 @@
 
 
 <form class="form-inline" id="modalRequestForm" name="modalRequestForm" ng-submit="ok();" novalidate>
-	<div class="form-group">
-
-		<label class="form-inline" id="modaRequestForm" name="modalRequestForm" ng-submit="ok();" novalidate></label>
-		<div class="input-group">
-			<input type="email" class="form-control" id="RequesterEmail" name="RequesterEmail"
-					 placeholder="enter email address" ng-model="RequestData.userEmail" ng-minlength="6"
-					 ng-maxlength="64" ng-required="true"/>
-			<div class="alert alert-danger" role="alert" ng-messages="modalRequestForm.RequesterEmail.$error"
-			  ng-if="modalRequestForm.RequesterEmail.$touched" ng-hide="modalRequestForm.loginEmail.$valid">
-			<p ng-message="minlength">Email is too short.</p>
-			<p ng-message="maxlength">Email is too long.</p>
-			<p ng-message="required">Please enter your email.</p>
-			</div>
-		</div>
-	</div>
 	<div>
 		<div class="form-group">
-
-			<label class="form-inline" id="modalRequestForm" name="modalRequestForm" ng-submit="ok();" novalidate></label>
+			<label class="form-inline" for="modalRequestForm"></label>
 			<div class="input-group">
 				<input type="text" class="form-control" id="userRequest" name="userRequest"
 						 placeholder="Make your Request"

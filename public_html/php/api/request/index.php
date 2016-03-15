@@ -63,9 +63,7 @@ try {
 		if(Access::isAdminLoggedIn() === true) {
 			if($method === "POST") {
 				//create new request
-				$request = new Request(null, $requestObject->requestRequestorId, $requestObject->requestAdminId = null,
-					$requestObject->requestTimeStamp, $requestObject->requestActionTimeStamp, $requestObject->requestApprove = false,
-					$requestObject->requestRequestorText, $requestObject->requestAdminText = "");
+				$request = new Request(null, $_SESSION["user"]->getUserId(), null, new DateTime(), null, false, $requestObject->requestRequestorText, "");
 				$request->insert($pdo);
 				$reply->message = "Request submitted successfully";
 			}
@@ -78,9 +76,9 @@ try {
 				if($request === null) {
 					throw(new RuntimeException("Request does not exist", 404));
 				}
-				$request->setRequestAdminId($requestObject->requestAdminId);
+				$request->setRequestAdminId($_SESSION["user"]->getUserId());
 				$request->setRequestApprove((boolean)$requestObject->requestApprove);
-				$request->setRequestActionTimeStamp($requestObject->requestActionTimeStamp);
+				$request->setRequestActionTimeStamp(new DateTime());
 				$request->setRequestAdminText($requestObject->requestAdminText);
 				$request->update($pdo);
 				$reply->message = "Request updated successfully";
