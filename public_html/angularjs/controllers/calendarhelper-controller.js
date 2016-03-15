@@ -1,4 +1,4 @@
-app.constant("CALENDAR_ENDPOINT", "php/api/calendarView/");
+
 app.factory('alert', function($uibModal) {
 
 	function show(action, event) {

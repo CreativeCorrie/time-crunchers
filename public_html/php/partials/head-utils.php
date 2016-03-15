@@ -26,15 +26,22 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 
 		<!--Angular JS-->
 		<?php $ANGULAR_VERSION = "1.5.0"; ?>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular.js"></script>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular.min.js"></script>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-route.min.js"></script>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-messages.min.js"></script>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-animate.js"></script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.min.js"></script>
+		<script type="text/javascript"
+				  src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular.js"></script>
+		<script type="text/javascript"
+				  src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular.min.js"></script>
+		<script type="text/javascript"
+				  src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-route.min.js"></script>
+		<script type="text/javascript"
+				  src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-messages.min.js"></script>
+		<script type="text/javascript"
+				  src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-animate.js"></script>
+		<script type="text/javascript"
+				  src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.min.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.4/interact.min.js"></script>
-		<script type="text/javascript" src="//mattlewis92.github.io/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js"></script>
+		<script type="text/javascript"
+				  src="//mattlewis92.github.io/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js"></script>
 
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -43,6 +50,10 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 
 		<!-- Time Crunchers custom style sheet -->
 		<link href="css/style1.css" type="text/css" rel="stylesheet"/>
+
+		<!-- Calendar CSS -->
+		<link href="//mattlewis92.github.io/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css"
+				rel="stylesheet">
 
 		<!--Font Awesome CSS-->
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"
@@ -73,7 +84,8 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/main-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/about-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/access-controller.js"></script>
-		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/activation-controller.js"></script>
+		<script type="text/javascript"
+				  src="<?php echo $PREFIX; ?>angularjs/controllers/activation-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/company-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/crew-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/login-controller.js"></script>
@@ -84,6 +96,9 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/user-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/nav-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/datepick-controller.js"></script>
+		<script type="text/javascript"
+				  src="<?php echo $PREFIX; ?>angularjs/controllers/calendarhelper-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/calendar-controller.js"></script>
 
 		<title><?php echo $PAGE_TITLE; ?></title>
 	</head>
