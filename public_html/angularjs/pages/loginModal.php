@@ -28,7 +28,6 @@
 			<div class="alert alert-danger" role="alert" ng-messages="modalLoginForm.userPassword.$error"
 				  ng-if="modalLoginForm.userPassword.$touched"
 				  ng-hide="modalLoginForm.userPassword.$valid">
-				<p ng-message="minlength">Password is too short.</p>
 				<p ng-message="required">Please enter your password.</p>
 			</div>
 		</div>
