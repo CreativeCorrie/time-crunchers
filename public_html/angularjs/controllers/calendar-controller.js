@@ -1,35 +1,43 @@
-app.controller('CalendarController', function($scope, moment, alert) {
+app.controller('CalendarController', ["$scope", "moment", "alert", "calendarService", function($scope, moment, alert, calendarService) {
 
 
 	//These variables MUST be set as a minimum for the calendar to work
 	this.calendarView = 'month';
 	this.viewDate = new Date();
 	this.events = [
-		//commented the following out bc we don't need this filler info
-		//{
-		//	title: 'An event',
-		//	type: 'warning',
-		//	startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
-		//	endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
-		//	draggable: true,
-		//	resizable: true
-		//}, {
-		//	title: '<i class="glyphicon glyphicon-asterisk"></i> <span class="text-primary">Another event</span>, with a <i>html</i> title',
-		//	type: 'info',
-		//	startsAt: moment().subtract(1, 'day').toDate(),
-		//	endsAt: moment().add(5, 'days').toDate(),
-		//	draggable: true,
-		//	resizable: true
-		//}, {
-		//	title: 'This is a really long event title that occurs on every year',
-		//	type: 'important',
-		//	startsAt: moment().startOf('day').add(7, 'hours').toDate(),
-		//	endsAt: moment().startOf('day').add(19, 'hours').toDate(),
-		//	recursOn: 'year',
-		//	draggable: true,
-		//	resizable: true
-		//}
+		{
+			title: 'An event',
+			type: 'warning',
+			startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
+			endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
+			draggable: true,
+			resizable: true
+		}
 	];
+	$scope.alerts = [];
+
+	this.getAllShifts = function() {
+		calendarService.fetchAllShifts()
+			.then(function(result) {
+				console.log(result); // TODO: remove
+				if(result.data.status === 200) {
+					for(var i = 0; i < result.data.data.length; i++) {
+						this.date = result.data.data[i].shiftDate + " " + result.data.data[i].shiftStartTime;
+						console.log(this.date); // TODO: remove
+						this.events[i] = {
+							title: 'Shift',
+							type: 'info',
+							startsAt: this.date.toDate(),
+							endsAt: this.date.add(result.data.data.shiftDuration, "hours").toDate(),
+							draggable: true,
+							resizable: true
+						};
+					}
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			})
+	};
 
 	this.isCellOpen = true;
 
@@ -55,4 +63,6 @@ app.controller('CalendarController', function($scope, moment, alert) {
 		event[field] = !event[field];
 	};
 
-});
+	this.getAllShifts();
+
+}]);

@@ -11,6 +11,11 @@ $CURRENT_DEPTH = substr_count($CURRENT_DIR, "/");
 $ROOT_DEPTH = substr_count($ROOT_PATH, "/");
 $DEPTH_DIFFERENCE = $CURRENT_DEPTH - $ROOT_DEPTH;
 $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
+
+require_once(dirname(__DIR__) . "/classes/autoloader.php");
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +31,6 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 
 		<!--Angular JS-->
 		<?php $ANGULAR_VERSION = "1.5.0"; ?>
-		<script type="text/javascript"
-				  src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular.js"></script>
 		<script type="text/javascript"
 				  src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular.min.js"></script>
 		<script type="text/javascript"
@@ -76,6 +79,7 @@ $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/services/shift-service.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/services/signup-service.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/services/user-service.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/services/calendar-service.js"></script>
 
 		<!-- directives-->
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/directives/bootstrap-breakpoint.js"></script>

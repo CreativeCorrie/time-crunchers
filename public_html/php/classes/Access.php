@@ -263,16 +263,16 @@ class Access implements \JsonSerializable {
 		$accessors = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
-				try {
-					$access = new Access($row["accessId"], $row["accessName"]);
-					$accessors[$accessors->key()] = $access;
-					$accessors->next();
-				} catch(\exception $exception) {
-					//if row couldn't be converted, rethrow it
-					throw(new \PDOException($exception->getMessage(), 0, $exception));
-				}
+			try {
+				$access = new Access($row["accessId"], $row["accessName"]);
+				$accessors[$accessors->key()] = $access;
+				$accessors->next();
+			} catch(\exception $exception) {
+				//if row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-			return ($accessors);
+		}
+		return ($accessors);
 	}
 
 	/**
@@ -302,7 +302,7 @@ class Access implements \JsonSerializable {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($accessors);
+		return ($accessors);
 	}
 
 	/**
@@ -312,12 +312,11 @@ class Access implements \JsonSerializable {
 	 **/
 	public function jsonSerialize() {
 		$fields = get_object_vars($this);
-		return($fields);
+		return ($fields);
 	}
 
 	/**
 	 * DRY method of detecting whether an Admin is logged in
-	 * @param $accessors
 	 * @return bool true if Admin false if not
 	 * @throws  \RuntimeException when the user is not logged in
 	 **/
@@ -325,13 +324,13 @@ class Access implements \JsonSerializable {
 		if(session_status() !== PHP_SESSION_ACTIVE) {
 			session_start();
 		}
-		if(empty($_SESSION["accessLevel"]) === true) {
+		if(empty($_SESSION["user"]) === true) {
 			throw(new \RuntimeException("Please log in or sign up."));
 		}
-		if($_SESSION["accessLevel"]->getAccessId() === Access::ADMIN) {
-			return(true);
+		if($_SESSION["user"]->setUserAccessId() === Access::ADMIN) {
+			return (true);
 		} else {
-			return(false);
+			return (false);
 		}
 	}
 }

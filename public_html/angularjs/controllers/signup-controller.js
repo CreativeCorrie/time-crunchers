@@ -1,4 +1,4 @@
-app.controller("SignUpController", ["$scope", "ActivationService", function($scope, ActivationService) {
+app.controller("SignUpController", ["$scope", "ActivationService", "$window", function($scope, ActivationService, $window) {
 	$scope.alerts = [];
 	$scope.activationData = {};
 
@@ -15,6 +15,7 @@ app.controller("SignUpController", ["$scope", "ActivationService", function($sco
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
+						$window.location.href = "buildCrew/";
 					} else {
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
