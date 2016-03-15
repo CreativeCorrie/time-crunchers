@@ -12,9 +12,9 @@
 	<div class="container-fluid" id="mainHeader">
 		<h3>Welcome to Time Crunch</h3>
 	</div>
-
+</header>
 	<!-- Begin navbar-->
-	<nav class="navbar navbar-default navbar-inner">
+	<nav class="navbar navbar-default navbar-static-top navbar-inner">
 		<div class="container-fluid">
 
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -51,6 +51,6 @@
 			</div><!-- /.collapse-1 -->
 		</div><!-- /.container-fluid -->
 	</nav>
-</header>
+
 
 
