@@ -1,13 +1,6 @@
-app.controller('RequestController', ["$scope","requestService", "$uibModal", function($scope, requestService, $uibModal) {
+app.controller('RequestController', ["$scope", "requestService", function($scope, requestService) {
 	$scope.alerts = [];
 	$scope.requestData = {};
-
-	$scope.openRequestModal = function() {
-		var loginModalInstance = $uibModal.open({
-			template: modalHtml,
-			controller: ModalInstanceCtrl
-		});
-	};
 
 	/**
 	 * START METHOD(S): FETCH/GET
@@ -47,7 +40,7 @@ app.controller('RequestController', ["$scope","requestService", "$uibModal", fun
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
-						$scope.newRequest = {requestRequestorText: ""};
+						$scope.requestData = {};
 					} else {
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}

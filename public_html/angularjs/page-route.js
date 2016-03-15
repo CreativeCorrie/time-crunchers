@@ -99,7 +99,7 @@ app.config(function($routeProvider, $locationProvider) {
 		// route for the user sign up form
 		.when('/request/', {
 			controller  : 'RequestController',
-			templateUrl : 'angularjs/templates/modalrequestform.php'
+			templateUrl : 'angularjs/templates/requestModal.php'
 		})
 
 		// route to get the crews for the company

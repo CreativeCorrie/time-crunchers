@@ -1,35 +1,35 @@
-app.controller("NavController", ["$http", "$scope", function($http, $scope) {
+app.controller("NavController", ["$http", "$scope", "$uibModal", function($http, $scope, $uibModal) {
 	$scope.breakpoint = null;
 	$scope.navCollapsed = null;
 	$scope.pages = [];
+	$scope.requestData = {};
 
 	$scope.openRequest = function() {
-		var RequestInstance = $uibModal.open({
-			templateUrl: "angularjs/pages/RequestModal.php",
-			controller: "RequestModal",
+		var requestInstance = $uibModal.open({
+			templateUrl: "angularjs/templates/requestModal.php",
+			controller: "RequestController",
 			resolve: {
-				RequestData: function(){
+				requestData: function() {
 					//console.log("The problem cannot be resolved");
-					return($scope.requestData);
+					return ($scope.requestData);
 				}
 			}
 		});
 		requestInstance.result.then(function(requestData) {
-			//console.log(loginData);
+			//console.log(requestData); //TODO: remove
 			$scope.requestData = requestData;
-			requestService.request(requestData)
+			requestService.create(requestData)
 				.then(function(reply) {
 					if(reply.data.status === 200) {
-						//console.log("yay! teh login!");
+						//console.log("Requested!"); // TODO: remove
 						// NOTE: only the login should use $window; use $location anywhere else
-						$window.location.href = "aboutView/"
+						//$window.location.href = "/"
 					} else {
 						//console.log("Tacos Findley shall never see the light here");
 					}
 				});
 		});
 	};
-}]);
 
 	$scope.getPages = function() {
 		$http.get("navmap.json")
@@ -44,7 +44,9 @@ app.controller("NavController", ["$http", "$scope", function($http, $scope) {
 		$scope.getPages();
 	}
 
-	// collapse the navbar if the screen is changed to a extra small screen
+// collapse the navbar if the screen is changed to a extra small screen
 	$scope.$watch("breakpoint", function() {
 		$scope.navCollapsed = ($scope.breakpoint === "xs");
 	});
+
+}]);
