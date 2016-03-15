@@ -1,6 +1,13 @@
-app.controller('RequestController', ["$scope","requestService", function($scope, requestService) {
+app.controller('RequestController', ["$scope","requestService", "$uibModal", function($scope, requestService, $uibModal) {
 	$scope.alerts = [];
 	$scope.requestData = {};
+
+	$scope.openRequestModal = function() {
+		var loginModalInstance = $uibModal.open({
+			template: modalHtml,
+			controller: ModalInstanceCtrl
+		});
+	};
 
 	/**
 	 * START METHOD(S): FETCH/GET
