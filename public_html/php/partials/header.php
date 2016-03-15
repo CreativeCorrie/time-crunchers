@@ -34,20 +34,24 @@
 				<ul class="nav navbar-nav navbar-right">
 
 					<!-- Add -->
-					<li class="dropdown" uib-dropdown>
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false" uib-dropdown-toggle>
-							Add <span class="caret"></span>
+					<li><a href="adminOnlyView/">
+							Admin <!-- TODO:need to restrict this view to admin only -->
 						</a>
-						<ul class="dropdown-menu" uib-dropdown-menu>
-							<li><a href="userSignUpForm/">
-									Add Member </a></li>
-							<li><a href="buildCrewForm/">
-									Add Crew </a></li>
-							<li><a href="addScheduleForm/">
-									Add Schedule</a></li>
-						</ul>
 					</li>
+<!--					<li class="dropdown" uib-dropdown>-->
+<!--						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
+<!--							aria-expanded="false" uib-dropdown-toggle>-->
+<!--							Add <span class="caret"></span>-->
+<!--						</a>-->
+<!--						<ul class="dropdown-menu" uib-dropdown-menu>-->
+<!--							<li><a href="userSignUpForm/">-->
+<!--									Add Member </a></li>-->
+<!--							<li><a href="buildCrewForm/">-->
+<!--									Add Crew </a></li>-->
+<!--							<li><a href="addScheduleForm/">-->
+<!--									Add Schedule</a></li>-->
+<!--						</ul>-->
+<!--					</li>-->
 
 					<!--Edit-->
 					<li class="dropdown" uib-dropdown>
@@ -56,7 +60,7 @@
 							Edit <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" uib-dropdown-menu>
-							<li><a href="userSignUpForm">
+							<li><a href="userSignUpForm/">
 									Edit Member </a></li>
 							<li><a href="buildCrewForm/">
 									Edit Crew </a></li>
