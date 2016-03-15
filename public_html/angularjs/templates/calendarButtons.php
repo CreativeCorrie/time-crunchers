@@ -1,3 +1,5 @@
+<!--calendar from: http://mattlewis92.github.io/angular-bootstrap-calendar/#?example=kitchen-sink-->
+
 <br>
 <div class="row">
 

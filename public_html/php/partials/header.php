@@ -4,8 +4,8 @@
 	<div id="topButtons" class="pull-right button-container">
 		<button type="button" class="btn btn-info" ng-click="openRequest();"">Make Request</button>
 		&nbsp;
-<!--		<a href="adminView/" class="btn btn-warning">Admin</a> <!-- this should bring in the admin view -->
-<!--		&nbsp; -->
+		<a href="calendarView/" class="btn btn-warning">Schedule</a> <!-- this should bring in the admin view -->
+		&nbsp;
 		<a href="" class="btn btn-danger">Logout</a>
 	</div>
 
