@@ -2,11 +2,7 @@
 ideally this is the main page that appears
 in the index when no other view has been selected-->
 
-<div>
-	<h2>LOL, there should be a calendar here..</h2>
-</div>
-
-<div ng-controller="KitchenSinkCtrl as vm">
+<div ng-controller="CalendarController as vm">
 	<h2 class="text-center">{{ vm.calendarTitle }}</h2>
 
 	<div class="row">
