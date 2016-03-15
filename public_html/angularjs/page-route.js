@@ -102,6 +102,12 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/templates/requestModal.php'
 		})
 
+		// route to get the crews for the company
+		.when('/getCrewForm/', {
+			controller  : 'CrewController',
+			templateUrl : 'angularjs/templates/getCrewForm.php'
+		})
+
 		.otherwise({
 			redirectTo: "/"
 		});

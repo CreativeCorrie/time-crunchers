@@ -6,10 +6,18 @@
 	<h2>Manage your Crews</h2>
 
 	<p class="text-danger">Create New Crew</p>
-	<form name="getCrewForm">
+	<form name="userSignUpForm" ng-submit="createCrew(crewData, getCrewForm.$valid);">
 		<fieldset class="form-group">
 			<label for="getCrewFormInput">Phone Number</label>
-			<input type="text" class="form-control" id="userPhone" placeholder="505-555-1212">
+			<input type="text" class="form-control" name="userPhone" id="userPhone"
+					 placeholder="505-555-1212" ng-model="crewData.userPhone"
+					 ng-minlength="12" ng-maxlength="128" ng-required="true"/>
+			<div class="alert alert-danger" role="alert" ng-messages="getCrewForm.userPhone.$error"
+				  ng-if="getCrewForm.userPhone.$touched" ng-hide="getCrewForm.userPhone.$valid">
+				<p ng-message="minlength">Phone number is too short.</p>
+				<p ng-message="maxlength">Phone number name is too long.</p>
+				<p ng-message="required">Please enter your phone number.</p>
+			</div>
 			<small class="text-muted">
 				This field is optional.
 			</small>
@@ -17,7 +25,15 @@
 
 		<fieldset class="form-group">
 			<label for="userEmailInput">Employee Email Address</label>
-			<input type="text" class="form-control" id="userEmail" placeholder="talia@luna.com">
+			<input type="text" class="form-control" name="userEmail" id="userEmail"
+					 placeholder="talia@luna.com" ng-model="crewData.userEmail"
+					 ng-minlength="6" ng-maxlength="128" ng-required="true"/>
+			<div class="alert alert-danger" role="alert" ng-messages="getCrewForm.userEmail.$error"
+				  ng-if="getCrewForm.userEmail.$touched" ng-hide="getCrewForm.userEmail.$valid">
+				<p ng-message="minlength">Email is too short.</p>
+				<p ng-message="maxlength">Email name is too long.</p>
+				<p ng-message="required">Please enter your email.</p>
+			</div>
 			<p class="text-danger">This is the email address the activation code will be sent to.</p>
 		</fieldset>
 
