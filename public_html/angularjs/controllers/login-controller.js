@@ -1,6 +1,14 @@
-app.controller("LoginController", ["$scope", "$window", "loginService", function($scope, $window, loginService) {
+app.controller("LoginController", ["$scope", "$window", "$uibModal", "loginService", function($scope, $window, $uibModal, loginService) {
 	$scope.alerts = [];
 	$scope.loginData = {};
+
+	$scope.openLoginModal = function(){
+		var loginModalInstance = $uibModal.open({
+			template: modalHtml,
+			controller: ModalInstanceCtrl
+		});
+	};
+
 
 	/**
 	 * Method that uses the login service to login to an account

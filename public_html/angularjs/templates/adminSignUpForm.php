@@ -1,10 +1,10 @@
 <!-- Company Sign Up-->
 <h2>First, sign up your Company or Group</h2>
 
-<form>
+<form name="adminSignUpForm" ng-submit="sendActivation();">
 	<fieldset class="form-group">
 		<label for="companyNameInput">Company Name</label>
-		<input type="text" class="form-control" id="companyName" placeholder="Findley's Tacos">
+		<input type="text" class="form-control" id="companyName" placeholder="Findley's Tacos" ng-model="signupData.companyName">
 	</fieldset>
 
 	<fieldset class="form-group">
