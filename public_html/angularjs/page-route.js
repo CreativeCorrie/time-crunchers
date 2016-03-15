@@ -21,7 +21,7 @@ app.config(function($routeProvider, $locationProvider) {
 
 		//route page for calendarView page
 		.when('/calendar/', {
-			controller  : 'CalendarViewController',//TODO: NO CONTROLLER
+			controller  : 'CalendarController',
 			templateUrl : 'angularjs/pages/calendarView.php'
 		})
 

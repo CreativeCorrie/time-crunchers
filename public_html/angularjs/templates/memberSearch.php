@@ -1,6 +1,6 @@
-<!-- Create employee Invites-->
+<!-- Search for Members by First & Last Name or Email-->
 <div>
-	<h2>Now you're ready to invite users to your Time Crunch Schedule</h2>
+	<h2>Search for Member</h2>
 
 	<p class="text-danger">Each user will be added to one of the crews you created previously.</p>
 	<form>
