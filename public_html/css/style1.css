@@ -235,3 +235,14 @@ form#sample-form {
 }
 
  /*end of form style*/
+
+/* utilities */
+@media only screen and (min-width: 768px) {
+	.pull-sm-right {
+		float: right;
+	}
+
+	.pull-sm-left {
+		float: left;
+	}
+}

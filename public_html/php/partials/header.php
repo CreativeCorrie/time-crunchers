@@ -1,18 +1,22 @@
 <header ng-controller="NavController">
 	<bootstrap-breakpoint></bootstrap-breakpoint>
 
-	<div id="topButtons" class="pull-right button-container">
-		<button type="button" class="btn btn-info" ng-click="openRequest();"">Request</button>
-		&nbsp;
-		<a href="calendarView/" class="btn btn-warning">Schedule</a> <!-- this should bring in the admin view -->
-		&nbsp;
-		<a href="landingPage/" class="btn btn-danger">Logout</a>
+	<div class="container-fluid" id="mainHeader">
+
+		<div class="pull-sm-left">
+			<h3>Welcome to Time Crunch</h3>
+		</div>
+
+		<div id="topButtons" class="pull-sm-right button-container">
+			<button type="button" class="btn btn-info" ng-click="openRequest();"">Request</button>
+			&nbsp;
+			<a href="calendarView/" class="btn btn-warning">Schedule</a> <!-- this should bring in the admin view -->
+			&nbsp;
+			<a href="landingPage/" class="btn btn-danger">Logout</a>
+		</div>
+		<div class="clearfix"></div>
 	</div>
 
-	<div class="container-fluid" id="mainHeader">
-		<h3>Welcome to Time Crunch</h3>
-	</div>
-</header>
 	<!-- Begin navbar-->
 	<nav class="navbar navbar-default navbar-static-top navbar-inner">
 		<div class="container-fluid">
@@ -51,6 +55,7 @@
 			</div><!-- /.collapse-1 -->
 		</div><!-- /.container-fluid -->
 	</nav>
+</header>
 
 
 
