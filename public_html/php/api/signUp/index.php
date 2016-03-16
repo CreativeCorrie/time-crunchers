@@ -71,15 +71,15 @@ try {
 		//$verifyPassword = filter_var($requestObject->verifyPassword, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		//}
 
-		if(empty($requestObject->userPhone) === true) {
-			throw(new InvalidArgumentException ("Must fill in userPhone number."));
-		} else {
+		if(empty($requestObject->userPhone) === false) {
 			$userPhone = filter_var($requestObject->userPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
-		if(empty($requestObject->companyName) === false) {
+		if(empty($requestObject->companyName === false)) {
 
-			$companyName = filter_var($requestObject->companyName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			if(empty($requestObject->companyName) === false) {
+				$companyName = filter_var($requestObject->companyName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			}
 
 			if(empty($requestObject->companyAddress1) === true) {
 				throw(new InvalidArgumentException ("Must fill in company address line 1."));
@@ -135,14 +135,14 @@ try {
 			} else {
 				$companyUrl = null;
 			}
-
+		}
 //		if($password !== $verifyPassword) {
 //			throw(new InvalidArgumentException ("Password and verify password must match."));
 //		}
-			//create a new company for the user
-			$company = new Company(null, $companyAttn, $companyName, $companyAddress1, $companyAddress2, $companyCity, $companyState, $companyZip, "111-111-1111", $companyEmail, $companyUrl);
-			$company->insert($pdo);
-		}
+		//create a new company for the user
+		$company = new Company(null, $companyAttn, $companyName, $companyAddress1, $companyAddress2, $companyCity, $companyState, $companyZip, "111-111-1111", $companyEmail, $companyUrl);
+		$company->insert($pdo);
+
 
 		//create a new crew for the user
 		$crew = new Crew(null, $company->getCompanyId(), "");
@@ -155,7 +155,7 @@ try {
 		$salt = bin2hex(random_bytes(32));
 		$hash = hash_pbkdf2("sha512", "password", $salt, 262144);
 
-		$user = new User (null, $company->getCompanyId(), $crew->getCrewId(), Access::ADMIN, $userPhone, $userFirstName, $userLastName, $userEmail, $activation, $hash, $salt);
+		$user = new User (null, $company->getCompanyId(), $crew->getCrewId(), Access::ADMIN, "5055551212", $userFirstName, $userLastName, $userEmail, $activation, $hash, $salt);
 		$user->insert($pdo);
 
 		$messageSubject = "Time Crunch Account Activation";

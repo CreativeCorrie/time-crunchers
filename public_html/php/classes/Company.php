@@ -487,9 +487,7 @@ class Company implements \JsonSerializable {
 		// verify the company URL address content is secure
 		$newCompanyUrl = trim($newCompanyUrl);
 		$newCompanyUrl = filter_var($newCompanyUrl, FILTER_SANITIZE_URL);
-		if(empty($newCompanyUrl) === true) {
-			throw(new \InvalidArgumentException("company URL content is empty or insecure"));
-		}
+
 		// verify the company url content will fit in the database
 		if(strlen($newCompanyUrl) > 128) {
 			throw(new \RangeException("company url content too large"));
