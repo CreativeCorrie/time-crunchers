@@ -69,7 +69,7 @@ app.config(function($routeProvider, $locationProvider) {
 
 		// route for the login page
 		.when('/login/', {
-			controller  : 'mainController',
+			controller  : 'MainController',
 			templateUrl : 'angularjs/templates/modalLoginForm.php'
 		})
 
