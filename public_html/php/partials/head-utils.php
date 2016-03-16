@@ -90,6 +90,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/access-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/activation-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/adminonly-controller.js"></script>
+		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/adminrequestview-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/company-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/crew-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/request-controller.js"></script>
