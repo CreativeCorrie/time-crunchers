@@ -34,7 +34,7 @@ app.config(function($routeProvider, $locationProvider) {
 		//route page to adminOnlyView page
 		.when('/adminOnlyView/', {
 			controller  : 'AdminViewController',//TODO: NO CONTROLLER
-			templateUrl : 'angularjs/templates/adminOnlyView.php'
+			templateUrl : 'angularjs/templates/adminOnlyPage.php'
 		})
 
 		//route page to buildCrewForm page
