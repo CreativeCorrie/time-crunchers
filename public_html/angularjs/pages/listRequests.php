@@ -6,7 +6,7 @@
 				<tr>
 				<th>Requests</th>
 				</tr>
-				<tr>
+				<tr ng-repeat="request in currentRequests">
 				<td>{{request.requestRequestorText}}</td>
 				</tr>
 			</table>

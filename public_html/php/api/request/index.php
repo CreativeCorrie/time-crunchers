@@ -54,11 +54,9 @@ try {
 				$reply->data = $request;
 			}
 		}
-	}
-	$requestContent = file_get_contents("php://input");
-	$requestObject = json_decode($requestContent);
-
-	if($method === "PUT" || $method === "POST") {
+	} elseif($method === "PUT" || $method === "POST") {
+		$requestContent = file_get_contents("php://input");
+		$requestObject = json_decode($requestContent);
 		verifyXsrf();
 		if($method === "POST") {
 			//create new request
