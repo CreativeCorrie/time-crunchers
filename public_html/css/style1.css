@@ -57,6 +57,15 @@ img#logo {
 
 }
 
+.modalRequestForm > label {
+	text-align: center;
+}
+
+.modalRequestForm > input {
+	height: 500px;
+	width: 500px;
+}
+
 /* footer styles */
 
 footer {

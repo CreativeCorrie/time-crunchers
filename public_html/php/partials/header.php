@@ -1,6 +1,10 @@
 <header ng-controller="NavController">
 	<bootstrap-breakpoint></bootstrap-breakpoint>
 
+	<div class="container-fluid" id="mainHeader">
+		<h3>Welcome to Time Crunch</h3>
+	</div>
+
 	<div id="topButtons" class="pull-right button-container">
 		<button type="button" class="btn btn-info" ng-click="openRequest();"">Request</button>
 		&nbsp;
@@ -9,9 +13,6 @@
 		<a href="landingPage/" class="btn btn-danger">Logout</a>
 	</div>
 
-	<div class="container-fluid" id="mainHeader">
-		<h3>Welcome to Time Crunch</h3>
-	</div>
 </header>
 	<!-- Begin navbar-->
 	<nav class="navbar navbar-default navbar-static-top navbar-inner">
