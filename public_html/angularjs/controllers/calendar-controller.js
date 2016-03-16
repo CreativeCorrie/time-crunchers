@@ -8,64 +8,64 @@ app.controller('CalendarController', ["$scope", "moment", "alert", "calendarServ
 		{
 			title: 'First Day',
 			type: 'warning',
-			startsAt: moment().startOf('week').subtract(0, 'days').add(8, 'hours').toDate(),
-			endsAt: moment().startOf('week').add(17, 'hours').toDate(),
+			startsAt: moment().startOf('day').subtract(0, 'days').add(8, 'hours').toDate(),
+			endsAt: moment().startOf('day').add(17, 'hours').toDate(),
 			draggable: true,
 			resizable: true
 		} ,
 		{
 			title: 'Work',
 			type: 'warning',
-			startsAt: moment().startOf('week').add(1, 'days').add(8, 'hours').toDate(),
-			endsAt: moment().startOf('week').add(17, 'hours').toDate(),
+			startsAt: moment().startOf('day').add(1, 'days').add(8, 'hours').toDate(),
+			endsAt: moment().startOf('day').add(1, 'days').add(17, 'hours').toDate(),
 			draggable: true,
 			resizable: true
 		} ,
 		{
 			title: 'Work',
 			type: 'warning',
-			startsAt: moment().startOf('week').add(2, 'days').add(8, 'hours').toDate(),
-			endsAt: moment().startOf('week').add(17, 'hours').toDate(),
+			startsAt: moment().startOf('day').add(2, 'days').add(8, 'hours').toDate(),
+			endsAt: moment().startOf('day').add(2, 'days').add(17, 'hours').toDate(),
 			draggable: true,
 			resizable: true
 		} ,
 		{
 			title: 'Work',
 			type: 'warning',
-			startsAt: moment().startOf('week').add(3, 'days').add(8, 'hours').toDate(),
-			endsAt: moment().startOf('week').add(17, 'hours').toDate(),
+			startsAt: moment().startOf('day').add(3, 'days').add(8, 'hours').toDate(),
+			endsAt: moment().startOf('day').add(3, 'days').add(17, 'hours').toDate(),
 			draggable: true,
 			resizable: true
 		} ,
 		{
 			title: 'Work',
 			type: 'warning',
-			startsAt: moment().startOf('week').add(1, 'week').add(15, 'hours').toDate(),
-			endsAt: moment().startOf('week').add(24, 'hours').toDate(),
+			startsAt: moment().startOf('day').add(1, 'week').add(15, 'hours').toDate(),
+			endsAt: moment().startOf('day').add(1, 'week').add(24, 'hours').toDate(),
 			draggable: true,
 			resizable: true
 		} ,
 		{
 			title: 'Work',
 			type: 'warning',
-			startsAt: moment().startOf('week').add(1, 'week').add(1, 'days').add(15, 'hours').toDate(),
-			endsAt: moment().startOf('week').add(23, 'hours').toDate(),
+			startsAt: moment().startOf('day').add(1, 'week').add(1, 'days').add(15, 'hours').toDate(),
+			endsAt: moment().startOf('day').add(1, 'week').add(1, 'days').add(23, 'hours').toDate(),
 			draggable: true,
 			resizable: true
 		} ,
 		{
 			title: 'Work',
 			type: 'warning',
-			startsAt: moment().startOf('week').add(1, 'week').add(2, 'days').add(15, 'hours').toDate(),
-			endsAt: moment().startOf('week').add(23, 'hours').toDate(),
+			startsAt: moment().startOf('day').add(1, 'week').add(2, 'days').add(15, 'hours').toDate(),
+			endsAt: moment().startOf('day').add(1, 'week').add(2, 'days').add(23, 'hours').toDate(),
 			draggable: true,
 			resizable: true
 		} ,
 		{
 			title: 'Work',
 			type: 'warning',
-			startsAt: moment().startOf('week').add(1, 'week').add(3, 'days').add(15, 'hours').toDate(),
-			endsAt: moment().startOf('week').add(23, 'hours').toDate(),
+			startsAt: moment().startOf('day').add(1, 'week').add(3, 'days').add(15, 'hours').toDate(),
+			endsAt: moment().startOf('day').add(1, 'week').add(3, 'days').add(23, 'hours').toDate(),
 			draggable: true,
 			resizable: true
 		}
