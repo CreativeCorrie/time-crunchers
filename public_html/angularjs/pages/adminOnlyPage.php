@@ -30,12 +30,12 @@ c - employee invites this user has sent (get an array of employees)
 
 		<!-- Create Schedules and Shift-->
 
-		<h3>Create a Schedule & Shifts</h3>
+		<h3>Manage Crews</h3>
 		<div class="col-md-6">
 			<ul class="">
-				<li><a href="#">Create a Schedule</a></li>  <!-- ??-->
+				<li><a href="buildCrewForm/">Create a Crew</a></li>  <!-- ??-->
 				<ul>
-					<li><a href="addScheduleForm/">Create Shifts for the Schedule</a></li> <!-- ??-->
+					<li><a href="addScheduleForm/">Create Shifts</a></li> <!-- ??-->
 				</ul>
 				<li><a href="#">Assign Members to Shifts</a></li> <!--?? -->
 			</ul>
