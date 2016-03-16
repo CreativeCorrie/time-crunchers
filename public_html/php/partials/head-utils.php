@@ -104,5 +104,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 				  src="<?php echo $PREFIX; ?>angularjs/controllers/calendarhelper-controller.js"></script>
 		<script type="text/javascript" src="<?php echo $PREFIX; ?>angularjs/controllers/calendar-controller.js"></script>
 
+
 		<title><?php echo $PAGE_TITLE; ?></title>
 	</head>

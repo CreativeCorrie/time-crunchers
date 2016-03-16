@@ -1,11 +1,5 @@
 <div class="row">
 	<div class="col-md-6">
-		<h2>Requests</h2>
-		<div id="reqView">
-			<h4>There Should be Requests Here</h4>
-			<!-- TODO:plug in an array of requests here-->
-		</div>
-
 		<p>Approve or Deny Request:</p>
 		<form name="adminRequestView" role="form">
 
@@ -21,7 +15,7 @@
 			<!--Comment box-->
 			<div class="form-group">
 				<label for="comment">Add a Comment:</label>
-				<textarea class="form-control" rows="5" id="comment"></textarea>
+				<textarea class="form-control" rows="5" id="comment" ></textarea>
 			</div>
 		</form>
 
