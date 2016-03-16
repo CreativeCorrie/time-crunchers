@@ -3,14 +3,13 @@
 
 	<div class="container-fluid" id="mainHeader">
 		<h3>Welcome to Time Crunch</h3>
-	</div>
-
-	<div id="topButtons" class="pull-right button-container">
-		<button type="button" class="btn btn-info" ng-click="openRequest();"">Request</button>
-		&nbsp;
-		<a href="calendarView/" class="btn btn-warning">Schedule</a> <!-- this should bring in the admin view -->
-		&nbsp;
-		<a href="landingPage/" class="btn btn-danger">Logout</a>
+		<div id="topButtons" class="pull-right button-container">
+			<button type="button" class="btn btn-info" ng-click="openRequest();"">Request</button>
+			&nbsp;
+			<a href="calendarView/" class="btn btn-warning">Schedule</a> <!-- this should bring in the admin view -->
+			&nbsp;
+			<a href="landingPage/" class="btn btn-danger">Logout</a>
+		</div>
 	</div>
 
 </header>
