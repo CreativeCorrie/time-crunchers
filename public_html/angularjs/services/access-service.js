@@ -1,5 +1,5 @@
 app.constant("ACCESS_ENDPOINT", "php/api/access/");
-app.service("accessService", function($http, ACCESS_ENDPOINT) {
+app.service("AccessService", function($http, ACCESS_ENDPOINT) {
 
 	function getUrl() {
 		return(ACCESS_ENDPOINT);

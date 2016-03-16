@@ -12,7 +12,7 @@ Contributors are:
 
 <br>
 things to fix
-<ol>
+<ul>
     <li>Need a way to show member requests that expire after x days</li>
     <li>Plug the requestActionTimeStamp into the form on adminRequestView</li>
     <li>Need to restrict Admin View to admin only</li>
@@ -21,7 +21,7 @@ things to fix
         <ul>
         <li>Profile link on index UserEditProfileView</li>
         <li>FaqView</li>
-        <li>stuff</li>
+        <li>Need a way for Existing User to get Activation Token to Reset Password</li>
         </ul>
     </li>
     <li>stuff</li>
@@ -32,14 +32,12 @@ things to fix
         <ul>
             <li>For User</li>
             <li>For Admin</li>
-        <ul>
+        </ul>
     </li>
     <li>stuff</li>
     <li>stuff</li>
-    <li>Need a way for Existing User to get Activation Token to Reset Password</li>
-    <li></li>
     <li>stuff</li>
     <li>stuff</li>
-</ol>
+    <li>stuff</li>
     <li>stuff/li>
-</ol>
+</ul>

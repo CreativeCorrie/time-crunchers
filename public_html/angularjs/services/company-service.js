@@ -1,5 +1,5 @@
 app.constant("COMPANY_ENDPOINT", "php/api/company/");
-app.service("companyService", function($http, COMPANY_ENDPOINT) {
+app.service("CompanyService", function($http, COMPANY_ENDPOINT) {
 
 	function getUrl() {
 		return(COMPANY_ENDPOINT);

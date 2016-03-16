@@ -1,5 +1,5 @@
 app.constant("CREW_ENDPOINT", "php/api/crew/");
-app.service("crewService", function($http, CREW_ENDPOINT) {
+app.service("CrewService", function($http, CREW_ENDPOINT) {
 
 	function getUrl() {
 		return(CREW_ENDPOINT);
