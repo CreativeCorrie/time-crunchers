@@ -6,10 +6,17 @@
 
 <div class="row">
 	<div class="col-md-6">
+	<!-- sign up button -->
+	<h4>Sign Up Your Company/Group for Time Crunch</h4>
+	<br>
+		<div class="button-container">
+			<a href="adminSignUpForm/" class="btn btn-lg btn-success">Sign Up</a>
+		</div>
+	</div>
 
-		<!-- Account Holder controls-->
-		<h4>Already Have an Account?</h4>
-
+	<!-- Account Holder controls-->
+	<h4>Already Have an Account?</h4>
+	<div class="col-md-6">
 		<!-- Log in modal trigger button -->
 		<br>
 		<div class="button-container">
@@ -18,15 +25,6 @@
 			</button>
 		</div>
 	</div> <!-- end of column-->
-
-	<!-- sign up button -->
-	<h4>Sign Up Your Company/Group for Time Crunch</h4>
-	<br>
-	<div class="col-md-6">
-		<div class="button-container">
-		<a href="adminSignUpForm/" class="btn btn-lg btn-success">Sign Up</a>
-		</div>
-	</div>
 
 	<!--Log In Modal -->
 	<div class="modal fade" id="modal-lg" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"

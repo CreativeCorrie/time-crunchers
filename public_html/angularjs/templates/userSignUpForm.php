@@ -82,17 +82,17 @@
 		</fieldset>
 
 		<!--is user admin? code from http://www.bootply.com/0WvI1g4DEq-->
-		<h3>Will this user be an administrator?</h3>
-		<div class="input-group">
-			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-default">
-					<input checked="checked" name="options" id="option1" type="radio"> Yes
-				</label>
-				<label class="btn btn-default">
-					<input name="options" id="option2" type="radio"> No
-				</label>
-			</div>
-		</div>
+<!--		<h3>Will this user be an administrator?</h3>-->
+<!--		<div class="input-group">-->
+<!--			<div class="btn-group" data-toggle="buttons">-->
+<!--				<label class="btn btn-default">-->
+<!--					<input checked="checked" name="options" id="option1" type="radio"> Yes-->
+<!--				</label>-->
+<!--				<label class="btn btn-default">-->
+<!--					<input name="options" id="option2" type="radio"> No-->
+<!--				</label>-->
+<!--			</div>-->
+<!--		</div>-->
 
 		<br>
 		<h2>Add this Member to a Crew</h2>
