@@ -15,7 +15,7 @@ app.controller("SignUpController", ["$scope", "ActivationService", "$window", fu
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
-						$window.location.href = "buildCrew/";
+						$window.location.href = "userSignUpForm/";
 					} else {
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
