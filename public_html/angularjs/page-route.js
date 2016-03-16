@@ -31,6 +31,12 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/pages/calendarView.php'
 		})
 
+	//route page for calendarView page
+		.when('/calendarModal/', {
+			controller  : 'CalendarController',
+			templateUrl : 'angularjs/pages/calendarModal.php'
+		})
+
 		//route page to adminOnlyPage
 		.when('/adminOnlyPage/', {
 			controller  : 'AdminOnlyController',
@@ -42,6 +48,7 @@ app.config(function($routeProvider, $locationProvider) {
 			controller  : 'CrewController',//
 			templateUrl : 'angularjs/templates/buildCrewForm.php'
 		})
+
 		// route for the faqView page
 		.when('/faqView/', {
 			controller  : 'FaqController',//
