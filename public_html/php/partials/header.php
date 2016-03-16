@@ -26,7 +26,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Manage Your Schedule</a>
+				<h4 class="navbar-brand">Manage Your Schedule</h4>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->

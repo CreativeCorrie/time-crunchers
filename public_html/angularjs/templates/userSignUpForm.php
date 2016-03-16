@@ -1,6 +1,6 @@
 <!-- Create employee Invites-->
 <div>
-	<h2>Now you're ready to invite users to your Time Crunch Schedule</h2>
+	<h2>Now you're ready to invite users to your Time Crunch Schedule and then add them to a crew.</h2>
 
 	<p class="text-danger">Each user will be added to one of the crews you created previously.</p>
 	<form name="userSignUpForm" ng-submit="sendActivation(signupData, userSignUpForm.$valid);">

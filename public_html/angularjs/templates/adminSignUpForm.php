@@ -1,4 +1,5 @@
 <!-- Company Sign Up-->
+<span class="text-danger"><h4><em>Sign Up, Create, Invite</em></h4></span>
 <h2>First, sign up your Company or Group</h2>
 
 <form name="adminSignUpForm" ng-submit="sendActivation(signupData, adminSignUpForm.$valid);">
@@ -222,7 +223,7 @@
 		<p class="text-danger">This is the email address your activation code will be sent to.</p>
 	</fieldset>
 	<br>
-	<hr>
+
 
 	<!-- Submit Form or Reset Form -->
 	<!--		TODO: add Angular.js here to connect to User API-->

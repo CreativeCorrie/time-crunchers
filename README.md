@@ -21,7 +21,7 @@ things to fix
         <ul>
         <li>Profile link on index UserEditProfileView</li>
         <li>FaqView</li>
-        <li>Need a way for Existing User to get Activation Token to Reset Password</li>
+        <li>Need a way for Existing User to Reset Password without a token</li>
         </ul>
     </li>
     <li>stuff</li>

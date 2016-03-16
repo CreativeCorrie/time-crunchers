@@ -20,17 +20,17 @@ c - employee invites this user has sent (get an array of employees)
 <!-- Users -->
 <div class="row">
 	<div class="col-md-6">
-		<h3>Manage Members</h3>
+		<h3>Manage Members & Crews</h3>
 		<ul class="">
-			<li><a href="userSignUpForm/">Create and Invite New Member</a></li> <!--need angular to load userSignUpForm-->
-			<li><a href="memberSearchForm/">Find/Edit Member</a></li> <!--TODO: can we make this a wildcard search ?-->
+			<li><a href="userSignUpForm/">Create and Invite New Members</a></li> <!--need angular to load userSignUpForm-->
+			<!--<li><a href="memberSearchForm/">Find/Edit Member</a></li> TODO: can we make this a wildcard search ?-->
 			<!--				<li><a href="#"></a></li>-->
 		</ul>
 	</div> <!-- /of users' -->
 
 	<!-- Create Schedules and Shift-->
 
-	<h3>Manage Crews</h3>
+	<h3>Manage </h3>
 	<div class="col-md-6">
 		<ul class="">
 			<li><a href="buildCrewForm/">Create a Crew</a></li>  <!-- ??-->

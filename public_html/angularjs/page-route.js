@@ -19,16 +19,16 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/pages/setPassForm.php'
 		})
 
-		//route page for calendarView page
-		.when('/calendarView/', {
-			controller  : 'CalendarController',
-			templateUrl : 'angularjs/pages/calendarView.php'
-		})
-
 		//route page to setPassForm page
 		.when('/setPassForm/', {
 			controller  : 'ActivationController',	//
 			templateUrl : 'angularjs/pages/setPassForm.php'
+		})
+
+		//route page for calendarView page
+		.when('/calendarView/', {
+			controller  : 'CalendarController',
+			templateUrl : 'angularjs/pages/calendarView.php'
 		})
 
 		//route page to adminOnlyPage
