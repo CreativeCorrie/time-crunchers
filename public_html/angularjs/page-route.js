@@ -14,7 +14,7 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 
 		// route for the activation page
-		.when('/activation/:emailActivation', {
+		.when('/setPassForm/:emailActivation', {
 			controller  : 'ActivationController',
 			templateUrl : 'angularjs/pages/setPassForm.php'
 		})
@@ -26,24 +26,24 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 
 		//route page to setPassForm page
-		.when('/setPass/', {
+		.when('/setPassForm/', {
 			controller  : 'ActivationController',	//
 			templateUrl : 'angularjs/pages/setPassForm.php'
 		})
 
 		//route page to adminOnlyView page
-		.when('/adminOnlyView/', {
-			controller  : 'AdminViewController',//TODO: NO CONTROLLER
-			templateUrl : 'angularjs/templates/adminOnlyPage.php'
+		.when('/adminOnlyPage/', {
+			controller  : 'AdminonlyController',//
+			templateUrl : 'angularjs/pages/adminOnlyPage.php'
 		})
 
 		//route page to buildCrewForm page
-		.when('/buildCrew/', {
-			controller  : 'AdminViewController',//TODO: NO CONTROLLER
+		.when('/buildCrewForm/', {
+			controller  : 'CrewController',//
 			templateUrl : 'angularjs/templates/buildCrewForm.php'
 		})
 		// route for the faqView page
-		.when('/faq/', {
+		.when('/faqView/', {
 			controller  : 'faqController',//TODO: NO CONTROLLER
 			templateUrl : 'angularjs/templates/faqView.php'
 		})
@@ -94,12 +94,6 @@ app.config(function($routeProvider, $locationProvider) {
 		.when('/userSignUpForm/', {
 			controller  : 'UserController',
 			templateUrl : 'angularjs/templates/userSignUpForm.php'
-		})
-
-		// route for the user sign up form
-		.when('/request/', {
-			controller  : 'RequestController',
-			templateUrl : 'angularjs/templates/requestModal.php'
 		})
 
 		// route to get the crews for the company
