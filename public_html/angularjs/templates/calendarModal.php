@@ -11,5 +11,5 @@
 	</p>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary" ng-click="$close()">OK</button>
+	<button class="btn btn-primary" ng-click="$close()">Exit</button>
 </div>
