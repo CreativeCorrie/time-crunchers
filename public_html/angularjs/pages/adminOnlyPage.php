@@ -19,12 +19,13 @@ c - employee invites this user has sent (get an array of employees)
 
 <!-- Users -->
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<h3>Manage Members & Crews</h3>
 		<ul class="">
-			<li><a href="userSignUpForm/">Create and Invite New Members</a></li> <!--need angular to load userSignUpForm-->
-			<!--<li><a href="memberSearchForm/">Find/Edit Member</a></li> TODO: can we make this a wildcard search ?-->
-			<!--				<li><a href="#"></a></li>-->
+			<li><a href="userSignUpForm/">Create New Members & Crews</a></li>
+			<li><a href="buildCrewForm/">Create a Crew</a></li>  <!-- ??-->
+			<!--<li><a href="addScheduleForm/">Create Shifts</a></li> <!-- ??-->
+			<!--<li><a href="#">Assign Members to Shifts</a></li> <!--?? -->
 		</ul>
 	</div> <!-- /of users' -->
 
@@ -39,11 +40,7 @@ c - employee invites this user has sent (get an array of employees)
 		</ul>
 	</div> <!-- /schedules & shifts -->
 
-</div>  <!-- /row -->
-
-<!-- requests -->
-<div class="row">
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<h3>Schedule Change Requests</h3>
 		<ul class="">
 			<li><a href="listRequests/">See Requests</a></li>
@@ -52,20 +49,17 @@ c - employee invites this user has sent (get an array of employees)
 
 	<!-- View all the things-->
 	<h3>View All..</h3>
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<ul class="">
 			<li><a href="#">View All of your Crews</a></li>  <!-- get all crews by company id-->
-			<ul>
-				<li><a href="#">View All Members of a Crew</a></li> <!-- get users by crew id -->
-			</ul>
+			<li><a href="#">View All Members of a Crew</a></li> <!-- get users by crew id -->
 			<li><a href="#">View All of your Members</a></li>
 			<!--get all users by (company injection) & crew id -->
 		</ul>
 	</div> <!-- /of all the things (oh noes!) -->
 
-	<br>
-	<br>
-	<div class="col-md-6">
+
+	<div class="col-md-4">
 		<div class="button-container">
 			<a href="calendarView/" class="btn btn-warning">Return to Schedule View</a>
 		</div>
