@@ -21,7 +21,7 @@
 			This name should be unique so you can distinguish one crew from another.
 		</p>
 	</fieldset>
-	</br>
+
 
 	<hr>
 

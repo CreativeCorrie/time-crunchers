@@ -1,5 +1,5 @@
 app.constant("SHIFT_ENDPOINT", "php/api/shift/");
-app.service("ShiftService", function($http, SHIFT_ENDPOINT) {
+app.service("shiftService", function($http, SHIFT_ENDPOINT) {
 
 	function getUrl() {
 		return(SHIFT_ENDPOINT);

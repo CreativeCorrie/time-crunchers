@@ -1,5 +1,5 @@
 app.constant("ACTIVATION_ENDPOINT", "php/api/request/");
-app.service("RequestService", function($http, ACTIVATION_ENDPOINT) {
+app.service("requestService", function($http, ACTIVATION_ENDPOINT) {
 
 	function getUrl() {
 		return(ACTIVATION_ENDPOINT);
