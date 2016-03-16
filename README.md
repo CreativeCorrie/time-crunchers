@@ -21,10 +21,10 @@ things to fix
         <ul>
         <li>Profile link on index UserEditProfileView</li>
         <li>FaqView</li>
-        <li>Logout</li>
+        <li>stuff</li>
         </ul>
     </li>
-    <li>Make the Login modal bigger</li>
+    <li>stuff</li>
     <li>Inject userId into MemberSearch Form</li>
     <li>Restrict Crew & Schedule Edits to Admin</li>
     <li>On login redirect to calendarView/</li>
@@ -34,13 +34,12 @@ things to fix
             <li>For Admin</li>
         <ul>
     </li>
-    <li>Need Add Schedule Controller</li>
-    <li>Need to Sort out Add Schedule Form</li>
+    <li>stuff</li>
+    <li>stuff</li>
     <li>Need a way for Existing User to get Activation Token to Reset Password</li>
-    <li>Add (or get rid of) Links on AdminOnlyView</li>
+    <li></li>
     <li>stuff</li>
     <li>stuff</li>
 </ol>
-  
-    <li>Added new userEditProfileView, needs controllers</li>
+    <li>stuff/li>
 </ol>
