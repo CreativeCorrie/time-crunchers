@@ -3,7 +3,7 @@ app.service("activationService", function($http, ACTIVATION_ENDPOINT) {
 	function getUrl() {
 		return(ACTIVATION_ENDPOINT);
 	}
-	this.sendActivation = function(activation) {
+	this.create = function(activation) {
 		return($http.post(getUrl(), activation));
 	};
 });

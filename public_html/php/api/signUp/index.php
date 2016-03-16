@@ -41,22 +41,22 @@ try {
 		$requestObject = json_decode($requestContent);
 
 		//check that the user fields that are required have been sent
-		if(empty($requestObject->firstName) === true) {
+		if(empty($requestObject->userFirstName) === true) {
 			throw(new InvalidArgumentException ("Must fill in first name."));
 		} else {
-			$firstName = filter_var($requestObject->firstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			$userFirstName = filter_var($requestObject->userFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
-		if(empty($requestObject->lastName) === true) {
+		if(empty($requestObject->userLastName) === true) {
 			throw(new InvalidArgumentException ("Must fill in last name."));
 		} else {
-			$lastName = filter_var($requestObject->lastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			$userLastName = filter_var($requestObject->userLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
-		if(empty($requestObject->email) === true) {
+		if(empty($requestObject->userEmail) === true) {
 			throw(new InvalidArgumentException ("Must fill in email address."));
 		} else {
-			$email = filter_var($requestObject->email, FILTER_SANITIZE_EMAIL);
+			$userEmail = filter_var($requestObject->userEmail, FILTER_SANITIZE_EMAIL);
 		}
 
 		if(empty($requestObject->password) === true) {
@@ -71,10 +71,10 @@ try {
 			$verifyPassword = filter_var($requestObject->verifyPassword, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
-		if(empty($requestObject->phone) === true) {
-			throw(new InvalidArgumentException ("Must fill in phone number."));
+		if(empty($requestObject->userPhone) === true) {
+			throw(new InvalidArgumentException ("Must fill in userPhone number."));
 		} else {
-			$phone = filter_var($requestObject->phone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			$userPhone = filter_var($requestObject->userPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		//company
@@ -158,7 +158,7 @@ try {
 		$salt = bin2hex(random_bytes(32));
 		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
 
-		$user = new User (null, $company->getCompanyId(), $crew->getCrewId(), Access::ADMIN, $phone, $firstName, $lastName, $email, $activation, $hash, $salt);
+		$user = new User (null, $company->getCompanyId(), $crew->getCrewId(), Access::ADMIN, $userPhone, userFirstName, $userLastName, $userEmail, $activation, $hash, $salt);
 		$user->insert($pdo);
 
 		$messageSubject = "Time Crunch Account Activation";
@@ -174,7 +174,7 @@ try {
 <p><a href="$confirmLink">$confirmLink</a></p>
 EOF;
 
-		$response = sendEmail($email, $firstName, $lastName, $messageSubject, $message);
+		$response = sendEmail($userEmail, $userFirstName, $userLastName, $messageSubject, $message);
 		if($response === "Email sent.") {
 			$reply->message = "Sign up was successful, please check your email for activation message.";
 		}

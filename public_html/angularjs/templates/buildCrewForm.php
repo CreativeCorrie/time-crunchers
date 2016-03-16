@@ -21,27 +21,16 @@
 			This name should be unique so you can distinguish one crew from another.
 		</p>
 	</fieldset>
-
+	<hr>
+	<br>
+	<!-- Submit Crew Form or Reset Form -->
+	<!--		TODO: add Angular.js here to connect to User API-->
+	<p>Great! When you submit this form you will create a new crew.</p>
+	<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
+	<button class="btn btn-warning" type="reset"><i class="fa fa-ban"></i> Reset Form</button>
 
 	<hr>
-
-	<!--add angular so that this affects how many of the last section shows up, just for now till we get the Angular for below-->
-<!--	<label for="crewMemberInput">-->
-<!--		<h4>Choose the size of your Crew</h4>-->
-<!--	</label>-->
-<!--	<legend>Add employees to this crew</legend>-->
-<!--	<p>-->
-<!--		<select id="myList">-->
-<!--			<option value 0>select the amount you would like to add</option>-->
-<!--			<option value 1>5 employees</option>-->
-<!--			<option value 2>10 employees</option>-->
-<!--			<option value 3>20 employees</option>-->
-<!--			<option value 4>40 employees</option>-->
-<!--		</select>-->
-<!--	</p>-->
-
-	<hr>
-	</br>
+	<br>
 
 	<!--add angular to create multiple of this section for multiple employees-->
 	<fieldset class="form-group">
@@ -100,7 +89,7 @@
 	<br>
 	<hr>
 
-	<!-- Submit Form or Reset Form -->
+	<!-- Submit Add Member Form or Reset Form -->
 	<!--		TODO: add Angular.js here to connect to User API-->
 	<p>Great! When you submit this form you and your members will receive an email from "Time Crunch". Your members
 		will receive an email with an activation link to

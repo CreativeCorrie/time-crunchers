@@ -5,14 +5,14 @@ app.controller('CalendarController', ["$scope", "moment", "alert", "calendarServ
 	this.calendarView = 'month';
 	this.viewDate = new Date();
 	this.events = [
-		//{
-		//	title: 'An event',
-		//	type: 'warning',
-		//	startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
-		//	endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
-		//	draggable: true,
-		//	resizable: true
-		//}
+		{
+			//title: 'An event',
+			//type: 'warning',
+			//startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
+			//endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
+			//draggable: true,
+			//resizable: true
+		}
 	];
 	$scope.alerts = [];
 
