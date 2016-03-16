@@ -2,7 +2,7 @@
 	<bootstrap-breakpoint></bootstrap-breakpoint>
 
 	<div id="topButtons" class="pull-right button-container">
-		<button type="button" class="btn btn-info" ng-click="openRequest();"">Make Request</button>
+		<button type="button" class="btn btn-info" ng-click="openRequest();"">Request</button>
 		&nbsp;
 		<a href="calendarView/" class="btn btn-warning">Schedule</a> <!-- this should bring in the admin view -->
 		&nbsp;
@@ -34,7 +34,7 @@
 				<ul class="nav navbar-nav navbar-right">
 
 					<!-- Add -->
-					<li><a href="adminOnlyView/">
+					<li><a href="adminOnlyPage/">
 							Admin <!-- TODO:need to restrict this view to admin only -->
 						</a>
 					</li>

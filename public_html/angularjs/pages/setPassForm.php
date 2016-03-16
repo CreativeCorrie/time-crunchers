@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
-		<div class="col-sm-8 col-sm-offset-3">
-			<h2>Choose a Password</h2>
+		<div class="col-sm-6 col-sm-offset-3">
+			<h1 class="text-center">Choose a Password</h1>
 			<p class="text-center">Use the form below to set your password. Your password cannot be the same as your
 				username.</p>
 			<form name="activationForm" id="activationForm"
@@ -27,15 +27,9 @@
 				<input type="password" class="input-lg form-control" name="confirmPassword" id="confirmPassword"
 						 placeholder="Repeat Password" autocomplete="off" ng-model="activationData.confirmPassword"
 						 ng-minlength="8" ng-required="true">
-				<!--						<div class="row">-->
-				<!--							<div class="col-sm-12">-->
-				<!--								<span id="pwmatch" class="glyphicon glyphicon-remove setPass"></span> Passwords-->
-				<!--								Match-->
-				<!--							</div>-->
-				<!--						</div>-->
+				<br>
 				<input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg"
 						 data-loading-text="Changing Password..." value="Change Password">
-				<pre>{{ activationData | json }}</pre>
 			</form>
 		</div><!--/col-sm-6-->
 		<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg }}

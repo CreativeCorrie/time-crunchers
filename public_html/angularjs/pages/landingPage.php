@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-12">
-		<h2>Let's get started!</h2>
+		<h1>Let's get started!</h1>
 	</div>
 </div>
 

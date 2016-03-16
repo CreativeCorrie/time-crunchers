@@ -31,7 +31,7 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl : 'angularjs/pages/setPassForm.php'
 		})
 
-		//route page to adminOnlyView page
+		//route page to adminOnlyPage
 		.when('/adminOnlyPage/', {
 			controller  : 'AdminonlyController',//
 			templateUrl : 'angularjs/pages/adminOnlyPage.php'
@@ -44,7 +44,7 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 		// route for the faqView page
 		.when('/faqView/', {
-			controller  : 'faqController',//TODO: NO CONTROLLER
+			controller  : 'FaqController',//
 			templateUrl : 'angularjs/templates/faqView.php'
 		})
 
