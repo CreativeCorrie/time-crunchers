@@ -1,14 +1,18 @@
-<form class="form-group" id="modalRequestForm" name="modalRequestForm" ng-submit="createRequest(requestData, modalRequestForm.$valid);" novalidate>
-	<div class="form-group">
-		<label for="modalRequestForm">Reason for Request</label>
-		<div class="input-group">
-			<input type="text-center" class id="userRequest" name="userRequest" ng-model="requestData.requestRequestorText"
+<div class="modal-header">
+	<h3>Submit Request</h3>
+</div>
+<div class="modal-body">
+	<form id="modalRequestForm" name="modalRequestForm" ng-submit="createRequest(requestData, modalRequestForm.$valid);" novalidate>
+		<div class="form-group">
+			<label for="userRequest">Reason for Request</label>
+			<input type="text" class="form-control" id="userRequest" name="userRequest" ng-model="requestData.requestRequestText"
 					 placeholder="Make your Request"
 					 ng-required="true"/>
-			<div class="alert alert-danger" role="alert" ng-messages="modalRequestForm.userRequest.$error"
-			<p ng-message="required">Please leave a brief message to explain your request.</p>
+			<div class="alert alert-danger" role="alert" ng-messages="modalRequestForm.userRequest.$error" ng-if="modalRequestForm.userRequest.$touched" ng-hide="modalRequestForm.userRequest.$valid">
+				<p ng-message="required">Please leave a brief message to explain your request.</p>
+			</div>
 		</div>
-	</div>
-	<button type="submit" class="btn btn-info" ng-disabled="signinForm.$invalid">submit</button>
-	<button type="reset" class="btn btn-warning" ng-click="cancel();">Clear</button>
-</form>
+		<button type="submit" class="btn btn-info" ng-disabled="modalRequestForm.$invalid">Submit</button>
+		<button type="reset" class="btn btn-warning" ng-click="cancel();">Cancel</button>
+	</form>
+</div>
