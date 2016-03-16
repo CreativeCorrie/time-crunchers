@@ -12,7 +12,7 @@
 				<p ng-message="required">Please leave a brief message to explain your request.</p>
 			</div>
 		</div>
-		<button type="submit" class="btn btn-info" ng-click="Your request has been sent" ng-disabled="modalRequestForm.$invalid">Submit</button>
+		<button type="submit" class="btn btn-info" ng-disabled="modalRequestForm.$invalid">Submit</button>
 		<button type="reset" class="btn btn-warning" ng-click="cancel();">Cancel</button>
 	</form>
 </div>
