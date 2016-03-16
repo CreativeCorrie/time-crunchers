@@ -2,7 +2,7 @@
 	<div class="form-group">
 		<label for="modalRequestForm">Reason for Request</label>
 		<div class="input-group">
-			<input type="text" class="form-control" id="userRequest" name="userRequest" ng-model="requestData.requestRequestorText"
+			<input type="text-center" class id="userRequest" name="userRequest" ng-model="requestData.requestRequestorText"
 					 placeholder="Make your Request"
 					 ng-required="true"/>
 			<div class="alert alert-danger" role="alert" ng-messages="modalRequestForm.userRequest.$error"
