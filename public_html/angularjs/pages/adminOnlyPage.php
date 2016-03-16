@@ -17,29 +17,17 @@ c - employee invites this user has sent (get an array of employees)
 	</div>
 </div>
 
-<!-- Users -->
+<!-- Members and Crews-->
 <div class="row">
 	<div class="col-md-4">
 		<h3>Manage Members & Crews</h3>
 		<ul class="">
 			<li><a href="userSignUpForm/">Create New Members & Crews</a></li>
-			<li><a href="buildCrewForm/">Create a Crew</a></li>  <!-- ??-->
-			<!--<li><a href="addScheduleForm/">Create Shifts</a></li> <!-- ??-->
-			<!--<li><a href="#">Assign Members to Shifts</a></li> <!--?? -->
+			<li><a href="buildCrewForm/">Create a Crew</a></li>
 		</ul>
 	</div> <!-- /of users' -->
 
-	<!-- Create Schedules and Shift-->
-
-	<h3>Manage </h3>
-	<div class="col-md-6">
-		<ul class="">
-			<li><a href="buildCrewForm/">Create a Crew</a></li>  <!-- ??-->
-			<li><a href="addScheduleForm/">Create Shifts</a></li> <!-- ??-->
-			<li><a href="#">Assign Members to Shifts</a></li> <!--?? -->
-		</ul>
-	</div> <!-- /schedules & shifts -->
-
+	<!--Schedule change requests-->
 	<div class="col-md-4">
 		<h3>Schedule Change Requests</h3>
 		<ul class="">
@@ -48,17 +36,19 @@ c - employee invites this user has sent (get an array of employees)
 	</div> <!-- /requests -->
 
 	<!-- View all the things-->
-	<h3>View All..</h3>
+	<h3>Coming Soon</h3>
 	<div class="col-md-4">
 		<ul class="">
-			<li><a href="#">View All of your Crews</a></li>  <!-- get all crews by company id-->
-			<li><a href="#">View All Members of a Crew</a></li> <!-- get users by crew id -->
-			<li><a href="#">View All of your Members</a></li>
+			<!--<li><a href="#">View All of your Crews</a></li>   get all crews by company id-->
+			<!-- <li><a href="#">View All Members of a Crew</a></li> get users by crew id -->
+<!--			<li><a href="#">View All of your Members</a></li>-->
 			<!--get all users by (company injection) & crew id -->
 		</ul>
 	</div> <!-- /of all the things (oh noes!) -->
+</div> <!-- end of row -->
+<br>
 
-
+<div class="row">
 	<div class="col-md-4">
 		<div class="button-container">
 			<a href="calendarView/" class="btn btn-warning">Return to Schedule View</a>
