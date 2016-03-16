@@ -11,6 +11,7 @@
 				<input type="password" class="input-lg form-control" name="password1" id="password1"
 						 placeholder="New Password" autocomplete="off" ng-model="activationData.password" ng-minlength="8"
 						 ng-required="true">
+				<br>
 				<div class="row">
 					<div class="col-sm-8">
 						<span id="8char" class="glyphicon glyphicon-flag setPass"></span> 8 Characters
@@ -24,6 +25,7 @@
 						Letter
 					</div>
 				</div>
+				<br>
 				<input type="password" class="input-lg form-control" name="confirmPassword" id="confirmPassword"
 						 placeholder="Repeat Password" autocomplete="off" ng-model="activationData.confirmPassword"
 						 ng-minlength="8" ng-required="true">
