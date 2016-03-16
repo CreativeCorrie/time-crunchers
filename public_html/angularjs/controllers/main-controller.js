@@ -22,7 +22,7 @@ app.controller("MainController", ["$scope", "$uibModal", "$window", "loginServic
 						// NOTE: only the login should use $window; use $location anywhere else
 						$window.location.href = "calendarView/"
 					} else {
-						//console.log("Tacos Findley shall never see the light here");
+						alert("the password or email was incorrect");
 					}
 				});
 		});
