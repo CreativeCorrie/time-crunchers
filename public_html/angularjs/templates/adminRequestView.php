@@ -15,7 +15,7 @@
 			<!--Comment box-->
 			<div class="form-group">
 				<label for="comment">Add a Comment:</label>
-				<textarea class="form-control" rows="5" id="comment" ></textarea>
+				<textarea ng-submit="updateRequest()" ng-controller="RequestController" class="form-control" rows="5" id="comment" ></textarea>
 			</div>
 		</form>
 
@@ -34,7 +34,13 @@
 		<div class="col-md-6">
 			<p>Great! When you submit this form the requesting Member will receive an email from "Time Crunch" notifying them of your decision.</p>
 			<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i>Submit</button>
-			<button class="btn btn-info" type="reset"><i class="fa fa-ban"></i>Reset Form</button>
+<!--			<button class="btn btn-info" type="reset"><i class="fa fa-ban"></i>Reset Form</button>-->
 		</div>
 
 
+<!--		<form ng-submit="submit()" ng-controller="ExampleController">-->
+<!--			Enter text and hit enter:-->
+<!--			<input type="text" ng-model="text" name="text" />-->
+<!--			<input type="submit" id="submit" value="Submit" />-->
+<!--			<pre>list={{list}}</pre>-->
+<!--		</form>-->

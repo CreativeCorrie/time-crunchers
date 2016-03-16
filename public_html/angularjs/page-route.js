@@ -80,7 +80,7 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 
 		// route for the admin comment request page
-		.when('/adminRequestView/', {
+		.when('/adminRequestView/:requestId', {
 			controller: 'RequestController',
 			templateUrl: 'angularjs/templates/adminRequestView.php'
 		})

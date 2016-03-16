@@ -1,4 +1,4 @@
-app.controller('RequestController', ["$scope", "requestService", function($scope, requestService) {
+app.controller('RequestController', ["$routeParams", "$scope", "requestService", function($routeParams, $scope, requestService) {
 	$scope.alerts = [];
 	$scope.requestData = {};
 	$scope.currentRequests = [];
