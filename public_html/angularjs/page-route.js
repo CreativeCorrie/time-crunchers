@@ -56,13 +56,13 @@ app.config(function($routeProvider, $locationProvider) {
 
 		// route for the sign up page
 		.when('/adminSignUpForm/', {
-			controller  : 'SignupController',
+			controller  : 'SignUpController',
 			templateUrl : 'angularjs/templates/adminSignUpForm.php'
 		})
 
 		// route for the login page
 		.when('/login/', {
-			controller  : 'LoginController',
+			controller  : 'mainController',
 			templateUrl : 'angularjs/templates/modalLoginForm.php'
 		})
 

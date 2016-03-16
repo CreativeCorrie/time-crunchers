@@ -1,5 +1,5 @@
-app.constant("SIGNUP_ENDPOINT", "php/api/signup/");
-app.service("signupService", function($http, SIGNUP_ENDPOINT) {
+app.constant("SIGNUP_ENDPOINT", "php/api/signUp/");
+app.service("SignupService", function($http, SIGNUP_ENDPOINT) {
 	function getUrl() {
 		return(SIGNUP_ENDPOINT);
 	}

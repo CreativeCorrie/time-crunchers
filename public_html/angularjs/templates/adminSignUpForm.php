@@ -149,7 +149,7 @@
 			  ng-if="adminSignUpForm.crewLocation.$touched" ng-hide="adminSignUpForm.crewLocation.$valid">
 			<p ng-message="minlength">Location name is too short.</p>
 			<p ng-message="maxlength">Location name is too long.</p>
-			<p ng-message="required">Please enter a loction for this crew.</p>
+			<p ng-message="required">Please enter a location for this crew.</p>
 		</div>
 		<small class="text-muted">
 			This name is how you will differentiate your crews.
