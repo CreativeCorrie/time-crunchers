@@ -77,11 +77,9 @@ try {
 			$userPhone = filter_var($requestObject->userPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
-		if(empty($requestObject->companyName === false)) {
+		if(empty($requestObject->companyName) === false) {
 
-			if(empty($requestObject->companyName) === true) {
-				$companyName = filter_var($requestObject->companyName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-			}
+			$companyName = filter_var($requestObject->companyName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 			if(empty($requestObject->companyAddress1) === true) {
 				throw(new InvalidArgumentException ("Must fill in company address line 1."));
@@ -137,14 +135,14 @@ try {
 			} else {
 				$companyUrl = null;
 			}
-		}
+
 //		if($password !== $verifyPassword) {
 //			throw(new InvalidArgumentException ("Password and verify password must match."));
 //		}
-		//create a new company for the user
-		$company = new Company(null, $companyAttn, $companyName, $companyAddress1, $companyAddress2, $companyCity, $companyState, $companyZip, "111-111-1111", $companyEmail, $companyUrl);
-		$company->insert($pdo);
-
+			//create a new company for the user
+			$company = new Company(null, $companyAttn, $companyName, $companyAddress1, $companyAddress2, $companyCity, $companyState, $companyZip, "111-111-1111", $companyEmail, $companyUrl);
+			$company->insert($pdo);
+		}
 
 		//create a new crew for the user
 		$crew = new Crew(null, $company->getCompanyId(), "");
@@ -155,7 +153,7 @@ try {
 		//create password salt, hash and activation code
 		$activation = bin2hex(random_bytes(16));
 		$salt = bin2hex(random_bytes(32));
-		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
+		$hash = hash_pbkdf2("sha512", "password", $salt, 262144);
 
 		$user = new User (null, $company->getCompanyId(), $crew->getCrewId(), Access::ADMIN, $userPhone, $userFirstName, $userLastName, $userEmail, $activation, $hash, $salt);
 		$user->insert($pdo);

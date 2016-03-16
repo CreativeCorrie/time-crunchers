@@ -90,7 +90,7 @@ class Company implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception is thrown
 	 **/
-	public function __construct(int $newCompanyId = null, string $newCompanyAttn = null, string $newCompanyName, string $newCompanyAddress1, string $newCompanyAddress2 = null, string $newCompanyCity, string $newCompanyState, string $newCompanyZip, string $newCompanyPhone, string $newCompanyEmail, string $newCompanyUrl = null) {
+	public function __construct($newCompanyId = null, $newCompanyAttn = null, $newCompanyName = "", $newCompanyAddress1 = "", $newCompanyAddress2 = null, $newCompanyCity, $newCompanyState, $newCompanyZip, $newCompanyPhone, $newCompanyEmail, $newCompanyUrl = null) {
 		try {
 			$this->setCompanyId($newCompanyId);
 			$this->setCompanyName($newCompanyName);
@@ -174,7 +174,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyName is > 128 characters
 	 * @throws \TypeError if $newCompanyName is not a string
 	 **/
-	public function setCompanyName(string $newCompanyName) {
+	public function setCompanyName($newCompanyName) {
 		// verify the company name content is secure
 		$newCompanyName = trim($newCompanyName);
 		$newCompanyName = filter_var($newCompanyName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -207,7 +207,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyAddress1 is > 128 characters
 	 * @throws \TypeError if $newCompanyAddress1 is not a string
 	 **/
-	public function setCompanyAddress1(string $newCompanyAddress1) {
+	public function setCompanyAddress1($newCompanyAddress1) {
 		// verify the company address line 1 content is secure
 		$newCompanyAddress1 = trim($newCompanyAddress1);
 		$newCompanyAddress1 = filter_var($newCompanyAddress1, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -240,7 +240,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyAddress2 is > 128 characters
 	 * @throws \TypeError if $newCompanyAddress2 is not a string
 	 **/
-	public function setCompanyAddress2(string $newCompanyAddress2 = null) {
+	public function setCompanyAddress2($newCompanyAddress2 = null) {
 		//this field is not required
 		if($newCompanyAddress2 === null) {
 			$this->companyAddress2 = null;
@@ -275,7 +275,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyAttn is > 128 characters
 	 * @throws \TypeError if $newCompanyAttn is not a string
 	 **/
-	public function setCompanyAttn(string $newCompanyAttn = null) {
+	public function setCompanyAttn($newCompanyAttn = null) {
 		//this field is not required
 		if($newCompanyAttn === null) {
 			$this->companyAttn = null;
@@ -313,7 +313,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyState is > 128 characters
 	 * @throws \TypeError if $newCompanyState is not a string
 	 **/
-	public function setCompanyState(string $newCompanyState) {
+	public function setCompanyState($newCompanyState) {
 		// verify the company state content is secure
 		$newCompanyState = trim($newCompanyState);
 		$newCompanyState = filter_var($newCompanyState, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -346,7 +346,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyCity is > 128 characters
 	 * @throws \TypeError if $newCompanyCity is not a string
 	 **/
-	public function setCompanyCity(string $newCompanyCity) {
+	public function setCompanyCity($newCompanyCity) {
 		// verify the company city content is secure
 		$newCompanyCity = trim($newCompanyCity);
 		$newCompanyCity = filter_var($newCompanyCity, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -379,7 +379,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyZip is > 128 characters
 	 * @throws \TypeError if $newCompanyZip is not a string
 	 **/
-	public function setCompanyZip(string $newCompanyZip) {
+	public function setCompanyZip($newCompanyZip) {
 		// verify the company zip content is secure
 		$newCompanyZip = trim($newCompanyZip);
 		$newCompanyZip = filter_var($newCompanyZip, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -412,7 +412,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyPhone is > 128 characters
 	 * @throws \TypeError if $newCompanyPhone is not a string
 	 **/
-	public function setCompanyPhone(string $newCompanyPhone) {
+	public function setCompanyPhone($newCompanyPhone) {
 		// verify the company phone content is secure
 		$newCompanyPhone = trim($newCompanyPhone);
 		$newCompanyPhone = filter_var($newCompanyPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -445,7 +445,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyEmail is > 128 characters
 	 * @throws \TypeError if $newCompanyEmail is not a string
 	 **/
-	public function setCompanyEmail(string $newCompanyEmail) {
+	public function setCompanyEmail($newCompanyEmail) {
 		// verify the company email address content is secure
 		$newCompanyEmail = trim($newCompanyEmail);
 		$newCompanyEmail = filter_var($newCompanyEmail, FILTER_SANITIZE_EMAIL);
@@ -478,7 +478,7 @@ class Company implements \JsonSerializable {
 	 * @throws \RangeException if $newCompanyUrl is > 128 characters
 	 * @throws \TypeError if $newCompanyUrl is not a string
 	 **/
-	public function setCompanyUrl(string $newCompanyUrl = null) {
+	public function setCompanyUrl($newCompanyUrl = null) {
 		//this field is not required
 		if($newCompanyUrl === null) {
 			$this->companyUrl = null;
