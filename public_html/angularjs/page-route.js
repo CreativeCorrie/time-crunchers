@@ -33,7 +33,7 @@ app.config(function($routeProvider, $locationProvider) {
 
 		//route page to adminOnlyPage
 		.when('/adminOnlyPage/', {
-			controller  : 'AdminonlyController',//
+			controller  : 'AdminOnlyController',
 			templateUrl : 'angularjs/pages/adminOnlyPage.php'
 		})
 
