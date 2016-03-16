@@ -1,18 +1,20 @@
-app.controller("SignUpController", ["$scope", "ActivationService", "$window", function($scope, ActivationService, $window) {
+app.controller("SignupController", ["$scope", "SignupService", "$window", function($scope, SignupService, $window) {
 	$scope.alerts = [];
 	$scope.activationData = {};
 
 	/**
 	 * Method that uses the activation service to activate an account
 	 *
-	 * @param activationData will contain activation token and password
+	 * @param signUpData will contain activation token and password
 	 * @param validated true if form is valid, false if not
 	 */
 
-	$scope.sendActivation = function(activationData, validated) {
+	$scope.sendActivation = function(signUpData, validated) {
+		console.log("line 13 controller");
 		if(validated === true) {
-			ActivationService.create(activationData)
+			SignupService.create(signUpData)
 				.then(function(result) {
+					console.log("line 17 controller")
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
 						$window.location.href = "userSignUpForm/";

@@ -59,17 +59,17 @@ try {
 			$userEmail = filter_var($requestObject->userEmail, FILTER_SANITIZE_EMAIL);
 		}
 
-		if(empty($requestObject->password) === true) {
-			throw(new InvalidArgumentException ("Must fill in password."));
-		} else {
-			$password = filter_var($requestObject->password, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		}
+		//if(empty($requestObject->password) === true) {
+		//throw(new InvalidArgumentException ("Must fill in password."));
+		//} else {
+		//	$password = filter_var($requestObject->password, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		//}
 
-		if(empty($requestObject->verifyPassword) === true) {
-			throw(new InvalidArgumentException ("Please verify password."));
-		} else {
-			$verifyPassword = filter_var($requestObject->verifyPassword, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		}
+//		if(empty($requestObject->verifyPassword) === true) {
+		//		throw(new InvalidArgumentException ("Please verify password."));
+		//} else {
+		//$verifyPassword = filter_var($requestObject->verifyPassword, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		//}
 
 		if(empty($requestObject->userPhone) === true) {
 			throw(new InvalidArgumentException ("Must fill in userPhone number."));
@@ -77,73 +77,72 @@ try {
 			$userPhone = filter_var($requestObject->userPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
-		//company
-		if(empty($requestObject->companyName) === true) {
-			throw(new InvalidArgumentException ("Must fill in company name."));
-		} else {
-			$companyName = filter_var($requestObject->companyName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		}
+		if(empty($requestObject->companyName === false)) {
 
-		if(empty($requestObject->companyAddress1) === true) {
-			throw(new InvalidArgumentException ("Must fill in company address line 1."));
-		} else {
-			$companyAddress1 = filter_var($requestObject->companyAddress1, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		}
+			if(empty($requestObject->companyName) === true) {
+				$companyName = filter_var($requestObject->companyName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			}
 
-		if(empty($requestObject->companyState) === true) {
-			throw(new InvalidArgumentException ("Must fill in state."));
-		} else {
-			$companyState = filter_var($requestObject->companyState, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		}
+			if(empty($requestObject->companyAddress1) === true) {
+				throw(new InvalidArgumentException ("Must fill in company address line 1."));
+			} else {
+				$companyAddress1 = filter_var($requestObject->companyAddress1, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			}
 
-		if(empty($requestObject->companyCity) === true) {
-			throw(new InvalidArgumentException ("Must fill in city."));
-		} else {
-			$companyCity = filter_var($requestObject->companyCity, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		}
+			if(empty($requestObject->companyState) === true) {
+				throw(new InvalidArgumentException ("Must fill in state."));
+			} else {
+				$companyState = filter_var($requestObject->companyState, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			}
 
-		if(empty($requestObject->companyZip) === true) {
-			throw(new InvalidArgumentException ("Must fill in zip code."));
-		} else {
-			$companyZip = filter_var($requestObject->companyZip, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		}
+			if(empty($requestObject->companyCity) === true) {
+				throw(new InvalidArgumentException ("Must fill in city."));
+			} else {
+				$companyCity = filter_var($requestObject->companyCity, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			}
 
-		if(empty($requestObject->companyPhone) === true) {
-			throw(new InvalidArgumentException ("Must fill in phone number."));
-		} else {
-			$companyPhone = filter_var($requestObject->companyPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		}
+			if(empty($requestObject->companyZip) === true) {
+				throw(new InvalidArgumentException ("Must fill in zip code."));
+			} else {
+				$companyZip = filter_var($requestObject->companyZip, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			}
 
-		if(empty($requestObject->companyEmail) === true) {
-			throw(new InvalidArgumentException ("Must fill in company email address."));
-		} else {
-			$companyEmail = filter_var($requestObject->companyEmail, FILTER_SANITIZE_EMAIL);
-		}
+			//if(empty($requestObject->companyPhone) === true) {
+			//throw(new InvalidArgumentException ("Must fill in phone number."));
+//		} else {
+			//		$companyPhone = filter_var($requestObject->companyPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			//}
 
-		//these fields are not required so the fields are empty so be it
-		if(empty($requestObject->companyAddress2) !== true) {
-			$companyAddress2 = filter_var($requestObject->companyAddress1, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		} else {
-			$companyAddress2 = null;
-		}
+			if(empty($requestObject->companyEmail) === true) {
+				throw(new InvalidArgumentException ("Must fill in company email address."));
+			} else {
+				$companyEmail = filter_var($requestObject->companyEmail, FILTER_SANITIZE_EMAIL);
+			}
 
-		if(empty($requestObject->companyAttn) !== true) {
-			$companyAttn = filter_var($requestObject->companyAttn, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		} else {
-			$companyAttn = null;
-		}
+			//these fields are not required so the fields are empty so be it
+			if(empty($requestObject->companyAddress2) !== true) {
+				$companyAddress2 = filter_var($requestObject->companyAddress1, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			} else {
+				$companyAddress2 = null;
+			}
 
-		if(empty($requestObject->companyUrl) !== true) {
-			$companyUrl = filter_var($requestObject->companyUrl, FILTER_SANITIZE_URL);
-		} else {
-			$companyUrl = null;
-		}
+			if(empty($requestObject->companyAttn) !== true) {
+				$companyAttn = filter_var($requestObject->companyAttn, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			} else {
+				$companyAttn = null;
+			}
 
-		if($password !== $verifyPassword) {
-			throw(new InvalidArgumentException ("Password and verify password must match."));
+			if(empty($requestObject->companyUrl) !== true) {
+				$companyUrl = filter_var($requestObject->companyUrl, FILTER_SANITIZE_URL);
+			} else {
+				$companyUrl = null;
+			}
 		}
+//		if($password !== $verifyPassword) {
+//			throw(new InvalidArgumentException ("Password and verify password must match."));
+//		}
 		//create a new company for the user
-		$company = new Company(null, $companyAttn, $companyName, $companyAddress1, $companyAddress2, $companyCity, $companyState, $companyZip, $companyPhone, $companyEmail, $companyUrl);
+		$company = new Company(null, $companyAttn, $companyName, $companyAddress1, $companyAddress2, $companyCity, $companyState, $companyZip, "111-111-1111", $companyEmail, $companyUrl);
 		$company->insert($pdo);
 
 
@@ -158,7 +157,7 @@ try {
 		$salt = bin2hex(random_bytes(32));
 		$hash = hash_pbkdf2("sha512", $password, $salt, 262144);
 
-		$user = new User (null, $company->getCompanyId(), $crew->getCrewId(), Access::ADMIN, $userPhone, userFirstName, $userLastName, $userEmail, $activation, $hash, $salt);
+		$user = new User (null, $company->getCompanyId(), $crew->getCrewId(), Access::ADMIN, $userPhone, $userFirstName, $userLastName, $userEmail, $activation, $hash, $salt);
 		$user->insert($pdo);
 
 		$messageSubject = "Time Crunch Account Activation";

@@ -63,7 +63,7 @@ app.config(function($routeProvider, $locationProvider) {
 
 		// route for the sign up page
 		.when('/adminSignUpForm/', {
-			controller  : 'SignUpController',
+			controller  : 'SignupController',
 			templateUrl : 'angularjs/templates/adminSignUpForm.php'
 		})
 
