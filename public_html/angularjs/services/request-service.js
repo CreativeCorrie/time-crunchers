@@ -11,10 +11,6 @@ app.service("requestService", function($http, REQUEST_ENDPOINT) {
 		return (getUrl() + requestId);
 	}
 
-	//this.all = function() {
-	//	return(this.REQUEST_ENDPOINT);
-	//};
-
 	this.fetchRequestById = function(requestId) {
 		return ($http.get(getUrlForId(requestId)));
 	};
