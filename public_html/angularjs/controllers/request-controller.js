@@ -21,12 +21,13 @@ app.controller('RequestController', ["$scope", "requestService", function($scope
 	$scope.getAllRequests = function() {
 		requestService.fetchAllRequests()
 			.then(function(result) {
-				//console.log(result);
+				console.log(result);
 				if(result.data.status === 200) {
-					console.log("testing");
-					console.log(result.data.data);
+					console.log("worked");
+					//console.log(result.data.data);
 					$scope.currentRequests = result.data.data;
 				} else {
+					console.log("didn't work");
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
 			})
@@ -70,9 +71,8 @@ app.controller('RequestController', ["$scope", "requestService", function($scope
 				});
 		}
 	};
-// really not sure if this belongs
-	if($scope.currentRequests.length <= 0) {
-	$scope.getAllRequests();
-	}
 
+	if($scope.currentRequests.length === 0) {
+		$scope.currentRequests = $scope.getAllRequests();
+	}
 }]);

@@ -21,7 +21,7 @@ app.config(function($routeProvider, $locationProvider) {
 
 		//route page to setPassForm page
 		.when('/setPassForm/', {
-			controller  : 'ActivationController',	//
+			controller  : 'ActivationController',
 			templateUrl : 'angularjs/pages/setPassForm.php'
 		})
 
@@ -67,16 +67,17 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 
 		// route for the admin view request page
-		.when('/adminRequestViewList/', {
+		.when('/listRequests/', {
 			controller: 'RequestController',
 			templateUrl: 'angularjs/pages/listRequests.php'
 		})
 
-		// route for the admin view request page
-		.when('/adminRequestViewItem/', {
+		// route for the admin comment request page
+		.when('/adminRequestView/', {
 			controller: 'RequestController',
 			templateUrl: 'angularjs/templates/adminRequestView.php'
 		})
+
 		// route for the add schedule form
 		.when('/addScheduleForm/', {
 			controller  : 'ScheduleController',
