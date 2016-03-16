@@ -1,4 +1,4 @@
-app.controller("NavController", ["$http", "$scope", "$uibModal", function($http, $scope, $uibModal) {
+app.controller("NavController", ["$http", "$scope", "$uibModal", "ngclick", function($http, $scope, $uibModal, $ngclick) {
 	$scope.breakpoint = null;
 	$scope.navCollapsed = null;
 	$scope.pages = [];
