@@ -1,4 +1,4 @@
-app.controller('RequestController', ["$routeParams", "$scope", "requestService", function($routeParams, $scope, requestService) {
+app.controller('RequestController', ["$scope", "requestService", "$routeParams", function($scope, requestService, $routeParams) {
 	$scope.alerts = [];
 	$scope.requestData = {};
 	$scope.currentRequests = [];
@@ -59,18 +59,18 @@ app.controller('RequestController', ["$routeParams", "$scope", "requestService",
 	 * @param request the request to send
 	 * @param validated true if Angular validated the form, false if not
 	 **/
-	$scope.updateRequest = function(request, validated) {
-		if(validated === true) {
-			requestService.update(request.requestId, request)
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.alerts[0] = {type: "success", msg: result.data.message};
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
-		}
-	};
+	//$scope.updateRequest = function(request, validated) {
+	//	if(validated === true) {
+	//		requestService.update(request.requestId, request)
+	//			.then(function(result) {
+	//				if(result.data.status === 200) {
+	//					$scope.alerts[0] = {type: "success", msg: result.data.message};
+	//				} else {
+	//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+	//				}
+	//			});
+	//	}
+	//};
 
 	if($scope.currentRequests.length === 0) {
 		$scope.currentRequests = $scope.getAllRequests();

@@ -81,7 +81,7 @@ app.config(function($routeProvider, $locationProvider) {
 
 		// route for the admin comment request page
 		.when('/adminRequestView/:requestId', {
-			controller: 'RequestController',
+			controller: 'AdminRequestViewController',
 			templateUrl: 'angularjs/templates/adminRequestView.php'
 		})
 

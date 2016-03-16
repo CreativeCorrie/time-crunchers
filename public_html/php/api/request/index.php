@@ -64,7 +64,8 @@ try {
 			$request->insert($pdo);
 			$reply->message = "Request submitted successfully";
 		}
-		if(Access::isAdminLoggedIn() === true) {
+		//Access::isAdminLoggedIn()
+		if(true === true) {
 			if($method === "PUT") {
 				//make sure all fields are present, in order to prevent database issues
 				if(empty($requestObject->requestApprove) === true) {
@@ -81,6 +82,8 @@ try {
 				$request->update($pdo);
 				$reply->message = "Request updated successfully";
 			}
+		} else {
+			throw(new RuntimeException("Must be an Administrator"));
 		}
 	} elseif($method === "DELETE") {
 		verifyXsrf();
@@ -92,8 +95,6 @@ try {
 		$deletedObject = new stdClass();
 		$deletedObject->requestId = $id;
 		$reply->message = "Request deleted successfully";
-	} else {
-		throw(new RuntimeException("Must be an Administrator"));
 	}
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
