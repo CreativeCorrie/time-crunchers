@@ -20,7 +20,7 @@ app.controller("MainController", ["$scope", "$uibModal", "$window", "loginServic
 					if(reply.data.status === 200) {
 						//console.log("yay! teh login!");
 						// NOTE: only the login should use $window; use $location anywhere else
-						$window.location.href = "aboutView/"
+						$window.location.href = "calendarView/"
 					} else {
 						//console.log("Tacos Findley shall never see the light here");
 					}
