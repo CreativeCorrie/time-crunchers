@@ -1,3 +1,3 @@
-app.controller('AdminonlyController', ["$scope", function($scope) {
+app.controller('AdminOnlyController', ["$scope", function($scope) {
 
 }]);
